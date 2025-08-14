@@ -8,34 +8,26 @@ interface BrandCardProps {
 }
 
 const BrandCard = ({ brand, promotionCount }: BrandCardProps) => {
-  const getIconForBrand = (brandName: string) => {
-    switch (brandName.toLowerCase()) {
-      case 'sabritas':
-        return '🥔';
-      case 'gamesa':
-        return '🍪';
-      case 'barcel':
-        return '🍬';
-      case 'bimbo':
-        return '🍞';
-      case 'marinela':
-        return '🧁';
-      case 'vualá':
-        return '🍦';
-      default:
-        return '📦';
-    }
-  };
-
   return (
     <Link href={`/marcas/${brand.slug}`} data-testid={`link-brand-${brand.slug}`}>
       <Card className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer group">
         <CardContent className="p-6 text-center">
           <div 
-            className="w-16 h-16 mx-auto mb-4 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform text-2xl"
+            className="w-16 h-16 mx-auto mb-4 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform overflow-hidden"
             style={{ backgroundColor: brand.primaryColor }}
           >
-            {getIconForBrand(brand.name)}
+            {brand.logoUrl ? (
+              <img 
+                src={brand.logoUrl} 
+                alt={`${brand.name} logo`}
+                className="w-12 h-12 object-contain"
+                data-testid={`img-brand-logo-${brand.slug}`}
+              />
+            ) : (
+              <span className="text-2xl text-white font-bold">
+                {brand.name.charAt(0)}
+              </span>
+            )}
           </div>
           <h4 className="font-semibold text-promo-black mb-2" data-testid={`text-brand-name-${brand.slug}`}>
             {brand.name}

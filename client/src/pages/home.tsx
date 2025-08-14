@@ -16,7 +16,27 @@ const Home = () => {
 
   const getFeaturedPromotions = () => {
     if (!promotions) return [];
-    return promotions.slice(0, 3);
+    
+    // Seleccionar promociones destacadas específicas por nombre
+    const featuredNames = [
+      "Tazos", // El más icónico de todos
+      "Funki Punky Extremo", // Muy popular de Barcel
+      "Bob Esponja 2024" // Más reciente y popular
+    ];
+    
+    const featured = featuredNames
+      .map(name => promotions.find(p => p.name === name))
+      .filter(Boolean);
+    
+    // Si no encontramos todas, completamos con las primeras disponibles
+    if (featured.length < 3) {
+      const remaining = promotions
+        .filter(p => !featuredNames.includes(p.name))
+        .slice(0, 3 - featured.length);
+      featured.push(...remaining);
+    }
+    
+    return featured.slice(0, 3);
   };
 
   const getPromotionCount = (brandId: string) => {
