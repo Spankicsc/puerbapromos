@@ -122,6 +122,7 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(tazos.id, tazos);
@@ -139,6 +140,7 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(spinners.id, spinners);
@@ -156,6 +158,7 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(funkiPunky.id, funkiPunky);
@@ -173,6 +176,7 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(bubulubu.id, bubulubu);
@@ -193,12 +197,15 @@ export class MemStorage implements IStorage {
         "https://images.unsplash.com/photo-1549985908-597a09ef0a7c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300"
       ],
       youtubeCommercialUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      buffetGamesVideoUrl: null,
+      buffetGamesVideoUrl: null,
       startYear: 2002,
       endYear: 2002,
       category: "postales",
       wrapperPhotoUrl: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(europaPromotion.id, europaPromotion);
@@ -214,12 +221,14 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: "https://www.youtube.com/watch?v=sample_thedog",
+      buffetGamesVideoUrl: null,
       startYear: 2004,
       endYear: 2004,
       category: "figuras",
       wrapperPhotoUrl: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(theDog2004.id, theDog2004);
@@ -235,12 +244,14 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
       startYear: 2005,
       endYear: 2005,
       category: "llaveros",
       wrapperPhotoUrl: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(bobEsponja2005.id, bobEsponja2005);
@@ -260,6 +271,7 @@ export class MemStorage implements IStorage {
         "https://images.unsplash.com/photo-1594736797933-d0401ba5faab?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300"
       ],
       youtubeCommercialUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      buffetGamesVideoUrl: "https://www.youtube.com/watch?v=sample_funki_buffet",
       startYear: 2007,
       endYear: 2007,
       category: "llaveros",
@@ -281,6 +293,7 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(spiderman2007.id, spiderman2007);
@@ -299,6 +312,7 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(reyesOlas.id, reyesOlas);
@@ -317,6 +331,7 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(dogCat2007.id, dogCat2007);
@@ -335,6 +350,7 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(funkiPeores.id, funkiPeores);
@@ -353,6 +369,7 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(fonomania.id, fonomania);
@@ -371,6 +388,7 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(bobMovimiento.id, bobMovimiento);
@@ -389,6 +407,7 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: "https://www.youtube.com/watch?v=sample_cmll_buffet",
       createdAt: new Date(),
     };
     this.promotions.set(cmll.id, cmll);
@@ -407,6 +426,7 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(funkiRebeldes.id, funkiRebeldes);
@@ -425,6 +445,7 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(huevoCartoon.id, huevoCartoon);
@@ -443,6 +464,7 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(theDog2010.id, theDog2010);
@@ -461,6 +483,7 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(chavoAnimado.id, chavoAnimado);
@@ -479,6 +502,7 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(ecoInvasores.id, ecoInvasores);
@@ -497,6 +521,7 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(funkiExtremo.id, funkiExtremo);
@@ -515,6 +540,7 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(bob2012.id, bob2012);
@@ -533,6 +559,7 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(chavo2012.id, chavo2012);
@@ -551,6 +578,7 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(eraHielo.id, eraHielo);
@@ -569,6 +597,7 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(simpson2012.id, simpson2012);
@@ -587,6 +616,7 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(angryBirdsSpace.id, angryBirdsSpace);
@@ -605,6 +635,7 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(plantasZombies2013.id, plantasZombies2013);
@@ -623,6 +654,7 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(looneyTunes.id, looneyTunes);
@@ -641,6 +673,7 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(superFunki.id, superFunki);
@@ -659,6 +692,7 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(pinguinos2014.id, pinguinos2014);
@@ -677,6 +711,7 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(aventura2014.id, aventura2014);
@@ -695,6 +730,7 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(tortugasNinja.id, tortugasNinja);
@@ -713,6 +749,7 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(angryBirdsGO.id, angryBirdsGO);
@@ -731,6 +768,7 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(chavoMini.id, chavoMini);
@@ -749,6 +787,7 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(bob2017.id, bob2017);
@@ -767,6 +806,7 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(aventura2018.id, aventura2018);
@@ -785,6 +825,7 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(corazones2019.id, corazones2019);
@@ -803,6 +844,7 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(cartoonNetwork.id, cartoonNetwork);
@@ -821,6 +863,7 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(teenTitans.id, teenTitans);
@@ -839,6 +882,7 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(stevenUniverse.id, stevenUniverse);
@@ -857,6 +901,7 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(funkiTubers.id, funkiTubers);
@@ -875,6 +920,7 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(amongUs.id, amongUs);
@@ -893,6 +939,7 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(xoxoMascotas.id, xoxoMascotas);
@@ -911,6 +958,7 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(villanos2022.id, villanos2022);
@@ -929,6 +977,7 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(plantasZombies2022.id, plantasZombies2022);
@@ -947,6 +996,7 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(pokemon2023.id, pokemon2023);
@@ -965,6 +1015,7 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(pinkyPowPunks.id, pinkyPowPunks);
@@ -983,6 +1034,7 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(angryBirds2023.id, angryBirds2023);

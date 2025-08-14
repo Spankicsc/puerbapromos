@@ -63,8 +63,11 @@
   }
 
   body {
-    @apply font-sans antialiased bg-background text-foreground;
+    @apply font-sans antialiased text-foreground;
     font-family: var(--font-sans);
+    background: url('@assets/IMG_7046_1755141180605.PNG') repeat;
+    background-size: 400px 400px;
+    background-attachment: fixed;
   }
 }
 
