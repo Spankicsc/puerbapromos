@@ -568,9 +568,8 @@ export class MemStorage implements IStorage {
       category: "figuras",
       wrapperPhotoUrl: "/attached_assets/processed/trasera vainilla angry birds go_1755145664056_processed.png",
       wrapperPhotosUrls: [
-        "/attached_assets/trasera vainilla angry birds go_1755145664056.JPG",
-        "/attached_assets/rotated/Cajeta angry birds Go_1755150784761_rotated.png",
-        "/attached_assets/rotated/Chocolate angry birds Go_1755150784758_rotated.png"
+        "/attached_assets/trasera vainilla angry birds go_1755145428099.JPG",
+        "/attached_assets/trasera vainilla angry birds go_1755145664056.JPG"
       ],
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
@@ -616,7 +615,10 @@ export class MemStorage implements IStorage {
       endYear: 2011,
       category: "figuras",
       wrapperPhotoUrl: "/attached_assets/processed/Ecoinvasores trasera cajeta_1755145664202_processed.png",
-      wrapperPhotosUrls: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/Ecoinvasores trasera cajeta_1755145428099.JPG",
+        "/attached_assets/Ecoinvasores trasera cajeta_1755145664202.JPG"
+      ],
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
@@ -636,7 +638,10 @@ export class MemStorage implements IStorage {
       endYear: 2017,
       category: "figuras",
       wrapperPhotoUrl: "/attached_assets/processed/trasera chocolate steven universe_1755145664206_processed.png",
-      wrapperPhotosUrls: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/trasera chocolate steven universe_1755145428103.JPG",
+        "/attached_assets/trasera chocolate steven universe_1755145664206.JPG"
+      ],
       promotionImagesUrls: [],
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
@@ -656,7 +661,10 @@ export class MemStorage implements IStorage {
       endYear: 2018,
       category: "figuras",
       wrapperPhotoUrl: "/attached_assets/processed/Trasera chocolate cartoon network 2018_1755145664206_processed.png",
-      wrapperPhotosUrls: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/Trasera chocolate cartoon network 2018_1755145428103.JPG",
+        "/attached_assets/Trasera chocolate cartoon network 2018_1755145664206.JPG"
+      ],
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
@@ -676,7 +684,10 @@ export class MemStorage implements IStorage {
       endYear: 2017,
       category: "diseños",
       wrapperPhotoUrl: "/attached_assets/processed/Trasera corazones 2017 chocolate_1755145664206_processed.png",
-      wrapperPhotosUrls: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/Trasera corazones 2017 chocolate_1755145428104.JPG",
+        "/attached_assets/Trasera corazones 2017 chocolate_1755145664206.JPG"
+      ],
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
@@ -696,7 +707,10 @@ export class MemStorage implements IStorage {
       endYear: 2012,
       category: "figuras",
       wrapperPhotoUrl: "/attached_assets/processed/Trasera la era del hielo 2012 chocolate_1755145664207_processed.png",
-      wrapperPhotosUrls: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/Trasera la era del hielo 2012 chocolate_1755145428139.JPG",
+        "/attached_assets/Trasera la era del hielo 2012 chocolate_1755145664207.JPG"
+      ],
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
@@ -716,7 +730,10 @@ export class MemStorage implements IStorage {
       endYear: 2011,
       category: "figuras",
       wrapperPhotoUrl: "/attached_assets/processed/trasera cajeta funki punky xtremo 2011_1755145664205_processed.png",
-      wrapperPhotosUrls: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/trasera cajeta funki punky xtremo 2011_1755145428102.JPG",
+        "/attached_assets/trasera cajeta funki punky xtremo 2011_1755145664205.JPG"
+      ],
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
@@ -736,7 +753,10 @@ export class MemStorage implements IStorage {
       endYear: 2011,
       category: "figuras",
       wrapperPhotoUrl: "/attached_assets/processed/Trasera cajeta rebeldes con causa funky punki_1755145664206_processed.png",
-      wrapperPhotosUrls: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/Trasera cajeta rebeldes con causa funky punki_1755145428103.JPG",
+        "/attached_assets/Trasera cajeta rebeldes con causa funky punki_1755145664206.JPG"
+      ],
       promotionImagesUrls: [],
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
@@ -811,12 +831,19 @@ export class MemStorage implements IStorage {
       name: "El Chavo 2012",
       slug: "chavo-2012",
       description: "Homenaje a El Chavo del Ocho con 10 figuras coleccionables: 9 plateadas (Don Ramón, Doña Florinda, La Popis, etc.) y 1 dorada especial (El Chavo en su barril).",
-      imageUrl: null,
+      imageUrl: "/attached_assets/El chavo 2012 Trasera Vainilla_1755145664203.JPG",
       startYear: 2012,
       endYear: 2012,
       category: "figuras",
-      wrapperPhotoUrl: null,
-      wrapperPhotosUrls: null,
+      wrapperPhotoUrl: "/attached_assets/processed/El chavo 2012 Trasera cajeta_1755145664203_processed.png",
+      wrapperPhotosUrls: [
+        "/attached_assets/El chavo 2012 Trasera Vainilla_1755145428100.JPG",
+        "/attached_assets/El chavo 2012 Trasera Vainilla_1755145664203.JPG",
+        "/attached_assets/El chavo 2012 Trasera cajeta_1755145428100.JPG",
+        "/attached_assets/El chavo 2012 Trasera cajeta_1755145664203.JPG",
+        "/attached_assets/trasera el hcavo 2012 chocolate_1755145428139.JPG",
+        "/attached_assets/trasera el hcavo 2012 chocolate_1755145664206.JPG"
+      ],
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
@@ -1390,7 +1417,10 @@ export class MemStorage implements IStorage {
       description: "Promoción futurista de Conexión Alien 2004 con helados de chocolate. Una aventura extraterrestre que combinaba ciencia ficción con los sabores únicos de Vualá.",
       imageUrl: null,
       wrapperPhotoUrl: "/attached_assets/rotated/Chocolate conexion alien 2004 frontal_1755148526404_rotated.png",
-      wrapperPhotosUrls: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/rotated/Chocolate conexion alien 2004 frontal_1755148526404_rotated.png",
+        "/attached_assets/rotated/Chocolate conexion alien 2004 frontal_1755150784758_rotated.png"
+      ],
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
