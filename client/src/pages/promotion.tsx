@@ -215,14 +215,26 @@ const Promotion = () => {
 
         {/* Additional Promotion Content */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-          {/* Wrapper Photo Section */}
+          {/* Wrapper Photos Section */}
           <div className="bg-white rounded-xl shadow-lg overflow-hidden">
             <div className="p-6">
               <h3 className="text-xl font-bold text-promo-black mb-4 flex items-center">
                 <Package className="w-5 h-5 mr-2" />
-                Foto de la Envoltura
+                Fotos de Envolturas
               </h3>
-              {promotion.wrapperPhotoUrl ? (
+              {promotion.wrapperPhotosUrls && promotion.wrapperPhotosUrls.length > 0 ? (
+                <div className="grid grid-cols-1 gap-4">
+                  {promotion.wrapperPhotosUrls.map((photoUrl, index) => (
+                    <img 
+                      key={index}
+                      src={photoUrl} 
+                      alt={`Envoltura ${index + 1} de ${promotion.name}`}
+                      className="w-full h-64 object-cover rounded-lg"
+                      data-testid={`img-wrapper-photo-${index}`}
+                    />
+                  ))}
+                </div>
+              ) : promotion.wrapperPhotoUrl ? (
                 <img 
                   src={promotion.wrapperPhotoUrl} 
                   alt={`Envoltura de ${promotion.name}`}
@@ -233,7 +245,7 @@ const Promotion = () => {
                 <div className="w-full h-64 bg-gray-100 rounded-lg flex items-center justify-center">
                   <div className="text-center text-gray-500">
                     <Package className="w-12 h-12 mx-auto mb-2 opacity-50" />
-                    <p>Foto de envoltura no disponible</p>
+                    <p>Fotos de envoltura no disponibles</p>
                   </div>
                 </div>
               )}

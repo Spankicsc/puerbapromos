@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Calendar, Package, Tag, Filter } from "lucide-react";
 import { useState } from "react";
 import { type Promotion, type Brand } from "@shared/schema";
-import { getBrandLogo } from "@/utils/brandLogos";
+// import { getBrandLogo } from "@/utils/brandLogos";
 
 const Promotions = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -39,30 +39,32 @@ const Promotions = () => {
 
   if (promotionsLoading) {
     return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="mb-8">
-          <Skeleton className="h-12 w-64 mb-4" />
-          <Skeleton className="h-6 w-96" />
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {Array.from({ length: 9 }).map((_, i) => (
-            <Card key={i} className="overflow-hidden">
-              <CardHeader>
-                <Skeleton className="h-6 w-32" />
-                <Skeleton className="h-4 w-24" />
-              </CardHeader>
-              <CardContent>
-                <Skeleton className="h-20 w-full" />
-              </CardContent>
-            </Card>
-          ))}
+      <div className="bg-promo-gray min-h-screen">
+        <div className="container mx-auto px-4 py-8">
+          <div className="mb-8">
+            <Skeleton className="h-12 w-64 mb-4" />
+            <Skeleton className="h-6 w-96" />
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {Array.from({ length: 9 }).map((_, i) => (
+              <Card key={i} className="overflow-hidden">
+                <CardHeader>
+                  <Skeleton className="h-6 w-32" />
+                  <Skeleton className="h-4 w-24" />
+                </CardHeader>
+                <CardContent>
+                  <Skeleton className="h-20 w-full" />
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="bg-promo-gray min-h-screen">
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-12">
@@ -105,7 +107,8 @@ const Promotions = () => {
                     onClick={() => setSelectedCategory(category)}
                     className={selectedCategory === category ? "btn-splat" : "btn-splat opacity-60"}
                   >
-                    {category}
+                    <Tag className="w-3 h-3 mr-1" />
+                    {category.charAt(0).toUpperCase() + category.slice(1)}
                   </Button>
                 ))}
               </div>
@@ -131,15 +134,13 @@ const Promotions = () => {
                     variant="ghost"
                     size="sm"
                     onClick={() => setSelectedBrand(brand.id)}
-                    className={`flex items-center gap-2 ${selectedBrand === brand.id ? "btn-splat" : "btn-splat opacity-60"}`}
+                    className={selectedBrand === brand.id ? "btn-splat" : "btn-splat opacity-60"}
                   >
-                    {getBrandLogo(brand.slug) && (
-                      <img 
-                        src={getBrandLogo(brand.slug)!} 
-                        alt={`${brand.name} logo`}
-                        className="h-4 w-auto object-contain drop-shadow-sm"
-                      />
-                    )}
+                    <img 
+                      src={brand.logoUrl || ''} 
+                      alt={brand.name}
+                      className="w-4 h-4 mr-1 object-contain"
+                    />
                     {brand.name}
                   </Button>
                 ))}
@@ -150,80 +151,66 @@ const Promotions = () => {
 
         {/* Promotions Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredPromotions?.map((promotion) => {
-            const brand = getBrand(promotion.brandId);
-            return (
-              <Link key={promotion.id} href={`/promociones/${promotion.slug}`} data-testid={`link-promotion-${promotion.slug}`}>
-                <Card className="group overflow-hidden card-splat cursor-pointer bg-promo-yellow/95 backdrop-blur-sm">
-                  <CardHeader className="pb-4">
-                    <div className="flex items-start justify-between mb-3">
-                      {brand && getBrandLogo(brand.slug) && (
-                        <img 
-                          src={getBrandLogo(brand.slug)!} 
-                          alt={`${brand.name} logo`}
-                          className="h-8 w-auto object-contain drop-shadow-md"
-                        />
-                      )}
-                      <Badge variant="secondary" className="ml-2">
-                        <Tag className="w-3 h-3 mr-1" />
-                        {promotion.category}
-                      </Badge>
-                    </div>
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <CardTitle className="text-xl font-bold text-promo-black group-hover:text-promo-yellow transition-colors line-clamp-2" style={{ fontFamily: 'Righteous, cursive' }}>
-                          {promotion.name}
-                        </CardTitle>
-                        {brand && (
-                          <p className="text-sm text-gray-500 mt-1 font-medium">
-                            {brand.name}
-                          </p>
-                        )}
-                      </div>
-                    </div>
-                    
-                    <div className="flex items-center gap-4 text-sm text-gray-500">
-                      <div className="flex items-center gap-1">
-                        <Calendar className="w-4 h-4" />
-                        <span>
-                          {promotion.startYear}
-                          {promotion.endYear && promotion.endYear !== promotion.startYear && ` - ${promotion.endYear}`}
-                        </span>
-                      </div>
-                    </div>
-                  </CardHeader>
-                  
-                  <CardContent>
-                    <p className="text-gray-600 line-clamp-3 leading-relaxed mb-4">
-                      {promotion.description}
-                    </p>
-                    
-                    <div className="flex items-center justify-between">
-                      <span className="text-promo-yellow font-semibold group-hover:underline">
-                        Ver promoción →
-                      </span>
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
-            );
-          })}
-        </div>
+          {filteredPromotions && filteredPromotions.length > 0 ? (
+            filteredPromotions.map((promotion) => {
+              const brand = getBrand(promotion.brandId);
+              if (!brand) return null;
 
-        {/* Empty State */}
-        {filteredPromotions && filteredPromotions.length === 0 && (
-          <div className="text-center py-16">
-            <div className="text-6xl mb-4">📦</div>
-            <h3 className="text-2xl font-semibold text-promo-black mb-2">
-              No hay promociones disponibles
-            </h3>
-            <p className="text-gray-600">
-              {selectedCategory || selectedBrand 
-                ? "No se encontraron promociones con los filtros seleccionados."
-                : "Estamos trabajando en catalogar más promociones nostálgicas."}
-            </p>
-          </div>
-        )}
+              return (
+                <Link key={promotion.id} href={`/promotion/${promotion.slug}`} data-testid={`link-promotion-${promotion.slug}`}>
+                  <Card className="card-splat h-full hover:shadow-2xl transition-all duration-300 cursor-pointer group overflow-hidden">
+                    <CardHeader className="pb-2">
+                      <div className="flex items-center justify-between mb-2">
+                        <Badge 
+                          variant="secondary" 
+                          className="text-xs px-2 py-1"
+                          style={{ backgroundColor: `${brand.primaryColor}20`, color: brand.primaryColor }}
+                        >
+                          <Calendar className="w-3 h-3 mr-1" />
+                          {promotion.endYear ? `${promotion.startYear}-${promotion.endYear}` : promotion.startYear}
+                        </Badge>
+                        <img 
+                          src={brand.logoUrl || ''} 
+                          alt={brand.name}
+                          className="w-8 h-8 object-contain"
+                        />
+                      </div>
+                      <CardTitle className="text-lg text-promo-black group-hover:text-promo-yellow transition-colors">
+                        {promotion.name}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                        {promotion.description.length > 150
+                          ? `${promotion.description.substring(0, 150)}...`
+                          : promotion.description}
+                      </p>
+                      <div className="flex items-center justify-between">
+                        <Badge variant="outline" className="text-xs">
+                          <Tag className="w-3 h-3 mr-1" />
+                          {promotion.category}
+                        </Badge>
+                        <span className="text-sm text-gray-500">Ver más →</span>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+              );
+            })
+          ) : (
+            <div className="col-span-full">
+              <Card className="card-splat p-12 text-center">
+                <div className="text-6xl mb-4">📦</div>
+                <h3 className="text-xl font-semibold text-promo-black mb-2">
+                  No hay promociones disponibles
+                </h3>
+                <p className="text-gray-600">
+                  No se encontraron promociones que coincidan con los filtros seleccionados.
+                </p>
+              </Card>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -57,8 +57,11 @@ const Brand = () => {
     );
   }
 
+  // Sort promotions by start year (chronological order)
+  const sortedPromotions = promotions?.slice().sort((a, b) => a.startYear - b.startYear);
+
   return (
-    <div className="min-h-screen">
+    <div className="bg-promo-gray min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Breadcrumb */}
         <Breadcrumb className="mb-8">
@@ -117,7 +120,7 @@ const Brand = () => {
             </div>
           ) : promotions && promotions.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {promotions.map((promotion) => (
+              {sortedPromotions.map((promotion) => (
                 <PromotionCard
                   key={promotion.id}
                   promotion={promotion}
