@@ -10,6 +10,7 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbP
 import { Badge } from "@/components/ui/badge";
 import { type Promotion, type PromotionItem, type Brand } from "@shared/schema";
 import { ImageUploadButton } from "@/components/ImageUploadButton";
+import { WrapperCarousel } from "@/components/WrapperCarousel";
 import { getBrandLogo } from "@/utils/brandLogos";
 
 const Promotion = () => {
@@ -216,40 +217,19 @@ const Promotion = () => {
 
         {/* Additional Promotion Content */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-          {/* Wrapper Photos Section */}
-          <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+          {/* Wrapper Photos Section - New Carousel */}
+          <div className="bg-promo-black rounded-xl shadow-lg overflow-hidden border border-yellow-400/30">
             <div className="p-6">
-              <h3 className="text-xl font-bold text-promo-black mb-4 flex items-center">
-                <Package className="w-5 h-5 mr-2" />
-                Fotos de Envolturas
-              </h3>
-              {promotion.wrapperPhotosUrls && promotion.wrapperPhotosUrls.length > 0 ? (
-                <div className="grid grid-cols-1 gap-4">
-                  {promotion.wrapperPhotosUrls.map((photoUrl, index) => (
-                    <img 
-                      key={index}
-                      src={photoUrl} 
-                      alt={`Envoltura ${index + 1} de ${promotion.name}`}
-                      className="w-full h-64 object-cover rounded-lg"
-                      data-testid={`img-wrapper-photo-${index}`}
-                    />
-                  ))}
-                </div>
-              ) : promotion.wrapperPhotoUrl ? (
-                <img 
-                  src={promotion.wrapperPhotoUrl} 
-                  alt={`Envoltura de ${promotion.name}`}
-                  className="w-full h-64 object-cover rounded-lg"
-                  data-testid="img-wrapper-photo"
-                />
-              ) : (
-                <div className="w-full h-64 bg-gray-100 rounded-lg flex items-center justify-center">
-                  <div className="text-center text-gray-500">
-                    <Package className="w-12 h-12 mx-auto mb-2 opacity-50" />
-                    <p>Fotos de envoltura no disponibles</p>
-                  </div>
-                </div>
-              )}
+              <WrapperCarousel 
+                wrapperPhotos={
+                  promotion.wrapperPhotosUrls && promotion.wrapperPhotosUrls.length > 0 
+                    ? promotion.wrapperPhotosUrls as string[]
+                    : promotion.wrapperPhotoUrl 
+                      ? [promotion.wrapperPhotoUrl] 
+                      : null
+                }
+                promotionName={promotion.name}
+              />
             </div>
           </div>
 
