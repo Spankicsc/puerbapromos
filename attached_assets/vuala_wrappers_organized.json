@@ -344,6 +344,26 @@
           "year": "2012",
           "path": "/attached_assets/Trasera Bob esponja 2012_1755145664205.JPG"
         }
+      ],
+      "Cajeta": [
+        {
+          "filename": "Bob esponja 2012 Cajeta frontal_1755196507568.png",
+          "side": "Frontal",
+          "flavor": "Cajeta",
+          "year": "2012",
+          "path": "/attached_assets/Bob esponja 2012 Cajeta frontal_1755196507568.png",
+          "rotated_path": "/attached_assets/rotated/Bob esponja 2012 Cajeta frontal_1755196507568_rotated.png"
+        }
+      ],
+      "Vainilla": [
+        {
+          "filename": "Bob esponja 2012 vainilla frontal_1755196507569.png",
+          "side": "Frontal",
+          "flavor": "Vainilla",
+          "year": "2012",
+          "path": "/attached_assets/Bob esponja 2012 vainilla frontal_1755196507569.png",
+          "rotated_path": "/attached_assets/rotated/Bob esponja 2012 vainilla frontal_1755196507569_rotated.png"
+        }
       ]
     },
     "images": [
@@ -360,6 +380,22 @@
         "flavor": "Chocolate",
         "year": "2012",
         "path": "/attached_assets/Trasera Bob esponja 2012_1755145664205.JPG"
+      },
+      {
+        "filename": "Bob esponja 2012 Cajeta frontal_1755196507568.png",
+        "side": "Frontal",
+        "flavor": "Cajeta",
+        "year": "2012",
+        "path": "/attached_assets/Bob esponja 2012 Cajeta frontal_1755196507568.png",
+        "rotated_path": "/attached_assets/rotated/Bob esponja 2012 Cajeta frontal_1755196507568_rotated.png"
+      },
+      {
+        "filename": "Bob esponja 2012 vainilla frontal_1755196507569.png",
+        "side": "Frontal",
+        "flavor": "Vainilla",
+        "year": "2012",
+        "path": "/attached_assets/Bob esponja 2012 vainilla frontal_1755196507569.png",
+        "rotated_path": "/attached_assets/rotated/Bob esponja 2012 vainilla frontal_1755196507569_rotated.png"
       }
     ]
   },
@@ -419,6 +455,22 @@
           "flavor": "Chocolate",
           "year": "2018",
           "path": "/attached_assets/Trasera chocolate cartoon network 2018_1755145664206.JPG"
+        },
+        {
+          "filename": "Cartoon network chocolate_1755196507571.png",
+          "side": "Frontal",
+          "flavor": "Chocolate",
+          "year": "2019",
+          "path": "/attached_assets/Cartoon network chocolate_1755196507571.png",
+          "rotated_path": "/attached_assets/rotated/Cartoon network chocolate_1755196507571_rotated.png"
+        },
+        {
+          "filename": "Chocolate Cartoon network_1755196507572.png",
+          "side": "Frontal",
+          "flavor": "Chocolate",
+          "year": "2019",
+          "path": "/attached_assets/Chocolate Cartoon network_1755196507572.png",
+          "rotated_path": "/attached_assets/rotated/Chocolate Cartoon network_1755196507572_rotated.png"
         }
       ]
     },
@@ -436,6 +488,22 @@
         "flavor": "Chocolate",
         "year": "2018",
         "path": "/attached_assets/Trasera chocolate cartoon network 2018_1755145664206.JPG"
+      },
+      {
+        "filename": "Cartoon network chocolate_1755196507571.png",
+        "side": "Frontal",
+        "flavor": "Chocolate",
+        "year": "2019",
+        "path": "/attached_assets/Cartoon network chocolate_1755196507571.png",
+        "rotated_path": "/attached_assets/rotated/Cartoon network chocolate_1755196507571_rotated.png"
+      },
+      {
+        "filename": "Chocolate Cartoon network_1755196507572.png",
+        "side": "Frontal",
+        "flavor": "Chocolate",
+        "year": "2019",
+        "path": "/attached_assets/Chocolate Cartoon network_1755196507572.png",
+        "rotated_path": "/attached_assets/rotated/Chocolate Cartoon network_1755196507572_rotated.png"
       }
     ]
   },
@@ -610,6 +678,26 @@
           "year": "2012",
           "path": "/attached_assets/trasera vainilla angry birds go_1755145664056.JPG"
         }
+      ],
+      "Cajeta": [
+        {
+          "filename": "Cajeta angry birds Go_1755196507570.png",
+          "side": "Frontal",
+          "flavor": "Cajeta",
+          "year": "2014",
+          "path": "/attached_assets/Cajeta angry birds Go_1755196507570.png",
+          "rotated_path": "/attached_assets/rotated/Cajeta angry birds Go_1755196507570_rotated.png"
+        }
+      ],
+      "Chocolate": [
+        {
+          "filename": "Chocolate angry birds Go_1755196507571.png",
+          "side": "Frontal",
+          "flavor": "Chocolate",
+          "year": "2014",
+          "path": "/attached_assets/Chocolate angry birds Go_1755196507571.png",
+          "rotated_path": "/attached_assets/rotated/Chocolate angry birds Go_1755196507571_rotated.png"
+        }
       ]
     },
     "images": [
@@ -626,6 +714,336 @@
         "flavor": "Vainilla",
         "year": "2012",
         "path": "/attached_assets/trasera vainilla angry birds go_1755145664056.JPG"
+      },
+      {
+        "filename": "Cajeta angry birds Go_1755196507570.png",
+        "side": "Frontal",
+        "flavor": "Cajeta",
+        "year": "2014",
+        "path": "/attached_assets/Cajeta angry birds Go_1755196507570.png",
+        "rotated_path": "/attached_assets/rotated/Cajeta angry birds Go_1755196507570_rotated.png"
+      },
+      {
+        "filename": "Chocolate angry birds Go_1755196507571.png",
+        "side": "Frontal",
+        "flavor": "Chocolate",
+        "year": "2014",
+        "path": "/attached_assets/Chocolate angry birds Go_1755196507571.png",
+        "rotated_path": "/attached_assets/rotated/Chocolate angry birds Go_1755196507571_rotated.png"
+      }
+    ]
+  },
+  "Dance Mania": {
+    "name": "Dance Mania",
+    "year": "2008",
+    "flavors": {
+      "Vainilla": [
+        {
+          "filename": "Dance mania 2008 vainilla frontal_1755196507566.png",
+          "side": "Frontal",
+          "flavor": "Vainilla",
+          "year": "2008",
+          "path": "/attached_assets/Dance mania 2008 vainilla frontal_1755196507566.png",
+          "rotated_path": "/attached_assets/rotated/Dance mania 2008 vainilla frontal_1755196507566_rotated.png"
+        }
+      ]
+    },
+    "images": [
+      {
+        "filename": "Dance mania 2008 vainilla frontal_1755196507566.png",
+        "side": "Frontal",
+        "flavor": "Vainilla",
+        "year": "2008",
+        "path": "/attached_assets/Dance mania 2008 vainilla frontal_1755196507566.png",
+        "rotated_path": "/attached_assets/rotated/Dance mania 2008 vainilla frontal_1755196507566_rotated.png"
+      }
+    ]
+  },
+  "Askistix": {
+    "name": "Askistix",
+    "year": "2004",
+    "flavors": {
+      "Chocolate": [
+        {
+          "filename": "Askistix 2004 chocolate frontal_1755196507567.png",
+          "side": "Frontal",
+          "flavor": "Chocolate",
+          "year": "2004",
+          "path": "/attached_assets/Askistix 2004 chocolate frontal_1755196507567.png",
+          "rotated_path": "/attached_assets/rotated/Askistix 2004 chocolate frontal_1755196507567_rotated.png"
+        }
+      ]
+    },
+    "images": [
+      {
+        "filename": "Askistix 2004 chocolate frontal_1755196507567.png",
+        "side": "Frontal",
+        "flavor": "Chocolate",
+        "year": "2004",
+        "path": "/attached_assets/Askistix 2004 chocolate frontal_1755196507567.png",
+        "rotated_path": "/attached_assets/rotated/Askistix 2004 chocolate frontal_1755196507567_rotated.png"
+      }
+    ]
+  },
+  "Avengers": {
+    "name": "Avengers",
+    "year": "2012",
+    "flavors": {
+      "Cajeta": [
+        {
+          "filename": "Avengers cajeta_1755196507567.png",
+          "side": "Frontal",
+          "flavor": "Cajeta",
+          "year": "2012",
+          "path": "/attached_assets/Avengers cajeta_1755196507567.png",
+          "rotated_path": "/attached_assets/rotated/Avengers cajeta_1755196507567_rotated.png"
+        }
+      ],
+      "Vainilla": [
+        {
+          "filename": "Avengers vainilla_1755196507568.png",
+          "side": "Frontal",
+          "flavor": "Vainilla",
+          "year": "2012",
+          "path": "/attached_assets/Avengers vainilla_1755196507568.png",
+          "rotated_path": "/attached_assets/rotated/Avengers vainilla_1755196507568_rotated.png"
+        }
+      ]
+    },
+    "images": [
+      {
+        "filename": "Avengers cajeta_1755196507567.png",
+        "side": "Frontal",
+        "flavor": "Cajeta",
+        "year": "2012",
+        "path": "/attached_assets/Avengers cajeta_1755196507567.png",
+        "rotated_path": "/attached_assets/rotated/Avengers cajeta_1755196507567_rotated.png"
+      },
+      {
+        "filename": "Avengers vainilla_1755196507568.png",
+        "side": "Frontal",
+        "flavor": "Vainilla",
+        "year": "2012",
+        "path": "/attached_assets/Avengers vainilla_1755196507568.png",
+        "rotated_path": "/attached_assets/rotated/Avengers vainilla_1755196507568_rotated.png"
+      }
+    ]
+  },
+  "Bob Esponja 25 Años": {
+    "name": "Bob Esponja 25 Años",
+    "year": "2024",
+    "flavors": {
+      "Cajeta": [
+        {
+          "filename": "bob esponja 2024 cajeta frontal_1755196507569.png",
+          "side": "Frontal",
+          "flavor": "Cajeta",
+          "year": "2024",
+          "path": "/attached_assets/bob esponja 2024 cajeta frontal_1755196507569.png",
+          "rotated_path": "/attached_assets/rotated/bob esponja 2024 cajeta frontal_1755196507569_rotated.png"
+        }
+      ],
+      "Piña": [
+        {
+          "filename": "Bob esponja 2024 piña frontal_1755196507569.png",
+          "side": "Frontal",
+          "flavor": "Piña",
+          "year": "2024",
+          "path": "/attached_assets/Bob esponja 2024 piña frontal_1755196507569.png",
+          "rotated_path": "/attached_assets/rotated/Bob esponja 2024 piña frontal_1755196507569_rotated.png"
+        }
+      ]
+    },
+    "images": [
+      {
+        "filename": "bob esponja 2024 cajeta frontal_1755196507569.png",
+        "side": "Frontal",
+        "flavor": "Cajeta",
+        "year": "2024",
+        "path": "/attached_assets/bob esponja 2024 cajeta frontal_1755196507569.png",
+        "rotated_path": "/attached_assets/rotated/bob esponja 2024 cajeta frontal_1755196507569_rotated.png"
+      },
+      {
+        "filename": "Bob esponja 2024 piña frontal_1755196507569.png",
+        "side": "Frontal",
+        "flavor": "Piña",
+        "year": "2024",
+        "path": "/attached_assets/Bob esponja 2024 piña frontal_1755196507569.png",
+        "rotated_path": "/attached_assets/rotated/Bob esponja 2024 piña frontal_1755196507569_rotated.png"
+      }
+    ]
+  },
+  "Ecolokitos": {
+    "name": "Ecolokitos",
+    "year": "2012",
+    "flavors": {
+      "Cajeta": [
+        {
+          "filename": "Cajeta frontal ecolokitos_1755196507570.png",
+          "side": "Frontal",
+          "flavor": "Cajeta",
+          "year": "2012",
+          "path": "/attached_assets/Cajeta frontal ecolokitos_1755196507570.png",
+          "rotated_path": "/attached_assets/rotated/Cajeta frontal ecolokitos_1755196507570_rotated.png"
+        }
+      ],
+      "Chocolate": [
+        {
+          "filename": "Chocolate frontal ecolokitos_1755196507572.png",
+          "side": "Frontal",
+          "flavor": "Chocolate",
+          "year": "2012",
+          "path": "/attached_assets/Chocolate frontal ecolokitos_1755196507572.png",
+          "rotated_path": "/attached_assets/rotated/Chocolate frontal ecolokitos_1755196507572_rotated.png"
+        }
+      ]
+    },
+    "images": [
+      {
+        "filename": "Cajeta frontal ecolokitos_1755196507570.png",
+        "side": "Frontal",
+        "flavor": "Cajeta",
+        "year": "2012",
+        "path": "/attached_assets/Cajeta frontal ecolokitos_1755196507570.png",
+        "rotated_path": "/attached_assets/rotated/Cajeta frontal ecolokitos_1755196507570_rotated.png"
+      },
+      {
+        "filename": "Chocolate frontal ecolokitos_1755196507572.png",
+        "side": "Frontal",
+        "flavor": "Chocolate",
+        "year": "2012",
+        "path": "/attached_assets/Chocolate frontal ecolokitos_1755196507572.png",
+        "rotated_path": "/attached_assets/rotated/Chocolate frontal ecolokitos_1755196507572_rotated.png"
+      }
+    ]
+  },
+  "Funki Punky Extremo": {
+    "name": "Funki Punky Extremo",
+    "year": "2011",
+    "flavors": {
+      "Cajeta": [
+        {
+          "filename": "Cajeta funki punky extremo_1755196507570.png",
+          "side": "Frontal",
+          "flavor": "Cajeta",
+          "year": "2011",
+          "path": "/attached_assets/Cajeta funki punky extremo_1755196507570.png",
+          "rotated_path": "/attached_assets/rotated/Cajeta funki punky extremo_1755196507570_rotated.png"
+        }
+      ]
+    },
+    "images": [
+      {
+        "filename": "Cajeta funki punky extremo_1755196507570.png",
+        "side": "Frontal",
+        "flavor": "Cajeta",
+        "year": "2011",
+        "path": "/attached_assets/Cajeta funki punky extremo_1755196507570.png",
+        "rotated_path": "/attached_assets/rotated/Cajeta funki punky extremo_1755196507570_rotated.png"
+      }
+    ]
+  },
+  "Tortugas Ninja": {
+    "name": "Tortugas Ninja",
+    "year": "2014",
+    "flavors": {
+      "Cajeta": [
+        {
+          "filename": "Cajeta tortugas ninja_1755196507571.png",
+          "side": "Frontal",
+          "flavor": "Cajeta",
+          "year": "2014",
+          "path": "/attached_assets/Cajeta tortugas ninja_1755196507571.png",
+          "rotated_path": "/attached_assets/rotated/Cajeta tortugas ninja_1755196507571_rotated.png"
+        }
+      ]
+    },
+    "images": [
+      {
+        "filename": "Cajeta tortugas ninja_1755196507571.png",
+        "side": "Frontal",
+        "flavor": "Cajeta",
+        "year": "2014",
+        "path": "/attached_assets/Cajeta tortugas ninja_1755196507571.png",
+        "rotated_path": "/attached_assets/rotated/Cajeta tortugas ninja_1755196507571_rotated.png"
+      }
+    ]
+  },
+  "Conexión Alien": {
+    "name": "Conexión Alien",
+    "year": "2004",
+    "flavors": {
+      "Chocolate": [
+        {
+          "filename": "Chocolate conexion alien 2004 frontal_1755196507572.png",
+          "side": "Frontal",
+          "flavor": "Chocolate",
+          "year": "2004",
+          "path": "/attached_assets/Chocolate conexion alien 2004 frontal_1755196507572.png",
+          "rotated_path": "/attached_assets/rotated/Chocolate conexion alien 2004 frontal_1755196507572_rotated.png"
+        }
+      ]
+    },
+    "images": [
+      {
+        "filename": "Chocolate conexion alien 2004 frontal_1755196507572.png",
+        "side": "Frontal",
+        "flavor": "Chocolate",
+        "year": "2004",
+        "path": "/attached_assets/Chocolate conexion alien 2004 frontal_1755196507572.png",
+        "rotated_path": "/attached_assets/rotated/Chocolate conexion alien 2004 frontal_1755196507572_rotated.png"
+      }
+    ]
+  },
+  "Spiderman 3": {
+    "name": "Spiderman 3",
+    "year": "2007",
+    "flavors": {
+      "Chocolate": [
+        {
+          "filename": "Chocolate frontal spiderman 3_1755196507572.png",
+          "side": "Frontal",
+          "flavor": "Chocolate",
+          "year": "2007",
+          "path": "/attached_assets/Chocolate frontal spiderman 3_1755196507572.png",
+          "rotated_path": "/attached_assets/rotated/Chocolate frontal spiderman 3_1755196507572_rotated.png"
+        }
+      ]
+    },
+    "images": [
+      {
+        "filename": "Chocolate frontal spiderman 3_1755196507572.png",
+        "side": "Frontal",
+        "flavor": "Chocolate",
+        "year": "2007",
+        "path": "/attached_assets/Chocolate frontal spiderman 3_1755196507572.png",
+        "rotated_path": "/attached_assets/rotated/Chocolate frontal spiderman 3_1755196507572_rotated.png"
+      }
+    ]
+  },
+  "Reyes de las Olas": {
+    "name": "Reyes de las Olas",
+    "year": "2011",
+    "flavors": {
+      "Chocolate": [
+        {
+          "filename": "Chocolate frontalreyes de las olas_1755196507573.png",
+          "side": "Frontal",
+          "flavor": "Chocolate",
+          "year": "2011",
+          "path": "/attached_assets/Chocolate frontalreyes de las olas_1755196507573.png",
+          "rotated_path": "/attached_assets/rotated/Chocolate frontalreyes de las olas_1755196507573_rotated.png"
+        }
+      ]
+    },
+    "images": [
+      {
+        "filename": "Chocolate frontalreyes de las olas_1755196507573.png",
+        "side": "Frontal",
+        "flavor": "Chocolate",
+        "year": "2011",
+        "path": "/attached_assets/Chocolate frontalreyes de las olas_1755196507573.png",
+        "rotated_path": "/attached_assets/rotated/Chocolate frontalreyes de las olas_1755196507573_rotated.png"
       }
     ]
   }

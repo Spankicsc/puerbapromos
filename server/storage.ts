@@ -281,14 +281,15 @@ export class MemStorage implements IStorage {
       name: "Spiderman 3",
       slug: "spiderman-3-2007",
       description: "En marzo de 2007, Vualá lanzó la promoción de 'Spiderman 3' para coincidir con el estreno de la película. Los consumidores podían encontrar en los paquetes de Vualá uno de los siguientes artículos: un sticker, un tatuaje, un colgante o un cupón canjeable. La colección incluía 5 colgantes diferentes, con diseños como la cabeza de spiderman, venom y los emblemas de los personajes, además el cupón canjeable te daba la oportunidad de cambiarlo por los clásicos pegajosos de Spiderman. La promoción comenzó el 15 de marzo de 2007 y se extendió hasta agotar existencias, atrayendo tanto a los fanáticos del personaje.",
-      imageUrl: null,
+      imageUrl: "/attached_assets/rotated/Chocolate frontal spiderman 3_1755196507572_rotated.png",
       startYear: 2007,
       endYear: 2007,
       category: "colgantes",
       wrapperPhotoUrl: "/attached_assets/rotated/Chocolate frontal spiderman 3_1755148526399_rotated.png",
       wrapperPhotosUrls: [
         "/attached_assets/rotated/Chocolate frontal spiderman 3_1755148526399_rotated.png",
-        "/attached_assets/rotated/Vainilla  frontal spiderman 3_1755152265577_rotated.png"
+        "/attached_assets/rotated/Vainilla  frontal spiderman 3_1755152265577_rotated.png",
+        "/attached_assets/rotated/Chocolate frontal spiderman 3_1755196507572_rotated.png"
       ],
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
@@ -391,7 +392,8 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: "/attached_assets/rotated/bob espona en movimiento 2009 frontal cajeta_1755148526401_rotated.png",
       wrapperPhotosUrls: [
         "/attached_assets/rotated/bob espona en movimiento 2009 frontal cajeta_1755148526401_rotated.png",
-        "/attached_assets/rotated/bob espona en movimiento 2009 frontal cajeta_1755150784760_rotated.png"
+        "/attached_assets/rotated/bob espona en movimiento 2009 frontal cajeta_1755150784760_rotated.png",
+        "/attached_assets/rotated/bob espona en movimiento 2009 frontal cajeta_1755196507568_rotated.png"
       ],
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
@@ -652,7 +654,8 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: "/attached_assets/rotated/vainilla funki punky extremo_1755152265578_rotated.png",
       wrapperPhotosUrls: [
         "/attached_assets/rotated/vainilla funki punky extremo_1755152265578_rotated.png",
-        "/attached_assets/rotated/Cajeta funki punky extremo_1755150784762_rotated.png"
+        "/attached_assets/rotated/Cajeta funki punky extremo_1755150784762_rotated.png",
+        "/attached_assets/rotated/Cajeta funki punky extremo_1755196507570_rotated.png"
       ],
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
@@ -676,7 +679,9 @@ export class MemStorage implements IStorage {
       wrapperPhotosUrls: [
         "/attached_assets/trasera vainilla angry birds go_1755145428099.JPG",
         "/attached_assets/trasera vainilla angry birds go_1755145664056.JPG",
-        "/attached_assets/rotated/vainilla angry birds GO_1755152265578_rotated.png"
+        "/attached_assets/rotated/vainilla angry birds GO_1755152265578_rotated.png",
+        "/attached_assets/rotated/Cajeta angry birds Go_1755196507570_rotated.png",
+        "/attached_assets/rotated/Chocolate angry birds Go_1755196507571_rotated.png"
       ],
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
@@ -702,7 +707,8 @@ export class MemStorage implements IStorage {
         "/attached_assets/rotated/Bob esponja 2012 Cajeta frontal_1755150784760_rotated.png",
         "/attached_assets/rotated/Bob esponja 2012 vainilla frontal_1755150784760_rotated.png",
         "/attached_assets/rotated/Frontal bob esponja 2012 chocolate_1755149294898_rotated.png",
-        "/attached_assets/rotated/Vainilla bob esponja 2024_1755152265578_rotated.png"
+        "/attached_assets/rotated/Bob esponja 2012 Cajeta frontal_1755196507568_rotated.png",
+        "/attached_assets/rotated/Bob esponja 2012 vainilla frontal_1755196507569_rotated.png"
       ],
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
@@ -794,7 +800,9 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: "/attached_assets/rotated/Cartoon network chocolate_1755150784757_rotated.png",
       wrapperPhotosUrls: [
         "/attached_assets/rotated/Cartoon network chocolate_1755150784757_rotated.png",
-        "/attached_assets/rotated/Chocolate Cartoon network_1755150784758_rotated.png"
+        "/attached_assets/rotated/Chocolate Cartoon network_1755150784758_rotated.png",
+        "/attached_assets/rotated/Cartoon network chocolate_1755196507571_rotated.png",
+        "/attached_assets/rotated/Chocolate Cartoon network_1755196507572_rotated.png"
       ],
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
@@ -833,7 +841,7 @@ export class MemStorage implements IStorage {
       name: "Steven Universe 2020-2021",
       slug: "steven-universe-2020-2021",
       description: "En noviembre de 2020, Vualá lanzó una promoción en colaboración con Steven Universe, vigente hasta marzo de 2021. Esta colección constaba de 20 piezas divididas en dos categorías: Figuras con stickers (13 piezas): Representaciones en 2D de los personajes principales de la serie, acompañadas de stickers para su personalización. Llaveros (7 piezas): Llaveros de los personajes, también con stickers para decorarlos. Los personajes destacados incluyeron: Steven Universe, Garnet, Amatista, Perla, Connie, Peridot, Lapis Lazuli, Bismuto, León, Lars, Cebolla, Greg Universe, Diamante Blanco, Diamante Amarillo, y Diamante Azul. Inicialmente, los empaques de Vualá presentaban imágenes de los personajes de Steven Universe. Sin embargo, debido a la implementación de la NOM-051, las imágenes fueron retiradas de los empaques durante la vigencia de la promoción.",
-      imageUrl: null,
+      imageUrl: "/attached_assets/rotated/Cartoon network chocolate_1755196507571_rotated.png",
       startYear: 2020,
       endYear: 2021,
       category: "figuras",
@@ -882,7 +890,9 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: "/attached_assets/rotated/Vainilla bob esponja 2024_1755152265578_rotated.png",
       wrapperPhotosUrls: [
         "/attached_assets/rotated/Vainilla bob esponja 2024_1755152265578_rotated.png",
-        "/attached_assets/rotated/Bob esponja 2024 piña frontal_1755150784761_rotated.png"
+        "/attached_assets/rotated/Bob esponja 2024 piña frontal_1755150784761_rotated.png",
+        "/attached_assets/rotated/bob esponja 2024 cajeta frontal_1755196507569_rotated.png",
+        "/attached_assets/rotated/Bob esponja 2024 piña frontal_1755196507569_rotated.png"
       ],
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
@@ -991,7 +1001,7 @@ export class MemStorage implements IStorage {
       name: "Aliens Eco-Invasores",
       slug: "aliens-eco-invasores",
       description: "Seis personajes extraterrestres con mensajes ecológicos: Tento, Grin, Gard, Terrix, Luk y Fort. Incluía Navitrones, Pegatronix con ventosas y Cliptones que brillaban en la oscuridad.",
-      imageUrl: null,
+      imageUrl: "/attached_assets/rotated/Cajeta funki punky extremo_1755196507570_rotated.png",
       startYear: 2011,
       endYear: 2011,
       category: "figuras",
@@ -1240,14 +1250,15 @@ export class MemStorage implements IStorage {
       name: "Las Tortugas Ninja",
       slug: "tortugas-ninja-2014",
       description: "8 llaveros diferentes con variante dorada, 4 Dedilocos de plástico suave con orificios para dedos, stickers para decorar y cupones 2x1 para Cinémex.",
-      imageUrl: null,
+      imageUrl: "/attached_assets/rotated/Cajeta tortugas ninja_1755196507571_rotated.png",
       startYear: 2014,
       endYear: 2014,
       category: "llaveros",
       wrapperPhotoUrl: "/attached_assets/rotated/Cajeta tortugas ninja_1755148526403_rotated.png",
       wrapperPhotosUrls: [
         "/attached_assets/rotated/Cajeta tortugas ninja_1755148526403_rotated.png",
-        "/attached_assets/rotated/vainilla tortugas ninja_1755152265579_rotated.png"
+        "/attached_assets/rotated/vainilla tortugas ninja_1755152265579_rotated.png",
+        "/attached_assets/rotated/Cajeta tortugas ninja_1755196507571_rotated.png"
       ],
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
@@ -1388,7 +1399,7 @@ export class MemStorage implements IStorage {
       name: "Steven Universe",
       slug: "steven-universe-2020",
       description: "20 piezas: 13 figuras 2D con stickers y 7 llaveros de personajes principales. Afectada por NOM-051 que retiró imágenes de personajes de empaques durante la promoción.",
-      imageUrl: null,
+      imageUrl: "/attached_assets/rotated/Cartoon network chocolate_1755196507571_rotated.png",
       startYear: 2020,
       endYear: 2021,
       category: "figuras",
@@ -1568,7 +1579,7 @@ export class MemStorage implements IStorage {
       name: "Askistix 2004",
       slug: "askistix-2004",
       description: "Promoción de Askistix 2004 con deliciosos helados con sabor a chocolate. Una colección memorable que combinaba el sabor único de los helados Vualá con elementos promocionales especiales.",
-      imageUrl: null,
+      imageUrl: "/attached_assets/rotated/Askistix 2004 chocolate frontal_1755196507567_rotated.png",
       wrapperPhotoUrl: "/attached_assets/rotated/Askistix 2004 chocolate frontal_1755148526400_rotated.png",
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
@@ -1594,7 +1605,8 @@ export class MemStorage implements IStorage {
         "/attached_assets/rotated/Avengers cajeta_1755148526400_rotated.png",
         "/attached_assets/rotated/Avengers cajeta_1755150784759_rotated.png",
         "/attached_assets/rotated/Avengers vainilla_1755148526400_rotated.png",
-        "/attached_assets/rotated/Avengers vainilla_1755150784760_rotated.png"
+        "/attached_assets/rotated/Avengers vainilla_1755150784760_rotated.png",
+        "/attached_assets/rotated/Askistix 2004 chocolate frontal_1755196507567_rotated.png"
       ],
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
@@ -1638,11 +1650,12 @@ export class MemStorage implements IStorage {
       name: "Conexión Alien 2004",
       slug: "conexion-alien-2004",
       description: "Promoción futurista de Conexión Alien 2004 con helados de chocolate. Una aventura extraterrestre que combinaba ciencia ficción con los sabores únicos de Vualá.",
-      imageUrl: null,
+      imageUrl: "/attached_assets/rotated/Chocolate conexion alien 2004 frontal_1755196507572_rotated.png",
       wrapperPhotoUrl: "/attached_assets/rotated/Chocolate conexion alien 2004 frontal_1755148526404_rotated.png",
       wrapperPhotosUrls: [
         "/attached_assets/rotated/Chocolate conexion alien 2004 frontal_1755148526404_rotated.png",
-        "/attached_assets/rotated/Chocolate conexion alien 2004 frontal_1755150784758_rotated.png"
+        "/attached_assets/rotated/Chocolate conexion alien 2004 frontal_1755150784758_rotated.png",
+        "/attached_assets/rotated/Chocolate conexion alien 2004 frontal_1755196507572_rotated.png"
       ],
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
@@ -1731,7 +1744,7 @@ export class MemStorage implements IStorage {
       name: "Dance Mania 2008",
       slug: "dance-mania-2008",
       description: "La fiebre del baile llegó a Vualá con Dance Mania 2008. Helados de vainilla y chocolate con temática musical que pusieron a bailar a toda la familia.",
-      imageUrl: null,
+      imageUrl: "/attached_assets/rotated/Dance mania 2008 vainilla frontal_1755196507566_rotated.png",
       wrapperPhotoUrl: "/attached_assets/rotated/Dance mania 2008 vainilla frontal_1755149294896_rotated.png",
       wrapperPhotosUrls: null,
       promotionImagesUrls: [
