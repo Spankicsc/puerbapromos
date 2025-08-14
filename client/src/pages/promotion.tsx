@@ -8,6 +8,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { Badge } from "@/components/ui/badge";
 import { type Promotion, type PromotionItem, type Brand } from "@shared/schema";
+import { ImageUploadButton } from "@/components/ImageUploadButton";
 
 const Promotion = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -380,6 +381,27 @@ const Promotion = () => {
               </p>
             </div>
           )}
+        </section>
+
+        {/* Admin Section for Image Upload */}
+        <section className="bg-gray-50 rounded-xl shadow-lg overflow-hidden">
+          <div className="p-6">
+            <h3 className="text-xl font-bold text-promo-black mb-4 flex items-center">
+              <Package className="w-5 h-5 mr-2 text-promo-yellow" />
+              Administración de Imágenes
+            </h3>
+            <p className="text-gray-600 mb-4">
+              Sube nuevas imágenes para esta promoción. Las imágenes se guardarán de forma segura en el almacenamiento en la nube.
+            </p>
+            <div className="flex justify-start">
+              <ImageUploadButton 
+                promotionSlug={slug!} 
+                onImageUploaded={(url) => {
+                  console.log("Nueva imagen subida:", url);
+                }}
+              />
+            </div>
+          </div>
         </section>
       </div>
     </div>
