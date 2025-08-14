@@ -23,14 +23,11 @@ const Header = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" data-testid="link-home">
-            <div className="flex items-center space-x-4">
-              <img 
-                src={promoLogo} 
-                alt="Promospedia Logo" 
-                className="w-20 h-20 object-contain drop-shadow-lg"
-              />
-              <h1 className="text-2xl font-bold text-promo-yellow drop-shadow-md">Promospedia</h1>
-            </div>
+            <img 
+              src={promoLogo} 
+              alt="Promospedia Logo" 
+              className="w-20 h-20 object-contain drop-shadow-lg"
+            />
           </Link>
           
           {/* Desktop Navigation */}
