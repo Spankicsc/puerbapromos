@@ -21,6 +21,9 @@ export const promotions = pgTable("promotions", {
   slug: text("slug").notNull().unique(),
   description: text("description").notNull(),
   imageUrl: text("image_url"),
+  wrapperPhotoUrl: text("wrapper_photo_url"),
+  promotionImagesUrls: jsonb("promotion_images_urls"),
+  youtubeCommercialUrl: text("youtube_commercial_url"),
   startYear: integer("start_year").notNull(),
   endYear: integer("end_year"),
   category: text("category").notNull(), // tazos, stickers, spinners, toys, etc.
