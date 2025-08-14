@@ -23,15 +23,13 @@ const Header = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" data-testid="link-home">
-            <div className="flex items-center space-x-3">
-              <div className="w-16 h-16 bg-promo-yellow rounded-full flex items-center justify-center overflow-hidden border-4 border-promo-black shadow-lg">
-                <img 
-                  src={promoLogo} 
-                  alt="Promospedia Logo" 
-                  className="w-12 h-12 object-contain"
-                />
-              </div>
-              <h1 className="text-xl font-bold text-promo-yellow">Promospedia</h1>
+            <div className="flex items-center space-x-4">
+              <img 
+                src={promoLogo} 
+                alt="Promospedia Logo" 
+                className="w-20 h-20 object-contain drop-shadow-lg"
+              />
+              <h1 className="text-2xl font-bold text-promo-yellow drop-shadow-md">Promospedia</h1>
             </div>
           </Link>
           
