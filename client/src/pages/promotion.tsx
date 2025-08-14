@@ -100,7 +100,7 @@ const Promotion = () => {
   const brand = getBrand();
 
   return (
-    <div className="bg-promo-gray min-h-screen">
+    <div className="min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Breadcrumb */}
         <Breadcrumb className="mb-8">
@@ -126,7 +126,7 @@ const Promotion = () => {
         </Breadcrumb>
 
         {/* Promotion Header */}
-        <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
+        <div className="card-splat overflow-hidden mb-8">
           {promotion.imageUrl && (
             <div className="h-64 bg-cover bg-center relative" style={{ backgroundImage: `url(${promotion.imageUrl})` }}>
               <div className="absolute inset-0 bg-black bg-opacity-40"></div>
@@ -386,7 +386,7 @@ const Promotion = () => {
         </section>
 
         {/* Admin Section for Image Upload */}
-        <section className="bg-gray-50 rounded-xl shadow-lg overflow-hidden">
+        <section className="card-splat overflow-hidden">
           <div className="p-6">
             <h3 className="text-xl font-bold text-promo-black mb-4 flex items-center">
               <Package className="w-5 h-5 mr-2 text-promo-yellow" />

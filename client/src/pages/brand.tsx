@@ -58,7 +58,7 @@ const Brand = () => {
   }
 
   return (
-    <div className="bg-promo-gray min-h-screen">
+    <div className="min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Breadcrumb */}
         <Breadcrumb className="mb-8">
@@ -74,7 +74,7 @@ const Brand = () => {
         </Breadcrumb>
 
         {/* Brand Header */}
-        <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
+        <div className="card-splat p-8 mb-8">
           <div className="flex items-center space-x-6">
             <div 
               className="w-20 h-20 rounded-xl flex items-center justify-center text-3xl"

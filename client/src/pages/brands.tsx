@@ -36,7 +36,7 @@ const Brands = () => {
   }
 
   return (
-    <div className="min-h-screen bg-white/90 backdrop-blur-sm">
+    <div className="min-h-screen">
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-12">
@@ -53,7 +53,7 @@ const Brands = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {brands?.map((brand) => (
             <Link key={brand.id} href={`/marcas/${brand.slug}`} data-testid={`link-brand-${brand.slug}`}>
-              <Card className="group overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-white/95 backdrop-blur-sm border-2 hover:border-promo-yellow cursor-pointer">
+              <Card className="group overflow-hidden card-splat cursor-pointer bg-promo-yellow/95 backdrop-blur-sm">
                 <CardHeader className="pb-4">
                   <div className="flex items-center justify-between">
                     <CardTitle className="text-xl font-bold text-promo-black group-hover:text-promo-yellow transition-colors">

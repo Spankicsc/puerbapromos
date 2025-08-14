@@ -24,11 +24,11 @@ const Header = () => {
           {/* Logo */}
           <Link href="/" data-testid="link-home">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-promo-yellow rounded-full flex items-center justify-center overflow-hidden">
+              <div className="w-16 h-16 bg-promo-yellow rounded-full flex items-center justify-center overflow-hidden border-4 border-promo-black shadow-lg">
                 <img 
                   src={promoLogo} 
                   alt="Promospedia Logo" 
-                  className="w-8 h-8 object-contain"
+                  className="w-12 h-12 object-contain"
                 />
               </div>
               <h1 className="text-xl font-bold text-promo-yellow">Promospedia</h1>

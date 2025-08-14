@@ -65,9 +65,50 @@
   body {
     @apply font-sans antialiased text-foreground;
     font-family: var(--font-sans);
-    background: url('/attached_assets/IMG_7046_1755142043470.PNG') repeat;
+    background: url('/attached_assets/IMG_7046_1755142644431.PNG') repeat;
     background-size: 400px 400px;
     background-attachment: fixed;
+  }
+
+  /* Splat button styles */
+  .btn-splat {
+    position: relative;
+    background: var(--promo-yellow);
+    color: var(--promo-black);
+    border: 3px solid var(--promo-black);
+    border-radius: 0;
+    transform: rotate(-2deg);
+    transition: all 0.2s ease;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 4px 4px 0px var(--promo-black);
+  }
+
+  .btn-splat:hover {
+    transform: rotate(0deg) scale(1.05);
+    box-shadow: 6px 6px 0px var(--promo-black);
+    background: #fff200;
+  }
+
+  .btn-splat:active {
+    transform: rotate(-1deg) scale(0.98);
+    box-shadow: 2px 2px 0px var(--promo-black);
+  }
+
+  /* Card splat styles */
+  .card-splat {
+    background: var(--promo-yellow);
+    border: 3px solid var(--promo-black);
+    border-radius: 0;
+    transform: rotate(-1deg);
+    box-shadow: 5px 5px 0px var(--promo-black);
+    transition: all 0.3s ease;
+  }
+
+  .card-splat:hover {
+    transform: rotate(0deg) scale(1.02);
+    box-shadow: 8px 8px 0px var(--promo-black);
   }
 }
 

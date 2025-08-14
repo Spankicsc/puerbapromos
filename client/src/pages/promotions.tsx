@@ -61,7 +61,7 @@ const Promotions = () => {
   }
 
   return (
-    <div className="min-h-screen bg-white/90 backdrop-blur-sm">
+    <div className="min-h-screen">
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-12">
@@ -75,7 +75,7 @@ const Promotions = () => {
         </div>
 
         {/* Filters */}
-        <div className="bg-white/95 backdrop-blur-sm rounded-xl shadow-lg p-6 mb-8">
+        <div className="card-splat p-6 mb-8">
           <div className="flex items-center gap-2 mb-4">
             <Filter className="w-5 h-5 text-promo-yellow" />
             <h3 className="text-lg font-semibold text-promo-black">Filtros</h3>
@@ -89,20 +89,20 @@ const Promotions = () => {
               </label>
               <div className="flex flex-wrap gap-2">
                 <Button
-                  variant={selectedCategory === null ? "default" : "outline"}
+                  variant="ghost"
                   size="sm"
                   onClick={() => setSelectedCategory(null)}
-                  className={selectedCategory === null ? "bg-promo-yellow text-promo-black hover:bg-yellow-400" : ""}
+                  className={selectedCategory === null ? "btn-splat" : "btn-splat opacity-60"}
                 >
                   Todas
                 </Button>
                 {getUniqueCategories().map((category) => (
                   <Button
                     key={category}
-                    variant={selectedCategory === category ? "default" : "outline"}
+                    variant="ghost"
                     size="sm"
                     onClick={() => setSelectedCategory(category)}
-                    className={selectedCategory === category ? "bg-promo-yellow text-promo-black hover:bg-yellow-400" : ""}
+                    className={selectedCategory === category ? "btn-splat" : "btn-splat opacity-60"}
                   >
                     {category}
                   </Button>
@@ -117,20 +117,20 @@ const Promotions = () => {
               </label>
               <div className="flex flex-wrap gap-2">
                 <Button
-                  variant={selectedBrand === null ? "default" : "outline"}
+                  variant="ghost"
                   size="sm"
                   onClick={() => setSelectedBrand(null)}
-                  className={selectedBrand === null ? "bg-promo-yellow text-promo-black hover:bg-yellow-400" : ""}
+                  className={selectedBrand === null ? "btn-splat" : "btn-splat opacity-60"}
                 >
                   Todas
                 </Button>
                 {brands?.map((brand) => (
                   <Button
                     key={brand.id}
-                    variant={selectedBrand === brand.id ? "default" : "outline"}
+                    variant="ghost"
                     size="sm"
                     onClick={() => setSelectedBrand(brand.id)}
-                    className={selectedBrand === brand.id ? "bg-promo-yellow text-promo-black hover:bg-yellow-400" : ""}
+                    className={selectedBrand === brand.id ? "btn-splat" : "btn-splat opacity-60"}
                   >
                     {brand.name}
                   </Button>
@@ -146,7 +146,7 @@ const Promotions = () => {
             const brand = getBrand(promotion.brandId);
             return (
               <Link key={promotion.id} href={`/promociones/${promotion.slug}`} data-testid={`link-promotion-${promotion.slug}`}>
-                <Card className="group overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-white/95 backdrop-blur-sm border-2 hover:border-promo-yellow cursor-pointer">
+                <Card className="group overflow-hidden card-splat cursor-pointer bg-promo-yellow/95 backdrop-blur-sm">
                   <CardHeader className="pb-4">
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
