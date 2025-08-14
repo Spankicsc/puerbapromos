@@ -569,15 +569,10 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: "/attached_assets/processed/trasera vainilla angry birds go_1755145664056_processed.png",
       wrapperPhotosUrls: [
         "/attached_assets/trasera vainilla angry birds go_1755145664056.JPG",
-        "/attached_assets/rotated/Cajeta angry birds Go_1755148526402_rotated.png",
         "/attached_assets/rotated/Cajeta angry birds Go_1755150784761_rotated.png",
-        "/attached_assets/rotated/Chocolate angry birds Go_1755148526403_rotated.png",
         "/attached_assets/rotated/Chocolate angry birds Go_1755150784758_rotated.png"
       ],
-      promotionImagesUrls: [
-        "/attached_assets/rotated/Cajeta angry birds Go_1755148526402_rotated.png",
-        "/attached_assets/rotated/Chocolate angry birds Go_1755148526403_rotated.png"
-      ],
+      promotionImagesUrls: null,
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
       createdAt: new Date(),
@@ -598,16 +593,11 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: "/attached_assets/processed/Trasera Bob esponja 2012_1755145664205_processed.png",
       wrapperPhotosUrls: [
         "/attached_assets/Trasera Bob esponja 2012_1755145664205.JPG",
-        "/attached_assets/rotated/Bob esponja 2012 Cajeta frontal_1755148526401_rotated.png",
         "/attached_assets/rotated/Bob esponja 2012 Cajeta frontal_1755150784760_rotated.png",
-        "/attached_assets/rotated/Bob esponja 2012 vainilla frontal_1755148526401_rotated.png",
         "/attached_assets/rotated/Bob esponja 2012 vainilla frontal_1755150784760_rotated.png",
         "/attached_assets/rotated/Frontal bob esponja 2012 chocolate_1755149294898_rotated.png"
       ],
-      promotionImagesUrls: [
-        "/attached_assets/rotated/Bob esponja 2012 Cajeta frontal_1755148526401_rotated.png",
-        "/attached_assets/rotated/Bob esponja 2012 vainilla frontal_1755148526401_rotated.png"
-      ],
+      promotionImagesUrls: null,
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
       createdAt: new Date(),
@@ -627,7 +617,7 @@ export class MemStorage implements IStorage {
       category: "figuras",
       wrapperPhotoUrl: "/attached_assets/processed/Ecoinvasores trasera cajeta_1755145664202_processed.png",
       wrapperPhotosUrls: null,
-      promotionImagesUrls: [],
+      promotionImagesUrls: null,
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
       createdAt: new Date(),
@@ -667,10 +657,7 @@ export class MemStorage implements IStorage {
       category: "figuras",
       wrapperPhotoUrl: "/attached_assets/processed/Trasera chocolate cartoon network 2018_1755145664206_processed.png",
       wrapperPhotosUrls: null,
-      promotionImagesUrls: [
-        "/attached_assets/rotated/Cartoon network chocolate_1755148526403_rotated.png",
-        "/attached_assets/rotated/Chocolate Cartoon network_1755148526404_rotated.png"
-      ],
+      promotionImagesUrls: null,
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
       createdAt: new Date(),
@@ -690,7 +677,7 @@ export class MemStorage implements IStorage {
       category: "diseños",
       wrapperPhotoUrl: "/attached_assets/processed/Trasera corazones 2017 chocolate_1755145664206_processed.png",
       wrapperPhotosUrls: null,
-      promotionImagesUrls: [],
+      promotionImagesUrls: null,
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
       createdAt: new Date(),
@@ -710,7 +697,7 @@ export class MemStorage implements IStorage {
       category: "figuras",
       wrapperPhotoUrl: "/attached_assets/processed/Trasera la era del hielo 2012 chocolate_1755145664207_processed.png",
       wrapperPhotosUrls: null,
-      promotionImagesUrls: [],
+      promotionImagesUrls: null,
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
       createdAt: new Date(),
@@ -730,9 +717,7 @@ export class MemStorage implements IStorage {
       category: "figuras",
       wrapperPhotoUrl: "/attached_assets/processed/trasera cajeta funki punky xtremo 2011_1755145664205_processed.png",
       wrapperPhotosUrls: null,
-      promotionImagesUrls: [
-        "/attached_assets/rotated/Cajeta funki punky extremo_1755148526402_rotated.png"
-      ],
+      promotionImagesUrls: null,
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
       createdAt: new Date(),

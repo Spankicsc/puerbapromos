@@ -267,9 +267,10 @@ const Promotion = () => {
           </div>
         </div>
 
-        {/* Buffet Games Video Section */}
-        {promotion.buffetGamesVideoUrl && (
-          <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
+        {/* Grid Layout for Videos */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+          {/* Buffet Games Video Section - Always Show */}
+          <div className="bg-white rounded-xl shadow-lg overflow-hidden">
             <div className="p-6">
               <h3 className="text-xl font-bold text-promo-black mb-4 flex items-center">
                 <img 
@@ -279,19 +280,57 @@ const Promotion = () => {
                 />
                 Video Explicativo de Buffet Games
               </h3>
-              <div className="aspect-video">
-                <iframe
-                  src={promotion.buffetGamesVideoUrl.replace('watch?v=', 'embed/')}
-                  title={`Video explicativo de ${promotion.name} por Buffet Games`}
-                  className="w-full h-full rounded-lg"
-                  frameBorder="0"
-                  allowFullScreen
-                  data-testid="iframe-buffet-games-video"
-                />
+              {promotion.buffetGamesVideoUrl ? (
+                <div className="aspect-video">
+                  <iframe
+                    src={promotion.buffetGamesVideoUrl.replace('watch?v=', 'embed/')}
+                    title={`Video explicativo de ${promotion.name} por Buffet Games`}
+                    className="w-full h-full rounded-lg"
+                    frameBorder="0"
+                    allowFullScreen
+                    data-testid="iframe-buffet-games-video"
+                  />
+                </div>
+              ) : (
+                <div className="aspect-video bg-gray-100 rounded-lg flex items-center justify-center">
+                  <div className="text-center text-gray-500">
+                    <img 
+                      src="/attached_assets/IMG_7040_1755142054930.PNG" 
+                      alt="Buffet Games" 
+                      className="w-12 h-12 mx-auto mb-2 opacity-50 object-contain"
+                    />
+                    <p>Video de Buffet Games no disponible</p>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Additional Content Slot */}
+          <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+            <div className="p-6">
+              <h3 className="text-xl font-bold text-promo-black mb-4">
+                Información Adicional
+              </h3>
+              <div className="text-gray-600">
+                <p className="mb-4">
+                  Esta promoción forma parte del rico patrimonio de coleccionables mexicanos 
+                  que han marcado generaciones enteras.
+                </p>
+                <div className="space-y-2">
+                  <div className="flex items-center space-x-2">
+                    <span className="text-yellow-600">📅</span>
+                    <span>Año: {promotion.startYear}{promotion.endYear ? `-${promotion.endYear}` : ''}</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <span className="text-yellow-600">🏷️</span>
+                    <span className="capitalize">Categoría: {promotion.category}</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        )}
+        </div>
 
         {/* Promotion Images Gallery */}
         {promotion.promotionImagesUrls && Array.isArray(promotion.promotionImagesUrls) && promotion.promotionImagesUrls.length > 0 && (

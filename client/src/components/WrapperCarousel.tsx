@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { ChevronLeft, ChevronRight, X, Package } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTrigger, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 
 interface WrapperCarouselProps {
   wrapperPhotos: string[] | null;
@@ -112,13 +112,19 @@ export function WrapperCarousel({ wrapperPhotos, promotionName }: WrapperCarouse
         </div>
       )}
 
-      {/* Full Screen Modal */}
+      {/* Full Screen Modal with Navigation */}
       <Dialog open={selectedImage !== null} onOpenChange={() => setSelectedImage(null)}>
         <DialogContent 
-          className="max-w-4xl max-h-[90vh] bg-black/95 border-yellow-400/50 p-0"
+          className="max-w-6xl max-h-[95vh] bg-black/95 border-yellow-400/50 p-0"
           data-testid="fullscreen-modal"
         >
+          <DialogTitle className="sr-only">Vista ampliada de envoltura</DialogTitle>
+          <DialogDescription className="sr-only">
+            Imagen ampliada de la envoltura promocional de {promotionName}
+          </DialogDescription>
+          
           <div className="relative">
+            {/* Close Button */}
             <button
               onClick={() => setSelectedImage(null)}
               className="absolute top-4 right-4 z-10 p-2 bg-black/80 text-yellow-400 rounded-full hover:bg-yellow-400 hover:text-black transition-colors"
@@ -126,19 +132,59 @@ export function WrapperCarousel({ wrapperPhotos, promotionName }: WrapperCarouse
             >
               <X className="w-6 h-6" />
             </button>
+            
+            {/* Navigation in Modal */}
+            {wrapperPhotos && wrapperPhotos.length > 1 && (
+              <>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-black/80 border-yellow-400/50 text-yellow-400 hover:bg-yellow-400 hover:text-black"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    const newIndex = (currentIndex - 1 + wrapperPhotos.length) % wrapperPhotos.length;
+                    setCurrentIndex(newIndex);
+                    setSelectedImage(wrapperPhotos[newIndex]);
+                  }}
+                  data-testid="modal-prev"
+                >
+                  <ChevronLeft className="w-6 h-6" />
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="absolute right-16 top-1/2 -translate-y-1/2 z-10 bg-black/80 border-yellow-400/50 text-yellow-400 hover:bg-yellow-400 hover:text-black"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    const newIndex = (currentIndex + 1) % wrapperPhotos.length;
+                    setCurrentIndex(newIndex);
+                    setSelectedImage(wrapperPhotos[newIndex]);
+                  }}
+                  data-testid="modal-next"
+                >
+                  <ChevronRight className="w-6 h-6" />
+                </Button>
+              </>
+            )}
+            
             {selectedImage && (
-              <div className="p-4">
+              <div className="p-6">
                 <img
                   src={selectedImage}
                   alt={`Envoltura de ${promotionName}`}
-                  className="w-full h-auto max-h-[80vh] object-contain mx-auto"
+                  className="w-full h-auto max-h-[75vh] object-contain mx-auto"
                 />
-                <div className="mt-4 text-center">
-                  <h3 className="text-xl font-bold text-yellow-400 mb-2">
+                <div className="mt-6 text-center">
+                  <h3 className="text-2xl font-bold text-yellow-400 mb-2">
                     Envoltura Original - {promotionName}
                   </h3>
+                  {wrapperPhotos && wrapperPhotos.length > 1 && (
+                    <p className="text-yellow-400/60 text-sm mb-2">
+                      {currentIndex + 1} de {wrapperPhotos.length}
+                    </p>
+                  )}
                   <p className="text-yellow-400/80 text-sm">
-                    Imagen auténtica de la envoltura promocional. Haz clic para cerrar.
+                    Imagen auténtica de la envoltura promocional. Use las flechas para navegar.
                   </p>
                 </div>
               </div>
