@@ -1059,25 +1059,6 @@ export class MemStorage implements IStorage {
     };
     this.promotions.set(cartoonNetwork.id, cartoonNetwork);
 
-    // Teen Titans GO 2020
-    const teenTitans: Promotion = {
-      id: randomUUID(),
-      brandId: vuala.id,
-      name: "Teen Titans GO!",
-      slug: "teen-titans-go-2020",
-      description: "20 piezas divididas en: 5 cabezas con stickers, 10 figuras con stickers y 5 llaveros con stickers de Robin, Starfire, Raven, Cyborg y Chico Bestia.",
-      imageUrl: null,
-      startYear: 2020,
-      endYear: 2020,
-      category: "figuras",
-      wrapperPhotoUrl: null,
-      promotionImagesUrls: null,
-      youtubeCommercialUrl: null,
-      buffetGamesVideoUrl: null,
-      createdAt: new Date(),
-    };
-    this.promotions.set(teenTitans.id, teenTitans);
-
     // Steven Universe 2020-2021
     const stevenUniverse: Promotion = {
       id: randomUUID(),
@@ -1352,6 +1333,248 @@ export class MemStorage implements IStorage {
       createdAt: new Date(),
     };
     this.promotions.set(bobEsponja2024.id, bobEsponja2024);
+
+    // Nuevas promociones de Vualá 2024
+    const teenTitans: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Teen Titans",
+      slug: "teen-titans",
+      description: "Promoción especial de Teen Titans con helados de vainilla. Los jóvenes superhéroes llegaron a México con los deliciosos sabores de Vualá.",
+      imageUrl: null,
+      wrapperPhotoUrl: "/attached_assets/rotated/Teen titans vainilla version 1_1755149294895_rotated.png",
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      startYear: 2005,
+      endYear: 2005,
+      category: "figuras",
+      createdAt: new Date(),
+    };
+    this.promotions.set(teenTitans.id, teenTitans);
+
+    const reyesDeLasOlas: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Reyes de las Olas",
+      slug: "reyes-de-las-olas",
+      description: "Promoción acuática Reyes de las Olas con helados de chocolate. Una aventura marina con personajes únicos y sabores refrescantes de Vualá.",
+      imageUrl: null,
+      wrapperPhotoUrl: "/attached_assets/rotated/Chocolate frontalreyes de las olas_1755149294895_rotated.png",
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      startYear: 2006,
+      endYear: 2006,
+      category: "figuras",
+      createdAt: new Date(),
+    };
+    this.promotions.set(reyesDeLasOlas.id, reyesDeLasOlas);
+
+    const danceMania2008: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Dance Mania 2008",
+      slug: "dance-mania-2008",
+      description: "La fiebre del baile llegó a Vualá con Dance Mania 2008. Helados de vainilla y chocolate con temática musical que pusieron a bailar a toda la familia.",
+      imageUrl: null,
+      wrapperPhotoUrl: "/attached_assets/rotated/Dance mania 2008 vainilla frontal_1755149294896_rotated.png",
+      promotionImagesUrls: [
+        "/attached_assets/rotated/Dance mania 2008 vainilla frontal_1755149294896_rotated.png",
+        "/attached_assets/rotated/Dancemania 2008 frontal chocolate_1755149294896_rotated.png"
+      ],
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      startYear: 2008,
+      endYear: 2008,
+      category: "figuras",
+      createdAt: new Date(),
+    };
+    this.promotions.set(danceMania2008.id, danceMania2008);
+
+    const chavoChavitops: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "El Chavo Chavitops",
+      slug: "chavo-chavitops",
+      description: "El Chavo del 8 llegó a Vualá con Chavitops, helados de chocolate que combinaban la nostalgia del personaje más querido de México con sabores irresistibles.",
+      imageUrl: null,
+      wrapperPhotoUrl: "/attached_assets/rotated/el chavo chavitops chocolate_1755149294896_rotated.png",
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      startYear: 2010,
+      endYear: 2010,
+      category: "figuras",
+      createdAt: new Date(),
+    };
+    this.promotions.set(chavoChavitops.id, chavoChavitops);
+
+    const chavoMini2015: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "El Chavo Mini 2015",
+      slug: "chavo-mini-2015",
+      description: "La versión mini del Chavo del 8 con helados de vainilla y chocolate. Una edición especial que celebraba al personaje icónico con formato familiar.",
+      imageUrl: null,
+      wrapperPhotoUrl: "/attached_assets/rotated/El chavo mini 2015 vainilla_1755149294897_rotated.png",
+      promotionImagesUrls: [
+        "/attached_assets/rotated/El chavo mini 2015 vainilla_1755149294897_rotated.png",
+        "/attached_assets/rotated/el chavo mini 2015 vainilla (2)_1755149294897_rotated.png",
+        "/attached_assets/rotated/El chavo mini chocolate_1755149294897_rotated.png"
+      ],
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      startYear: 2015,
+      endYear: 2015,
+      category: "figuras",
+      createdAt: new Date(),
+    };
+    this.promotions.set(chavoMini2015.id, chavoMini2015);
+
+    const fonomania2008: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Fonomania 2008",
+      slug: "fonomania-2008",
+      description: "Promoción musical Fonomania 2008 con helados de chocolate. La música y los helados se unieron en una experiencia única para los amantes del sonido.",
+      imageUrl: null,
+      wrapperPhotoUrl: "/attached_assets/rotated/Fonomania 2008 frontal chocolate_1755149294898_rotated.png",
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      startYear: 2008,
+      endYear: 2008,
+      category: "figuras",
+      createdAt: new Date(),
+    };
+    this.promotions.set(fonomania2008.id, fonomania2008);
+
+    const horaDeAventura2018: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Hora de Aventura 2018",
+      slug: "hora-de-aventura-2018",
+      description: "¡Hora de aventura matemática! Los personajes de Cartoon Network llegaron a Vualá con helados de chocolate para vivir aventuras épicas en la Tierra de Ooo.",
+      imageUrl: null,
+      wrapperPhotoUrl: "/attached_assets/rotated/Frontal chocolate hora de aventura 2018_1755149294899_rotated.png",
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      startYear: 2018,
+      endYear: 2018,
+      category: "figuras",
+      createdAt: new Date(),
+    };
+    this.promotions.set(horaDeAventura2018.id, horaDeAventura2018);
+
+    const losSimpsons2008: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Los Simpsons 2008",
+      slug: "simpsons-2008",
+      description: "La familia amarilla más famosa del mundo llegó a Vualá. Helados de chocolate con los personajes de Springfield que conquistaron corazones mexicanos.",
+      imageUrl: null,
+      wrapperPhotoUrl: "/attached_assets/rotated/Los simpson 2008 chocolate frontal_1755149294899_rotated.png",
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      startYear: 2008,
+      endYear: 2008,
+      category: "figuras",
+      createdAt: new Date(),
+    };
+    this.promotions.set(losSimpsons2008.id, losSimpsons2008);
+
+    const minions: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Minions",
+      slug: "minions",
+      description: "¡Banana! Los adorables Minions invadieron los helados Vualá con sabor a chocolate. Una promoción que desató la minionmanía en México.",
+      imageUrl: null,
+      wrapperPhotoUrl: "/attached_assets/rotated/minions chocolate_1755149294899_rotated.png",
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      startYear: 2015,
+      endYear: 2015,
+      category: "figuras",
+      createdAt: new Date(),
+    };
+    this.promotions.set(minions.id, minions);
+
+    const pinkiPowPunks2020: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Pinki Pow Punks Funki Tubers 2020",
+      slug: "pinki-pow-punks-2020",
+      description: "La promoción más moderna de Vualá con Pinki Pow Punks Funki Tubers. Helados de vainilla con personajes únicos que conectaron con la nueva generación.",
+      imageUrl: null,
+      wrapperPhotoUrl: "/attached_assets/rotated/Pinki pow punks funki tubers vainilla 2020_1755149294899_rotated.png",
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      startYear: 2020,
+      endYear: 2020,
+      category: "figuras",
+      createdAt: new Date(),
+    };
+    this.promotions.set(pinkiPowPunks2020.id, pinkiPowPunks2020);
+
+    const tattomania2003: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Tattomania 2003",
+      slug: "tattomania-2003",
+      description: "Promoción vintage Tattomania 2003 con helados de chocolate. Una época dorada donde los tatuajes temporales y los helados crearon una combinación perfecta.",
+      imageUrl: null,
+      wrapperPhotoUrl: "/attached_assets/rotated/Tattomania 2003 chocolate_1755149294900_rotated.png",
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      startYear: 2003,
+      endYear: 2003,
+      category: "tatuajes",
+      createdAt: new Date(),
+    };
+    this.promotions.set(tattomania2003.id, tattomania2003);
+
+    const bobEsponja2012Chocolate: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Bob Esponja 2012 Chocolate",
+      slug: "bob-esponja-2012-chocolate",
+      description: "Edición especial de Bob Esponja con helados de chocolate. El personaje de Nickelodeon que conquistó los corazones mexicanos con sabores únicos de Vualá.",
+      imageUrl: null,
+      wrapperPhotoUrl: "/attached_assets/rotated/Frontal bob esponja 2012 chocolate_1755149294898_rotated.png",
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      startYear: 2012,
+      endYear: 2012,
+      category: "figuras",
+      createdAt: new Date(),
+    };
+    this.promotions.set(bobEsponja2012Chocolate.id, bobEsponja2012Chocolate);
+
+    const funkiPunkyExtremoChocolate: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Funki Punky Extremo Chocolate",
+      slug: "funki-punky-extremo-chocolate",
+      description: "Versión de chocolate de la colección Funki Punky Extremo. Los stickers más radicales de México llegaron a los helados con sabores intensos.",
+      imageUrl: null,
+      wrapperPhotoUrl: "/attached_assets/rotated/Funki punky extremo chocolate_1755149294899_rotated.png",
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      startYear: 2011,
+      endYear: 2011,
+      category: "figuras",
+      createdAt: new Date(),
+    };
+    this.promotions.set(funkiPunkyExtremoChocolate.id, funkiPunkyExtremoChocolate);
     
     // Add some sample items for the first few promotions
     const europaItem1: PromotionItem = {
