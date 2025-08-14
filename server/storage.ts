@@ -288,7 +288,7 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: "/attached_assets/rotated/Chocolate frontal spiderman 3_1755148526399_rotated.png",
       wrapperPhotosUrls: [
         "/attached_assets/rotated/Chocolate frontal spiderman 3_1755148526399_rotated.png",
-        "/attached_assets/rotated/Chocolate conexion alien 2004 frontal_1755148526404_rotated.png"
+        "/attached_assets/rotated/Vainilla  frontal spiderman 3_1755152265577_rotated.png"
       ],
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
@@ -555,6 +555,29 @@ export class MemStorage implements IStorage {
     };
     this.promotions.set(futbolHuevos.id, futbolHuevos);
 
+    // Vive el Fútbol con Huevos 2010 - AUTHENTIC WRAPPER DATA
+    const viveElFutbol2010: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Vive el Fútbol con Huevos 2010",
+      slug: "vive-el-futbol-con-huevos-2010",
+      description: "En 2010, Vualá lanzó una promoción especial de 'Vive el Fútbol con Huevos', celebrando la pasión por el fútbol con los divertidos personajes de huevos. Esta colección presentaba croissants en sabores de vainilla y chocolate con envolturas exclusivas que mostraban a los personajes futbolistas en acción. Los fanáticos del fútbol podían coleccionar las envolturas con diseños únicos que combinaban el humor de los personajes con la emoción del fútbol.",
+      imageUrl: "/attached_assets/rotated/vive el futbol con huevos 2010 frontal vainilla_1755152265576_rotated.png",
+      startYear: 2010,
+      endYear: 2010,
+      category: "figuras",
+      wrapperPhotoUrl: "/attached_assets/rotated/vive el futbol con huevos 2010 frontal vainilla_1755152265576_rotated.png",
+      wrapperPhotosUrls: [
+        "/attached_assets/rotated/vive el futbol con huevos 2010 frontal vainilla_1755152265576_rotated.png",
+        "/attached_assets/rotated/Vive el futbol con huevos 2010 frontal chocolate_1755152265579_rotated.png"
+      ],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      createdAt: new Date(),
+    };
+    this.promotions.set(viveElFutbol2010.id, viveElFutbol2010);
+
     // Angry Birds Go 2012 - AUTHENTIC WRAPPER DATA
     const angryBirdsGo: Promotion = {
       id: randomUUID(),
@@ -569,7 +592,8 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: "/attached_assets/processed/trasera vainilla angry birds go_1755145664056_processed.png",
       wrapperPhotosUrls: [
         "/attached_assets/trasera vainilla angry birds go_1755145428099.JPG",
-        "/attached_assets/trasera vainilla angry birds go_1755145664056.JPG"
+        "/attached_assets/trasera vainilla angry birds go_1755145664056.JPG",
+        "/attached_assets/rotated/vainilla angry birds GO_1755152265578_rotated.png"
       ],
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
@@ -732,7 +756,8 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: "/attached_assets/processed/trasera cajeta funki punky xtremo 2011_1755145664205_processed.png",
       wrapperPhotosUrls: [
         "/attached_assets/trasera cajeta funki punky xtremo 2011_1755145428102.JPG",
-        "/attached_assets/trasera cajeta funki punky xtremo 2011_1755145664205.JPG"
+        "/attached_assets/trasera cajeta funki punky xtremo 2011_1755145664205.JPG",
+        "/attached_assets/rotated/vainilla funki punky extremo_1755152265578_rotated.png"
       ],
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
@@ -1025,7 +1050,10 @@ export class MemStorage implements IStorage {
       endYear: 2014,
       category: "llaveros",
       wrapperPhotoUrl: "/attached_assets/rotated/Cajeta tortugas ninja_1755148526403_rotated.png",
-      wrapperPhotosUrls: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/rotated/Cajeta tortugas ninja_1755148526403_rotated.png",
+        "/attached_assets/rotated/vainilla tortugas ninja_1755152265579_rotated.png"
+      ],
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
@@ -1453,7 +1481,8 @@ export class MemStorage implements IStorage {
         "/attached_assets/rotated/bob esponja 2024 cajeta frontal_1755148526401_rotated.png",
         "/attached_assets/rotated/bob esponja 2024 cajeta frontal_1755150784761_rotated.png",
         "/attached_assets/rotated/Bob esponja 2024 piña frontal_1755148526402_rotated.png",
-        "/attached_assets/rotated/Bob esponja 2024 piña frontal_1755150784761_rotated.png"
+        "/attached_assets/rotated/Bob esponja 2024 piña frontal_1755150784761_rotated.png",
+        "/attached_assets/rotated/Vainilla bob esponja 2024_1755152265578_rotated.png"
       ],
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
