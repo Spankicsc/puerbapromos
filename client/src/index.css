@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(0 0% 100%);
+  --foreground: hsl(0 0% 0%);
+  --card: hsl(0 0% 100%);
+  --card-foreground: hsl(0 0% 0%);
+  --popover: hsl(0 0% 100%);
+  --popover-foreground: hsl(0 0% 0%);
+  --primary: hsl(51 100% 50%);
+  --primary-foreground: hsl(0 0% 0%);
+  --secondary: hsl(0 0% 0%);
+  --secondary-foreground: hsl(0 0% 100%);
+  --muted: hsl(0 0% 96%);
+  --muted-foreground: hsl(0 0% 45%);
+  --accent: hsl(51 100% 95%);
+  --accent-foreground: hsl(0 0% 0%);
+  --destructive: hsl(0 84% 60%);
+  --destructive-foreground: hsl(0 0% 100%);
+  --border: hsl(0 0% 90%);
+  --input: hsl(0 0% 96%);
+  --ring: hsl(51 100% 50%);
+  
+  --promo-yellow: hsl(51 100% 50%);
+  --promo-black: hsl(0 0% 0%);
+  --promo-cream: hsl(55 100% 95%);
+  --promo-gray: hsl(0 0% 96%);
+  
+  --font-sans: 'Inter', sans-serif;
+  --font-serif: Georgia, serif;
+  --font-mono: 'Fira Code', monospace;
+  --radius: 0.75rem;
+}
+
+.dark {
+  --background: hsl(0 0% 0%);
+  --foreground: hsl(0 0% 100%);
+  --card: hsl(0 0% 5%);
+  --card-foreground: hsl(0 0% 100%);
+  --popover: hsl(0 0% 0%);
+  --popover-foreground: hsl(0 0% 100%);
+  --primary: hsl(51 100% 50%);
+  --primary-foreground: hsl(0 0% 0%);
+  --secondary: hsl(0 0% 10%);
+  --secondary-foreground: hsl(0 0% 100%);
+  --muted: hsl(0 0% 10%);
+  --muted-foreground: hsl(0 0% 65%);
+  --accent: hsl(51 100% 10%);
+  --accent-foreground: hsl(51 100% 50%);
+  --destructive: hsl(0 84% 60%);
+  --destructive-foreground: hsl(0 0% 100%);
+  --border: hsl(0 0% 15%);
+  --input: hsl(0 0% 10%);
+  --ring: hsl(51 100% 50%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+    font-family: var(--font-sans);
+  }
+}
+
+@layer utilities {
+  .text-promo-yellow {
+    color: var(--promo-yellow);
+  }
+  
+  .text-promo-black {
+    color: var(--promo-black);
+  }
+  
+  .bg-promo-yellow {
+    background-color: var(--promo-yellow);
+  }
+  
+  .bg-promo-black {
+    background-color: var(--promo-black);
+  }
+  
+  .bg-promo-cream {
+    background-color: var(--promo-cream);
+  }
+  
+  .bg-promo-gray {
+    background-color: var(--promo-gray);
+  }
+  
+  .border-promo-yellow {
+    border-color: var(--promo-yellow);
+  }
+  
+  .hover\:bg-promo-yellow:hover {
+    background-color: var(--promo-yellow);
+  }
+  
+  .hover\:text-promo-black:hover {
+    color: var(--promo-black);
+  }
+}
