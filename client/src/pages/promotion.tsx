@@ -1,3 +1,4 @@
+import React from "react";
 import { useParams } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft, Calendar, Tag, Package } from "lucide-react";

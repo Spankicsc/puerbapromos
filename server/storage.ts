@@ -389,7 +389,10 @@ export class MemStorage implements IStorage {
       endYear: 2009,
       category: "juguetes",
       wrapperPhotoUrl: "/attached_assets/rotated/bob espona en movimiento 2009 frontal cajeta_1755148526401_rotated.png",
-      wrapperPhotosUrls: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/rotated/bob espona en movimiento 2009 frontal cajeta_1755148526401_rotated.png",
+        "/attached_assets/rotated/bob espona en movimiento 2009 frontal cajeta_1755150784760_rotated.png"
+      ],
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
@@ -567,7 +570,9 @@ export class MemStorage implements IStorage {
       wrapperPhotosUrls: [
         "/attached_assets/trasera vainilla angry birds go_1755145664056.JPG",
         "/attached_assets/rotated/Cajeta angry birds Go_1755148526402_rotated.png",
-        "/attached_assets/rotated/Chocolate angry birds Go_1755148526403_rotated.png"
+        "/attached_assets/rotated/Cajeta angry birds Go_1755150784761_rotated.png",
+        "/attached_assets/rotated/Chocolate angry birds Go_1755148526403_rotated.png",
+        "/attached_assets/rotated/Chocolate angry birds Go_1755150784758_rotated.png"
       ],
       promotionImagesUrls: [
         "/attached_assets/rotated/Cajeta angry birds Go_1755148526402_rotated.png",
@@ -594,7 +599,9 @@ export class MemStorage implements IStorage {
       wrapperPhotosUrls: [
         "/attached_assets/Trasera Bob esponja 2012_1755145664205.JPG",
         "/attached_assets/rotated/Bob esponja 2012 Cajeta frontal_1755148526401_rotated.png",
+        "/attached_assets/rotated/Bob esponja 2012 Cajeta frontal_1755150784760_rotated.png",
         "/attached_assets/rotated/Bob esponja 2012 vainilla frontal_1755148526401_rotated.png",
+        "/attached_assets/rotated/Bob esponja 2012 vainilla frontal_1755150784760_rotated.png",
         "/attached_assets/rotated/Frontal bob esponja 2012 chocolate_1755149294898_rotated.png"
       ],
       promotionImagesUrls: [
@@ -912,6 +919,8 @@ export class MemStorage implements IStorage {
     };
     this.promotions.set(plantasZombies2013.id, plantasZombies2013);
 
+
+
     // El Show de los Looney Tunes 2013
     const looneyTunes: Promotion = {
       id: randomUUID(),
@@ -1119,12 +1128,17 @@ export class MemStorage implements IStorage {
       name: "Cartoon Network",
       slug: "cartoon-network-2019",
       description: "18 figuras 2D de personajes icónicos como Steven Universe, Gumball, Johnny Bravo, Dexter, Jake el Perro, las Chicas Superpoderosas y Ben 10. Cada figura con calcomanía.",
-      imageUrl: null,
+      imageUrl: "/attached_assets/rotated/Cartoon network chocolate_1755150784757_rotated.png",
       startYear: 2019,
       endYear: 2020,
       category: "figuras",
-      wrapperPhotoUrl: null,
-      wrapperPhotosUrls: null,
+      wrapperPhotoUrl: "/attached_assets/rotated/Cartoon network chocolate_1755150784757_rotated.png",
+      wrapperPhotosUrls: [
+        "/attached_assets/rotated/Cartoon network chocolate_1755148526403_rotated.png",
+        "/attached_assets/rotated/Cartoon network chocolate_1755150784757_rotated.png",
+        "/attached_assets/rotated/Chocolate Cartoon network_1755148526404_rotated.png",
+        "/attached_assets/rotated/Chocolate Cartoon network_1755150784758_rotated.png"
+      ],
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
@@ -1338,14 +1352,16 @@ export class MemStorage implements IStorage {
       brandId: vuala.id,
       name: "Avengers Collection",
       slug: "avengers-collection",
-      description: "Colección especial de los Vengadores con helados de cajeta y vainilla. Una promoción que celebraba a los superhéroes más populares de Marvel con sabores únicos de Vualá.",
-      imageUrl: null,
-      wrapperPhotoUrl: "/attached_assets/rotated/Avengers vainilla_1755148526400_rotated.png",
-      wrapperPhotosUrls: null,
-      promotionImagesUrls: [
+      description: "Los héroes más poderosos de la Tierra llegaron a México con esta espectacular promoción de croissants Avengers. Con sabores de cajeta y vainilla, los niños pudieron coleccionar las envolturas con sus superhéroes favoritos como Iron Man, Capitán América, Thor y Hulk. Una colaboración épica entre Marvel y Vualá que conquistó a toda una generación de pequeños fans de los vengadores.",
+      imageUrl: "/attached_assets/rotated/Avengers vainilla_1755150784760_rotated.png",
+      wrapperPhotoUrl: "/attached_assets/rotated/Avengers cajeta_1755150784759_rotated.png",
+      wrapperPhotosUrls: [
         "/attached_assets/rotated/Avengers cajeta_1755148526400_rotated.png",
-        "/attached_assets/rotated/Avengers vainilla_1755148526400_rotated.png"
+        "/attached_assets/rotated/Avengers cajeta_1755150784759_rotated.png",
+        "/attached_assets/rotated/Avengers vainilla_1755148526400_rotated.png",
+        "/attached_assets/rotated/Avengers vainilla_1755150784760_rotated.png"
       ],
+      promotionImagesUrls: null,
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
       startYear: 2012,
@@ -1364,11 +1380,13 @@ export class MemStorage implements IStorage {
       description: "Promoción ecológica de Ecolokitos con helados de cajeta y chocolate, promoviendo el cuidado del medio ambiente mientras disfrutas de los deliciosos sabores de Vualá.",
       imageUrl: null,
       wrapperPhotoUrl: "/attached_assets/rotated/Chocolate frontal ecolokitos_1755148526404_rotated.png",
-      wrapperPhotosUrls: null,
-      promotionImagesUrls: [
+      wrapperPhotosUrls: [
         "/attached_assets/rotated/Cajeta frontal ecolokitos_1755148526402_rotated.png",
-        "/attached_assets/rotated/Chocolate frontal ecolokitos_1755148526404_rotated.png"
+        "/attached_assets/rotated/Cajeta frontal ecolokitos_1755150784761_rotated.png",
+        "/attached_assets/rotated/Chocolate frontal ecolokitos_1755148526404_rotated.png",
+        "/attached_assets/rotated/Chocolate frontal ecolokitos_1755150784759_rotated.png"
       ],
+      promotionImagesUrls: null,
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
       startYear: 2015,
@@ -1398,33 +1416,38 @@ export class MemStorage implements IStorage {
     };
     this.promotions.set(conexionAlien2004.id, conexionAlien2004);
 
-    // Bob Esponja 2024
-    const bobEsponja2024: Promotion = {
+
+
+
+
+
+
+    // Bob Esponja 2024 - Enhanced
+    const bobEsponja2024Enhanced: Promotion = {
       id: randomUUID(),
       brandId: vuala.id,
       name: "Bob Esponja 2024",
-      slug: "bob-esponja-2024",
-      description: "La más reciente colección de Bob Esponja 2024 con sabores de cajeta y piña. Una celebración moderna del personaje más querido de Nickelodeon con los deliciosos helados Vualá.",
-      imageUrl: null,
-      wrapperPhotoUrl: "/attached_assets/rotated/bob esponja 2024 cajeta frontal_1755148526401_rotated.png",
-      wrapperPhotosUrls: [
-        "/attached_assets/rotated/bob esponja 2024 cajeta frontal_1755148526401_rotated.png",
-        "/attached_assets/rotated/Bob esponja 2024 piña frontal_1755148526402_rotated.png"
-      ],
-      promotionImagesUrls: [
-        "/attached_assets/rotated/bob esponja 2024 cajeta frontal_1755148526401_rotated.png",
-        "/attached_assets/rotated/Bob esponja 2024 piña frontal_1755148526402_rotated.png"
-      ],
-      youtubeCommercialUrl: null,
-      buffetGamesVideoUrl: null,
+      slug: "bob-esponja-2024-enhanced",
+      description: "El regreso triunfal de Bob Esponja a los croissants Vualá en 2024, con nuevos sabores incluyendo piña y cajeta. Esta colección moderna mantiene el encanto clásico de los personajes de Fondo de Bikini mientras introduce sabores frescos para una nueva generación de fans. Los croissants presentan diseños actualizados de Bob Esponja, manteniendo la tradición de envolturas coleccionables que han caracterizado a las promociones de Vualá durante décadas.",
+      imageUrl: "/attached_assets/rotated/Bob esponja 2024 piña frontal_1755150784761_rotated.png",
       startYear: 2024,
       endYear: 2024,
       category: "nickelodeon",
+      wrapperPhotoUrl: "/attached_assets/rotated/bob esponja 2024 cajeta frontal_1755150784761_rotated.png",
+      wrapperPhotosUrls: [
+        "/attached_assets/rotated/bob esponja 2024 cajeta frontal_1755148526401_rotated.png",
+        "/attached_assets/rotated/bob esponja 2024 cajeta frontal_1755150784761_rotated.png",
+        "/attached_assets/rotated/Bob esponja 2024 piña frontal_1755148526402_rotated.png",
+        "/attached_assets/rotated/Bob esponja 2024 piña frontal_1755150784761_rotated.png"
+      ],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
-    this.promotions.set(bobEsponja2024.id, bobEsponja2024);
+    this.promotions.set(bobEsponja2024Enhanced.id, bobEsponja2024Enhanced);
 
-    // Nuevas promociones de Vualá 2024
+    // Teen Titans
     const teenTitans: Promotion = {
       id: randomUUID(),
       brandId: vuala.id,
@@ -1795,6 +1818,7 @@ export class MemStorage implements IStorage {
       id, 
       imageUrl: insertPromotion.imageUrl ?? null,
       wrapperPhotoUrl: insertPromotion.wrapperPhotoUrl ?? null,
+      wrapperPhotosUrls: (insertPromotion.wrapperPhotosUrls as string[] | null) ?? null,
       promotionImagesUrls: insertPromotion.promotionImagesUrls ?? null,
       youtubeCommercialUrl: insertPromotion.youtubeCommercialUrl ?? null,
       buffetGamesVideoUrl: insertPromotion.buffetGamesVideoUrl ?? null,
