@@ -277,7 +277,7 @@ export class MemStorage implements IStorage {
       startYear: 2007,
       endYear: 2007,
       category: "colgantes",
-      wrapperPhotoUrl: null,
+      wrapperPhotoUrl: "@assets/rotated/Chocolate frontal spiderman 3_1755148526399_rotated.png",
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
@@ -367,12 +367,12 @@ export class MemStorage implements IStorage {
       brandId: vuala.id,
       name: "Bob Esponja en Movimiento",
       slug: "bob-esponja-movimiento",
-      description: "En abril de 2009, Vualá lanzó la promoción 'Bob Esponja en Movimiento', vigente del 5 de abril al 29 de mayo, en medio de una etapa complicada en México debido a la crisis de la influenza, lo que hizo que esta colección pasara casi desapercibida. La promoción ofrecía a los consumidores tres artículos promocionales: Stix: calcomanías con diseños de Bob Esponja y sus amigos. Lanzadiscos: cada paquete incluía un lanzador con un disco, un sticker decorativo y una bolsita. Este diseño se destacaba por ser inusual para las promociones de la época. Cupones canjeables: que ofrecían premios adicionales. Los lanzadiscos, aunque curiosos, no lograron captar la atención y pasaron desapercibidos. La presentación de la colección incluyó un logo colorido de Vualá con letras multicolores y un fondo naranja, marcando una desviación del diseño tradicional y buscando atraer a un público más infantil. Este diseño del rostro de Bob Esponja marcó una pauta para colecciones posteriores, aunque esta fue la única con el logo de letras de colores.",
+      description: "En abril de 2009, Vualá lanzó la promoción 'Bob Esponja en Movimiento', vigente del 5 de abril al 29 de mayo, en medio de una etapa complicada en México debido a la crisis de la influenza, lo que hizo que esta colección pasara casi desapercibida. La promoción ofrecía a los consumidores tres artículos promocionales: Stix: calcomanías con diseños de Bob Esponja y sus amigos. Lanzadiscos: cada paquete incluía un lanzador con un disco, un sticker decorativo y una bolsita. Este diseño se destacaba por ser inusual para las promociones de la época. Cupones canjeables: que ofrecían premios adicionales. Los lanzadiscos, aunque curiosos, no lograron captar la atención y pasaron desapercibidos. La presentación de la colección incluyó un logo colorido de Vualá con letras multicolores y un fondo naranja, marcando una desviación del diseño tradicional y buscando atraer a un público más infantil. Este diseño del rostro de Bob Esponja marcó una pauta for colecciones posteriores, aunque esta fue la única con el logo de letras de colores.",
       imageUrl: null,
       startYear: 2009,
       endYear: 2009,
       category: "juguetes",
-      wrapperPhotoUrl: null,
+      wrapperPhotoUrl: "@assets/rotated/bob espona en movimiento 2009 frontal cajeta_1755148526401_rotated.png",
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
@@ -528,7 +528,10 @@ export class MemStorage implements IStorage {
       endYear: 2012,
       category: "figuras",
       wrapperPhotoUrl: "/attached_assets/processed/trasera vainilla angry birds go_1755145664056_processed.png",
-      promotionImagesUrls: [],
+      promotionImagesUrls: [
+        "@assets/rotated/Cajeta angry birds Go_1755148526402_rotated.png",
+        "@assets/rotated/Chocolate angry birds Go_1755148526403_rotated.png"
+      ],
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
       createdAt: new Date(),
@@ -547,7 +550,10 @@ export class MemStorage implements IStorage {
       endYear: 2012,
       category: "figuras",
       wrapperPhotoUrl: "/attached_assets/processed/Trasera Bob esponja 2012_1755145664205_processed.png",
-      promotionImagesUrls: [],
+      promotionImagesUrls: [
+        "@assets/rotated/Bob esponja 2012 Cajeta frontal_1755148526401_rotated.png",
+        "@assets/rotated/Bob esponja 2012 vainilla frontal_1755148526401_rotated.png"
+      ],
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
       createdAt: new Date(),
@@ -604,7 +610,10 @@ export class MemStorage implements IStorage {
       endYear: 2018,
       category: "figuras",
       wrapperPhotoUrl: "/attached_assets/processed/Trasera chocolate cartoon network 2018_1755145664206_processed.png",
-      promotionImagesUrls: [],
+      promotionImagesUrls: [
+        "@assets/rotated/Cartoon network chocolate_1755148526403_rotated.png",
+        "@assets/rotated/Chocolate Cartoon network_1755148526404_rotated.png"
+      ],
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
       createdAt: new Date(),
@@ -661,7 +670,9 @@ export class MemStorage implements IStorage {
       endYear: 2011,
       category: "figuras",
       wrapperPhotoUrl: "/attached_assets/processed/trasera cajeta funki punky xtremo 2011_1755145664205_processed.png",
-      promotionImagesUrls: [],
+      promotionImagesUrls: [
+        "@assets/rotated/Cajeta funki punky extremo_1755148526402_rotated.png"
+      ],
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
       createdAt: new Date(),
@@ -926,7 +937,7 @@ export class MemStorage implements IStorage {
       startYear: 2014,
       endYear: 2014,
       category: "llaveros",
-      wrapperPhotoUrl: null,
+      wrapperPhotoUrl: "@assets/rotated/Cajeta tortugas ninja_1755148526403_rotated.png",
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
@@ -1237,6 +1248,110 @@ export class MemStorage implements IStorage {
       createdAt: new Date(),
     };
     this.promotions.set(angryBirds2023.id, angryBirds2023);
+
+    // Askistix 2004
+    const askistix2004: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Askistix 2004",
+      slug: "askistix-2004",
+      description: "Promoción de Askistix 2004 con deliciosos helados con sabor a chocolate. Una colección memorable que combinaba el sabor único de los helados Vualá con elementos promocionales especiales.",
+      imageUrl: null,
+      wrapperPhotoUrl: "@assets/rotated/Askistix 2004 chocolate frontal_1755148526400_rotated.png",
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      startYear: 2004,
+      endYear: 2004,
+      category: "helados",
+      createdAt: new Date(),
+    };
+    this.promotions.set(askistix2004.id, askistix2004);
+
+    // Avengers
+    const avengers: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Avengers Collection",
+      slug: "avengers-collection",
+      description: "Colección especial de los Vengadores con helados de cajeta y vainilla. Una promoción que celebraba a los superhéroes más populares de Marvel con sabores únicos de Vualá.",
+      imageUrl: null,
+      wrapperPhotoUrl: null,
+      promotionImagesUrls: [
+        "@assets/rotated/Avengers cajeta_1755148526400_rotated.png",
+        "@assets/rotated/Avengers vainilla_1755148526400_rotated.png"
+      ],
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      startYear: 2012,
+      endYear: 2012,
+      category: "superhéroes",
+      createdAt: new Date(),
+    };
+    this.promotions.set(avengers.id, avengers);
+
+    // Ecolokitos
+    const ecolokitos: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Ecolokitos",
+      slug: "ecolokitos",
+      description: "Promoción ecológica de Ecolokitos con helados de cajeta y chocolate, promoviendo el cuidado del medio ambiente mientras disfrutas de los deliciosos sabores de Vualá.",
+      imageUrl: null,
+      wrapperPhotoUrl: null,
+      promotionImagesUrls: [
+        "@assets/rotated/Cajeta frontal ecolokitos_1755148526402_rotated.png",
+        "@assets/rotated/Chocolate frontal ecolokitos_1755148526404_rotated.png"
+      ],
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      startYear: 2015,
+      endYear: 2015,
+      category: "ecológicos",
+      createdAt: new Date(),
+    };
+    this.promotions.set(ecolokitos.id, ecolokitos);
+
+    // Conexión Alien 2004
+    const conexionAlien2004: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Conexión Alien 2004",
+      slug: "conexion-alien-2004",
+      description: "Promoción futurista de Conexión Alien 2004 con helados de chocolate. Una aventura extraterrestre que combinaba ciencia ficción con los sabores únicos de Vualá.",
+      imageUrl: null,
+      wrapperPhotoUrl: "@assets/rotated/Chocolate conexion alien 2004 frontal_1755148526404_rotated.png",
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      startYear: 2004,
+      endYear: 2004,
+      category: "ciencia-ficción",
+      createdAt: new Date(),
+    };
+    this.promotions.set(conexionAlien2004.id, conexionAlien2004);
+
+    // Bob Esponja 2024
+    const bobEsponja2024: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Bob Esponja 2024",
+      slug: "bob-esponja-2024",
+      description: "La más reciente colección de Bob Esponja 2024 con sabores de cajeta y piña. Una celebración moderna del personaje más querido de Nickelodeon con los deliciosos helados Vualá.",
+      imageUrl: null,
+      wrapperPhotoUrl: null,
+      promotionImagesUrls: [
+        "@assets/rotated/bob esponja 2024 cajeta frontal_1755148526401_rotated.png",
+        "@assets/rotated/Bob esponja 2024 piña frontal_1755148526402_rotated.png"
+      ],
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      startYear: 2024,
+      endYear: 2024,
+      category: "nickelodeon",
+      createdAt: new Date(),
+    };
+    this.promotions.set(bobEsponja2024.id, bobEsponja2024);
     
     // Add some sample items for the first few promotions
     const europaItem1: PromotionItem = {
