@@ -467,12 +467,8 @@ export class MemStorage implements IStorage {
       startYear: 2012,
       endYear: 2012,
       category: "figuras",
-      wrapperPhotoUrl: "/attached_assets/El chavo 2012 Trasera cajeta_1755145664203.JPG",
-      promotionImagesUrls: [
-        "/attached_assets/El chavo 2012 Trasera Vainilla_1755145664203.JPG",
-        "/attached_assets/El chavo 2012 Trasera cajeta_1755145664203.JPG",
-        "/attached_assets/trasera el hcavo 2012 chocolate_1755145664206.JPG"
-      ],
+      wrapperPhotoUrl: "/attached_assets/processed/El chavo 2012 Trasera cajeta_1755145664203_processed.png",
+      promotionImagesUrls: [],
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
       createdAt: new Date(),
@@ -490,13 +486,8 @@ export class MemStorage implements IStorage {
       startYear: 2009,
       endYear: 2009,
       category: "figuras",
-      wrapperPhotoUrl: "/attached_assets/Frontal cajeta looney tunes 2009_1755145664204.JPG",
-      promotionImagesUrls: [
-        "/attached_assets/Frontal Chocolate  looney tunes 2009_1755145664204.JPG",
-        "/attached_assets/Frontal cajeta looney tunes 2009_1755145664204.JPG",
-        "/attached_assets/Lateral Chocolate  looney tunes 2009_1755145664204.JPG",
-        "/attached_assets/Trasera cajeta looney tunes 2009_1755145664205.JPG"
-      ],
+      wrapperPhotoUrl: "/attached_assets/processed/Frontal cajeta looney tunes 2009_1755145664204_processed.png",
+      promotionImagesUrls: [],
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
       createdAt: new Date(),
@@ -536,10 +527,8 @@ export class MemStorage implements IStorage {
       startYear: 2012,
       endYear: 2012,
       category: "figuras",
-      wrapperPhotoUrl: "/attached_assets/trasera vainilla angry birds go_1755145664056.JPG",
-      promotionImagesUrls: [
-        "/attached_assets/trasera vainilla angry birds go_1755145664056.JPG"
-      ],
+      wrapperPhotoUrl: "/attached_assets/processed/trasera vainilla angry birds go_1755145664056_processed.png",
+      promotionImagesUrls: [],
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
       createdAt: new Date(),
@@ -557,10 +546,8 @@ export class MemStorage implements IStorage {
       startYear: 2012,
       endYear: 2012,
       category: "figuras",
-      wrapperPhotoUrl: "/attached_assets/Trasera Bob esponja 2012_1755145664205.JPG",
-      promotionImagesUrls: [
-        "/attached_assets/Trasera Bob esponja 2012_1755145664205.JPG"
-      ],
+      wrapperPhotoUrl: "/attached_assets/processed/Trasera Bob esponja 2012_1755145664205_processed.png",
+      promotionImagesUrls: [],
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
       createdAt: new Date(),
@@ -578,10 +565,8 @@ export class MemStorage implements IStorage {
       startYear: 2011,
       endYear: 2011,
       category: "figuras",
-      wrapperPhotoUrl: "/attached_assets/Ecoinvasores trasera cajeta_1755145664202.JPG",
-      promotionImagesUrls: [
-        "/attached_assets/Ecoinvasores trasera cajeta_1755145664202.JPG"
-      ],
+      wrapperPhotoUrl: "/attached_assets/processed/Ecoinvasores trasera cajeta_1755145664202_processed.png",
+      promotionImagesUrls: [],
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
       createdAt: new Date(),
@@ -599,10 +584,8 @@ export class MemStorage implements IStorage {
       startYear: 2017,
       endYear: 2017,
       category: "figuras",
-      wrapperPhotoUrl: "/attached_assets/trasera chocolate steven universe_1755145664206.JPG",
-      promotionImagesUrls: [
-        "/attached_assets/trasera chocolate steven universe_1755145664206.JPG"
-      ],
+      wrapperPhotoUrl: "/attached_assets/processed/trasera chocolate steven universe_1755145664206_processed.png",
+      promotionImagesUrls: [],
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
       createdAt: new Date(),
@@ -620,10 +603,8 @@ export class MemStorage implements IStorage {
       startYear: 2018,
       endYear: 2018,
       category: "figuras",
-      wrapperPhotoUrl: "/attached_assets/Trasera chocolate cartoon network 2018_1755145664206.JPG",
-      promotionImagesUrls: [
-        "/attached_assets/Trasera chocolate cartoon network 2018_1755145664206.JPG"
-      ],
+      wrapperPhotoUrl: "/attached_assets/processed/Trasera chocolate cartoon network 2018_1755145664206_processed.png",
+      promotionImagesUrls: [],
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
       createdAt: new Date(),
@@ -641,10 +622,8 @@ export class MemStorage implements IStorage {
       startYear: 2017,
       endYear: 2017,
       category: "diseños",
-      wrapperPhotoUrl: "/attached_assets/Trasera corazones 2017 chocolate_1755145664206.JPG",
-      promotionImagesUrls: [
-        "/attached_assets/Trasera corazones 2017 chocolate_1755145664206.JPG"
-      ],
+      wrapperPhotoUrl: "/attached_assets/processed/Trasera corazones 2017 chocolate_1755145664206_processed.png",
+      promotionImagesUrls: [],
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
       createdAt: new Date(),
@@ -662,10 +641,8 @@ export class MemStorage implements IStorage {
       startYear: 2012,
       endYear: 2012,
       category: "figuras",
-      wrapperPhotoUrl: "/attached_assets/Trasera la era del hielo 2012 chocolate_1755145664207.JPG",
-      promotionImagesUrls: [
-        "/attached_assets/Trasera la era del hielo 2012 chocolate_1755145664207.JPG"
-      ],
+      wrapperPhotoUrl: "/attached_assets/processed/Trasera la era del hielo 2012 chocolate_1755145664207_processed.png",
+      promotionImagesUrls: [],
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
       createdAt: new Date(),
@@ -683,10 +660,8 @@ export class MemStorage implements IStorage {
       startYear: 2011,
       endYear: 2011,
       category: "figuras",
-      wrapperPhotoUrl: "/attached_assets/trasera cajeta funki punky xtremo 2011_1755145664205.JPG",
-      promotionImagesUrls: [
-        "/attached_assets/trasera cajeta funki punky xtremo 2011_1755145664205.JPG"
-      ],
+      wrapperPhotoUrl: "/attached_assets/processed/trasera cajeta funki punky xtremo 2011_1755145664205_processed.png",
+      promotionImagesUrls: [],
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
       createdAt: new Date(),
@@ -704,10 +679,8 @@ export class MemStorage implements IStorage {
       startYear: 2011,
       endYear: 2011,
       category: "figuras",
-      wrapperPhotoUrl: "/attached_assets/Trasera cajeta rebeldes con causa funky punki_1755145664206.JPG",
-      promotionImagesUrls: [
-        "/attached_assets/Trasera cajeta rebeldes con causa funky punki_1755145664206.JPG"
-      ],
+      wrapperPhotoUrl: "/attached_assets/processed/Trasera cajeta rebeldes con causa funky punki_1755145664206_processed.png",
+      promotionImagesUrls: [],
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
       createdAt: new Date(),
