@@ -1257,7 +1257,7 @@ export class MemStorage implements IStorage {
       slug: "avengers-collection",
       description: "Colección especial de los Vengadores con helados de cajeta y vainilla. Una promoción que celebraba a los superhéroes más populares de Marvel con sabores únicos de Vualá.",
       imageUrl: null,
-      wrapperPhotoUrl: null,
+      wrapperPhotoUrl: "/attached_assets/rotated/Avengers vainilla_1755148526400_rotated.png",
       promotionImagesUrls: [
         "/attached_assets/rotated/Avengers cajeta_1755148526400_rotated.png",
         "/attached_assets/rotated/Avengers vainilla_1755148526400_rotated.png"
@@ -1279,7 +1279,7 @@ export class MemStorage implements IStorage {
       slug: "ecolokitos",
       description: "Promoción ecológica de Ecolokitos con helados de cajeta y chocolate, promoviendo el cuidado del medio ambiente mientras disfrutas de los deliciosos sabores de Vualá.",
       imageUrl: null,
-      wrapperPhotoUrl: null,
+      wrapperPhotoUrl: "/attached_assets/rotated/Chocolate frontal ecolokitos_1755148526404_rotated.png",
       promotionImagesUrls: [
         "/attached_assets/rotated/Cajeta frontal ecolokitos_1755148526402_rotated.png",
         "/attached_assets/rotated/Chocolate frontal ecolokitos_1755148526404_rotated.png"
@@ -1320,7 +1320,7 @@ export class MemStorage implements IStorage {
       slug: "bob-esponja-2024",
       description: "La más reciente colección de Bob Esponja 2024 con sabores de cajeta y piña. Una celebración moderna del personaje más querido de Nickelodeon con los deliciosos helados Vualá.",
       imageUrl: null,
-      wrapperPhotoUrl: null,
+      wrapperPhotoUrl: "/attached_assets/rotated/bob esponja 2024 cajeta frontal_1755148526401_rotated.png",
       promotionImagesUrls: [
         "/attached_assets/rotated/bob esponja 2024 cajeta frontal_1755148526401_rotated.png",
         "/attached_assets/rotated/Bob esponja 2024 piña frontal_1755148526402_rotated.png"
