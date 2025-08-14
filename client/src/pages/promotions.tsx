@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Calendar, Package, Tag, Filter } from "lucide-react";
 import { useState } from "react";
 import { type Promotion, type Brand } from "@shared/schema";
+import { getBrandLogo } from "@/utils/brandLogos";
 
 const Promotions = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -130,8 +131,15 @@ const Promotions = () => {
                     variant="ghost"
                     size="sm"
                     onClick={() => setSelectedBrand(brand.id)}
-                    className={selectedBrand === brand.id ? "btn-splat" : "btn-splat opacity-60"}
+                    className={`flex items-center gap-2 ${selectedBrand === brand.id ? "btn-splat" : "btn-splat opacity-60"}`}
                   >
+                    {getBrandLogo(brand.slug) && (
+                      <img 
+                        src={getBrandLogo(brand.slug)!} 
+                        alt={`${brand.name} logo`}
+                        className="h-4 w-auto object-contain drop-shadow-sm"
+                      />
+                    )}
                     {brand.name}
                   </Button>
                 ))}
@@ -148,6 +156,19 @@ const Promotions = () => {
               <Link key={promotion.id} href={`/promociones/${promotion.slug}`} data-testid={`link-promotion-${promotion.slug}`}>
                 <Card className="group overflow-hidden card-splat cursor-pointer bg-promo-yellow/95 backdrop-blur-sm">
                   <CardHeader className="pb-4">
+                    <div className="flex items-start justify-between mb-3">
+                      {brand && getBrandLogo(brand.slug) && (
+                        <img 
+                          src={getBrandLogo(brand.slug)!} 
+                          alt={`${brand.name} logo`}
+                          className="h-8 w-auto object-contain drop-shadow-md"
+                        />
+                      )}
+                      <Badge variant="secondary" className="ml-2">
+                        <Tag className="w-3 h-3 mr-1" />
+                        {promotion.category}
+                      </Badge>
+                    </div>
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
                         <CardTitle className="text-xl font-bold text-promo-black group-hover:text-promo-yellow transition-colors line-clamp-2" style={{ fontFamily: 'Righteous, cursive' }}>
@@ -159,10 +180,6 @@ const Promotions = () => {
                           </p>
                         )}
                       </div>
-                      <Badge variant="secondary" className="ml-2">
-                        <Tag className="w-3 h-3 mr-1" />
-                        {promotion.category}
-                      </Badge>
                     </div>
                     
                     <div className="flex items-center gap-4 text-sm text-gray-500">

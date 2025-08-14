@@ -9,6 +9,7 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbP
 import { Badge } from "@/components/ui/badge";
 import { type Promotion, type PromotionItem, type Brand } from "@shared/schema";
 import { ImageUploadButton } from "@/components/ImageUploadButton";
+import { getBrandLogo } from "@/utils/brandLogos";
 
 const Promotion = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -132,6 +133,13 @@ const Promotion = () => {
               <div className="absolute inset-0 bg-black bg-opacity-40"></div>
               <div className="absolute bottom-4 left-6 right-6">
                 <div className="flex items-center space-x-3 mb-2">
+                  {brand && getBrandLogo(brand.slug) && (
+                    <img 
+                      src={getBrandLogo(brand.slug)!} 
+                      alt={`${brand.name} logo`}
+                      className="h-10 w-auto object-contain drop-shadow-lg"
+                    />
+                  )}
                   {brand && (
                     <Badge 
                       className="text-xs font-semibold"
@@ -159,6 +167,13 @@ const Promotion = () => {
             {!promotion.imageUrl && (
               <div className="mb-6">
                 <div className="flex items-center space-x-3 mb-4">
+                  {brand && getBrandLogo(brand.slug) && (
+                    <img 
+                      src={getBrandLogo(brand.slug)!} 
+                      alt={`${brand.name} logo`}
+                      className="h-8 w-auto object-contain drop-shadow-md"
+                    />
+                  )}
                   {brand && (
                     <Badge 
                       className="text-xs font-semibold"

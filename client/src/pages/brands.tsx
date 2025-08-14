@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Building2, Calendar, Palette } from "lucide-react";
 import { type Brand } from "@shared/schema";
+import { getBrandLogo } from "@/utils/brandLogos";
 
 const Brands = () => {
   const { data: brands, isLoading } = useQuery<Brand[]>({
@@ -55,16 +56,25 @@ const Brands = () => {
             <Link key={brand.id} href={`/marcas/${brand.slug}`} data-testid={`link-brand-${brand.slug}`}>
               <Card className="group overflow-hidden card-splat cursor-pointer bg-promo-yellow/95 backdrop-blur-sm">
                 <CardHeader className="pb-4">
-                  <div className="flex items-center justify-between">
-                    <CardTitle className="text-xl font-bold text-promo-black group-hover:text-promo-yellow transition-colors" style={{ fontFamily: 'Righteous, cursive' }}>
-                      {brand.name}
-                    </CardTitle>
+                  <div className="flex items-center justify-between mb-3">
+                    {getBrandLogo(brand.slug) && (
+                      <img 
+                        src={getBrandLogo(brand.slug)!} 
+                        alt={`${brand.name} logo`}
+                        className="h-12 w-auto object-contain drop-shadow-md"
+                      />
+                    )}
                     {brand.founded && (
                       <Badge variant="secondary" className="flex items-center gap-1">
                         <Calendar className="w-3 h-3" />
                         {brand.founded}
                       </Badge>
                     )}
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-xl font-bold text-promo-black group-hover:text-promo-yellow transition-colors" style={{ fontFamily: 'Righteous, cursive' }}>
+                      {brand.name}
+                    </CardTitle>
                   </div>
                   <div className="flex items-center gap-2">
                     <Palette className="w-4 h-4 text-gray-500" />
