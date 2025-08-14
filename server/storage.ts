@@ -456,24 +456,263 @@ export class MemStorage implements IStorage {
     };
     this.promotions.set(theDog2010.id, theDog2010);
 
-    // El Chavo Animado 2010
+    // El Chavo 2012 - AUTHENTIC WRAPPER DATA
     const chavoAnimado: Promotion = {
       id: randomUUID(),
       brandId: vuala.id,
-      name: "El Chavo Animado",
-      slug: "chavo-animado-2010",
-      description: "Promoción basada en la versión animada de El Chavo del Ocho, una de las series más queridas de la televisión mexicana.",
-      imageUrl: null,
-      startYear: 2010,
-      endYear: 2010,
+      name: "El Chavo 2012",
+      slug: "el-chavo-2012",
+      description: "Promoción basada en la versión animada de El Chavo del Ocho, una de las series más queridas de la televisión mexicana. Esta colección presentaba croissants Vualá en tres sabores: vainilla, cajeta y chocolate, cada uno con envolturas exclusivas que mostraban a los personajes icónicos de la vecindad. Los niños podían coleccionar las envolturas que presentaban diseños únicos de El Chavo, La Chilindrina, Quico y otros personajes entrañables de la serie animada.",
+      imageUrl: "/attached_assets/El chavo 2012 Trasera Vainilla_1755145664203.JPG",
+      startYear: 2012,
+      endYear: 2012,
       category: "figuras",
-      wrapperPhotoUrl: null,
-      promotionImagesUrls: null,
+      wrapperPhotoUrl: "/attached_assets/El chavo 2012 Trasera cajeta_1755145664203.JPG",
+      promotionImagesUrls: [
+        "/attached_assets/El chavo 2012 Trasera Vainilla_1755145664203.JPG",
+        "/attached_assets/El chavo 2012 Trasera cajeta_1755145664203.JPG",
+        "/attached_assets/trasera el hcavo 2012 chocolate_1755145664206.JPG"
+      ],
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(chavoAnimado.id, chavoAnimado);
+
+    // Looney Tunes 2009 - AUTHENTIC WRAPPER DATA  
+    const looneyTunes2009: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Looney Tunes 2009",
+      slug: "looney-tunes-2009",
+      description: "En 2009, Vualá lanzó una colección especial de Looney Tunes, presentando a los personajes clásicos de Warner Bros en croissants de sabor cajeta y chocolate. Esta promoción incluía envolturas exclusivas con diseños únicos de Bugs Bunny, Porky Pig, Pato Lucas, Tweety y otros personajes icónicos. Los coleccionistas podían encontrar diferentes variantes de cada personaje en las envolturas frontales, traseras y laterales de los productos.",
+      imageUrl: "/attached_assets/Frontal Chocolate  looney tunes 2009_1755145664204.JPG",
+      startYear: 2009,
+      endYear: 2009,
+      category: "figuras",
+      wrapperPhotoUrl: "/attached_assets/Frontal cajeta looney tunes 2009_1755145664204.JPG",
+      promotionImagesUrls: [
+        "/attached_assets/Frontal Chocolate  looney tunes 2009_1755145664204.JPG",
+        "/attached_assets/Frontal cajeta looney tunes 2009_1755145664204.JPG",
+        "/attached_assets/Lateral Chocolate  looney tunes 2009_1755145664204.JPG",
+        "/attached_assets/Trasera cajeta looney tunes 2009_1755145664205.JPG"
+      ],
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      createdAt: new Date(),
+    };
+    this.promotions.set(looneyTunes2009.id, looneyTunes2009);
+
+    // El Fútbol de Huevos 2012 - AUTHENTIC WRAPPER DATA
+    const futbolHuevos: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "El Fútbol de Huevos",
+      slug: "el-futbol-de-huevos-2012",
+      description: "En 2012, Vualá lanzó una promoción especial basada en la exitosa película mexicana 'El Fútbol de Huevos'. Esta colección presentaba croissants de sabor cajeta con envolturas exclusivas que mostraban a los divertidos personajes de huevos futbolistas. Los fanáticos podían coleccionar las envolturas que presentaban escenas y personajes icónicos de esta popular película de animación mexicana.",
+      imageUrl: "/attached_assets/Frontal cajeta el futbol de huevos cajeta_1755145664203.JPG",
+      startYear: 2012,
+      endYear: 2012,
+      category: "figuras",
+      wrapperPhotoUrl: "/attached_assets/Frontal cajeta el futbol de huevos cajeta_1755145664203.JPG",
+      promotionImagesUrls: [
+        "/attached_assets/Frontal cajeta el futbol de huevos cajeta_1755145664203.JPG",
+        "/attached_assets/Trasera cajeta el futbol de huevos cajeta_1755145664205.JPG"
+      ],
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      createdAt: new Date(),
+    };
+    this.promotions.set(futbolHuevos.id, futbolHuevos);
+
+    // Angry Birds Go 2012 - AUTHENTIC WRAPPER DATA
+    const angryBirdsGo: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Angry Birds Go",
+      slug: "angry-birds-go-2012",
+      description: "En 2012, Vualá lanzó una promoción especial de Angry Birds Go, la versión de carreras del popular juego móvil. Esta colección presentaba croissants de sabor vainilla con envolturas exclusivas que mostraban a los icónicos pájaros enojados en sus aventuras de carreras. Los fans podían coleccionar las envolturas que presentaban diseños únicos de Red, Chuck, Bomb y otros personajes en emocionantes escenas de velocidad.",
+      imageUrl: "/attached_assets/trasera vainilla angry birds go_1755145664056.JPG",
+      startYear: 2012,
+      endYear: 2012,
+      category: "figuras",
+      wrapperPhotoUrl: "/attached_assets/trasera vainilla angry birds go_1755145664056.JPG",
+      promotionImagesUrls: [
+        "/attached_assets/trasera vainilla angry birds go_1755145664056.JPG"
+      ],
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      createdAt: new Date(),
+    };
+    this.promotions.set(angryBirdsGo.id, angryBirdsGo);
+
+    // Bob Esponja 2012 - AUTHENTIC WRAPPER DATA
+    const bobEsponja2012: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Bob Esponja 2012",
+      slug: "bob-esponja-2012",
+      description: "En 2012, Vualá lanzó una promoción especial de Bob Esponja, el querido personaje de Nickelodeon. Esta colección presentaba croissants de sabor chocolate con envolturas exclusivas que mostraban a Bob Esponja, Patricio, Calamardo y otros habitantes de Fondo de Bikini en sus aventuras submarinas. Los fans podían coleccionar las envolturas con diseños únicos de sus personajes favoritos de la serie animada.",
+      imageUrl: "/attached_assets/Trasera Bob esponja 2012_1755145664205.JPG",
+      startYear: 2012,
+      endYear: 2012,
+      category: "figuras",
+      wrapperPhotoUrl: "/attached_assets/Trasera Bob esponja 2012_1755145664205.JPG",
+      promotionImagesUrls: [
+        "/attached_assets/Trasera Bob esponja 2012_1755145664205.JPG"
+      ],
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      createdAt: new Date(),
+    };
+    this.promotions.set(bobEsponja2012.id, bobEsponja2012);
+
+    // Ecoinvasores 2011 - AUTHENTIC WRAPPER DATA
+    const ecoinvasores2011: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Ecoinvasores",
+      slug: "ecoinvasores-2011",
+      description: "En 2011, Vualá lanzó una promoción especial de Ecoinvasores, una serie original que presentaba aliens ecológicos invasores. Esta colección presentaba croissants de sabor cajeta con envolturas exclusivas que mostraban a los divertidos personajes extraterrestres en sus aventuras ecológicas. Los coleccionistas podían encontrar diseños únicos de estos originales personajes invasores con mensajes ambientales.",
+      imageUrl: "/attached_assets/Ecoinvasores trasera cajeta_1755145664202.JPG",
+      startYear: 2011,
+      endYear: 2011,
+      category: "figuras",
+      wrapperPhotoUrl: "/attached_assets/Ecoinvasores trasera cajeta_1755145664202.JPG",
+      promotionImagesUrls: [
+        "/attached_assets/Ecoinvasores trasera cajeta_1755145664202.JPG"
+      ],
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      createdAt: new Date(),
+    };
+    this.promotions.set(ecoinvasores2011.id, ecoinvasores2011);
+
+    // Steven Universe 2017 - AUTHENTIC WRAPPER DATA
+    const stevenUniverse2017: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Steven Universe",
+      slug: "steven-universe-2017",
+      description: "En 2017, Vualá lanzó una promoción especial de Steven Universe, la popular serie animada de Cartoon Network. Esta colección presentaba croissants de sabor chocolate con envolturas exclusivas que mostraban a Steven, las Crystal Gems y otros personajes icónicos de la serie. Los fans podían coleccionar las envolturas con diseños únicos de Garnet, Amethyst, Pearl y Steven en sus aventuras mágicas.",
+      imageUrl: "/attached_assets/trasera chocolate steven universe_1755145664206.JPG",
+      startYear: 2017,
+      endYear: 2017,
+      category: "figuras",
+      wrapperPhotoUrl: "/attached_assets/trasera chocolate steven universe_1755145664206.JPG",
+      promotionImagesUrls: [
+        "/attached_assets/trasera chocolate steven universe_1755145664206.JPG"
+      ],
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      createdAt: new Date(),
+    };
+    this.promotions.set(stevenUniverse2017.id, stevenUniverse2017);
+
+    // Cartoon Network 2018 - AUTHENTIC WRAPPER DATA
+    const cartoonNetwork2018: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Cartoon Network 2018",
+      slug: "cartoon-network-2018",
+      description: "En 2018, Vualá lanzó una promoción especial de Cartoon Network, celebrando los personajes icónicos del canal. Esta colección presentaba croissants de sabor chocolate con envolturas exclusivas que mostraban a varios personajes populares de las series más queridas del canal. Los fans podían coleccionar las envolturas con diseños únicos de sus shows favoritos de Cartoon Network.",
+      imageUrl: "/attached_assets/Trasera chocolate cartoon network 2018_1755145664206.JPG",
+      startYear: 2018,
+      endYear: 2018,
+      category: "figuras",
+      wrapperPhotoUrl: "/attached_assets/Trasera chocolate cartoon network 2018_1755145664206.JPG",
+      promotionImagesUrls: [
+        "/attached_assets/Trasera chocolate cartoon network 2018_1755145664206.JPG"
+      ],
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      createdAt: new Date(),
+    };
+    this.promotions.set(cartoonNetwork2018.id, cartoonNetwork2018);
+
+    // Corazones 2017 - AUTHENTIC WRAPPER DATA
+    const corazones2017: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Corazones 2017",
+      slug: "corazones-2017",
+      description: "En 2017, Vualá lanzó una promoción especial de Corazones, una colección romántica y dulce. Esta colección presentaba croissants de sabor chocolate con envolturas exclusivas decoradas con hermosos diseños de corazones en diferentes estilos y colores. Los coleccionistas podían encontrar diseños únicos perfectos para ocasiones especiales y celebraciones del amor.",
+      imageUrl: "/attached_assets/Trasera corazones 2017 chocolate_1755145664206.JPG",
+      startYear: 2017,
+      endYear: 2017,
+      category: "diseños",
+      wrapperPhotoUrl: "/attached_assets/Trasera corazones 2017 chocolate_1755145664206.JPG",
+      promotionImagesUrls: [
+        "/attached_assets/Trasera corazones 2017 chocolate_1755145664206.JPG"
+      ],
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      createdAt: new Date(),
+    };
+    this.promotions.set(corazones2017.id, corazones2017);
+
+    // La Era del Hielo 2012 - AUTHENTIC WRAPPER DATA
+    const eraHielo2012: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "La Era del Hielo 2012",
+      slug: "la-era-del-hielo-2012",
+      description: "En 2012, Vualá lanzó una promoción especial de La Era del Hielo, coincidiendo con el estreno de una nueva película de la popular saga animada. Esta colección presentaba croissants de sabor chocolate con envolturas exclusivas que mostraban a Manny, Sid, Diego, Scrat y otros personajes icónicos en sus aventuras prehistóricas. Los fans podían coleccionar las envolturas con diseños únicos de la película.",
+      imageUrl: "/attached_assets/Trasera la era del hielo 2012 chocolate_1755145664207.JPG",
+      startYear: 2012,
+      endYear: 2012,
+      category: "figuras",
+      wrapperPhotoUrl: "/attached_assets/Trasera la era del hielo 2012 chocolate_1755145664207.JPG",
+      promotionImagesUrls: [
+        "/attached_assets/Trasera la era del hielo 2012 chocolate_1755145664207.JPG"
+      ],
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      createdAt: new Date(),
+    };
+    this.promotions.set(eraHielo2012.id, eraHielo2012);
+
+    // Funki Punky Xtremo 2011 - AUTHENTIC WRAPPER DATA
+    const funkiPunkyXtremo: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Funki Punky Xtremo",
+      slug: "funki-punky-xtremo-2011",
+      description: "En 2011, Vualá lanzó una promoción especial de Funki Punky Xtremo, una edición extrema de la popular serie de personajes rebeldes. Esta colección presentaba croissants de sabor cajeta con envolturas exclusivas que mostraban a los personajes Funki Punky en sus versiones más extremas y aventureras. Los coleccionistas podían encontrar diseños únicos de Monty, Tico, Emma y otros personajes en sus aventuras más emocionantes.",
+      imageUrl: "/attached_assets/trasera cajeta funki punky xtremo 2011_1755145664205.JPG",
+      startYear: 2011,
+      endYear: 2011,
+      category: "figuras",
+      wrapperPhotoUrl: "/attached_assets/trasera cajeta funki punky xtremo 2011_1755145664205.JPG",
+      promotionImagesUrls: [
+        "/attached_assets/trasera cajeta funki punky xtremo 2011_1755145664205.JPG"
+      ],
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      createdAt: new Date(),
+    };
+    this.promotions.set(funkiPunkyXtremo.id, funkiPunkyXtremo);
+
+    // Rebeldes con Causa Funky Punki 2011 - AUTHENTIC WRAPPER DATA
+    const rebeldesConCausa: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Rebeldes con Causa Funky Punki",
+      slug: "rebeldes-con-causa-funky-punki-2011",
+      description: "En 2011, Vualá lanzó una promoción especial de Rebeldes con Causa Funky Punki, una edición temática que celebraba la rebeldía positiva y las causas justas. Esta colección presentaba croissants de sabor cajeta con envolturas exclusivas que mostraban a los personajes Funki Punky luchando por diferentes causas sociales y ambientales. Los coleccionistas podían encontrar diseños únicos que promovían valores de justicia y conciencia social.",
+      imageUrl: "/attached_assets/Trasera cajeta rebeldes con causa funky punki_1755145664206.JPG",
+      startYear: 2011,
+      endYear: 2011,
+      category: "figuras",
+      wrapperPhotoUrl: "/attached_assets/Trasera cajeta rebeldes con causa funky punki_1755145664206.JPG",
+      promotionImagesUrls: [
+        "/attached_assets/Trasera cajeta rebeldes con causa funky punki_1755145664206.JPG"
+      ],
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      createdAt: new Date(),
+    };
+    this.promotions.set(rebeldesConCausa.id, rebeldesConCausa);
 
     // Aliens Eco-Invasores 2011
     const ecoInvasores: Promotion = {
@@ -1141,6 +1380,10 @@ export class MemStorage implements IStorage {
       ...insertPromotion, 
       id, 
       imageUrl: insertPromotion.imageUrl ?? null,
+      wrapperPhotoUrl: insertPromotion.wrapperPhotoUrl ?? null,
+      promotionImagesUrls: insertPromotion.promotionImagesUrls ?? null,
+      youtubeCommercialUrl: insertPromotion.youtubeCommercialUrl ?? null,
+      buffetGamesVideoUrl: insertPromotion.buffetGamesVideoUrl ?? null,
       endYear: insertPromotion.endYear ?? null,
       createdAt: new Date() 
     };

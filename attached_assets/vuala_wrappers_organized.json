@@ -1,0 +1,632 @@
+{
+  "Ecoinvasores": {
+    "name": "Ecoinvasores",
+    "year": "2011",
+    "flavors": {
+      "Cajeta": [
+        {
+          "filename": "Ecoinvasores trasera cajeta_1755145428099.JPG",
+          "side": "Trasera",
+          "flavor": "Cajeta",
+          "year": "2011",
+          "path": "/attached_assets/Ecoinvasores trasera cajeta_1755145428099.JPG"
+        },
+        {
+          "filename": "Ecoinvasores trasera cajeta_1755145664202.JPG",
+          "side": "Trasera",
+          "flavor": "Cajeta",
+          "year": "2011",
+          "path": "/attached_assets/Ecoinvasores trasera cajeta_1755145664202.JPG"
+        }
+      ]
+    },
+    "images": [
+      {
+        "filename": "Ecoinvasores trasera cajeta_1755145428099.JPG",
+        "side": "Trasera",
+        "flavor": "Cajeta",
+        "year": "2011",
+        "path": "/attached_assets/Ecoinvasores trasera cajeta_1755145428099.JPG"
+      },
+      {
+        "filename": "Ecoinvasores trasera cajeta_1755145664202.JPG",
+        "side": "Trasera",
+        "flavor": "Cajeta",
+        "year": "2011",
+        "path": "/attached_assets/Ecoinvasores trasera cajeta_1755145664202.JPG"
+      }
+    ]
+  },
+  "El Chavo": {
+    "name": "El Chavo",
+    "year": "2012",
+    "flavors": {
+      "Vainilla": [
+        {
+          "filename": "El chavo 2012 Trasera Vainilla_1755145428100.JPG",
+          "side": "Trasera",
+          "flavor": "Vainilla",
+          "year": "2012",
+          "path": "/attached_assets/El chavo 2012 Trasera Vainilla_1755145428100.JPG"
+        },
+        {
+          "filename": "El chavo 2012 Trasera Vainilla_1755145664203.JPG",
+          "side": "Trasera",
+          "flavor": "Vainilla",
+          "year": "2012",
+          "path": "/attached_assets/El chavo 2012 Trasera Vainilla_1755145664203.JPG"
+        }
+      ],
+      "Cajeta": [
+        {
+          "filename": "El chavo 2012 Trasera cajeta_1755145428100.JPG",
+          "side": "Trasera",
+          "flavor": "Cajeta",
+          "year": "2012",
+          "path": "/attached_assets/El chavo 2012 Trasera cajeta_1755145428100.JPG"
+        },
+        {
+          "filename": "El chavo 2012 Trasera cajeta_1755145664203.JPG",
+          "side": "Trasera",
+          "flavor": "Cajeta",
+          "year": "2012",
+          "path": "/attached_assets/El chavo 2012 Trasera cajeta_1755145664203.JPG"
+        }
+      ],
+      "Chocolate": [
+        {
+          "filename": "trasera el hcavo 2012 chocolate_1755145428139.JPG",
+          "side": "Trasera",
+          "flavor": "Chocolate",
+          "year": "2012",
+          "path": "/attached_assets/trasera el hcavo 2012 chocolate_1755145428139.JPG"
+        },
+        {
+          "filename": "trasera el hcavo 2012 chocolate_1755145664206.JPG",
+          "side": "Trasera",
+          "flavor": "Chocolate",
+          "year": "2012",
+          "path": "/attached_assets/trasera el hcavo 2012 chocolate_1755145664206.JPG"
+        }
+      ]
+    },
+    "images": [
+      {
+        "filename": "El chavo 2012 Trasera Vainilla_1755145428100.JPG",
+        "side": "Trasera",
+        "flavor": "Vainilla",
+        "year": "2012",
+        "path": "/attached_assets/El chavo 2012 Trasera Vainilla_1755145428100.JPG"
+      },
+      {
+        "filename": "El chavo 2012 Trasera Vainilla_1755145664203.JPG",
+        "side": "Trasera",
+        "flavor": "Vainilla",
+        "year": "2012",
+        "path": "/attached_assets/El chavo 2012 Trasera Vainilla_1755145664203.JPG"
+      },
+      {
+        "filename": "El chavo 2012 Trasera cajeta_1755145428100.JPG",
+        "side": "Trasera",
+        "flavor": "Cajeta",
+        "year": "2012",
+        "path": "/attached_assets/El chavo 2012 Trasera cajeta_1755145428100.JPG"
+      },
+      {
+        "filename": "El chavo 2012 Trasera cajeta_1755145664203.JPG",
+        "side": "Trasera",
+        "flavor": "Cajeta",
+        "year": "2012",
+        "path": "/attached_assets/El chavo 2012 Trasera cajeta_1755145664203.JPG"
+      },
+      {
+        "filename": "trasera el hcavo 2012 chocolate_1755145428139.JPG",
+        "side": "Trasera",
+        "flavor": "Chocolate",
+        "year": "2012",
+        "path": "/attached_assets/trasera el hcavo 2012 chocolate_1755145428139.JPG"
+      },
+      {
+        "filename": "trasera el hcavo 2012 chocolate_1755145664206.JPG",
+        "side": "Trasera",
+        "flavor": "Chocolate",
+        "year": "2012",
+        "path": "/attached_assets/trasera el hcavo 2012 chocolate_1755145664206.JPG"
+      }
+    ]
+  },
+  "Looney Tunes": {
+    "name": "Looney Tunes",
+    "year": "2009",
+    "flavors": {
+      "Chocolate": [
+        {
+          "filename": "Frontal Chocolate  looney tunes 2009_1755145428101.JPG",
+          "side": "Frontal",
+          "flavor": "Chocolate",
+          "year": "2009",
+          "path": "/attached_assets/Frontal Chocolate  looney tunes 2009_1755145428101.JPG"
+        },
+        {
+          "filename": "Frontal Chocolate  looney tunes 2009_1755145664204.JPG",
+          "side": "Frontal",
+          "flavor": "Chocolate",
+          "year": "2009",
+          "path": "/attached_assets/Frontal Chocolate  looney tunes 2009_1755145664204.JPG"
+        },
+        {
+          "filename": "Lateral Chocolate  looney tunes 2009_1755145428101.JPG",
+          "side": "Lateral",
+          "flavor": "Chocolate",
+          "year": "2009",
+          "path": "/attached_assets/Lateral Chocolate  looney tunes 2009_1755145428101.JPG"
+        },
+        {
+          "filename": "Lateral Chocolate  looney tunes 2009_1755145664204.JPG",
+          "side": "Lateral",
+          "flavor": "Chocolate",
+          "year": "2009",
+          "path": "/attached_assets/Lateral Chocolate  looney tunes 2009_1755145664204.JPG"
+        }
+      ],
+      "Cajeta": [
+        {
+          "filename": "Frontal cajeta looney tunes 2009_1755145428101.JPG",
+          "side": "Frontal",
+          "flavor": "Cajeta",
+          "year": "2009",
+          "path": "/attached_assets/Frontal cajeta looney tunes 2009_1755145428101.JPG"
+        },
+        {
+          "filename": "Frontal cajeta looney tunes 2009_1755145664204.JPG",
+          "side": "Frontal",
+          "flavor": "Cajeta",
+          "year": "2009",
+          "path": "/attached_assets/Frontal cajeta looney tunes 2009_1755145664204.JPG"
+        },
+        {
+          "filename": "Trasera cajeta looney tunes 2009_1755145428103.JPG",
+          "side": "Trasera",
+          "flavor": "Cajeta",
+          "year": "2009",
+          "path": "/attached_assets/Trasera cajeta looney tunes 2009_1755145428103.JPG"
+        },
+        {
+          "filename": "Trasera cajeta looney tunes 2009_1755145664205.JPG",
+          "side": "Trasera",
+          "flavor": "Cajeta",
+          "year": "2009",
+          "path": "/attached_assets/Trasera cajeta looney tunes 2009_1755145664205.JPG"
+        }
+      ]
+    },
+    "images": [
+      {
+        "filename": "Frontal Chocolate  looney tunes 2009_1755145428101.JPG",
+        "side": "Frontal",
+        "flavor": "Chocolate",
+        "year": "2009",
+        "path": "/attached_assets/Frontal Chocolate  looney tunes 2009_1755145428101.JPG"
+      },
+      {
+        "filename": "Frontal Chocolate  looney tunes 2009_1755145664204.JPG",
+        "side": "Frontal",
+        "flavor": "Chocolate",
+        "year": "2009",
+        "path": "/attached_assets/Frontal Chocolate  looney tunes 2009_1755145664204.JPG"
+      },
+      {
+        "filename": "Frontal cajeta looney tunes 2009_1755145428101.JPG",
+        "side": "Frontal",
+        "flavor": "Cajeta",
+        "year": "2009",
+        "path": "/attached_assets/Frontal cajeta looney tunes 2009_1755145428101.JPG"
+      },
+      {
+        "filename": "Frontal cajeta looney tunes 2009_1755145664204.JPG",
+        "side": "Frontal",
+        "flavor": "Cajeta",
+        "year": "2009",
+        "path": "/attached_assets/Frontal cajeta looney tunes 2009_1755145664204.JPG"
+      },
+      {
+        "filename": "Lateral Chocolate  looney tunes 2009_1755145428101.JPG",
+        "side": "Lateral",
+        "flavor": "Chocolate",
+        "year": "2009",
+        "path": "/attached_assets/Lateral Chocolate  looney tunes 2009_1755145428101.JPG"
+      },
+      {
+        "filename": "Lateral Chocolate  looney tunes 2009_1755145664204.JPG",
+        "side": "Lateral",
+        "flavor": "Chocolate",
+        "year": "2009",
+        "path": "/attached_assets/Lateral Chocolate  looney tunes 2009_1755145664204.JPG"
+      },
+      {
+        "filename": "Trasera cajeta looney tunes 2009_1755145428103.JPG",
+        "side": "Trasera",
+        "flavor": "Cajeta",
+        "year": "2009",
+        "path": "/attached_assets/Trasera cajeta looney tunes 2009_1755145428103.JPG"
+      },
+      {
+        "filename": "Trasera cajeta looney tunes 2009_1755145664205.JPG",
+        "side": "Trasera",
+        "flavor": "Cajeta",
+        "year": "2009",
+        "path": "/attached_assets/Trasera cajeta looney tunes 2009_1755145664205.JPG"
+      }
+    ]
+  },
+  "El Fútbol de Huevos": {
+    "name": "El Fútbol de Huevos",
+    "year": "2012",
+    "flavors": {
+      "Cajeta": [
+        {
+          "filename": "Frontal cajeta el futbol de huevos cajeta_1755145428100.JPG",
+          "side": "Frontal",
+          "flavor": "Cajeta",
+          "year": "2012",
+          "path": "/attached_assets/Frontal cajeta el futbol de huevos cajeta_1755145428100.JPG"
+        },
+        {
+          "filename": "Frontal cajeta el futbol de huevos cajeta_1755145664203.JPG",
+          "side": "Frontal",
+          "flavor": "Cajeta",
+          "year": "2012",
+          "path": "/attached_assets/Frontal cajeta el futbol de huevos cajeta_1755145664203.JPG"
+        },
+        {
+          "filename": "Trasera cajeta el futbol de huevos cajeta_1755145428102.JPG",
+          "side": "Trasera",
+          "flavor": "Cajeta",
+          "year": "2012",
+          "path": "/attached_assets/Trasera cajeta el futbol de huevos cajeta_1755145428102.JPG"
+        },
+        {
+          "filename": "Trasera cajeta el futbol de huevos cajeta_1755145664205.JPG",
+          "side": "Trasera",
+          "flavor": "Cajeta",
+          "year": "2012",
+          "path": "/attached_assets/Trasera cajeta el futbol de huevos cajeta_1755145664205.JPG"
+        }
+      ]
+    },
+    "images": [
+      {
+        "filename": "Frontal cajeta el futbol de huevos cajeta_1755145428100.JPG",
+        "side": "Frontal",
+        "flavor": "Cajeta",
+        "year": "2012",
+        "path": "/attached_assets/Frontal cajeta el futbol de huevos cajeta_1755145428100.JPG"
+      },
+      {
+        "filename": "Frontal cajeta el futbol de huevos cajeta_1755145664203.JPG",
+        "side": "Frontal",
+        "flavor": "Cajeta",
+        "year": "2012",
+        "path": "/attached_assets/Frontal cajeta el futbol de huevos cajeta_1755145664203.JPG"
+      },
+      {
+        "filename": "Trasera cajeta el futbol de huevos cajeta_1755145428102.JPG",
+        "side": "Trasera",
+        "flavor": "Cajeta",
+        "year": "2012",
+        "path": "/attached_assets/Trasera cajeta el futbol de huevos cajeta_1755145428102.JPG"
+      },
+      {
+        "filename": "Trasera cajeta el futbol de huevos cajeta_1755145664205.JPG",
+        "side": "Trasera",
+        "flavor": "Cajeta",
+        "year": "2012",
+        "path": "/attached_assets/Trasera cajeta el futbol de huevos cajeta_1755145664205.JPG"
+      }
+    ]
+  },
+  "Bob Esponja": {
+    "name": "Bob Esponja",
+    "year": "2012",
+    "flavors": {
+      "Chocolate": [
+        {
+          "filename": "Trasera Bob esponja 2012_1755145428102.JPG",
+          "side": "Trasera",
+          "flavor": "Chocolate",
+          "year": "2012",
+          "path": "/attached_assets/Trasera Bob esponja 2012_1755145428102.JPG"
+        },
+        {
+          "filename": "Trasera Bob esponja 2012_1755145664205.JPG",
+          "side": "Trasera",
+          "flavor": "Chocolate",
+          "year": "2012",
+          "path": "/attached_assets/Trasera Bob esponja 2012_1755145664205.JPG"
+        }
+      ]
+    },
+    "images": [
+      {
+        "filename": "Trasera Bob esponja 2012_1755145428102.JPG",
+        "side": "Trasera",
+        "flavor": "Chocolate",
+        "year": "2012",
+        "path": "/attached_assets/Trasera Bob esponja 2012_1755145428102.JPG"
+      },
+      {
+        "filename": "Trasera Bob esponja 2012_1755145664205.JPG",
+        "side": "Trasera",
+        "flavor": "Chocolate",
+        "year": "2012",
+        "path": "/attached_assets/Trasera Bob esponja 2012_1755145664205.JPG"
+      }
+    ]
+  },
+  "Rebeldes con Causa Funky Punki": {
+    "name": "Rebeldes con Causa Funky Punki",
+    "year": "2011",
+    "flavors": {
+      "Cajeta": [
+        {
+          "filename": "Trasera cajeta rebeldes con causa funky punki_1755145428103.JPG",
+          "side": "Trasera",
+          "flavor": "Cajeta",
+          "year": "2011",
+          "path": "/attached_assets/Trasera cajeta rebeldes con causa funky punki_1755145428103.JPG"
+        },
+        {
+          "filename": "Trasera cajeta rebeldes con causa funky punki_1755145664206.JPG",
+          "side": "Trasera",
+          "flavor": "Cajeta",
+          "year": "2011",
+          "path": "/attached_assets/Trasera cajeta rebeldes con causa funky punki_1755145664206.JPG"
+        }
+      ]
+    },
+    "images": [
+      {
+        "filename": "Trasera cajeta rebeldes con causa funky punki_1755145428103.JPG",
+        "side": "Trasera",
+        "flavor": "Cajeta",
+        "year": "2011",
+        "path": "/attached_assets/Trasera cajeta rebeldes con causa funky punki_1755145428103.JPG"
+      },
+      {
+        "filename": "Trasera cajeta rebeldes con causa funky punki_1755145664206.JPG",
+        "side": "Trasera",
+        "flavor": "Cajeta",
+        "year": "2011",
+        "path": "/attached_assets/Trasera cajeta rebeldes con causa funky punki_1755145664206.JPG"
+      }
+    ]
+  },
+  "Cartoon Network": {
+    "name": "Cartoon Network",
+    "year": "2018",
+    "flavors": {
+      "Chocolate": [
+        {
+          "filename": "Trasera chocolate cartoon network 2018_1755145428103.JPG",
+          "side": "Trasera",
+          "flavor": "Chocolate",
+          "year": "2018",
+          "path": "/attached_assets/Trasera chocolate cartoon network 2018_1755145428103.JPG"
+        },
+        {
+          "filename": "Trasera chocolate cartoon network 2018_1755145664206.JPG",
+          "side": "Trasera",
+          "flavor": "Chocolate",
+          "year": "2018",
+          "path": "/attached_assets/Trasera chocolate cartoon network 2018_1755145664206.JPG"
+        }
+      ]
+    },
+    "images": [
+      {
+        "filename": "Trasera chocolate cartoon network 2018_1755145428103.JPG",
+        "side": "Trasera",
+        "flavor": "Chocolate",
+        "year": "2018",
+        "path": "/attached_assets/Trasera chocolate cartoon network 2018_1755145428103.JPG"
+      },
+      {
+        "filename": "Trasera chocolate cartoon network 2018_1755145664206.JPG",
+        "side": "Trasera",
+        "flavor": "Chocolate",
+        "year": "2018",
+        "path": "/attached_assets/Trasera chocolate cartoon network 2018_1755145664206.JPG"
+      }
+    ]
+  },
+  "Corazones": {
+    "name": "Corazones",
+    "year": "2017",
+    "flavors": {
+      "Chocolate": [
+        {
+          "filename": "Trasera corazones 2017 chocolate_1755145428104.JPG",
+          "side": "Trasera",
+          "flavor": "Chocolate",
+          "year": "2017",
+          "path": "/attached_assets/Trasera corazones 2017 chocolate_1755145428104.JPG"
+        },
+        {
+          "filename": "Trasera corazones 2017 chocolate_1755145664206.JPG",
+          "side": "Trasera",
+          "flavor": "Chocolate",
+          "year": "2017",
+          "path": "/attached_assets/Trasera corazones 2017 chocolate_1755145664206.JPG"
+        }
+      ]
+    },
+    "images": [
+      {
+        "filename": "Trasera corazones 2017 chocolate_1755145428104.JPG",
+        "side": "Trasera",
+        "flavor": "Chocolate",
+        "year": "2017",
+        "path": "/attached_assets/Trasera corazones 2017 chocolate_1755145428104.JPG"
+      },
+      {
+        "filename": "Trasera corazones 2017 chocolate_1755145664206.JPG",
+        "side": "Trasera",
+        "flavor": "Chocolate",
+        "year": "2017",
+        "path": "/attached_assets/Trasera corazones 2017 chocolate_1755145664206.JPG"
+      }
+    ]
+  },
+  "La Era del Hielo": {
+    "name": "La Era del Hielo",
+    "year": "2012",
+    "flavors": {
+      "Chocolate": [
+        {
+          "filename": "Trasera la era del hielo 2012 chocolate_1755145428139.JPG",
+          "side": "Trasera",
+          "flavor": "Chocolate",
+          "year": "2012",
+          "path": "/attached_assets/Trasera la era del hielo 2012 chocolate_1755145428139.JPG"
+        },
+        {
+          "filename": "Trasera la era del hielo 2012 chocolate_1755145664207.JPG",
+          "side": "Trasera",
+          "flavor": "Chocolate",
+          "year": "2012",
+          "path": "/attached_assets/Trasera la era del hielo 2012 chocolate_1755145664207.JPG"
+        }
+      ]
+    },
+    "images": [
+      {
+        "filename": "Trasera la era del hielo 2012 chocolate_1755145428139.JPG",
+        "side": "Trasera",
+        "flavor": "Chocolate",
+        "year": "2012",
+        "path": "/attached_assets/Trasera la era del hielo 2012 chocolate_1755145428139.JPG"
+      },
+      {
+        "filename": "Trasera la era del hielo 2012 chocolate_1755145664207.JPG",
+        "side": "Trasera",
+        "flavor": "Chocolate",
+        "year": "2012",
+        "path": "/attached_assets/Trasera la era del hielo 2012 chocolate_1755145664207.JPG"
+      }
+    ]
+  },
+  "Funki Punky Xtremo": {
+    "name": "Funki Punky Xtremo",
+    "year": "2011",
+    "flavors": {
+      "Cajeta": [
+        {
+          "filename": "trasera cajeta funki punky xtremo 2011_1755145428102.JPG",
+          "side": "Trasera",
+          "flavor": "Cajeta",
+          "year": "2011",
+          "path": "/attached_assets/trasera cajeta funki punky xtremo 2011_1755145428102.JPG"
+        },
+        {
+          "filename": "trasera cajeta funki punky xtremo 2011_1755145664205.JPG",
+          "side": "Trasera",
+          "flavor": "Cajeta",
+          "year": "2011",
+          "path": "/attached_assets/trasera cajeta funki punky xtremo 2011_1755145664205.JPG"
+        }
+      ]
+    },
+    "images": [
+      {
+        "filename": "trasera cajeta funki punky xtremo 2011_1755145428102.JPG",
+        "side": "Trasera",
+        "flavor": "Cajeta",
+        "year": "2011",
+        "path": "/attached_assets/trasera cajeta funki punky xtremo 2011_1755145428102.JPG"
+      },
+      {
+        "filename": "trasera cajeta funki punky xtremo 2011_1755145664205.JPG",
+        "side": "Trasera",
+        "flavor": "Cajeta",
+        "year": "2011",
+        "path": "/attached_assets/trasera cajeta funki punky xtremo 2011_1755145664205.JPG"
+      }
+    ]
+  },
+  "Steven Universe": {
+    "name": "Steven Universe",
+    "year": "2017",
+    "flavors": {
+      "Chocolate": [
+        {
+          "filename": "trasera chocolate steven universe_1755145428103.JPG",
+          "side": "Trasera",
+          "flavor": "Chocolate",
+          "year": "2017",
+          "path": "/attached_assets/trasera chocolate steven universe_1755145428103.JPG"
+        },
+        {
+          "filename": "trasera chocolate steven universe_1755145664206.JPG",
+          "side": "Trasera",
+          "flavor": "Chocolate",
+          "year": "2017",
+          "path": "/attached_assets/trasera chocolate steven universe_1755145664206.JPG"
+        }
+      ]
+    },
+    "images": [
+      {
+        "filename": "trasera chocolate steven universe_1755145428103.JPG",
+        "side": "Trasera",
+        "flavor": "Chocolate",
+        "year": "2017",
+        "path": "/attached_assets/trasera chocolate steven universe_1755145428103.JPG"
+      },
+      {
+        "filename": "trasera chocolate steven universe_1755145664206.JPG",
+        "side": "Trasera",
+        "flavor": "Chocolate",
+        "year": "2017",
+        "path": "/attached_assets/trasera chocolate steven universe_1755145664206.JPG"
+      }
+    ]
+  },
+  "Angry Birds Go": {
+    "name": "Angry Birds Go",
+    "year": "2012",
+    "flavors": {
+      "Vainilla": [
+        {
+          "filename": "trasera vainilla angry birds go_1755145428099.JPG",
+          "side": "Trasera",
+          "flavor": "Vainilla",
+          "year": "2012",
+          "path": "/attached_assets/trasera vainilla angry birds go_1755145428099.JPG"
+        },
+        {
+          "filename": "trasera vainilla angry birds go_1755145664056.JPG",
+          "side": "Trasera",
+          "flavor": "Vainilla",
+          "year": "2012",
+          "path": "/attached_assets/trasera vainilla angry birds go_1755145664056.JPG"
+        }
+      ]
+    },
+    "images": [
+      {
+        "filename": "trasera vainilla angry birds go_1755145428099.JPG",
+        "side": "Trasera",
+        "flavor": "Vainilla",
+        "year": "2012",
+        "path": "/attached_assets/trasera vainilla angry birds go_1755145428099.JPG"
+      },
+      {
+        "filename": "trasera vainilla angry birds go_1755145664056.JPG",
+        "side": "Trasera",
+        "flavor": "Vainilla",
+        "year": "2012",
+        "path": "/attached_assets/trasera vainilla angry birds go_1755145664056.JPG"
+      }
+    ]
+  }
+}
