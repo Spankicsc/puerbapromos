@@ -40,7 +40,7 @@ const Brands = () => {
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-promo-black mb-4 flex items-center justify-center">
+          <h1 className="nostalgia-text text-4xl font-bold text-promo-black mb-4 flex items-center justify-center drop-shadow-lg">
             <Building2 className="w-8 h-8 mr-3 text-promo-yellow" />
             Marcas Nostálgicas
           </h1>
@@ -56,7 +56,7 @@ const Brands = () => {
               <Card className="group overflow-hidden card-splat cursor-pointer bg-promo-yellow/95 backdrop-blur-sm">
                 <CardHeader className="pb-4">
                   <div className="flex items-center justify-between">
-                    <CardTitle className="text-xl font-bold text-promo-black group-hover:text-promo-yellow transition-colors">
+                    <CardTitle className="text-xl font-bold text-promo-black group-hover:text-promo-yellow transition-colors" style={{ fontFamily: 'Righteous, cursive' }}>
                       {brand.name}
                     </CardTitle>
                     {brand.founded && (

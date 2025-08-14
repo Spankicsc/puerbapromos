@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One:wght@400&family=Righteous:wght@400&family=Bungee:wght@400&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -63,11 +65,22 @@
   }
 
   body {
-    @apply font-sans antialiased text-foreground;
-    font-family: var(--font-sans);
-    background: url('/attached_assets/IMG_7046_1755142644431.PNG') repeat;
-    background-size: 400px 400px;
+    @apply antialiased text-foreground;
+    font-family: 'Fredoka One', cursive;
+    background: url('/attached_assets/IMG_7046_1755142644431.PNG') no-repeat center center;
+    background-size: cover;
     background-attachment: fixed;
+    min-height: 100vh;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Righteous', cursive;
+  }
+
+  .nostalgia-text {
+    font-family: 'Bungee', cursive;
+    text-transform: uppercase;
+    letter-spacing: 2px;
   }
 
   /* Splat button styles */

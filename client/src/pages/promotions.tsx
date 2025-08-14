@@ -65,7 +65,7 @@ const Promotions = () => {
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-promo-black mb-4 flex items-center justify-center">
+          <h1 className="nostalgia-text text-4xl font-bold text-promo-black mb-4 flex items-center justify-center drop-shadow-lg">
             <Package className="w-8 h-8 mr-3 text-promo-yellow" />
             Promociones Nostálgicas
           </h1>
@@ -150,7 +150,7 @@ const Promotions = () => {
                   <CardHeader className="pb-4">
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
-                        <CardTitle className="text-xl font-bold text-promo-black group-hover:text-promo-yellow transition-colors line-clamp-2">
+                        <CardTitle className="text-xl font-bold text-promo-black group-hover:text-promo-yellow transition-colors line-clamp-2" style={{ fontFamily: 'Righteous, cursive' }}>
                           {promotion.name}
                         </CardTitle>
                         {brand && (
