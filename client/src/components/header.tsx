@@ -4,8 +4,8 @@ import { Search, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import SearchBar from "@/components/search-bar";
-// Using the new official Promospedia logo
-const promoLogo = "/attached_assets/IMG_7043_1755141180604.PNG";
+// Using the updated official Promospedia logo
+const promoLogo = "/attached_assets/IMG_7043_1755142043469.PNG";
 
 const Header = () => {
   const [location] = useLocation();
