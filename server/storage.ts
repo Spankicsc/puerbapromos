@@ -41,7 +41,7 @@ export class MemStorage implements IStorage {
       name: "Sabritas",
       slug: "sabritas",
       description: "La marca líder en botanas saladas de México, conocida por sus icónicas promociones de Tazos y coleccionables.",
-      logoUrl: null,
+      logoUrl: "/attached_assets/sabritas-37258_1755143611549.png",
       primaryColor: "#E31E24",
       founded: 1943,
       createdAt: new Date(),
@@ -53,7 +53,7 @@ export class MemStorage implements IStorage {
       name: "Gamesa",
       slug: "gamesa",
       description: "Empresa mexicana de galletas y productos de panadería con una rica tradición en promocionales.",
-      logoUrl: null,
+      logoUrl: "/attached_assets/Gamesa2008_1755143611550.webp",
       primaryColor: "#2E5C9A",
       founded: 1921,
       createdAt: new Date(),
@@ -65,7 +65,7 @@ export class MemStorage implements IStorage {
       name: "Barcel",
       slug: "barcel",
       description: "Marca mexicana famosa por sus dulces, chicles y los legendarios Funki Punky stickers.",
-      logoUrl: null,
+      logoUrl: "/attached_assets/Barcel_1755143611550.png",
       primaryColor: "#00B04F",
       founded: 1950,
       createdAt: new Date(),
@@ -77,7 +77,7 @@ export class MemStorage implements IStorage {
       name: "Bimbo",
       slug: "bimbo",
       description: "La panificadora más grande de México, conocida por sus promociones familiares y coleccionables.",
-      logoUrl: null,
+      logoUrl: "/attached_assets/Logo_Bimbo_2000_1755143611549.png",
       primaryColor: "#FFD700",
       founded: 1945,
       createdAt: new Date(),
@@ -89,7 +89,7 @@ export class MemStorage implements IStorage {
       name: "Marinela",
       slug: "marinela",
       description: "Marca de productos de repostería del Grupo Bimbo, famosa por sus promociones con juguetes.",
-      logoUrl: null,
+      logoUrl: "/attached_assets/Marinela-Logo-Vector.svg-_1755143611550.png",
       primaryColor: "#FF6B9D",
       founded: 1956,
       createdAt: new Date(),
@@ -101,7 +101,7 @@ export class MemStorage implements IStorage {
       name: "Vualá",
       slug: "vuala",
       description: "Marca de helados mexicana conocida por sus promociones con figuras y coleccionables.",
-      logoUrl: null,
+      logoUrl: "/attached_assets/Vuala_1755143611550.png",
       primaryColor: "#8B5CF6",
       founded: 1990,
       createdAt: new Date(),
@@ -277,7 +277,7 @@ export class MemStorage implements IStorage {
       startYear: 2007,
       endYear: 2007,
       category: "colgantes",
-      wrapperPhotoUrl: "@assets/rotated/Chocolate frontal spiderman 3_1755148526399_rotated.png",
+      wrapperPhotoUrl: "/attached_assets/rotated/Chocolate frontal spiderman 3_1755148526399_rotated.png",
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
@@ -372,7 +372,7 @@ export class MemStorage implements IStorage {
       startYear: 2009,
       endYear: 2009,
       category: "juguetes",
-      wrapperPhotoUrl: "@assets/rotated/bob espona en movimiento 2009 frontal cajeta_1755148526401_rotated.png",
+      wrapperPhotoUrl: "/attached_assets/rotated/bob espona en movimiento 2009 frontal cajeta_1755148526401_rotated.png",
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
@@ -529,8 +529,8 @@ export class MemStorage implements IStorage {
       category: "figuras",
       wrapperPhotoUrl: "/attached_assets/processed/trasera vainilla angry birds go_1755145664056_processed.png",
       promotionImagesUrls: [
-        "@assets/rotated/Cajeta angry birds Go_1755148526402_rotated.png",
-        "@assets/rotated/Chocolate angry birds Go_1755148526403_rotated.png"
+        "/attached_assets/rotated/Cajeta angry birds Go_1755148526402_rotated.png",
+        "/attached_assets/rotated/Chocolate angry birds Go_1755148526403_rotated.png"
       ],
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
@@ -551,8 +551,8 @@ export class MemStorage implements IStorage {
       category: "figuras",
       wrapperPhotoUrl: "/attached_assets/processed/Trasera Bob esponja 2012_1755145664205_processed.png",
       promotionImagesUrls: [
-        "@assets/rotated/Bob esponja 2012 Cajeta frontal_1755148526401_rotated.png",
-        "@assets/rotated/Bob esponja 2012 vainilla frontal_1755148526401_rotated.png"
+        "/attached_assets/rotated/Bob esponja 2012 Cajeta frontal_1755148526401_rotated.png",
+        "/attached_assets/rotated/Bob esponja 2012 vainilla frontal_1755148526401_rotated.png"
       ],
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
@@ -611,8 +611,8 @@ export class MemStorage implements IStorage {
       category: "figuras",
       wrapperPhotoUrl: "/attached_assets/processed/Trasera chocolate cartoon network 2018_1755145664206_processed.png",
       promotionImagesUrls: [
-        "@assets/rotated/Cartoon network chocolate_1755148526403_rotated.png",
-        "@assets/rotated/Chocolate Cartoon network_1755148526404_rotated.png"
+        "/attached_assets/rotated/Cartoon network chocolate_1755148526403_rotated.png",
+        "/attached_assets/rotated/Chocolate Cartoon network_1755148526404_rotated.png"
       ],
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
@@ -671,7 +671,7 @@ export class MemStorage implements IStorage {
       category: "figuras",
       wrapperPhotoUrl: "/attached_assets/processed/trasera cajeta funki punky xtremo 2011_1755145664205_processed.png",
       promotionImagesUrls: [
-        "@assets/rotated/Cajeta funki punky extremo_1755148526402_rotated.png"
+        "/attached_assets/rotated/Cajeta funki punky extremo_1755148526402_rotated.png"
       ],
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
@@ -937,7 +937,7 @@ export class MemStorage implements IStorage {
       startYear: 2014,
       endYear: 2014,
       category: "llaveros",
-      wrapperPhotoUrl: "@assets/rotated/Cajeta tortugas ninja_1755148526403_rotated.png",
+      wrapperPhotoUrl: "/attached_assets/rotated/Cajeta tortugas ninja_1755148526403_rotated.png",
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
@@ -1257,7 +1257,7 @@ export class MemStorage implements IStorage {
       slug: "askistix-2004",
       description: "Promoción de Askistix 2004 con deliciosos helados con sabor a chocolate. Una colección memorable que combinaba el sabor único de los helados Vualá con elementos promocionales especiales.",
       imageUrl: null,
-      wrapperPhotoUrl: "@assets/rotated/Askistix 2004 chocolate frontal_1755148526400_rotated.png",
+      wrapperPhotoUrl: "/attached_assets/rotated/Askistix 2004 chocolate frontal_1755148526400_rotated.png",
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
@@ -1278,8 +1278,8 @@ export class MemStorage implements IStorage {
       imageUrl: null,
       wrapperPhotoUrl: null,
       promotionImagesUrls: [
-        "@assets/rotated/Avengers cajeta_1755148526400_rotated.png",
-        "@assets/rotated/Avengers vainilla_1755148526400_rotated.png"
+        "/attached_assets/rotated/Avengers cajeta_1755148526400_rotated.png",
+        "/attached_assets/rotated/Avengers vainilla_1755148526400_rotated.png"
       ],
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
@@ -1300,8 +1300,8 @@ export class MemStorage implements IStorage {
       imageUrl: null,
       wrapperPhotoUrl: null,
       promotionImagesUrls: [
-        "@assets/rotated/Cajeta frontal ecolokitos_1755148526402_rotated.png",
-        "@assets/rotated/Chocolate frontal ecolokitos_1755148526404_rotated.png"
+        "/attached_assets/rotated/Cajeta frontal ecolokitos_1755148526402_rotated.png",
+        "/attached_assets/rotated/Chocolate frontal ecolokitos_1755148526404_rotated.png"
       ],
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
@@ -1320,7 +1320,7 @@ export class MemStorage implements IStorage {
       slug: "conexion-alien-2004",
       description: "Promoción futurista de Conexión Alien 2004 con helados de chocolate. Una aventura extraterrestre que combinaba ciencia ficción con los sabores únicos de Vualá.",
       imageUrl: null,
-      wrapperPhotoUrl: "@assets/rotated/Chocolate conexion alien 2004 frontal_1755148526404_rotated.png",
+      wrapperPhotoUrl: "/attached_assets/rotated/Chocolate conexion alien 2004 frontal_1755148526404_rotated.png",
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
@@ -1341,8 +1341,8 @@ export class MemStorage implements IStorage {
       imageUrl: null,
       wrapperPhotoUrl: null,
       promotionImagesUrls: [
-        "@assets/rotated/bob esponja 2024 cajeta frontal_1755148526401_rotated.png",
-        "@assets/rotated/Bob esponja 2024 piña frontal_1755148526402_rotated.png"
+        "/attached_assets/rotated/bob esponja 2024 cajeta frontal_1755148526401_rotated.png",
+        "/attached_assets/rotated/Bob esponja 2024 piña frontal_1755148526402_rotated.png"
       ],
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
