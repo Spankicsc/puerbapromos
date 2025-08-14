@@ -185,7 +185,7 @@ export class MemStorage implements IStorage {
     };
     this.promotions.set(bubulubu.id, bubulubu);
 
-    // Vualá Promotions - Complete authentic collection from 2002-2024
+    // Vualá Promotions - Complete authentic collection from 2002-2024 (Ordered chronologically)
     
     // Una probada de Europa (2002)
     const europaPromotion: Promotion = {
@@ -195,13 +195,10 @@ export class MemStorage implements IStorage {
       slug: "una-probada-de-europa",
       description: "En 2002, Vualá introdujo al mercado mexicano una línea de croissants inspirados en la repostería europea, con rellenos de chocolate, vainilla y fresa. Para impulsar las ventas, lanzaron la promoción 'Una probada de Europa' del 7 de octubre al 27 de diciembre de ese año. Esta campaña ofrecía a los consumidores la oportunidad de coleccionar 29 postales ilustradas con imágenes de diversas partes de Europa, incluidas en los paquetes de sus productos. Para promocionar esta campaña, la actriz Montserrat Oliver protagonizó un comercial que destacaba los premios y la temática europea de la promoción. Sin embargo, a pesar de estos esfuerzos, la promoción no logró captar suficientemente al público adulto, ya que muchos no consideraban los croissants rellenos de chocolate como una opción de consumo habitual. Esta experiencia llevó a Vualá a replantear sus estrategias de mercado en años posteriores.",
       imageUrl: null,
-      wrapperPhotoUrl: "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300",
+      wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
-      promotionImagesUrls: [
-        "https://images.unsplash.com/photo-1555939594-58e9c0c25166?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300",
-        "https://images.unsplash.com/photo-1549985908-597a09ef0a7c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300"
-      ],
-      youtubeCommercialUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
       startYear: 2002,
       endYear: 2002,
@@ -217,11 +214,14 @@ export class MemStorage implements IStorage {
       name: "The Dog: The Artist Collection",
       slug: "the-dog-2004",
       description: "En 2004, Vualá lanzó la promoción 'The Dog: The Artist Collection', vigente del 1 de junio al 4 de septiembre. Siendo la primera colección con un premio exclusivo para Vualá Esta campaña ofrecía a los consumidores la oportunidad de coleccionar 10 miniaturas de perros, solo una de cada dos bolsas contenían una mascota, cada una representando una raza diferente, incluidas en los paquetes de sus productos. Además de las miniaturas, la promoción incluía stix con imágenes de los perritos, fortaleciendo la conexión emocional entre los consumidores y los productos de la marca.",
-      imageUrl: null,
-      wrapperPhotoUrl: null,
-      wrapperPhotosUrls: null,
+      imageUrl: "/attached_assets/rotated/The dog 2004 vainilla frontal_1755151969696_rotated.png",
+      wrapperPhotoUrl: "/attached_assets/rotated/The dog 2004 vainilla frontal_1755151969696_rotated.png",
+      wrapperPhotosUrls: [
+        "/attached_assets/rotated/The dog 2004 vainilla frontal_1755151969696_rotated.png",
+        "/attached_assets/The dog y the cat 2007 chocolate_1755151969689.png"
+      ],
       promotionImagesUrls: null,
-      youtubeCommercialUrl: "https://www.youtube.com/watch?v=sample_thedog",
+      youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
       startYear: 2004,
       endYear: 2004,
@@ -561,11 +561,11 @@ export class MemStorage implements IStorage {
       brandId: vuala.id,
       name: "Vive el Fútbol con Huevos 2010",
       slug: "vive-el-futbol-con-huevos-2010",
-      description: "En 2010, Vualá lanzó una promoción especial de 'Vive el Fútbol con Huevos', celebrando la pasión por el fútbol con los divertidos personajes de huevos. Esta colección presentaba croissants en sabores de vainilla y chocolate con envolturas exclusivas que mostraban a los personajes futbolistas en acción. Los fanáticos del fútbol podían coleccionar las envolturas con diseños únicos que combinaban el humor de los personajes con la emoción del fútbol.",
+      description: "En abril de 2010, Vualá lanzó la promoción 'Vive el Fútbol con Huevos de Huevocartoon', vigente del 5 de abril al 30 de julio de 2010. Esta colección presentaba 8 colgantes para celular de alta calidad y diseño, inspirados en personajes icónicos de Huevocartoon, como los Huevos Rancheros y los Huevos Poeta. La promoción coincidió con la fiebre futbolística del año, ofreciendo a los consumidores la oportunidad de coleccionar estos accesorios únicos.",
       imageUrl: "/attached_assets/rotated/vive el futbol con huevos 2010 frontal vainilla_1755152265576_rotated.png",
       startYear: 2010,
       endYear: 2010,
-      category: "figuras",
+      category: "colgantes",
       wrapperPhotoUrl: "/attached_assets/rotated/vive el futbol con huevos 2010 frontal vainilla_1755152265576_rotated.png",
       wrapperPhotosUrls: [
         "/attached_assets/rotated/vive el futbol con huevos 2010 frontal vainilla_1755152265576_rotated.png",
@@ -578,16 +578,99 @@ export class MemStorage implements IStorage {
     };
     this.promotions.set(viveElFutbol2010.id, viveElFutbol2010);
 
-    // Angry Birds Go 2012 - AUTHENTIC WRAPPER DATA
+    // The Dog 2010
+    const theDogReturns2010: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "The Dog 2010",
+      slug: "the-dog-2010",
+      description: "En agosto de 2010, Vualá reintrodujo la promoción 'The Dog', vigente del 1 de agosto al 30 de septiembre de 2010. Esta colección presentaba 12 figuras diferentes de perros, conocidas como 'Mordelones' y 'Ventosas', diseñadas para sujetarse a superficies lisas o utilizarse como accesorios. Aunque la calidad de los premios fue considerada media-baja, incluyendo portalápices y figuras planas con ventosa, la reaparición de la licencia después de seis años generó un sentimiento de nostalgia entre los coleccionistas y seguidores de la marca.",
+      imageUrl: null,
+      startYear: 2010,
+      endYear: 2010,
+      category: "figuras",
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: null,
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      createdAt: new Date(),
+    };
+    this.promotions.set(theDogReturns2010.id, theDogReturns2010);
+
+    // El Chavo Animado 2010
+    const elChavo2010: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "El Chavo Animado 2010",
+      slug: "el-chavo-animado-2010",
+      description: "Vigencia del Primero de Octubre al 30 de Noviembre del 2010. Esta promoción presentaba a los personajes de El Chavo del Ocho en su versión animada, ofreciendo a los coleccionistas una nueva perspectiva de los queridos personajes creados por Roberto Gómez Bolaños.",
+      imageUrl: null,
+      startYear: 2010,
+      endYear: 2010,
+      category: "figuras",
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: null,
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      createdAt: new Date(),
+    };
+    this.promotions.set(elChavo2010.id, elChavo2010);
+
+    // Ecoinvasores 2011
+    const aliensEcoinvasores2011: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Aliens Eco-Invasores",
+      slug: "ecoinvasores-2011",
+      description: "En mayo de 2011, Vualá lanzó la promoción 'Aliens Eco-Invasores', vigente del 1 de mayo al 1 de julio de 2011. Esta campaña, desarrollada por Faustinbros, presentaba a seis personajes extraterrestres: Tento, Grin, Gard, Terrix, Luk y Fort, cada uno con la misión de transmitir mensajes positivos sobre el cuidado del planeta. La promoción incluyó diversos artículos coleccionables: Navitrones: colgantes en forma de nave espacial con un alien en su interior. Pegatronix: juguetes con ventosas alrededor que, al lanzarlos, se adherían a superficies lisas como ventanas. Cliptones: clips con forma de alien, algunos de los cuales brillaban en la oscuridad.",
+      imageUrl: null,
+      startYear: 2011,
+      endYear: 2011,
+      category: "figuras",
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: null,
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      createdAt: new Date(),
+    };
+    this.promotions.set(aliensEcoinvasores2011.id, aliensEcoinvasores2011);
+
+    // Funki Punky Extremo 2011
+    const funkiPunkyExtremo2011: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Funki Punky Extremo",
+      slug: "funki-punky-extremo-2011",
+      description: "En septiembre de 2011, Vualá reintrodujo a los Funki Punky con la promoción 'Funki Punky Extremo', vigente del 1 de septiembre al 31 de diciembre de 2011. Esta colección, desarrollada por Faustin Bros, presentaba una temática centrada en deportes extremos, mostrando a los personajes en actividades como skateboarding, surf y motocross. Los artículos promocionales incluidos fueron: Giga Tazos: 11 tazos de gran tamaño, considerados los más grandes hasta la fecha, con imágenes de los Funki Punky en diversas disciplinas extremas. Rebotazos: 16 tazos con un borde de goma que les permitía rebotar al ser lanzados, añadiendo una dinámica diferente al juego tradicional de tazos. Lanza Discos: discos de plástico con un sticker, agregando su lanzador.",
+      imageUrl: "/attached_assets/rotated/vainilla funki punky extremo_1755152265578_rotated.png",
+      startYear: 2011,
+      endYear: 2011,
+      category: "tazos",
+      wrapperPhotoUrl: "/attached_assets/rotated/vainilla funki punky extremo_1755152265578_rotated.png",
+      wrapperPhotosUrls: [
+        "/attached_assets/rotated/vainilla funki punky extremo_1755152265578_rotated.png",
+        "/attached_assets/rotated/Cajeta funki punky extremo_1755150784762_rotated.png"
+      ],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      createdAt: new Date(),
+    };
+    this.promotions.set(funkiPunkyExtremo2011.id, funkiPunkyExtremo2011);
+
+    // Angry Birds Go 2014-2015 - AUTHENTIC WRAPPER DATA
     const angryBirdsGo: Promotion = {
       id: randomUUID(),
       brandId: vuala.id,
       name: "Angry Birds Go",
-      slug: "angry-birds-go-2012",
-      description: "En 2012, Vualá lanzó una promoción especial de Angry Birds Go, la versión de carreras del popular juego móvil. Esta colección presentaba croissants de sabor vainilla con envolturas exclusivas que mostraban a los icónicos pájaros enojados en sus aventuras de carreras. Los fans podían coleccionar las envolturas que presentaban diseños únicos de Red, Chuck, Bomb y otros personajes en emocionantes escenas de velocidad.",
+      slug: "angry-birds-go-2014",
+      description: "El 15 de diciembre de 2014, Vualá lanzó la promoción Angry Birds GO!, vigente hasta el 30 de abril de 2015. Esta colección ofrecía 9 figuras de los personajes del popular juego de carreras, con una variante especial: el Red Dorado, considerado una edición limitada más difícil de conseguir. Las figuras eran miniaturas de los personajes, pero venían monocromáticas. Los consumidores podían decorarlas con stickers incluidos para darles vida y personalización. Durante esta promoción, Vualá implementó un sistema en línea donde los códigos dentro de las bolsas permitían acumular puntos. Estos puntos se podían canjear por premios temáticos como bolsas, gorras y carteras de Angry Birds GO!.",
       imageUrl: "/attached_assets/trasera vainilla angry birds go_1755145664056.JPG",
-      startYear: 2012,
-      endYear: 2012,
+      startYear: 2014,
+      endYear: 2015,
       category: "figuras",
       wrapperPhotoUrl: "/attached_assets/processed/trasera vainilla angry birds go_1755145664056_processed.png",
       wrapperPhotosUrls: [
@@ -608,7 +691,7 @@ export class MemStorage implements IStorage {
       brandId: vuala.id,
       name: "Bob Esponja 2012",
       slug: "bob-esponja-2012",
-      description: "En 2012, Vualá lanzó una promoción especial de Bob Esponja, el querido personaje de Nickelodeon. Esta colección presentaba croissants de sabor chocolate con envolturas exclusivas que mostraban a Bob Esponja, Patricio, Calamardo y otros habitantes de Fondo de Bikini en sus aventuras submarinas. Los fans podían coleccionar las envolturas con diseños únicos de sus personajes favoritos de la serie animada.",
+      description: "En enero de 2012, Vualá lanzó una nueva promoción de Bob Esponja, vigente del 1 de enero al 31 de mayo de 2012. Esta colección presentaba 8 artículos coleccionables, también conocida como la promoción más pequeña de Vualá, divididos en dos categorías: Pega Bob Esponja: 4 figuras de plástico monocromáticas con una base, representando a Bob Esponja, Patricio, Gary y Calamardo. Cada figura incluía stickers para personalizarlas con colores. Deco Bob Esponja: 4 decoralápices transparentes de los mismos personajes, también acompañados de stickers para su decoración. A pesar de la popularidad de Bob Esponja, esta promoción pasó desapercibida para muchos fanáticos debido a la simplicidad de los artículos y la falta de innovación en comparación con colecciones anteriores.",
       imageUrl: "/attached_assets/Trasera Bob esponja 2012_1755145664205.JPG",
       startYear: 2012,
       endYear: 2012,
@@ -618,7 +701,8 @@ export class MemStorage implements IStorage {
         "/attached_assets/Trasera Bob esponja 2012_1755145664205.JPG",
         "/attached_assets/rotated/Bob esponja 2012 Cajeta frontal_1755150784760_rotated.png",
         "/attached_assets/rotated/Bob esponja 2012 vainilla frontal_1755150784760_rotated.png",
-        "/attached_assets/rotated/Frontal bob esponja 2012 chocolate_1755149294898_rotated.png"
+        "/attached_assets/rotated/Frontal bob esponja 2012 chocolate_1755149294898_rotated.png",
+        "/attached_assets/rotated/Vainilla bob esponja 2024_1755152265578_rotated.png"
       ],
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
@@ -695,6 +779,117 @@ export class MemStorage implements IStorage {
       createdAt: new Date(),
     };
     this.promotions.set(cartoonNetwork2018.id, cartoonNetwork2018);
+
+    // Cartoon Network 2019 - Figuras 2D
+    const cartoonNetwork2019: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Cartoon Network 2019",
+      slug: "cartoon-network-2019",
+      description: "En julio de 2019, Vualá lanzó una colección en colaboración con Cartoon Network, vigente hasta el 29 de febrero de 2020. Esta colección constaba de 18 figuras 2D de personajes icónicos del canal, cada una acompañada de una calcomanía para decorar. Los personajes incluidos fueron: Steven Universe, Lapis Lazuli, Panda (Escandalosos), Gumball, Johnny Bravo, Dexter, Dee Dee, Jake el Perro, Coraje el Perro Cobarde, Bombón, Burbuja, Bellota, Ed, Ben 10, Mandy, Puro Hueso, Mordecai, y Rigby. Cada figura presentaba un diseño único y detallado, permitiendo a los coleccionistas armar y personalizar sus personajes favoritos de Cartoon Network.",
+      imageUrl: "/attached_assets/rotated/Cartoon network chocolate_1755150784757_rotated.png",
+      startYear: 2019,
+      endYear: 2020,
+      category: "figuras",
+      wrapperPhotoUrl: "/attached_assets/rotated/Cartoon network chocolate_1755150784757_rotated.png",
+      wrapperPhotosUrls: [
+        "/attached_assets/rotated/Cartoon network chocolate_1755150784757_rotated.png",
+        "/attached_assets/rotated/Chocolate Cartoon network_1755150784758_rotated.png"
+      ],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      createdAt: new Date(),
+    };
+    this.promotions.set(cartoonNetwork2019.id, cartoonNetwork2019);
+
+    // Teen Titans GO 2020
+    const teenTitansGo2020: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Teen Titans GO!",
+      slug: "teen-titans-go-2020",
+      description: "En abril de 2020, Vualá lanzó una promoción en colaboración con Teen Titans Go!, vigente hasta octubre del mismo año. La colección constaba de 20 piezas divididas en tres categorías: Cabezas con stickers (5 piezas): Representaciones de las cabezas de los personajes principales, acompañadas de stickers para personalizarlas. Figuras con stickers (10 piezas): Figuras completas de los personajes, también con stickers para decorarlas. Llaveros con stickers (5 piezas): Llaveros de los personajes, que incluían stickers para su personalización. Los personajes destacados en esta colección incluyen: Robin, Starfire, Raven, Cyborg, y Chico Bestia.",
+      imageUrl: "/attached_assets/rotated/Teen titans vainilla version 1_1755151969695_rotated.png",
+      startYear: 2020,
+      endYear: 2020,
+      category: "figuras",
+      wrapperPhotoUrl: "/attached_assets/rotated/Teen titans vainilla version 1_1755151969695_rotated.png",
+      wrapperPhotosUrls: [
+        "/attached_assets/rotated/Teen titans vainilla version 1_1755151969695_rotated.png",
+        "/attached_assets/Teen titans vainilla version 2_1755151969695.png"
+      ],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      createdAt: new Date(),
+    };
+    this.promotions.set(teenTitansGo2020.id, teenTitansGo2020);
+
+    // Steven Universe 2020-2021
+    const stevenUniverse2020: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Steven Universe 2020-2021",
+      slug: "steven-universe-2020-2021",
+      description: "En noviembre de 2020, Vualá lanzó una promoción en colaboración con Steven Universe, vigente hasta marzo de 2021. Esta colección constaba de 20 piezas divididas en dos categorías: Figuras con stickers (13 piezas): Representaciones en 2D de los personajes principales de la serie, acompañadas de stickers para su personalización. Llaveros (7 piezas): Llaveros de los personajes, también con stickers para decorarlos. Los personajes destacados incluyeron: Steven Universe, Garnet, Amatista, Perla, Connie, Peridot, Lapis Lazuli, Bismuto, León, Lars, Cebolla, Greg Universe, Diamante Blanco, Diamante Amarillo, y Diamante Azul. Inicialmente, los empaques de Vualá presentaban imágenes de los personajes de Steven Universe. Sin embargo, debido a la implementación de la NOM-051, las imágenes fueron retiradas de los empaques durante la vigencia de la promoción.",
+      imageUrl: null,
+      startYear: 2020,
+      endYear: 2021,
+      category: "figuras",
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: null,
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      createdAt: new Date(),
+    };
+    this.promotions.set(stevenUniverse2020.id, stevenUniverse2020);
+
+    // Pinky Pow Funki Tubers 2021
+    const pinkyPowFunkiTubers2021: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Pinky Pow Funki Tubers",
+      slug: "pinky-pow-funki-tubers-2021",
+      description: "En abril de 2021, Vualá sorprendió a sus seguidores con el relanzamiento de los icónicos Funki Punky, ahora bajo el nombre de 'Pinky Pow Funki Tubers'. Esta colección, vigente hasta septiembre de 2021, incluyó: 5 Pinky Toys: Representaciones detalladas de personajes clásicos como Skycat, Richie, Sultán, Monty y Dot, con un diseño renovado que incorporaba sudaderas y, en algunos casos, cubrebocas, adaptándose a la estética contemporánea. 6 Funkeys: Colgantes de goma de alta calidad que evocaban las primeras generaciones de Funki Punky, ofreciendo a los coleccionistas un toque de nostalgia con un diseño actualizado. 42 caps: Caps en forma cuadrada, venían 3 por empaque. Cada cap incluía en su reverso una frase irreverente adaptada a las nuevas generaciones, utilizando términos como 'post', 'hashtag' o 'LOL', además de una numeración que incentivaba a completar la colección. 14 caps especiales: Caps circulares del tamaño de un mega tazo con materiales prismáticos.",
+      imageUrl: "/attached_assets/rotated/Pinki pow punks funki tubers vainilla 2020_1755151969694_rotated.png",
+      startYear: 2021,
+      endYear: 2021,
+      category: "figuras",
+      wrapperPhotoUrl: "/attached_assets/rotated/Pinki pow punks funki tubers vainilla 2020_1755151969694_rotated.png",
+      wrapperPhotosUrls: [
+        "/attached_assets/rotated/Pinki pow punks funki tubers vainilla 2020_1755151969694_rotated.png"
+      ],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      createdAt: new Date(),
+    };
+    this.promotions.set(pinkyPowFunkiTubers2021.id, pinkyPowFunkiTubers2021);
+
+    // Bob Esponja 25 Años 2024
+    const bobEsponja25Anos2024: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Bob Esponja Edición Especial 25 Años",
+      slug: "bob-esponja-25-anos-2024",
+      description: "Vualá siempre nos sorprende con colecciones memorables, pero cuando hablamos de la colección de Bob Esponja Edición Especial, estamos frente a algo verdaderamente extraordinario. Esta colección, lanzada para conmemorar los 25 años de Bob Esponja, no solo trajo nostalgia a los fans de la serie, sino que también marcó un antes y un después para los coleccionistas de México. Su duración abarca desde mayo de 2024 hasta noviembre de 2024. Con un total de 31 figuras, la colección incluye 21 figuras a color y 10 traslúcidas, pero esto es solo el principio. También se añadieron 10 caps y 10 candados, junto con 15 parches, que hacían de cada compra una experiencia más emocionante. Lo especial de estos parches es que venían exclusivamente en una edición limitada del Vualá sabor piña, un guiño perfecto al hogar de Bob Esponja bajo el mar.",
+      imageUrl: "/attached_assets/rotated/Vainilla bob esponja 2024_1755152265578_rotated.png",
+      startYear: 2024,
+      endYear: 2024,
+      category: "figuras",
+      wrapperPhotoUrl: "/attached_assets/rotated/Vainilla bob esponja 2024_1755152265578_rotated.png",
+      wrapperPhotosUrls: [
+        "/attached_assets/rotated/Vainilla bob esponja 2024_1755152265578_rotated.png",
+        "/attached_assets/rotated/Bob esponja 2024 piña frontal_1755150784761_rotated.png"
+      ],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      createdAt: new Date(),
+    };
+    this.promotions.set(bobEsponja25Anos2024.id, bobEsponja25Anos2024);
 
     // Corazones 2017 - AUTHENTIC WRAPPER DATA
     const corazones2017: Promotion = {
