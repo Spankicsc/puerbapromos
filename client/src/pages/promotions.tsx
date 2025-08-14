@@ -27,7 +27,7 @@ const Promotions = () => {
 
   const getUniqueCategories = () => {
     if (!promotions) return [];
-    const categories = [...new Set(promotions.map(p => p.category))];
+    const categories = Array.from(new Set(promotions.map(p => p.category)));
     return categories.sort();
   };
 

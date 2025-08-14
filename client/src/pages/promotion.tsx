@@ -311,7 +311,7 @@ const Promotion = () => {
                 Imágenes de la Promoción
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                {promotion.promotionImagesUrls.map((imageUrl, index) => (
+                {promotion.promotionImagesUrls.map((imageUrl: string, index: number) => (
                   <img 
                     key={index}
                     src={imageUrl}

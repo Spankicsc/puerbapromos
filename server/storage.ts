@@ -198,14 +198,9 @@ export class MemStorage implements IStorage {
       ],
       youtubeCommercialUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
       buffetGamesVideoUrl: null,
-      buffetGamesVideoUrl: null,
       startYear: 2002,
       endYear: 2002,
       category: "postales",
-      wrapperPhotoUrl: null,
-      promotionImagesUrls: null,
-      youtubeCommercialUrl: null,
-      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(europaPromotion.id, europaPromotion);
@@ -225,10 +220,6 @@ export class MemStorage implements IStorage {
       startYear: 2004,
       endYear: 2004,
       category: "figuras",
-      wrapperPhotoUrl: null,
-      promotionImagesUrls: null,
-      youtubeCommercialUrl: null,
-      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(theDog2004.id, theDog2004);
@@ -248,10 +239,6 @@ export class MemStorage implements IStorage {
       startYear: 2005,
       endYear: 2005,
       category: "llaveros",
-      wrapperPhotoUrl: null,
-      promotionImagesUrls: null,
-      youtubeCommercialUrl: null,
-      buffetGamesVideoUrl: null,
       createdAt: new Date(),
     };
     this.promotions.set(bobEsponja2005.id, bobEsponja2005);
