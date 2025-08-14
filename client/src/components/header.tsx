@@ -40,9 +40,7 @@ const Header = () => {
             {navigation.map((item) => (
               <Link key={item.name} href={item.href} data-testid={`link-${item.name.toLowerCase()}`}>
                 <span
-                  className={`text-sm font-medium transition-colors hover:text-promo-yellow ${
-                    location === item.href ? "text-promo-yellow" : "text-white"
-                  }`}
+                  className="text-sm font-medium transition-colors hover:text-promo-yellow text-[#000000]"
                 >
                   {item.name}
                 </span>
