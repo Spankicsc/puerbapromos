@@ -10,8 +10,8 @@ interface BrandCardProps {
 const BrandCard = ({ brand, promotionCount }: BrandCardProps) => {
   return (
     <Link href={`/marcas/${brand.slug}`} data-testid={`link-brand-${brand.slug}`}>
-      <Card className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer group">
-        <CardContent className="p-6 text-center">
+      <Card className="group overflow-hidden card-splat cursor-pointer bg-promo-yellow/95 backdrop-blur-sm hover:shadow-xl transition-all duration-300">
+        <CardContent className="p-4 text-center">
           <div 
             className="w-16 h-16 mx-auto mb-4 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform overflow-hidden"
             style={{ backgroundColor: brand.primaryColor }}

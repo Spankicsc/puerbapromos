@@ -39,7 +39,7 @@ const Promotions = () => {
 
   if (promotionsLoading) {
     return (
-      <div className="bg-promo-gray min-h-screen">
+      <div className="min-h-screen">
         <div className="container mx-auto px-4 py-8">
           <div className="mb-8">
             <Skeleton className="h-12 w-64 mb-4" />
@@ -64,7 +64,7 @@ const Promotions = () => {
   }
 
   return (
-    <div className="bg-promo-gray min-h-screen">
+    <div className="min-h-screen">
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-12">
@@ -158,7 +158,7 @@ const Promotions = () => {
 
               return (
                 <Link key={promotion.id} href={`/promotion/${promotion.slug}`} data-testid={`link-promotion-${promotion.slug}`}>
-                  <Card className="card-splat h-full hover:shadow-2xl transition-all duration-300 cursor-pointer group overflow-hidden">
+                  <Card className="group overflow-hidden card-splat cursor-pointer bg-promo-yellow/95 backdrop-blur-sm h-full hover:shadow-2xl transition-all duration-300">
                     <CardHeader className="pb-2">
                       <div className="flex items-center justify-between mb-2">
                         <Badge 
@@ -175,7 +175,7 @@ const Promotions = () => {
                           className="w-8 h-8 object-contain"
                         />
                       </div>
-                      <CardTitle className="text-lg text-promo-black group-hover:text-promo-yellow transition-colors">
+                      <CardTitle className="text-xl font-bold text-promo-black group-hover:text-promo-yellow transition-colors" style={{ fontFamily: 'Righteous, cursive' }}>
                         {promotion.name}
                       </CardTitle>
                     </CardHeader>

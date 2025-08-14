@@ -26,7 +26,7 @@ const Home = () => {
     
     const featured = featuredNames
       .map(name => promotions.find(p => p.name === name))
-      .filter(Boolean);
+      .filter((p): p is Promotion => p !== undefined);
     
     // Si no encontramos todas, completamos con las primeras disponibles
     if (featured.length < 3) {
@@ -50,7 +50,7 @@ const Home = () => {
   };
 
   return (
-    <div className="bg-promo-gray">
+    <div className="min-h-screen">
       <HeroSection />
       
       {/* Brands Section */}
