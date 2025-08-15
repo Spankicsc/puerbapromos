@@ -441,7 +441,8 @@ export class MemStorage implements IStorage {
       wrapperPhotosUrls: [
         "/attached_assets/rotated/Chocolate frontal spiderman 3_1755148526399_rotated.png",
         "/attached_assets/rotated/Vainilla  frontal spiderman 3_1755152265577_rotated.png",
-        "/attached_assets/rotated/Chocolate frontal spiderman 3_1755196507572_rotated.png"
+        "/attached_assets/rotated/Chocolate frontal spiderman 3_1755196507572_rotated.png",
+        "/attached_assets/rotated/Vainilla  frontal spiderman 3_1755219753445_rotated.png"
       ],
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
@@ -808,7 +809,8 @@ export class MemStorage implements IStorage {
         "/attached_assets/rotated/vainilla funki punky extremo_1755152265578_rotated.png",
         "/attached_assets/rotated/Cajeta funki punky extremo_1755150784762_rotated.png",
         "/attached_assets/rotated/Cajeta funki punky extremo_1755196507570_rotated.png",
-        "/attached_assets/rotated/Funki punky extremo chocolate_1755219298611_rotated.png"
+        "/attached_assets/rotated/Funki punky extremo chocolate_1755219298611_rotated.png",
+        "/attached_assets/rotated/vainilla funki punky extremo_1755219753446_rotated.png"
       ],
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
@@ -834,7 +836,8 @@ export class MemStorage implements IStorage {
         "/attached_assets/trasera vainilla angry birds go_1755145664056.JPG",
         "/attached_assets/rotated/vainilla angry birds GO_1755152265578_rotated.png",
         "/attached_assets/rotated/Cajeta angry birds Go_1755196507570_rotated.png",
-        "/attached_assets/rotated/Chocolate angry birds Go_1755196507571_rotated.png"
+        "/attached_assets/rotated/Chocolate angry birds Go_1755196507571_rotated.png",
+        "/attached_assets/rotated/vainilla angry birds GO_1755219753445_rotated.png"
       ],
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
@@ -979,7 +982,9 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: "/attached_assets/rotated/Teen titans vainilla version 1_1755151969695_rotated.png",
       wrapperPhotosUrls: [
         "/attached_assets/rotated/Teen titans vainilla version 1_1755151969695_rotated.png",
-        "/attached_assets/Teen titans vainilla version 2_1755151969695.png"
+        "/attached_assets/Teen titans vainilla version 2_1755151969695.png",
+        "/attached_assets/rotated/Teen titans vainilla version 1_1755219753444_rotated.png",
+        "/attached_assets/rotated/Teen titans vainilla version 2_1755219753444_rotated.png"
       ],
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
@@ -1412,7 +1417,8 @@ export class MemStorage implements IStorage {
       wrapperPhotosUrls: [
         "/attached_assets/rotated/Cajeta tortugas ninja_1755148526403_rotated.png",
         "/attached_assets/rotated/vainilla tortugas ninja_1755152265579_rotated.png",
-        "/attached_assets/rotated/Cajeta tortugas ninja_1755196507571_rotated.png"
+        "/attached_assets/rotated/Cajeta tortugas ninja_1755196507571_rotated.png",
+        "/attached_assets/rotated/vainilla tortugas ninja_1755219753446_rotated.png"
       ],
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
@@ -1846,7 +1852,8 @@ export class MemStorage implements IStorage {
         "/attached_assets/rotated/bob esponja 2024 cajeta frontal_1755150784761_rotated.png",
         "/attached_assets/rotated/Bob esponja 2024 piña frontal_1755148526402_rotated.png",
         "/attached_assets/rotated/Bob esponja 2024 piña frontal_1755150784761_rotated.png",
-        "/attached_assets/rotated/Vainilla bob esponja 2024_1755152265578_rotated.png"
+        "/attached_assets/rotated/Vainilla bob esponja 2024_1755152265578_rotated.png",
+        "/attached_assets/rotated/Vainilla bob esponja 2024_1755219753445_rotated.png"
       ],
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
@@ -2012,7 +2019,9 @@ export class MemStorage implements IStorage {
       description: "La familia amarilla más famosa del mundo llegó a Vualá. Helados de chocolate con los personajes de Springfield que conquistaron corazones mexicanos.",
       imageUrl: null,
       wrapperPhotoUrl: "/attached_assets/rotated/Los simpson 2008 chocolate frontal_1755149294899_rotated.png",
-      wrapperPhotosUrls: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/rotated/Los simpson 2008 chocolate frontal_1755219753443_rotated.png"
+      ],
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
@@ -2031,7 +2040,9 @@ export class MemStorage implements IStorage {
       description: "¡Banana! Los adorables Minions invadieron los helados Vualá con sabor a chocolate. Una promoción que desató la minionmanía en México.",
       imageUrl: null,
       wrapperPhotoUrl: "/attached_assets/rotated/minions chocolate_1755149294899_rotated.png",
-      wrapperPhotosUrls: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/rotated/minions chocolate_1755219753443_rotated.png"
+      ],
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
@@ -2050,7 +2061,9 @@ export class MemStorage implements IStorage {
       description: "La promoción más moderna de Vualá con Pinki Pow Punks Funki Tubers. Helados de vainilla con personajes únicos que conectaron con la nueva generación.",
       imageUrl: null,
       wrapperPhotoUrl: "/attached_assets/rotated/Pinki pow punks funki tubers vainilla 2020_1755149294899_rotated.png",
-      wrapperPhotosUrls: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/rotated/Pinki pow punks funki tubers vainilla 2020_1755219753444_rotated.png"
+      ],
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
@@ -2069,7 +2082,9 @@ export class MemStorage implements IStorage {
       description: "Promoción vintage Tattomania 2003 con helados de chocolate. Una época dorada donde los tatuajes temporales y los helados crearon una combinación perfecta.",
       imageUrl: null,
       wrapperPhotoUrl: "/attached_assets/rotated/Tattomania 2003 chocolate_1755149294900_rotated.png",
-      wrapperPhotosUrls: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/rotated/Tattomania 2003 chocolate_1755219753444_rotated.png"
+      ],
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,

@@ -1,0 +1,231 @@
+{
+  "batch": 3,
+  "timestamp": "1755219753",
+  "processed_images": [
+    {
+      "original": "Teen titans vainilla version 1_1755219753444.png",
+      "rotation": 0,
+      "promotion": "teen-titans",
+      "flavor": "vainilla",
+      "description": "Envoltorio frontal Vualá Teen Titans sabor vainilla versión 1",
+      "rotated_path": "attached_assets/rotated/Teen titans vainilla version 1_1755219753444_rotated.png"
+    },
+    {
+      "original": "Teen titans vainilla version 2_1755219753444.png",
+      "rotation": 0,
+      "promotion": "teen-titans",
+      "flavor": "vainilla",
+      "description": "Envoltorio frontal Vualá Teen Titans sabor vainilla versión 2",
+      "rotated_path": "attached_assets/rotated/Teen titans vainilla version 2_1755219753444_rotated.png"
+    },
+    {
+      "original": "The dog 2004 vainilla frontal_1755219753444.png",
+      "rotation": 90,
+      "promotion": "the-dog-2004",
+      "flavor": "vainilla",
+      "description": "Envoltorio frontal Vualá The Dog 2004 sabor vainilla",
+      "rotated_path": "attached_assets/rotated/The dog 2004 vainilla frontal_1755219753444_rotated.png"
+    },
+    {
+      "original": "The dog y the cat 2007 chocolate_1755219753445.png",
+      "rotation": 0,
+      "promotion": "the-dog-y-the-cat-2007",
+      "flavor": "chocolate",
+      "description": "Envoltorio frontal Vualá The Dog y The Cat 2007 sabor chocolate",
+      "rotated_path": "attached_assets/rotated/The dog y the cat 2007 chocolate_1755219753445_rotated.png"
+    },
+    {
+      "original": "Vainilla  frontal spiderman 3_1755219753445.png",
+      "rotation": 90,
+      "promotion": "spiderman-3",
+      "flavor": "vainilla",
+      "description": "Envoltorio frontal Vualá Spider-Man 3 sabor vainilla",
+      "rotated_path": "attached_assets/rotated/Vainilla  frontal spiderman 3_1755219753445_rotated.png"
+    },
+    {
+      "original": "vainilla angry birds GO_1755219753445.png",
+      "rotation": 0,
+      "promotion": "angry-birds-go",
+      "flavor": "vainilla",
+      "description": "Envoltorio frontal Vualá Angry Birds GO sabor vainilla",
+      "rotated_path": "attached_assets/rotated/vainilla angry birds GO_1755219753445_rotated.png"
+    },
+    {
+      "original": "Vainilla bob esponja 2024_1755219753445.png",
+      "rotation": 0,
+      "promotion": "bob-esponja-2024",
+      "flavor": "vainilla",
+      "description": "Envoltorio frontal Vualá Bob Esponja 2024 sabor vainilla",
+      "rotated_path": "attached_assets/rotated/Vainilla bob esponja 2024_1755219753445_rotated.png"
+    },
+    {
+      "original": "Vive el futbol con huevos 2010 frontal chocolate_1755219753446.png",
+      "rotation": 0,
+      "promotion": "vive-el-futbol-con-huevos-2010",
+      "flavor": "chocolate",
+      "description": "Envoltorio frontal Vualá Vive el Fútbol con Huevos 2010 sabor chocolate",
+      "rotated_path": "attached_assets/rotated/Vive el futbol con huevos 2010 frontal chocolate_1755219753446_rotated.png"
+    },
+    {
+      "original": "vainilla funki punky extremo_1755219753446.png",
+      "rotation": 0,
+      "promotion": "funki-punky-extremo",
+      "flavor": "vainilla",
+      "description": "Envoltorio frontal Vualá Funki Punky Extremo sabor vainilla",
+      "rotated_path": "attached_assets/rotated/vainilla funki punky extremo_1755219753446_rotated.png"
+    },
+    {
+      "original": "vainilla tortugas ninja_1755219753446.png",
+      "rotation": 0,
+      "promotion": "tortugas-ninja-mutantes-adolescentes",
+      "flavor": "vainilla",
+      "description": "Envoltorio frontal Vualá Tortugas Ninja sabor vainilla",
+      "rotated_path": "attached_assets/rotated/vainilla tortugas ninja_1755219753446_rotated.png"
+    },
+    {
+      "original": "Los simpson 2008 chocolate frontal_1755219753443.png",
+      "rotation": 0,
+      "promotion": "los-simpson-2008",
+      "flavor": "chocolate",
+      "description": "Envoltorio frontal Vualá Los Simpson 2008 sabor chocolate",
+      "rotated_path": "attached_assets/rotated/Los simpson 2008 chocolate frontal_1755219753443_rotated.png"
+    },
+    {
+      "original": "minions chocolate_1755219753443.png",
+      "rotation": 0,
+      "promotion": "minions",
+      "flavor": "chocolate",
+      "description": "Envoltorio frontal Vualá Minions sabor chocolate",
+      "rotated_path": "attached_assets/rotated/minions chocolate_1755219753443_rotated.png"
+    },
+    {
+      "original": "Pinki pow punks funki tubers vainilla 2020_1755219753444.png",
+      "rotation": 0,
+      "promotion": "pinki-pow-punks-funki-tubers-2020",
+      "flavor": "vainilla",
+      "description": "Envoltorio frontal Vualá Pinki Pow Punks Funki Tubers 2020 sabor vainilla",
+      "rotated_path": "attached_assets/rotated/Pinki pow punks funki tubers vainilla 2020_1755219753444_rotated.png"
+    },
+    {
+      "original": "Tattomania 2003 chocolate_1755219753444.png",
+      "rotation": 90,
+      "promotion": "tattomania-2003",
+      "flavor": "chocolate",
+      "description": "Envoltorio frontal Vualá Tattomania 2003 sabor chocolate",
+      "rotated_path": "attached_assets/rotated/Tattomania 2003 chocolate_1755219753444_rotated.png"
+    }
+  ],
+  "promotion_updates": {
+    "teen-titans": [
+      {
+        "original_path": "attached_assets/Teen titans vainilla version 1_1755219753444.png",
+        "rotated_path": "attached_assets/rotated/Teen titans vainilla version 1_1755219753444_rotated.png",
+        "flavor": "vainilla",
+        "description": "Envoltorio frontal Vualá Teen Titans sabor vainilla versión 1"
+      },
+      {
+        "original_path": "attached_assets/Teen titans vainilla version 2_1755219753444.png",
+        "rotated_path": "attached_assets/rotated/Teen titans vainilla version 2_1755219753444_rotated.png",
+        "flavor": "vainilla",
+        "description": "Envoltorio frontal Vualá Teen Titans sabor vainilla versión 2"
+      }
+    ],
+    "the-dog-2004": [
+      {
+        "original_path": "attached_assets/The dog 2004 vainilla frontal_1755219753444.png",
+        "rotated_path": "attached_assets/rotated/The dog 2004 vainilla frontal_1755219753444_rotated.png",
+        "flavor": "vainilla",
+        "description": "Envoltorio frontal Vualá The Dog 2004 sabor vainilla"
+      }
+    ],
+    "the-dog-y-the-cat-2007": [
+      {
+        "original_path": "attached_assets/The dog y the cat 2007 chocolate_1755219753445.png",
+        "rotated_path": "attached_assets/rotated/The dog y the cat 2007 chocolate_1755219753445_rotated.png",
+        "flavor": "chocolate",
+        "description": "Envoltorio frontal Vualá The Dog y The Cat 2007 sabor chocolate"
+      }
+    ],
+    "spiderman-3": [
+      {
+        "original_path": "attached_assets/Vainilla  frontal spiderman 3_1755219753445.png",
+        "rotated_path": "attached_assets/rotated/Vainilla  frontal spiderman 3_1755219753445_rotated.png",
+        "flavor": "vainilla",
+        "description": "Envoltorio frontal Vualá Spider-Man 3 sabor vainilla"
+      }
+    ],
+    "angry-birds-go": [
+      {
+        "original_path": "attached_assets/vainilla angry birds GO_1755219753445.png",
+        "rotated_path": "attached_assets/rotated/vainilla angry birds GO_1755219753445_rotated.png",
+        "flavor": "vainilla",
+        "description": "Envoltorio frontal Vualá Angry Birds GO sabor vainilla"
+      }
+    ],
+    "bob-esponja-2024": [
+      {
+        "original_path": "attached_assets/Vainilla bob esponja 2024_1755219753445.png",
+        "rotated_path": "attached_assets/rotated/Vainilla bob esponja 2024_1755219753445_rotated.png",
+        "flavor": "vainilla",
+        "description": "Envoltorio frontal Vualá Bob Esponja 2024 sabor vainilla"
+      }
+    ],
+    "vive-el-futbol-con-huevos-2010": [
+      {
+        "original_path": "attached_assets/Vive el futbol con huevos 2010 frontal chocolate_1755219753446.png",
+        "rotated_path": "attached_assets/rotated/Vive el futbol con huevos 2010 frontal chocolate_1755219753446_rotated.png",
+        "flavor": "chocolate",
+        "description": "Envoltorio frontal Vualá Vive el Fútbol con Huevos 2010 sabor chocolate"
+      }
+    ],
+    "funki-punky-extremo": [
+      {
+        "original_path": "attached_assets/vainilla funki punky extremo_1755219753446.png",
+        "rotated_path": "attached_assets/rotated/vainilla funki punky extremo_1755219753446_rotated.png",
+        "flavor": "vainilla",
+        "description": "Envoltorio frontal Vualá Funki Punky Extremo sabor vainilla"
+      }
+    ],
+    "tortugas-ninja-mutantes-adolescentes": [
+      {
+        "original_path": "attached_assets/vainilla tortugas ninja_1755219753446.png",
+        "rotated_path": "attached_assets/rotated/vainilla tortugas ninja_1755219753446_rotated.png",
+        "flavor": "vainilla",
+        "description": "Envoltorio frontal Vualá Tortugas Ninja sabor vainilla"
+      }
+    ],
+    "los-simpson-2008": [
+      {
+        "original_path": "attached_assets/Los simpson 2008 chocolate frontal_1755219753443.png",
+        "rotated_path": "attached_assets/rotated/Los simpson 2008 chocolate frontal_1755219753443_rotated.png",
+        "flavor": "chocolate",
+        "description": "Envoltorio frontal Vualá Los Simpson 2008 sabor chocolate"
+      }
+    ],
+    "minions": [
+      {
+        "original_path": "attached_assets/minions chocolate_1755219753443.png",
+        "rotated_path": "attached_assets/rotated/minions chocolate_1755219753443_rotated.png",
+        "flavor": "chocolate",
+        "description": "Envoltorio frontal Vualá Minions sabor chocolate"
+      }
+    ],
+    "pinki-pow-punks-funki-tubers-2020": [
+      {
+        "original_path": "attached_assets/Pinki pow punks funki tubers vainilla 2020_1755219753444.png",
+        "rotated_path": "attached_assets/rotated/Pinki pow punks funki tubers vainilla 2020_1755219753444_rotated.png",
+        "flavor": "vainilla",
+        "description": "Envoltorio frontal Vualá Pinki Pow Punks Funki Tubers 2020 sabor vainilla"
+      }
+    ],
+    "tattomania-2003": [
+      {
+        "original_path": "attached_assets/Tattomania 2003 chocolate_1755219753444.png",
+        "rotated_path": "attached_assets/rotated/Tattomania 2003 chocolate_1755219753444_rotated.png",
+        "flavor": "chocolate",
+        "description": "Envoltorio frontal Vualá Tattomania 2003 sabor chocolate"
+      }
+    ]
+  },
+  "new_promotions": []
+}
