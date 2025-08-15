@@ -152,27 +152,7 @@ export class MemStorage implements IStorage {
     };
     this.brands.set(vuala.id, vuala);
 
-    const the_dog_2004: Promotion = {
-      id: randomUUID(),
-      brandId: vuala.id,
-      name: "The Dog 2004", 
-      slug: "the-dog-2004",
-      description: "Primera aparición de The Dog en México. Colección de figuras y accesorios con perritos de diferentes razas en estilo kawaii, disponible en sabores vainilla y chocolate.",
-      imageUrl: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=300",
-      startYear: 2004,
-      endYear: 2004,
-      category: "figuras",
-      wrapperPhotoUrl: null,
-      wrapperPhotosUrls: [
-        "/attached_assets/rotated/IMG_4257-removebg-preview_1755219298607_rotated.png",
-        "/attached_assets/rotated/IMG_4269-removebg-preview_1755219298608_rotated.png"
-      ],
-      promotionImagesUrls: null,
-      youtubeCommercialUrl: null,
-      buffetGamesVideoUrl: null,
-      createdAt: new Date(),
-    };
-    this.promotions.set(the_dog_2004.id, the_dog_2004);
+
 
     const vuala_croissant: Promotion = {
       id: randomUUID(),
@@ -542,7 +522,7 @@ export class MemStorage implements IStorage {
       startYear: 2009,
       endYear: 2009,
       category: "accesorios",
-      wrapperPhotoUrl: "/attached_assets/rotated/bob espona en movimiento 2009 frontal cajeta_1755148526401_rotated.png",
+      wrapperPhotoUrl: "/attached_assets/bob espona en movimiento 2009 frontal cajeta_1755148526401.png",
       wrapperPhotosUrls: [
         "/attached_assets/rotated/bob espona en movimiento 2009 frontal cajeta_1755148526401_rotated.png",
         "/attached_assets/rotated/bob espona en movimiento 2009 frontal cajeta_1755150784760_rotated.png",
@@ -615,25 +595,7 @@ export class MemStorage implements IStorage {
     };
     this.promotions.set(huevoCartoon.id, huevoCartoon);
 
-    // The Dog 2010
-    const theDog2010: Promotion = {
-      id: randomUUID(),
-      brandId: vuala.id,
-      name: "The Dog 2010",
-      slug: "the-dog-2010",
-      description: "Regreso de The Dog después de 6 años con 12 figuras 'Mordelones' y 'Ventosas' para superficies lisas. Incluía portalápices y figuras planas con ventosa.",
-      imageUrl: null,
-      startYear: 2010,
-      endYear: 2010,
-      category: "figuras",
-      wrapperPhotoUrl: null,
-      wrapperPhotosUrls: null,
-      promotionImagesUrls: null,
-      youtubeCommercialUrl: null,
-      buffetGamesVideoUrl: null,
-      createdAt: new Date(),
-    };
-    this.promotions.set(theDog2010.id, theDog2010);
+
 
     // El Chavo 2012 - AUTHENTIC WRAPPER DATA
     const chavoAnimado: Promotion = {
@@ -642,11 +604,11 @@ export class MemStorage implements IStorage {
       name: "El Chavo 2012",
       slug: "el-chavo-2012",
       description: "Promoción basada en la versión animada de El Chavo del Ocho, una de las series más queridas de la televisión mexicana. Esta colección presentaba croissants Vualá en tres sabores: vainilla, cajeta y chocolate, cada uno con envolturas exclusivas que mostraban a los personajes icónicos de la vecindad. Los niños podían coleccionar las envolturas que presentaban diseños únicos de El Chavo, La Chilindrina, Quico y otros personajes entrañables de la serie animada.",
-      imageUrl: "/attached_assets/El chavo 2012 Trasera Vainilla_1755145664203.JPG",
+      imageUrl: "/attached_assets/El chavo 2012 Fontal Cajeta_1755145664202.JPG",
       startYear: 2012,
       endYear: 2012,
       category: "figuras",
-      wrapperPhotoUrl: "/attached_assets/processed/El chavo 2012 Trasera cajeta_1755145664203_processed.png",
+      wrapperPhotoUrl: "/attached_assets/El chavo 2012 Fontal Cajeta_1755145664202.JPG",
       wrapperPhotosUrls: [
         "/attached_assets/El chavo 2012 Fontal Cajeta_1755145664202.JPG",
         "/attached_assets/El chavo 2012 Trasera Vainilla_1755145664203.JPG",
@@ -670,7 +632,7 @@ export class MemStorage implements IStorage {
       startYear: 2009,
       endYear: 2009,
       category: "figuras",
-      wrapperPhotoUrl: "/attached_assets/processed/Frontal cajeta looney tunes 2009_1755145664204_processed.png",
+      wrapperPhotoUrl: "/attached_assets/Frontal cajeta looney tunes 2009_1755145664204.JPG",
       wrapperPhotosUrls: [
         "/attached_assets/Frontal cajeta looney tunes 2009_1755145664204.JPG",
         "/attached_assets/Frontal Chocolate  looney tunes 2009_1755145664204.JPG",
@@ -721,7 +683,7 @@ export class MemStorage implements IStorage {
       startYear: 2010,
       endYear: 2010,
       category: "colgantes",
-      wrapperPhotoUrl: "/attached_assets/rotated/vive el futbol con huevos 2010 frontal vainilla_1755152265576_rotated.png",
+      wrapperPhotoUrl: "/attached_assets/Vive el futbol con huevos 2010 frontal chocolate_1755219753446.png",
       wrapperPhotosUrls: [
         "/attached_assets/rotated/vive el futbol con huevos 2010 frontal vainilla_1755152265576_rotated.png",
         "/attached_assets/rotated/Vive el futbol con huevos 2010 frontal chocolate_1755152265579_rotated.png"
@@ -830,7 +792,7 @@ export class MemStorage implements IStorage {
       startYear: 2014,
       endYear: 2015,
       category: "figuras",
-      wrapperPhotoUrl: "/attached_assets/processed/trasera vainilla angry birds go_1755145664056_processed.png",
+      wrapperPhotoUrl: "/attached_assets/vainilla angry birds GO_1755219753445.png",
       wrapperPhotosUrls: [
         "/attached_assets/trasera vainilla angry birds go_1755145428099.JPG",
         "/attached_assets/trasera vainilla angry birds go_1755145664056.JPG",
@@ -857,7 +819,7 @@ export class MemStorage implements IStorage {
       startYear: 2012,
       endYear: 2012,
       category: "figuras",
-      wrapperPhotoUrl: "/attached_assets/processed/Trasera Bob esponja 2012_1755145664205_processed.png",
+      wrapperPhotoUrl: "/attached_assets/Frontal bob esponja 2012 chocolate_1755219298611.png",
       wrapperPhotosUrls: [
         "/attached_assets/Trasera Bob esponja 2012_1755145664205.JPG",
         "/attached_assets/rotated/Bob esponja 2012 Cajeta frontal_1755150784760_rotated.png",
@@ -885,7 +847,7 @@ export class MemStorage implements IStorage {
       startYear: 2011,
       endYear: 2011,
       category: "figuras",
-      wrapperPhotoUrl: "/attached_assets/processed/Ecoinvasores trasera cajeta_1755145664202_processed.png",
+      wrapperPhotoUrl: "/attached_assets/Cajeta frontal ecolokitos_1755219753445.png",
       wrapperPhotosUrls: [
         "/attached_assets/Ecoinvasores trasera cajeta_1755145428099.JPG",
         "/attached_assets/Ecoinvasores trasera cajeta_1755145664202.JPG"
@@ -908,7 +870,7 @@ export class MemStorage implements IStorage {
       startYear: 2017,
       endYear: 2017,
       category: "figuras",
-      wrapperPhotoUrl: "/attached_assets/processed/trasera chocolate steven universe_1755145664206_processed.png",
+      wrapperPhotoUrl: "/attached_assets/Frontal chocolate hora de aventura 2018_1755219298611.png",
       wrapperPhotosUrls: [
         "/attached_assets/trasera chocolate steven universe_1755145428103.JPG",
         "/attached_assets/trasera chocolate steven universe_1755145664206.JPG"
@@ -931,7 +893,7 @@ export class MemStorage implements IStorage {
       startYear: 2018,
       endYear: 2018,
       category: "figuras",
-      wrapperPhotoUrl: "/attached_assets/processed/Trasera chocolate cartoon network 2018_1755145664206_processed.png",
+      wrapperPhotoUrl: "/attached_assets/Cartoon network chocolate_1755219753445.png",
       wrapperPhotosUrls: [
         "/attached_assets/Trasera chocolate cartoon network 2018_1755145428103.JPG",
         "/attached_assets/Trasera chocolate cartoon network 2018_1755145664206.JPG"
@@ -1213,32 +1175,7 @@ export class MemStorage implements IStorage {
     };
     this.promotions.set(bob2012.id, bob2012);
 
-    // El Chavo 2012
-    const chavo2012: Promotion = {
-      id: randomUUID(),
-      brandId: vuala.id,
-      name: "El Chavo 2012",
-      slug: "chavo-2012",
-      description: "Homenaje a El Chavo del Ocho con 10 figuras coleccionables: 9 plateadas (Don Ramón, Doña Florinda, La Popis, etc.) y 1 dorada especial (El Chavo en su barril).",
-      imageUrl: "/attached_assets/El chavo 2012 Trasera Vainilla_1755145664203.JPG",
-      startYear: 2012,
-      endYear: 2012,
-      category: "figuras",
-      wrapperPhotoUrl: "/attached_assets/processed/El chavo 2012 Trasera cajeta_1755145664203_processed.png",
-      wrapperPhotosUrls: [
-        "/attached_assets/El chavo 2012 Trasera Vainilla_1755145428100.JPG",
-        "/attached_assets/El chavo 2012 Trasera Vainilla_1755145664203.JPG",
-        "/attached_assets/El chavo 2012 Trasera cajeta_1755145428100.JPG",
-        "/attached_assets/El chavo 2012 Trasera cajeta_1755145664203.JPG",
-        "/attached_assets/trasera el hcavo 2012 chocolate_1755145428139.JPG",
-        "/attached_assets/trasera el hcavo 2012 chocolate_1755145664206.JPG"
-      ],
-      promotionImagesUrls: null,
-      youtubeCommercialUrl: null,
-      buffetGamesVideoUrl: null,
-      createdAt: new Date(),
-    };
-    this.promotions.set(chavo2012.id, chavo2012);
+
 
     // La Era del Hielo 4 2012
     const eraHielo: Promotion = {
@@ -1585,7 +1522,7 @@ export class MemStorage implements IStorage {
       startYear: 2021,
       endYear: 2021,
       category: "figuras",
-      wrapperPhotoUrl: null,
+      wrapperPhotoUrl: "/attached_assets/vainilla funki punky extremo_1755219753446.png",
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
@@ -1836,31 +1773,7 @@ export class MemStorage implements IStorage {
 
 
     // Bob Esponja 2024 - Enhanced
-    const bobEsponja2024Enhanced: Promotion = {
-      id: randomUUID(),
-      brandId: vuala.id,
-      name: "Bob Esponja 2024",
-      slug: "bob-esponja-2024-enhanced",
-      description: "El regreso triunfal de Bob Esponja a los croissants Vualá en 2024, con nuevos sabores incluyendo piña y cajeta. Esta colección moderna mantiene el encanto clásico de los personajes de Fondo de Bikini mientras introduce sabores frescos para una nueva generación de fans. Los croissants presentan diseños actualizados de Bob Esponja, manteniendo la tradición de envolturas coleccionables que han caracterizado a las promociones de Vualá durante décadas.",
-      imageUrl: "/attached_assets/rotated/Bob esponja 2024 piña frontal_1755150784761_rotated.png",
-      startYear: 2024,
-      endYear: 2024,
-      category: "figuras",
-      wrapperPhotoUrl: "/attached_assets/rotated/bob esponja 2024 cajeta frontal_1755150784761_rotated.png",
-      wrapperPhotosUrls: [
-        "/attached_assets/rotated/bob esponja 2024 cajeta frontal_1755148526401_rotated.png",
-        "/attached_assets/rotated/bob esponja 2024 cajeta frontal_1755150784761_rotated.png",
-        "/attached_assets/rotated/Bob esponja 2024 piña frontal_1755148526402_rotated.png",
-        "/attached_assets/rotated/Bob esponja 2024 piña frontal_1755150784761_rotated.png",
-        "/attached_assets/rotated/Vainilla bob esponja 2024_1755152265578_rotated.png",
-        "/attached_assets/rotated/Vainilla bob esponja 2024_1755219753445_rotated.png"
-      ],
-      promotionImagesUrls: null,
-      youtubeCommercialUrl: null,
-      buffetGamesVideoUrl: null,
-      createdAt: new Date(),
-    };
-    this.promotions.set(bobEsponja2024Enhanced.id, bobEsponja2024Enhanced);
+
 
     // Teen Titans
     const teenTitans: Promotion = {
@@ -2095,24 +2008,7 @@ export class MemStorage implements IStorage {
     };
     this.promotions.set(tattomania2003.id, tattomania2003);
 
-    const bobEsponja2012Chocolate: Promotion = {
-      id: randomUUID(),
-      brandId: vuala.id,
-      name: "Bob Esponja 2012 Chocolate",
-      slug: "bob-esponja-2012-chocolate",
-      description: "Edición especial de Bob Esponja con helados de chocolate. El personaje de Nickelodeon que conquistó los corazones mexicanos con sabores únicos de Vualá.",
-      imageUrl: null,
-      wrapperPhotoUrl: "/attached_assets/rotated/Frontal bob esponja 2012 chocolate_1755149294898_rotated.png",
-      wrapperPhotosUrls: null,
-      promotionImagesUrls: null,
-      youtubeCommercialUrl: null,
-      buffetGamesVideoUrl: null,
-      startYear: 2012,
-      endYear: 2012,
-      category: "figuras",
-      createdAt: new Date(),
-    };
-    this.promotions.set(bobEsponja2012Chocolate.id, bobEsponja2012Chocolate);
+
 
     const funkiPunkyExtremoChocolate: Promotion = {
       id: randomUUID(),

@@ -200,7 +200,7 @@ const Promotions = () => {
                             <img 
                               src={promotion.wrapperPhotoUrl} 
                               alt={`Envoltura ${promotion.name}`}
-                              className="w-28 h-32 object-contain drop-shadow-sm"
+                              className="w-56 h-64 object-contain drop-shadow-sm"
                             />
                           </div>
                         )}
