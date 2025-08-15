@@ -167,7 +167,7 @@ const Promotions = () => {
         </div>
 
         {/* Promotions Grid */}
-        <div className={isEditMode ? "space-y-6" : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredPromotions && filteredPromotions.length > 0 ? (
             filteredPromotions.map((promotion) => {
               const brand = getBrand(promotion.brandId);
