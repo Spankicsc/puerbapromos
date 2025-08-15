@@ -17,6 +17,11 @@ import {
   AlertDialogTitle, 
   AlertDialogTrigger 
 } from "@/components/ui/alert-dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { Edit2, Save, Trash2, RotateCw, Calendar, Tag, X } from "lucide-react";
 import { type Promotion, type Brand } from "@shared/schema";
@@ -34,8 +39,16 @@ const validCategories = [
   "cartas",
   "juguetes",
   "figuras",
+  "spinners",
+  "llaveros",
+  "pegatinas",
+  "postales",
   "promocional",
-  "coleccionable"
+  "coleccionable",
+  "album",
+  "sobres",
+  "cromos",
+  "calcomanias"
 ];
 
 export function EditablePromotion({ promotion, isEditable }: EditablePromotionProps) {
@@ -59,7 +72,7 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
 
   const updateMutation = useMutation({
     mutationFn: async (updateData: Partial<Promotion>) => {
-      const response = await apiRequest(`/api/promotions/${promotion.id}`, "PUT", updateData);
+      const response = await apiRequest("PUT", `/api/promotions/${promotion.id}`, updateData);
       return response;
     },
     onSuccess: () => {
@@ -82,7 +95,7 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
 
   const deleteMutation = useMutation({
     mutationFn: async () => {
-      const response = await apiRequest(`/api/promotions/${promotion.id}`, "DELETE");
+      const response = await apiRequest("DELETE", `/api/promotions/${promotion.id}`);
       return response;
     },
     onSuccess: () => {
@@ -257,12 +270,27 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
               </div>
               {editedPromotion.wrapperPhotoUrl && (
                 <div className="flex-shrink-0 w-20 h-24 flex items-center justify-center relative">
-                  <img 
-                    src={editedPromotion.wrapperPhotoUrl} 
-                    alt={`Envoltura ${editedPromotion.name}`}
-                    className="max-w-full max-h-full object-contain drop-shadow-sm"
-                    style={{ transform: `rotate(${wrapperRotation}deg)` }}
-                  />
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <img 
+                        src={editedPromotion.wrapperPhotoUrl} 
+                        alt={`Envoltura ${editedPromotion.name}`}
+                        className="max-w-full max-h-full object-contain drop-shadow-sm cursor-pointer hover:scale-105 transition-transform"
+                        style={{ transform: `rotate(${wrapperRotation}deg)` }}
+                        data-testid="img-wrapper-preview"
+                      />
+                    </DialogTrigger>
+                    <DialogContent className="max-w-4xl w-full">
+                      <div className="flex items-center justify-center p-4">
+                        <img 
+                          src={editedPromotion.wrapperPhotoUrl} 
+                          alt={`Envoltura ${editedPromotion.name}`}
+                          className="max-w-full max-h-[80vh] object-contain"
+                          style={{ transform: `rotate(${wrapperRotation}deg)` }}
+                        />
+                      </div>
+                    </DialogContent>
+                  </Dialog>
                   <Button
                     size="sm"
                     variant="secondary"
@@ -319,12 +347,28 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                 </div>
                 {promotion.wrapperPhotoUrl && (
                   <div className="flex-shrink-0 w-20 h-24 flex items-center justify-center">
-                    <img 
-                      src={promotion.wrapperPhotoUrl} 
-                      alt={`Envoltura ${promotion.name}`}
-                      className="max-w-full max-h-full object-contain drop-shadow-sm"
-                      style={{ transform: `rotate(${wrapperRotation}deg)` }}
-                    />
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <img 
+                          src={promotion.wrapperPhotoUrl} 
+                          alt={`Envoltura ${promotion.name}`}
+                          className="max-w-full max-h-full object-contain drop-shadow-sm cursor-pointer hover:scale-105 transition-transform"
+                          style={{ transform: `rotate(${wrapperRotation}deg)` }}
+                          data-testid="img-wrapper-normal"
+                          onClick={(e) => e.preventDefault()}
+                        />
+                      </DialogTrigger>
+                      <DialogContent className="max-w-4xl w-full">
+                        <div className="flex items-center justify-center p-4">
+                          <img 
+                            src={promotion.wrapperPhotoUrl} 
+                            alt={`Envoltura ${promotion.name}`}
+                            className="max-w-full max-h-[80vh] object-contain"
+                            style={{ transform: `rotate(${wrapperRotation}deg)` }}
+                          />
+                        </div>
+                      </DialogContent>
+                    </Dialog>
                   </div>
                 )}
               </div>
