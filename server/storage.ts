@@ -183,7 +183,7 @@ export class MemStorage implements IStorage {
       imageUrl: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=300",
       startYear: 2002,
       endYear: 2010,
-      category: "croissants",
+      category: "accesorios",
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: [
         "/attached_assets/rotated/IMG_4249-removebg-preview_1755219298607_rotated.png",
@@ -248,7 +248,7 @@ export class MemStorage implements IStorage {
       imageUrl: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=300",
       startYear: 2008,
       endYear: 2012,
-      category: "croissants",
+      category: "accesorios",
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: [
           "/attached_assets/rotated/IMG_4303-removebg-preview_1755219298609_rotated.png"
@@ -541,7 +541,7 @@ export class MemStorage implements IStorage {
       imageUrl: null,
       startYear: 2009,
       endYear: 2009,
-      category: "juguetes",
+      category: "accesorios",
       wrapperPhotoUrl: "/attached_assets/rotated/bob espona en movimiento 2009 frontal cajeta_1755148526401_rotated.png",
       wrapperPhotosUrls: [
         "/attached_assets/rotated/bob espona en movimiento 2009 frontal cajeta_1755148526401_rotated.png",
@@ -1070,7 +1070,7 @@ export class MemStorage implements IStorage {
       imageUrl: "/attached_assets/Trasera corazones 2017 chocolate_1755145664206.JPG",
       startYear: 2017,
       endYear: 2017,
-      category: "diseños",
+      category: "stickers",
       wrapperPhotoUrl: "/attached_assets/processed/Trasera corazones 2017 chocolate_1755145664206_processed.png",
       wrapperPhotosUrls: [
         "/attached_assets/Trasera corazones 2017 chocolate_1755145428104.JPG",
@@ -1372,7 +1372,7 @@ export class MemStorage implements IStorage {
       imageUrl: null,
       startYear: 2014,
       endYear: 2014,
-      category: "juguetes",
+      category: "accesorios",
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
@@ -1392,7 +1392,7 @@ export class MemStorage implements IStorage {
       imageUrl: null,
       startYear: 2014,
       endYear: 2014,
-      category: "juguetes",
+      category: "accesorios",
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
@@ -1749,7 +1749,7 @@ export class MemStorage implements IStorage {
       buffetGamesVideoUrl: null,
       startYear: 2004,
       endYear: 2004,
-      category: "helados",
+      category: "accesorios",
       createdAt: new Date(),
     };
     this.promotions.set(askistix2004.id, askistix2004);
@@ -1775,7 +1775,7 @@ export class MemStorage implements IStorage {
       buffetGamesVideoUrl: null,
       startYear: 2012,
       endYear: 2012,
-      category: "superhéroes",
+      category: "figuras",
       createdAt: new Date(),
     };
     this.promotions.set(avengers.id, avengers);
@@ -1800,7 +1800,7 @@ export class MemStorage implements IStorage {
       buffetGamesVideoUrl: null,
       startYear: 2015,
       endYear: 2015,
-      category: "ecológicos",
+      category: "figuras",
       createdAt: new Date(),
     };
     this.promotions.set(ecolokitos.id, ecolokitos);
@@ -1824,7 +1824,7 @@ export class MemStorage implements IStorage {
       buffetGamesVideoUrl: null,
       startYear: 2004,
       endYear: 2004,
-      category: "ciencia-ficción",
+      category: "figuras",
       createdAt: new Date(),
     };
     this.promotions.set(conexionAlien2004.id, conexionAlien2004);
@@ -1845,7 +1845,7 @@ export class MemStorage implements IStorage {
       imageUrl: "/attached_assets/rotated/Bob esponja 2024 piña frontal_1755150784761_rotated.png",
       startYear: 2024,
       endYear: 2024,
-      category: "nickelodeon",
+      category: "figuras",
       wrapperPhotoUrl: "/attached_assets/rotated/bob esponja 2024 cajeta frontal_1755150784761_rotated.png",
       wrapperPhotosUrls: [
         "/attached_assets/rotated/bob esponja 2024 cajeta frontal_1755148526401_rotated.png",

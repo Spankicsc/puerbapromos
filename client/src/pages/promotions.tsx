@@ -167,13 +167,22 @@ const Promotions = () => {
                           style={{ backgroundColor: `${brand.primaryColor}20`, color: brand.primaryColor }}
                         >
                           <Calendar className="w-3 h-3 mr-1" />
-                          {promotion.endYear ? `${promotion.startYear}-${promotion.endYear}` : promotion.startYear}
+                          {promotion.startYear}
                         </Badge>
-                        <img 
-                          src={brand.logoUrl || ''} 
-                          alt={brand.name}
-                          className="w-8 h-8 object-contain"
-                        />
+                        <div className="flex items-center gap-2">
+                          {promotion.wrapperPhotoUrl && (
+                            <img 
+                              src={promotion.wrapperPhotoUrl} 
+                              alt={`Envoltura ${promotion.name}`}
+                              className="w-6 h-6 object-cover rounded border"
+                            />
+                          )}
+                          <img 
+                            src={brand.logoUrl || ''} 
+                            alt={brand.name}
+                            className="w-8 h-8 object-contain"
+                          />
+                        </div>
                       </div>
                       <CardTitle className="text-xl font-bold text-promo-black group-hover:text-promo-yellow transition-colors" style={{ fontFamily: 'Righteous, cursive' }}>
                         {promotion.name}
