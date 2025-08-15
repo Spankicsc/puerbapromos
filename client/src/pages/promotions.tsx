@@ -159,6 +159,24 @@ const Promotions = () => {
               return (
                 <Link key={promotion.id} href={`/promotion/${promotion.slug}`} data-testid={`link-promotion-${promotion.slug}`}>
                   <Card className="group overflow-hidden card-splat cursor-pointer bg-promo-yellow/95 backdrop-blur-sm h-full hover:shadow-2xl transition-all duration-300">
+                    {/* Wrapper Photo Preview Section */}
+                    {promotion.wrapperPhotoUrl && (
+                      <div className="relative h-32 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center p-4">
+                        <img 
+                          src={promotion.wrapperPhotoUrl} 
+                          alt={`Envoltura ${promotion.name}`}
+                          className="max-h-full max-w-full object-contain drop-shadow-md"
+                        />
+                        <div className="absolute top-2 right-2">
+                          <img 
+                            src={brand.logoUrl || ''} 
+                            alt={brand.name}
+                            className="w-6 h-6 object-contain bg-white/80 rounded p-1"
+                          />
+                        </div>
+                      </div>
+                    )}
+                    
                     <CardHeader className="pb-2">
                       <div className="flex items-center justify-between mb-2">
                         <Badge 
@@ -169,20 +187,13 @@ const Promotions = () => {
                           <Calendar className="w-3 h-3 mr-1" />
                           {promotion.startYear}
                         </Badge>
-                        <div className="flex items-center gap-2">
-                          {promotion.wrapperPhotoUrl && (
-                            <img 
-                              src={promotion.wrapperPhotoUrl} 
-                              alt={`Envoltura ${promotion.name}`}
-                              className="w-6 h-6 object-cover rounded border"
-                            />
-                          )}
+                        {!promotion.wrapperPhotoUrl && (
                           <img 
                             src={brand.logoUrl || ''} 
                             alt={brand.name}
                             className="w-8 h-8 object-contain"
                           />
-                        </div>
+                        )}
                       </div>
                       <CardTitle className="text-xl font-bold text-promo-black group-hover:text-promo-yellow transition-colors" style={{ fontFamily: 'Righteous, cursive' }}>
                         {promotion.name}
@@ -190,8 +201,8 @@ const Promotions = () => {
                     </CardHeader>
                     <CardContent>
                       <p className="text-gray-600 text-sm leading-relaxed mb-4">
-                        {promotion.description.length > 150
-                          ? `${promotion.description.substring(0, 150)}...`
+                        {promotion.description.length > 120
+                          ? `${promotion.description.substring(0, 120)}...`
                           : promotion.description}
                       </p>
                       <div className="flex items-center justify-between">
