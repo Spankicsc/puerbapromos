@@ -2,6 +2,12 @@
 
 Promospedia is a nostalgic encyclopedia web application dedicated to preserving and cataloging Mexican promotional items and collectibles. The platform focuses on famous promotional campaigns from Mexican brands like Sabritas, Gamesa, Barcel, Bimbo, Marinela, and Vualá, featuring iconic items such as Tazos, stickers, spinners, and Funki Punky collectibles. The application serves as a comprehensive database where users can explore brands, their promotional campaigns, and individual collectible items with detailed information including rarity levels and historical context.
 
+## Recent Changes (August 2025)
+- **Space-Optimized Card Layout**: Reduced wrapper photo container size from 224px x 256px to 80px x 96px for better space utilization while maintaining visual impact
+- **Comprehensive Editing System**: Implemented full content management functionality with edit mode toggle, allowing inline editing of promotion details, image rotation, content deletion, and persistent changes through PostgreSQL database
+- **Database Integration**: Added DatabaseStorage class with complete CRUD operations for brands, promotions, and promotion items, enabling persistent editing capabilities
+- **API Enhancement**: Extended REST API with PUT/DELETE endpoints for all entity types, supporting real-time content updates
+
 # User Preferences
 
 Preferred communication style: Simple, everyday language.

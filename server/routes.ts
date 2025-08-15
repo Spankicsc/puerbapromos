@@ -173,6 +173,120 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // CRUD routes for Brands
+  app.post("/api/brands", async (req, res) => {
+    try {
+      const brandData = req.body;
+      const brand = await storage.createBrand(brandData);
+      res.status(201).json(brand);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to create brand" });
+    }
+  });
+
+  app.put("/api/brands/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const updateData = req.body;
+      const brand = await storage.updateBrand(id, updateData);
+      if (!brand) {
+        return res.status(404).json({ message: "Brand not found" });
+      }
+      res.json(brand);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to update brand" });
+    }
+  });
+
+  app.delete("/api/brands/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const deleted = await storage.deleteBrand(id);
+      if (!deleted) {
+        return res.status(404).json({ message: "Brand not found" });
+      }
+      res.status(204).send();
+    } catch (error) {
+      res.status(500).json({ message: "Failed to delete brand" });
+    }
+  });
+
+  // CRUD routes for Promotions
+  app.post("/api/promotions", async (req, res) => {
+    try {
+      const promotionData = req.body;
+      const promotion = await storage.createPromotion(promotionData);
+      res.status(201).json(promotion);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to create promotion" });
+    }
+  });
+
+  app.put("/api/promotions/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const updateData = req.body;
+      const promotion = await storage.updatePromotion(id, updateData);
+      if (!promotion) {
+        return res.status(404).json({ message: "Promotion not found" });
+      }
+      res.json(promotion);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to update promotion" });
+    }
+  });
+
+  app.delete("/api/promotions/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const deleted = await storage.deletePromotion(id);
+      if (!deleted) {
+        return res.status(404).json({ message: "Promotion not found" });
+      }
+      res.status(204).send();
+    } catch (error) {
+      res.status(500).json({ message: "Failed to delete promotion" });
+    }
+  });
+
+  // CRUD routes for Promotion Items
+  app.post("/api/promotion-items", async (req, res) => {
+    try {
+      const itemData = req.body;
+      const item = await storage.createPromotionItem(itemData);
+      res.status(201).json(item);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to create promotion item" });
+    }
+  });
+
+  app.put("/api/promotion-items/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const updateData = req.body;
+      const item = await storage.updatePromotionItem(id, updateData);
+      if (!item) {
+        return res.status(404).json({ message: "Promotion item not found" });
+      }
+      res.json(item);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to update promotion item" });
+    }
+  });
+
+  app.delete("/api/promotion-items/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const deleted = await storage.deletePromotionItem(id);
+      if (!deleted) {
+        return res.status(404).json({ message: "Promotion item not found" });
+      }
+      res.status(204).send();
+    } catch (error) {
+      res.status(500).json({ message: "Failed to delete promotion item" });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }

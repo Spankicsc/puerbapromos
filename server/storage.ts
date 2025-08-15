@@ -7,6 +7,8 @@ export interface IStorage {
   getBrandBySlug(slug: string): Promise<Brand | undefined>;
   getAllBrands(): Promise<Brand[]>;
   createBrand(brand: InsertBrand): Promise<Brand>;
+  updateBrand(id: string, brand: Partial<InsertBrand>): Promise<Brand | undefined>;
+  deleteBrand(id: string): Promise<boolean>;
   
   // Promotions
   getPromotion(id: string): Promise<Promotion | undefined>;
@@ -14,11 +16,15 @@ export interface IStorage {
   getPromotionsByBrandId(brandId: string): Promise<Promotion[]>;
   getAllPromotions(): Promise<Promotion[]>;
   createPromotion(promotion: InsertPromotion): Promise<Promotion>;
+  updatePromotion(id: string, promotion: Partial<InsertPromotion>): Promise<Promotion | undefined>;
+  deletePromotion(id: string): Promise<boolean>;
   
   // Promotion Items
   getPromotionItem(id: string): Promise<PromotionItem | undefined>;
   getPromotionItemsByPromotionId(promotionId: string): Promise<PromotionItem[]>;
   createPromotionItem(item: InsertPromotionItem): Promise<PromotionItem>;
+  updatePromotionItem(id: string, item: Partial<InsertPromotionItem>): Promise<PromotionItem | undefined>;
+  deletePromotionItem(id: string): Promise<boolean>;
   
   // Search
   searchPromotions(query: string): Promise<Promotion[]>;
@@ -2122,6 +2128,24 @@ export class MemStorage implements IStorage {
     return brand;
   }
 
+  async updateBrand(id: string, updateBrand: Partial<InsertBrand>): Promise<Brand | undefined> {
+    const existingBrand = this.brands.get(id);
+    if (!existingBrand) return undefined;
+    
+    const updatedBrand: Brand = {
+      ...existingBrand,
+      ...updateBrand,
+      id: existingBrand.id,
+      createdAt: existingBrand.createdAt,
+    };
+    this.brands.set(id, updatedBrand);
+    return updatedBrand;
+  }
+
+  async deleteBrand(id: string): Promise<boolean> {
+    return this.brands.delete(id);
+  }
+
   async getPromotion(id: string): Promise<Promotion | undefined> {
     return this.promotions.get(id);
   }
@@ -2156,6 +2180,27 @@ export class MemStorage implements IStorage {
     return promotion;
   }
 
+  async updatePromotion(id: string, updatePromotion: Partial<InsertPromotion>): Promise<Promotion | undefined> {
+    const existingPromotion = this.promotions.get(id);
+    if (!existingPromotion) return undefined;
+    
+    const updatedPromotion: Promotion = {
+      ...existingPromotion,
+      ...updatePromotion,
+      id: existingPromotion.id,
+      createdAt: existingPromotion.createdAt,
+    };
+    this.promotions.set(id, updatedPromotion);
+    return updatedPromotion;
+  }
+
+  async deletePromotion(id: string): Promise<boolean> {
+    // Also delete associated promotion items
+    const items = Array.from(this.promotionItems.values()).filter(item => item.promotionId === id);
+    items.forEach(item => this.promotionItems.delete(item.id));
+    return this.promotions.delete(id);
+  }
+
   async getPromotionItem(id: string): Promise<PromotionItem | undefined> {
     return this.promotionItems.get(id);
   }
@@ -2180,6 +2225,24 @@ export class MemStorage implements IStorage {
     return item;
   }
 
+  async updatePromotionItem(id: string, updateItem: Partial<InsertPromotionItem>): Promise<PromotionItem | undefined> {
+    const existingItem = this.promotionItems.get(id);
+    if (!existingItem) return undefined;
+    
+    const updatedItem: PromotionItem = {
+      ...existingItem,
+      ...updateItem,
+      id: existingItem.id,
+      createdAt: existingItem.createdAt,
+    };
+    this.promotionItems.set(id, updatedItem);
+    return updatedItem;
+  }
+
+  async deletePromotionItem(id: string): Promise<boolean> {
+    return this.promotionItems.delete(id);
+  }
+
   async searchPromotions(query: string): Promise<Promotion[]> {
     const lowercaseQuery = query.toLowerCase();
     return Array.from(this.promotions.values()).filter(promotion =>
@@ -2198,4 +2261,163 @@ export class MemStorage implements IStorage {
   }
 }
 
+export class DatabaseStorage implements IStorage {
+  async getBrand(id: string): Promise<Brand | undefined> {
+    const { db } = await import("./db");
+    const { eq } = await import("drizzle-orm");
+    const { brands } = await import("../shared/schema");
+    const [brand] = await db.select().from(brands).where(eq(brands.id, id));
+    return brand || undefined;
+  }
+
+  async getBrandBySlug(slug: string): Promise<Brand | undefined> {
+    const { db } = await import("./db");
+    const { eq } = await import("drizzle-orm");
+    const { brands } = await import("../shared/schema");
+    const [brand] = await db.select().from(brands).where(eq(brands.slug, slug));
+    return brand || undefined;
+  }
+
+  async getAllBrands(): Promise<Brand[]> {
+    const { db } = await import("./db");
+    const { brands } = await import("../shared/schema");
+    return await db.select().from(brands);
+  }
+
+  async createBrand(insertBrand: InsertBrand): Promise<Brand> {
+    const { db } = await import("./db");
+    const { brands } = await import("../shared/schema");
+    const [brand] = await db.insert(brands).values(insertBrand).returning();
+    return brand;
+  }
+
+  async updateBrand(id: string, updateBrand: Partial<InsertBrand>): Promise<Brand | undefined> {
+    const { db } = await import("./db");
+    const { eq } = await import("drizzle-orm");
+    const { brands } = await import("../shared/schema");
+    const [brand] = await db.update(brands).set(updateBrand).where(eq(brands.id, id)).returning();
+    return brand || undefined;
+  }
+
+  async deleteBrand(id: string): Promise<boolean> {
+    const { db } = await import("./db");
+    const { eq } = await import("drizzle-orm");
+    const { brands } = await import("../shared/schema");
+    const result = await db.delete(brands).where(eq(brands.id, id));
+    return result.rowCount > 0;
+  }
+
+  async getPromotion(id: string): Promise<Promotion | undefined> {
+    const { db } = await import("./db");
+    const { eq } = await import("drizzle-orm");
+    const { promotions } = await import("../shared/schema");
+    const [promotion] = await db.select().from(promotions).where(eq(promotions.id, id));
+    return promotion || undefined;
+  }
+
+  async getPromotionBySlug(slug: string): Promise<Promotion | undefined> {
+    const { db } = await import("./db");
+    const { eq } = await import("drizzle-orm");
+    const { promotions } = await import("../shared/schema");
+    const [promotion] = await db.select().from(promotions).where(eq(promotions.slug, slug));
+    return promotion || undefined;
+  }
+
+  async getPromotionsByBrandId(brandId: string): Promise<Promotion[]> {
+    const { db } = await import("./db");
+    const { eq } = await import("drizzle-orm");
+    const { promotions } = await import("../shared/schema");
+    return await db.select().from(promotions).where(eq(promotions.brandId, brandId));
+  }
+
+  async getAllPromotions(): Promise<Promotion[]> {
+    const { db } = await import("./db");
+    const { promotions } = await import("../shared/schema");
+    return await db.select().from(promotions);
+  }
+
+  async createPromotion(insertPromotion: InsertPromotion): Promise<Promotion> {
+    const { db } = await import("./db");
+    const { promotions } = await import("../shared/schema");
+    const [promotion] = await db.insert(promotions).values(insertPromotion).returning();
+    return promotion;
+  }
+
+  async updatePromotion(id: string, updatePromotion: Partial<InsertPromotion>): Promise<Promotion | undefined> {
+    const { db } = await import("./db");
+    const { promotions, eq } = await import("drizzle-orm");
+    const [promotion] = await db.update(promotions).set(updatePromotion).where(eq(promotions.id, id)).returning();
+    return promotion || undefined;
+  }
+
+  async deletePromotion(id: string): Promise<boolean> {
+    const { db } = await import("./db");
+    const { promotions, promotionItems, eq } = await import("drizzle-orm");
+    // Delete associated items first
+    await db.delete(promotionItems).where(eq(promotionItems.promotionId, id));
+    const result = await db.delete(promotions).where(eq(promotions.id, id));
+    return result.rowCount > 0;
+  }
+
+  async getPromotionItem(id: string): Promise<PromotionItem | undefined> {
+    const { db } = await import("./db");
+    const { promotionItems, eq } = await import("drizzle-orm");
+    const [item] = await db.select().from(promotionItems).where(eq(promotionItems.id, id));
+    return item || undefined;
+  }
+
+  async getPromotionItemsByPromotionId(promotionId: string): Promise<PromotionItem[]> {
+    const { db } = await import("./db");
+    const { promotionItems, eq } = await import("drizzle-orm");
+    return await db.select().from(promotionItems).where(eq(promotionItems.promotionId, promotionId));
+  }
+
+  async createPromotionItem(insertItem: InsertPromotionItem): Promise<PromotionItem> {
+    const { db } = await import("./db");
+    const { promotionItems } = await import("../shared/schema");
+    const [item] = await db.insert(promotionItems).values(insertItem).returning();
+    return item;
+  }
+
+  async updatePromotionItem(id: string, updateItem: Partial<InsertPromotionItem>): Promise<PromotionItem | undefined> {
+    const { db } = await import("./db");
+    const { promotionItems, eq } = await import("drizzle-orm");
+    const [item] = await db.update(promotionItems).set(updateItem).where(eq(promotionItems.id, id)).returning();
+    return item || undefined;
+  }
+
+  async deletePromotionItem(id: string): Promise<boolean> {
+    const { db } = await import("./db");
+    const { promotionItems, eq } = await import("drizzle-orm");
+    const result = await db.delete(promotionItems).where(eq(promotionItems.id, id));
+    return result.rowCount > 0;
+  }
+
+  async searchPromotions(query: string): Promise<Promotion[]> {
+    const { db } = await import("./db");
+    const { promotions, ilike, or } = await import("drizzle-orm");
+    const searchPattern = `%${query}%`;
+    return await db.select().from(promotions).where(
+      or(
+        ilike(promotions.name, searchPattern),
+        ilike(promotions.description, searchPattern),
+        ilike(promotions.category, searchPattern)
+      )
+    );
+  }
+
+  async searchItems(query: string): Promise<PromotionItem[]> {
+    const { db } = await import("./db");
+    const { promotionItems, ilike, or } = await import("drizzle-orm");
+    const searchPattern = `%${query}%`;
+    return await db.select().from(promotionItems).where(
+      or(
+        ilike(promotionItems.name, searchPattern),
+        ilike(promotionItems.description, searchPattern)
+      )
+    );
+  }
+}
+
+// Initialize with the memory storage to load sample data, then we'll switch to database
 export const storage = new MemStorage();

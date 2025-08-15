@@ -4,14 +4,17 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
-import { Calendar, Package, Tag, Filter } from "lucide-react";
+import { Switch } from "@/components/ui/switch";
+import { Calendar, Package, Tag, Filter, Edit } from "lucide-react";
 import { useState } from "react";
 import { type Promotion, type Brand } from "@shared/schema";
+import { EditablePromotion } from "@/components/EditablePromotion";
 // import { getBrandLogo } from "@/utils/brandLogos";
 
 const Promotions = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedBrand, setSelectedBrand] = useState<string | null>(null);
+  const [isEditMode, setIsEditMode] = useState(false);
 
   const { data: promotions, isLoading: promotionsLoading } = useQuery<Promotion[]>({
     queryKey: ['/api/promotions'],
@@ -68,10 +71,24 @@ const Promotions = () => {
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="nostalgia-text text-4xl font-bold text-promo-black mb-4 flex items-center justify-center drop-shadow-lg">
-            <Package className="w-8 h-8 mr-3 text-promo-yellow" />
-            Promociones Nostálgicas
-          </h1>
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex-1"></div>
+            <h1 className="nostalgia-text text-4xl font-bold text-promo-black flex items-center drop-shadow-lg">
+              <Package className="w-8 h-8 mr-3 text-promo-yellow" />
+              Promociones Nostálgicas
+            </h1>
+            <div className="flex-1 flex justify-end">
+              <div className="flex items-center space-x-2 bg-white px-4 py-2 rounded-lg shadow-sm border">
+                <Edit className="w-4 h-4 text-gray-600" />
+                <span className="text-sm font-medium">Modo Edición</span>
+                <Switch
+                  checked={isEditMode}
+                  onCheckedChange={setIsEditMode}
+                  data-testid="switch-edit-mode"
+                />
+              </div>
+            </div>
+          </div>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Revive los recuerdos de las promociones más icónicas de las marcas mexicanas
           </p>
@@ -150,11 +167,21 @@ const Promotions = () => {
         </div>
 
         {/* Promotions Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className={isEditMode ? "space-y-6" : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"}>
           {filteredPromotions && filteredPromotions.length > 0 ? (
             filteredPromotions.map((promotion) => {
               const brand = getBrand(promotion.brandId);
               if (!brand) return null;
+
+              if (isEditMode) {
+                return (
+                  <EditablePromotion
+                    key={promotion.id}
+                    promotion={promotion}
+                    isEditable={true}
+                  />
+                );
+              }
 
               return (
                 <Link key={promotion.id} href={`/promotion/${promotion.slug}`} data-testid={`link-promotion-${promotion.slug}`}>
@@ -180,8 +207,8 @@ const Promotions = () => {
                       </CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <div className="flex gap-4">
-                        <div className="flex-1">
+                      <div className="flex gap-3">
+                        <div className="flex-1 min-w-0">
                           <p className="text-gray-600 text-sm leading-relaxed mb-4">
                             {promotion.description.length > 120
                               ? `${promotion.description.substring(0, 120)}...`
@@ -196,11 +223,11 @@ const Promotions = () => {
                           </div>
                         </div>
                         {promotion.wrapperPhotoUrl && (
-                          <div className="flex-shrink-0">
+                          <div className="flex-shrink-0 w-20 h-24 flex items-center justify-center">
                             <img 
                               src={promotion.wrapperPhotoUrl} 
                               alt={`Envoltura ${promotion.name}`}
-                              className="w-56 h-64 object-contain drop-shadow-sm"
+                              className="max-w-full max-h-full object-contain drop-shadow-sm"
                             />
                           </div>
                         )}
