@@ -60,6 +60,50 @@ export class MemStorage implements IStorage {
     };
     this.brands.set(gamesa.id, gamesa);
 
+    const chocoshok_punki_punky: Promotion = {
+      id: randomUUID(),
+      brandId: gamesa.id,
+      name: "ChocoShok Punki Punky",
+      slug: "chocoshok-punki-punky",
+      description: "Promoción especial de ChocoShok con elementos de Punki Punky incluidos.",
+      imageUrl: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=300",
+      startYear: 2010,
+      endYear: 2011,
+      category: "stickers",
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: [
+          "/attached_assets/rotated/IMG_4301-removebg-preview (1)_1755219298609_rotated.png"
+],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      createdAt: new Date(),
+    };
+    this.promotions.set(chocoshok_punki_punky.id, chocoshok_punki_punky);
+
+    const chocoshok_gormiti: Promotion = {
+      id: randomUUID(),
+      brandId: gamesa.id,
+      name: "ChocoShok Gormiti",
+      slug: "chocoshok-gormiti",
+      description: "Promoción de ChocoShok con figuras coleccionables de Gormiti, los guardianes de los elementos.",
+      imageUrl: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=300",
+      startYear: 2010,
+      endYear: 2012,
+      category: "figuras",
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: [
+          "/attached_assets/rotated/IMG_4298-removebg-preview_1755219298608_rotated.png",
+          "/attached_assets/rotated/IMG_4299-removebg-preview_1755219298608_rotated.png",
+          "/attached_assets/rotated/IMG_4300-removebg-preview_1755219298608_rotated.png"
+],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      createdAt: new Date(),
+    };
+    this.promotions.set(chocoshok_gormiti.id, chocoshok_gormiti);
+
     const barcel: Brand = {
       id: randomUUID(),
       name: "Barcel",
@@ -107,6 +151,114 @@ export class MemStorage implements IStorage {
       createdAt: new Date(),
     };
     this.brands.set(vuala.id, vuala);
+
+    const the_dog_2004: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "The Dog 2004", 
+      slug: "the-dog-2004",
+      description: "Primera aparición de The Dog en México. Colección de figuras y accesorios con perritos de diferentes razas en estilo kawaii, disponible en sabores vainilla y chocolate.",
+      imageUrl: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=300",
+      startYear: 2004,
+      endYear: 2004,
+      category: "figuras",
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/rotated/IMG_4257-removebg-preview_1755219298607_rotated.png",
+        "/attached_assets/rotated/IMG_4269-removebg-preview_1755219298608_rotated.png"
+      ],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      createdAt: new Date(),
+    };
+    this.promotions.set(the_dog_2004.id, the_dog_2004);
+
+    const vuala_croissant: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Vualá Croissant",
+      slug: "vuala-croissant",
+      description: "Una probada de Europa. En 2002, Vualá introdujo al mercado mexicano una línea de croissants inspirados en la repostería europea. Disponibles en sabores vainilla, chocolate y mermelada.",
+      imageUrl: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=300",
+      startYear: 2002,
+      endYear: 2010,
+      category: "croissants",
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/rotated/IMG_4249-removebg-preview_1755219298607_rotated.png",
+        "/attached_assets/rotated/IMG_4302-removebg-preview_1755219298609_rotated.png",
+        "/attached_assets/rotated/IMG_4248-removebg-preview_1755219298612_rotated.png"
+      ],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      createdAt: new Date(),
+    };
+    this.promotions.set(vuala_croissant.id, vuala_croissant);
+
+    const dancemania2008: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Dancemania 2008",
+      slug: "dancemania-2008",
+      description: "Promoción de Vualá con música y baile, presentando figuras y accesorios inspirados en la cultura dance de finales de los 2000s.",
+      imageUrl: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=300",
+      startYear: 2008,
+      endYear: 2008,
+      category: "figuras",
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/rotated/Dancemania 2008 frontal chocolate_1755219298609_rotated.png"
+      ],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      createdAt: new Date(),
+    };
+    this.promotions.set(dancemania2008.id, dancemania2008);
+
+    const el_chavo_sorpresa: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "El Chavo Sorpresa",
+      slug: "el-chavo-sorpresa",
+      description: "Promoción de sorpresas del Chavo del Ocho con figuras y accesorios coleccionables.",
+      imageUrl: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=300",
+      startYear: 2010,
+      endYear: 2012,
+      category: "figuras",
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: [
+          "/attached_assets/rotated/IMG_4296-removebg-preview_1755219298608_rotated.png"
+],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      createdAt: new Date(),
+    };
+    this.promotions.set(el_chavo_sorpresa.id, el_chavo_sorpresa);
+
+    const vuala_mini_chocos: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Vualá Mini Chocos",
+      slug: "vuala-mini-chocos",
+      description: "Pequeños croissants de chocolate de Vualá con promociones especiales incluidas.",
+      imageUrl: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=300",
+      startYear: 2008,
+      endYear: 2012,
+      category: "croissants",
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: [
+          "/attached_assets/rotated/IMG_4303-removebg-preview_1755219298609_rotated.png"
+],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      createdAt: new Date(),
+    };
+    this.promotions.set(vuala_mini_chocos.id, vuala_mini_chocos);
 
     // Seed promotions
     const tazos: Promotion = {
@@ -655,7 +807,8 @@ export class MemStorage implements IStorage {
       wrapperPhotosUrls: [
         "/attached_assets/rotated/vainilla funki punky extremo_1755152265578_rotated.png",
         "/attached_assets/rotated/Cajeta funki punky extremo_1755150784762_rotated.png",
-        "/attached_assets/rotated/Cajeta funki punky extremo_1755196507570_rotated.png"
+        "/attached_assets/rotated/Cajeta funki punky extremo_1755196507570_rotated.png",
+        "/attached_assets/rotated/Funki punky extremo chocolate_1755219298611_rotated.png"
       ],
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
@@ -708,7 +861,8 @@ export class MemStorage implements IStorage {
         "/attached_assets/rotated/Bob esponja 2012 vainilla frontal_1755150784760_rotated.png",
         "/attached_assets/rotated/Frontal bob esponja 2012 chocolate_1755149294898_rotated.png",
         "/attached_assets/rotated/Bob esponja 2012 Cajeta frontal_1755196507568_rotated.png",
-        "/attached_assets/rotated/Bob esponja 2012 vainilla frontal_1755196507569_rotated.png"
+        "/attached_assets/rotated/Bob esponja 2012 vainilla frontal_1755196507569_rotated.png",
+        "/attached_assets/rotated/Frontal bob esponja 2012 chocolate_1755219298611_rotated.png"
       ],
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
@@ -1339,7 +1493,9 @@ export class MemStorage implements IStorage {
       endYear: 2018,
       category: "figuras",
       wrapperPhotoUrl: null,
-      wrapperPhotosUrls: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/rotated/Frontal chocolate hora de aventura 2018_1755219298611_rotated.png"
+      ],
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
@@ -1768,7 +1924,9 @@ export class MemStorage implements IStorage {
       description: "El Chavo del 8 llegó a Vualá con Chavitops, helados de chocolate que combinaban la nostalgia del personaje más querido de México con sabores irresistibles.",
       imageUrl: null,
       wrapperPhotoUrl: "/attached_assets/rotated/el chavo chavitops chocolate_1755149294896_rotated.png",
-      wrapperPhotosUrls: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/rotated/el chavo chavitops chocolate_1755219298610_rotated.png"
+      ],
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
@@ -1787,7 +1945,11 @@ export class MemStorage implements IStorage {
       description: "La versión mini del Chavo del 8 con helados de vainilla y chocolate. Una edición especial que celebraba al personaje icónico con formato familiar.",
       imageUrl: null,
       wrapperPhotoUrl: "/attached_assets/rotated/El chavo mini 2015 vainilla_1755149294897_rotated.png",
-      wrapperPhotosUrls: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/rotated/El chavo mini 2015 vainilla_1755219298610_rotated.png",
+        "/attached_assets/rotated/El chavo mini chocolate_1755219298610_rotated.png",
+        "/attached_assets/rotated/el chavo mini 2015 vainilla (2)_1755219298610_rotated.png"
+      ],
       promotionImagesUrls: [
         "/attached_assets/rotated/El chavo mini 2015 vainilla_1755149294897_rotated.png",
         "/attached_assets/rotated/el chavo mini 2015 vainilla (2)_1755149294897_rotated.png",
@@ -1810,7 +1972,9 @@ export class MemStorage implements IStorage {
       description: "Promoción musical Fonomania 2008 con helados de chocolate. La música y los helados se unieron en una experiencia única para los amantes del sonido.",
       imageUrl: null,
       wrapperPhotoUrl: "/attached_assets/rotated/Fonomania 2008 frontal chocolate_1755149294898_rotated.png",
-      wrapperPhotosUrls: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/rotated/Fonomania 2008 frontal chocolate_1755219298611_rotated.png"
+      ],
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,

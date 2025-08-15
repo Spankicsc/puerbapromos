@@ -1,0 +1,167 @@
+{
+  "batch": 2,
+  "processed_date": "2024-08-15",
+  "total_processed": 20,
+  "updates": [
+    {
+      "original_file": "El chavo mini 2015 vainilla_1755219298610.png",
+      "rotated_file": "El chavo mini 2015 vainilla_1755219298610_rotated.png",
+      "promotion": "El Chavo Mini 2015",
+      "flavor": "vainilla",
+      "target_filename": "el_chavo_mini_2015_vainilla_v3.png",
+      "description": "Wrapper del sabor vainilla"
+    },
+    {
+      "original_file": "El chavo mini chocolate_1755219298610.png",
+      "rotated_file": "El chavo mini chocolate_1755219298610_rotated.png",
+      "promotion": "El Chavo Mini 2015",
+      "flavor": "chocolate",
+      "target_filename": "el_chavo_mini_2015_chocolate_v3.png",
+      "description": "Wrapper del sabor chocolate"
+    },
+    {
+      "original_file": "el chavo chavitops chocolate_1755219298610.png",
+      "rotated_file": "el chavo chavitops chocolate_1755219298610_rotated.png",
+      "promotion": "El Chavo Chavitops",
+      "flavor": "chocolate",
+      "target_filename": "el_chavo_chavitops_chocolate_v2.png",
+      "description": "Wrapper del sabor chocolate"
+    },
+    {
+      "original_file": "el chavo mini 2015 vainilla (2)_1755219298610.png",
+      "rotated_file": "el chavo mini 2015 vainilla (2)_1755219298610_rotated.png",
+      "promotion": "El Chavo Mini 2015",
+      "flavor": "vainilla",
+      "target_filename": "el_chavo_mini_2015_vainilla_v4.png",
+      "description": "Wrapper del sabor vainilla"
+    },
+    {
+      "original_file": "Fonomania 2008 frontal chocolate_1755219298611.png",
+      "rotated_file": "Fonomania 2008 frontal chocolate_1755219298611_rotated.png",
+      "promotion": "Fonomania 2008",
+      "flavor": "chocolate",
+      "target_filename": "fonomania_2008_chocolate_v2.png",
+      "description": "Wrapper del sabor chocolate"
+    },
+    {
+      "original_file": "Dancemania 2008 frontal chocolate_1755219298609.png",
+      "rotated_file": "Dancemania 2008 frontal chocolate_1755219298609_rotated.png",
+      "promotion": "Dancemania 2008",
+      "flavor": "chocolate",
+      "target_filename": "dancemania_2008_chocolate_v2.png",
+      "description": "Wrapper del sabor chocolate"
+    },
+    {
+      "original_file": "Frontal bob esponja 2012 chocolate_1755219298611.png",
+      "rotated_file": "Frontal bob esponja 2012 chocolate_1755219298611_rotated.png",
+      "promotion": "Bob Esponja 2012",
+      "flavor": "chocolate",
+      "target_filename": "bob_esponja_2012_chocolate_v2.png",
+      "description": "Wrapper del sabor chocolate"
+    },
+    {
+      "original_file": "Frontal chocolate hora de aventura 2018_1755219298611.png",
+      "rotated_file": "Frontal chocolate hora de aventura 2018_1755219298611_rotated.png",
+      "promotion": "Hora de Aventura 2018",
+      "flavor": "chocolate",
+      "target_filename": "hora_aventura_2018_chocolate_v2.png",
+      "description": "Wrapper del sabor chocolate"
+    },
+    {
+      "original_file": "Funki punky extremo chocolate_1755219298611.png",
+      "rotated_file": "Funki punky extremo chocolate_1755219298611_rotated.png",
+      "promotion": "Funki Punky Extremo",
+      "flavor": "chocolate",
+      "target_filename": "funki_punky_extremo_chocolate_v2.png",
+      "description": "Wrapper del sabor chocolate"
+    },
+    {
+      "original_file": "IMG_4249-removebg-preview_1755219298607.png",
+      "rotated_file": "IMG_4249-removebg-preview_1755219298607_rotated.png",
+      "promotion": "Vualá Croissant",
+      "flavor": "vainilla",
+      "target_filename": "vuala_croissant_vainilla_v2.png",
+      "description": "Wrapper del sabor vainilla"
+    },
+    {
+      "original_file": "IMG_4302-removebg-preview_1755219298609.png",
+      "rotated_file": "IMG_4302-removebg-preview_1755219298609_rotated.png",
+      "promotion": "Vualá Croissant",
+      "flavor": "chocolate",
+      "target_filename": "vuala_croissant_chocolate_v2.png",
+      "description": "Wrapper del sabor chocolate"
+    },
+    {
+      "original_file": "IMG_4248-removebg-preview_1755219298612.png",
+      "rotated_file": "IMG_4248-removebg-preview_1755219298612_rotated.png",
+      "promotion": "Vualá Croissant",
+      "flavor": "mermelada",
+      "target_filename": "vuala_croissant_mermelada.png",
+      "description": "Wrapper del sabor mermelada"
+    },
+    {
+      "original_file": "IMG_4257-removebg-preview_1755219298607.png",
+      "rotated_file": "IMG_4257-removebg-preview_1755219298607_rotated.png",
+      "promotion": "The Dog 2004",
+      "flavor": "vainilla",
+      "target_filename": "the_dog_2004_vainilla_v2.png",
+      "description": "Wrapper del sabor vainilla"
+    },
+    {
+      "original_file": "IMG_4269-removebg-preview_1755219298608.png",
+      "rotated_file": "IMG_4269-removebg-preview_1755219298608_rotated.png",
+      "promotion": "The Dog 2004",
+      "flavor": "chocolate",
+      "target_filename": "the_dog_2004_chocolate.png",
+      "description": "Wrapper del sabor chocolate"
+    },
+    {
+      "original_file": "IMG_4303-removebg-preview_1755219298609.png",
+      "rotated_file": "IMG_4303-removebg-preview_1755219298609_rotated.png",
+      "promotion": "Vualá Mini Chocos",
+      "flavor": "chocolate",
+      "target_filename": "vuala_mini_chocos_chocolate.png",
+      "description": "Wrapper del sabor chocolate"
+    },
+    {
+      "original_file": "IMG_4298-removebg-preview_1755219298608.png",
+      "rotated_file": "IMG_4298-removebg-preview_1755219298608_rotated.png",
+      "promotion": "ChocoShok Gormiti",
+      "flavor": "vainilla",
+      "target_filename": "chocoshok_gormiti_vainilla.png",
+      "description": "Wrapper del sabor vainilla"
+    },
+    {
+      "original_file": "IMG_4299-removebg-preview_1755219298608.png",
+      "rotated_file": "IMG_4299-removebg-preview_1755219298608_rotated.png",
+      "promotion": "ChocoShok Gormiti",
+      "flavor": "vainilla",
+      "target_filename": "chocoshok_gormiti_vainilla_v2.png",
+      "description": "Wrapper del sabor vainilla"
+    },
+    {
+      "original_file": "IMG_4300-removebg-preview_1755219298608.png",
+      "rotated_file": "IMG_4300-removebg-preview_1755219298608_rotated.png",
+      "promotion": "ChocoShok Gormiti",
+      "flavor": "vainilla",
+      "target_filename": "chocoshok_gormiti_vainilla_v3.png",
+      "description": "Wrapper del sabor vainilla"
+    },
+    {
+      "original_file": "IMG_4301-removebg-preview (1)_1755219298609.png",
+      "rotated_file": "IMG_4301-removebg-preview (1)_1755219298609_rotated.png",
+      "promotion": "ChocoShok Punki Punky",
+      "flavor": "chocolate",
+      "target_filename": "chocoshok_punki_punky_chocolate.png",
+      "description": "Wrapper del sabor chocolate"
+    },
+    {
+      "original_file": "IMG_4296-removebg-preview_1755219298608.png",
+      "rotated_file": "IMG_4296-removebg-preview_1755219298608_rotated.png",
+      "promotion": "El Chavo Sorpresa",
+      "flavor": "chocolate",
+      "target_filename": "el_chavo_sorpresa_chocolate.png",
+      "description": "Wrapper del sabor chocolate"
+    }
+  ]
+}
