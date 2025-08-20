@@ -57,7 +57,7 @@ const validCategories = [
 export function EditablePromotion({ promotion, isEditable }: EditablePromotionProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedPromotion, setEditedPromotion] = useState(promotion);
-  const [wrapperRotation, setWrapperRotation] = useState(0);
+  const [wrapperRotation, setWrapperRotation] = useState(promotion.wrapperRotation || 0);
   const [imageZoom, setImageZoom] = useState(1);
   const [imagePosition, setImagePosition] = useState({ x: 0, y: 0 });
   const [showImageEditor, setShowImageEditor] = useState(false);
@@ -157,6 +157,7 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
       imageUrl: updatedPromotion.imageUrl,
       youtubeCommercialUrl: updatedPromotion.youtubeCommercialUrl,
       buffetGamesVideoUrl: updatedPromotion.buffetGamesVideoUrl,
+      wrapperRotation: updatedPromotion.wrapperRotation,
     });
   };
 
@@ -168,6 +169,7 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
   const handleRotateWrapper = () => {
     const newRotation = (wrapperRotation + 90) % 360;
     setWrapperRotation(newRotation);
+    autoSave({ wrapperRotation: newRotation });
   };
 
   const handleZoomIn = () => {
@@ -310,7 +312,7 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                     const newValue = parseInt(e.target.value);
                     setEditedPromotion({ ...editedPromotion, startYear: newValue });
                     // Auto-save after a short delay
-                    setTimeout(() => autoSave({ startYear: newValue }), 500);
+                    setTimeout(() => autoSave({ startYear: newValue }), 2000);
                   }}
                   className="w-16 h-5 text-xs border-0 bg-transparent p-0"
                   data-testid="input-start-year"
@@ -328,7 +330,7 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                 const newValue = e.target.value;
                 setEditedPromotion({ ...editedPromotion, name: newValue });
                 // Auto-save after a short delay
-                setTimeout(() => autoSave({ name: newValue }), 800);
+                setTimeout(() => autoSave({ name: newValue }), 2000);
               }}
               className="text-xl font-bold text-promo-black border-0 bg-transparent p-0"
               style={{ fontFamily: 'Righteous, cursive' }}
@@ -344,7 +346,7 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                     const newValue = e.target.value;
                     setEditedPromotion({ ...editedPromotion, description: newValue });
                     // Auto-save after a short delay
-                    setTimeout(() => autoSave({ description: newValue }), 800);
+                    setTimeout(() => autoSave({ description: newValue }), 2000);
                   }}
                   className="text-gray-600 text-sm leading-relaxed mb-4 border-0 bg-white/50 rounded"
                   rows={3}
@@ -605,7 +607,7 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                     const newValue = e.target.value;
                     setEditedPromotion({ ...editedPromotion, imageUrl: newValue });
                     // Auto-save after a short delay
-                    setTimeout(() => autoSave({ imageUrl: newValue }), 800);
+                    setTimeout(() => autoSave({ imageUrl: newValue }), 2000);
                   }}
                   placeholder="URL de imagen principal"
                   data-testid="input-image-url"
@@ -619,7 +621,7 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                     const newValue = e.target.value;
                     setEditedPromotion({ ...editedPromotion, wrapperPhotoUrl: newValue });
                     // Auto-save after a short delay
-                    setTimeout(() => autoSave({ wrapperPhotoUrl: newValue }), 800);
+                    setTimeout(() => autoSave({ wrapperPhotoUrl: newValue }), 2000);
                   }}
                   placeholder="URL de envoltura principal"
                   data-testid="input-wrapper-url"
@@ -633,7 +635,7 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                     const newValue = e.target.value;
                     setEditedPromotion({ ...editedPromotion, youtubeCommercialUrl: newValue });
                     // Auto-save after a short delay
-                    setTimeout(() => autoSave({ youtubeCommercialUrl: newValue }), 800);
+                    setTimeout(() => autoSave({ youtubeCommercialUrl: newValue }), 2000);
                   }}
                   placeholder="URL del comercial de YouTube"
                   data-testid="input-youtube-url"
@@ -647,7 +649,7 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                     const newValue = e.target.value;
                     setEditedPromotion({ ...editedPromotion, buffetGamesVideoUrl: newValue });
                     // Auto-save after a short delay
-                    setTimeout(() => autoSave({ buffetGamesVideoUrl: newValue }), 800);
+                    setTimeout(() => autoSave({ buffetGamesVideoUrl: newValue }), 2000);
                   }}
                   placeholder="URL del video de Buffet Games"
                   data-testid="input-buffet-url"

@@ -23,6 +23,7 @@ export const promotions = pgTable("promotions", {
   imageUrl: text("image_url"),
   wrapperPhotoUrl: text("wrapper_photo_url"),
   wrapperPhotosUrls: jsonb("wrapper_photos_urls").$type<string[] | null>(), // Multiple wrapper photos
+  wrapperRotation: integer("wrapper_rotation").default(0), // Rotation in degrees
   promotionImagesUrls: jsonb("promotion_images_urls"),
   youtubeCommercialUrl: text("youtube_commercial_url"),
   buffetGamesVideoUrl: text("buffet_games_video_url"),

@@ -65,6 +65,25 @@ const Promotion = () => {
     }
   };
 
+  const getYouTubeEmbedUrl = (url: string): string => {
+    if (!url) return '';
+    
+    // Handle different YouTube URL formats
+    const youtubeRegex = /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/;
+    const match = url.match(youtubeRegex);
+    
+    if (match && match[1]) {
+      return `https://www.youtube.com/embed/${match[1]}`;
+    }
+    
+    // If already an embed URL, return as is
+    if (url.includes('youtube.com/embed/')) {
+      return url;
+    }
+    
+    return url; // Return original if can't parse
+  };
+
   if (promotionLoading) {
     return (
       <div className="bg-promo-gray min-h-screen">
@@ -245,7 +264,7 @@ const Promotion = () => {
               {promotion.youtubeCommercialUrl ? (
                 <div className="aspect-video">
                   <iframe
-                    src={promotion.youtubeCommercialUrl.replace('watch?v=', 'embed/')}
+                    src={getYouTubeEmbedUrl(promotion.youtubeCommercialUrl)}
                     title={`Comercial de ${promotion.name}`}
                     className="w-full h-full rounded-lg"
                     frameBorder="0"
@@ -283,7 +302,7 @@ const Promotion = () => {
               {promotion.buffetGamesVideoUrl ? (
                 <div className="aspect-video">
                   <iframe
-                    src={promotion.buffetGamesVideoUrl.replace('watch?v=', 'embed/')}
+                    src={getYouTubeEmbedUrl(promotion.buffetGamesVideoUrl)}
                     title={`Video explicativo de ${promotion.name} por Buffet Games`}
                     className="w-full h-full rounded-lg"
                     frameBorder="0"
