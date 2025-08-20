@@ -1,0 +1,83 @@
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import type { Promotion } from '../shared/schema';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+export class AutoSyncManager {
+  private static instance: AutoSyncManager;
+  private storagePath = path.join(__dirname, 'storage.ts');
+
+  static getInstance(): AutoSyncManager {
+    if (!AutoSyncManager.instance) {
+      AutoSyncManager.instance = new AutoSyncManager();
+    }
+    return AutoSyncManager.instance;
+  }
+
+  async syncPromotionToSource(promotion: Promotion): Promise<void> {
+    try {
+      console.log(`🔄 Sincronizando cambios de ${promotion.name} al código fuente...`);
+      
+      const content = fs.readFileSync(this.storagePath, 'utf8');
+      const updatedContent = this.updatePromotionInSource(content, promotion);
+      
+      fs.writeFileSync(this.storagePath, updatedContent);
+      console.log(`✅ Sincronizado: ${promotion.name}`);
+    } catch (error) {
+      console.error('❌ Error sincronizando al código:', error);
+    }
+  }
+
+  private updatePromotionInSource(content: string, promotion: Promotion): string {
+    // Find the promotion block by slug
+    const slugPattern = new RegExp(`(const \\w+: Promotion = {[\\s\\S]*?slug: "${promotion.slug}"[\\s\\S]*?);\\s*this\\.promotions\\.set`, 'g');
+    
+    return content.replace(slugPattern, (match) => {
+      // Extract the promotion object part
+      const objMatch = match.match(/(const \w+: Promotion = {[\s\S]*?});/);
+      if (!objMatch) return match;
+
+      let promotionObj = objMatch[1];
+
+      // Update key fields that users commonly change
+      promotionObj = this.updateField(promotionObj, 'youtubeCommercialUrl', promotion.youtubeCommercialUrl);
+      promotionObj = this.updateField(promotionObj, 'buffetGamesVideoUrl', promotion.buffetGamesVideoUrl);
+      promotionObj = this.updateField(promotionObj, 'wrapperRotation', promotion.wrapperRotation);
+      promotionObj = this.updateField(promotionObj, 'tags', promotion.tags);
+      promotionObj = this.updateField(promotionObj, 'imageUrl', promotion.imageUrl);
+      promotionObj = this.updateField(promotionObj, 'promotionImagesUrls', promotion.promotionImagesUrls);
+      promotionObj = this.updateField(promotionObj, 'wrapperPhotosUrls', promotion.wrapperPhotosUrls);
+
+      return match.replace(objMatch[1], promotionObj);
+    });
+  }
+
+  private updateField(content: string, fieldName: string, value: any): string {
+    const fieldPattern = new RegExp(`(${fieldName}:)([^,\\n]+)`, 'g');
+    
+    let newValue: string;
+    if (value === null) {
+      newValue = ' null';
+    } else if (typeof value === 'string') {
+      newValue = ` "${value}"`;
+    } else if (Array.isArray(value)) {
+      if (value.length === 0) {
+        newValue = ' []';
+      } else {
+        const formattedArray = value.map(item => `"${item}"`).join(',\n        ');
+        newValue = ` [\n        ${formattedArray}\n      ]`;
+      }
+    } else if (typeof value === 'number') {
+      newValue = ` ${value}`;
+    } else {
+      newValue = ` ${JSON.stringify(value)}`;
+    }
+
+    return content.replace(fieldPattern, `$1${newValue}`);
+  }
+}
+
+export const autoSync = AutoSyncManager.getInstance();

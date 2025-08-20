@@ -6,6 +6,7 @@ import {
   ObjectStorageService,
   ObjectNotFoundError,
 } from "./objectStorage";
+import { autoSync } from "./autoSync";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Get all brands
@@ -230,6 +231,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (!promotion) {
         return res.status(404).json({ message: "Promotion not found" });
       }
+      
+      // 🔄 Auto-sync: Actualizar automáticamente el código fuente
+      autoSync.syncPromotionToSource(promotion).catch(error => {
+        console.error('Error en auto-sync:', error);
+      });
+      
       res.json(promotion);
     } catch (error) {
       res.status(500).json({ message: "Failed to update promotion" });
