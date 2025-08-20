@@ -315,20 +315,27 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                   data-testid="textarea-description"
                 />
                 <div className="flex items-center justify-between">
+                  <Badge variant="outline" className="text-xs">
+                    <Tag className="w-3 h-3 mr-1" />
+                    {editedPromotion.category || "tazos"}
+                  </Badge>
                   <Select
-                    value={editedPromotion.category || "tazos"}
+                    value={editedPromotion.category}
                     onValueChange={(value) => {
-                      console.log('Changing category to:', value);
-                      setEditedPromotion({ ...editedPromotion, category: value });
+                      try {
+                        setEditedPromotion(prev => ({ ...prev, category: value }));
+                      } catch (error) {
+                        console.error('Error updating category:', error);
+                      }
                     }}
                   >
-                    <SelectTrigger className="w-36 h-8 text-xs bg-white" data-testid="select-category">
-                      <SelectValue placeholder="Seleccionar categoría" />
+                    <SelectTrigger className="w-8 h-6 border-0 bg-transparent p-0 hover:bg-gray-100 ml-2">
+                      <span className="text-xs">✏️</span>
                     </SelectTrigger>
-                    <SelectContent className="z-50">
+                    <SelectContent>
                       {validCategories.map((category) => (
-                        <SelectItem key={category} value={category} className="text-xs">
-                          {category.charAt(0).toUpperCase() + category.slice(1)}
+                        <SelectItem key={category} value={category}>
+                          {category}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -336,7 +343,7 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                 </div>
               </div>
               {editedPromotion.wrapperPhotoUrl && (
-                <div className="flex-shrink-0 w-32 h-36 flex items-center justify-center relative">
+                <div className="flex-shrink-0 w-20 h-24 flex items-center justify-center relative">
                   <Dialog>
                     <DialogTrigger asChild>
                       <img 
@@ -434,7 +441,7 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                     <img 
                       src={url} 
                       alt={`Envoltura ${index + 1}`}
-                      className="w-full h-32 object-contain bg-white rounded border cursor-pointer hover:scale-105 transition-transform shadow-sm"
+                      className="w-full h-16 object-contain bg-white rounded border cursor-pointer hover:scale-105 transition-transform shadow-sm"
                       onClick={() => openImageEditor(url)}
                     />
                     <Button
@@ -532,7 +539,7 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                   </div>
                 </div>
                 {promotion.wrapperPhotoUrl && (
-                  <div className="flex-shrink-0 w-28 h-32 flex items-center justify-center">
+                  <div className="flex-shrink-0 w-20 h-24 flex items-center justify-center">
                     <Dialog>
                       <DialogTrigger asChild>
                         <img 
