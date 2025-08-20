@@ -137,12 +137,80 @@ const Promotion = () => {
     });
   };
 
+  const addRareItem = () => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.onchange = (e) => {
+      const file = (e.target as HTMLInputElement).files?.[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const imageUrl = e.target?.result as string;
+          if (imageUrl) {
+            // Show rarity selection modal
+            const rarity = prompt(
+              'Selecciona la rareza:\\n1 - Rara (azul)\\n2 - Mítica (morado)\\n3 - Legendaria (dorado)\\n\\nEscribe 1, 2 o 3:'
+            );
+            let rarityType = 'rare';
+            if (rarity === '2') rarityType = 'mythic';
+            else if (rarity === '3') rarityType = 'legendary';
+            
+            const itemName = prompt('Nombre de la pieza rara:') || `Pieza ${rarityType}`;
+            
+            // Create new item via API
+            fetch(`/api/promotions/${promotion.id}/items`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                name: itemName,
+                imageUrl: imageUrl,
+                rarity: rarityType,
+                description: `Pieza ${getRarityLabel(rarityType)} de la promoción ${promotion.name}`,
+              }),
+            })
+            .then(response => response.json())
+            .then(() => {
+              // Refresh the items list
+              queryClient.invalidateQueries({ 
+                queryKey: [`/api/promotions/${promotion.slug}/items`] 
+              });
+              toast({
+                title: 'Pieza rara agregada',
+                description: `Se agregó la pieza ${rarityType} correctamente.`,
+              });
+            })
+            .catch(error => {
+              console.error('Error adding rare item:', error);
+              toast({
+                title: 'Error',
+                description: 'No se pudo agregar la pieza rara.',
+                variant: 'destructive',
+              });
+            });
+          }
+        };
+        reader.readAsDataURL(file);
+      }
+    };
+    input.click();
+  };
+
+
   const getRarityColor = (rarity?: string) => {
     switch (rarity?.toLowerCase()) {
+      case 'rare':
+        return 'bg-blue-500 text-white';
+      case 'mythic':
+      case 'mitica':
+        return 'bg-purple-500 text-white';
+      case 'legendary':
+      case 'legendaria':
+        return 'bg-yellow-500 text-black';
       case 'common':
         return 'bg-gray-100 text-gray-800';
-      case 'rare':
-        return 'bg-blue-100 text-blue-800';
       case 'super_rare':
         return 'bg-purple-100 text-purple-800';
       case 'ultra_rare':
@@ -154,10 +222,16 @@ const Promotion = () => {
 
   const getRarityLabel = (rarity?: string) => {
     switch (rarity?.toLowerCase()) {
+      case 'rare':
+        return 'Rara';
+      case 'mythic':
+      case 'mitica':
+        return 'Mítica';
+      case 'legendary':
+      case 'legendaria':
+        return 'Legendaria';
       case 'common':
         return 'Común';
-      case 'rare':
-        return 'Raro';
       case 'super_rare':
         return 'Super Raro';
       case 'ultra_rare':
@@ -860,10 +934,22 @@ const Promotion = () => {
             </div>
           ) : null}
 
-          {/* Items Grid */}
-          <h3 className="text-lg font-semibold text-promo-black mb-4">
-            Elementos Coleccionables
-          </h3>
+          {/* Rare Items Grid */}
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-lg font-semibold text-promo-black">
+              Piezas más raras
+            </h3>
+            {isEditMode && (
+              <Button
+                size="sm"
+                onClick={addRareItem}
+                className="bg-promo-yellow text-promo-black hover:bg-yellow-400"
+              >
+                <Plus className="w-4 h-4 mr-2" />
+                Agregar Pieza Rara
+              </Button>
+            )}
+          </div>
 
           {itemsLoading ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -918,18 +1004,28 @@ const Promotion = () => {
             </div>
           ) : (
             <div className="bg-white rounded-xl shadow-lg p-12 text-center">
-              <div className="text-6xl mb-4">📦</div>
+              <div className="text-6xl mb-4">💎</div>
               <h3 className="text-xl font-semibold text-gray-600 mb-2">
-                Aún no hay elementos en esta colección
+                Sin piezas raras aún
               </h3>
               <p className="text-gray-500 mb-6">
-                Los elementos de esta promoción se agregarán pronto.
+                Las piezas más raras de esta promoción se agregarán pronto.
               </p>
-              <Link href="/promociones">
-                <Button className="bg-promo-yellow text-promo-black hover:bg-yellow-500">
-                  Ver otras promociones
+              {isEditMode ? (
+                <Button
+                  onClick={addRareItem}
+                  className="bg-promo-yellow text-promo-black hover:bg-yellow-400"
+                >
+                  <Plus className="w-4 h-4 mr-2" />
+                  Agregar Primera Pieza Rara
                 </Button>
-              </Link>
+              ) : (
+                <Link href="/promociones">
+                  <Button className="bg-promo-yellow text-promo-black hover:bg-yellow-500">
+                    Ver otras promociones
+                  </Button>
+                </Link>
+              )}              
             </div>
           )}
         </section>

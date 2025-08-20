@@ -83,6 +83,29 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Create promotion item by promotion ID
+  app.post("/api/promotions/:id/items", async (req, res) => {
+    try {
+      const promotionId = req.params.id;
+      const { name, description, imageUrl, rarity, itemNumber } = req.body;
+      
+      const newItem = await storage.createPromotionItem({
+        promotionId,
+        name,
+        description: description || null,
+        imageUrl: imageUrl || null,
+        rarity: rarity || null,
+        itemNumber: itemNumber || null,
+        metadata: null
+      });
+      
+      res.status(201).json(newItem);
+    } catch (error) {
+      console.error("Error creating promotion item:", error);
+      res.status(500).json({ message: "Failed to create promotion item" });
+    }
+  });
+
   // Search promotions
   app.get("/api/search/promotions", async (req, res) => {
     try {
