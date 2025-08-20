@@ -141,24 +141,23 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
     });
   };
 
-  // Auto-save function to save changes immediately
-  const autoSave = (updates: Partial<Promotion>) => {
-    const updatedPromotion = { ...editedPromotion, ...updates };
-    setEditedPromotion(updatedPromotion);
+  // Manual save function
+  const saveChanges = () => {
     updateMutation.mutate({
-      name: updatedPromotion.name,
-      description: updatedPromotion.description,
-      category: updatedPromotion.category,
-      tags: updatedPromotion.tags,
-      startYear: updatedPromotion.startYear,
-      endYear: updatedPromotion.endYear,
-      wrapperPhotoUrl: updatedPromotion.wrapperPhotoUrl,
-      wrapperPhotosUrls: updatedPromotion.wrapperPhotosUrls,
-      imageUrl: updatedPromotion.imageUrl,
-      youtubeCommercialUrl: updatedPromotion.youtubeCommercialUrl,
-      buffetGamesVideoUrl: updatedPromotion.buffetGamesVideoUrl,
-      wrapperRotation: updatedPromotion.wrapperRotation,
+      name: editedPromotion.name,
+      description: editedPromotion.description,
+      category: editedPromotion.category,
+      tags: editedPromotion.tags,
+      startYear: editedPromotion.startYear,
+      endYear: editedPromotion.endYear,
+      wrapperPhotoUrl: editedPromotion.wrapperPhotoUrl,
+      wrapperPhotosUrls: editedPromotion.wrapperPhotosUrls,
+      imageUrl: editedPromotion.imageUrl,
+      youtubeCommercialUrl: editedPromotion.youtubeCommercialUrl,
+      buffetGamesVideoUrl: editedPromotion.buffetGamesVideoUrl,
+      wrapperRotation: editedPromotion.wrapperRotation,
     });
+    setIsEditing(false);
   };
 
   const handleCancel = () => {
@@ -169,7 +168,7 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
   const handleRotateWrapper = () => {
     const newRotation = (wrapperRotation + 90) % 360;
     setWrapperRotation(newRotation);
-    autoSave({ wrapperRotation: newRotation });
+    setEditedPromotion({ ...editedPromotion, wrapperRotation: newRotation });
   };
 
   const handleZoomIn = () => {
@@ -200,7 +199,8 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
           const imageUrl = e.target?.result as string;
           if (imageUrl) {
             const currentUrls = Array.isArray(editedPromotion.wrapperPhotosUrls) ? editedPromotion.wrapperPhotosUrls : [];
-            autoSave({ 
+            setEditedPromotion({ 
+              ...editedPromotion, 
               wrapperPhotosUrls: [...currentUrls, imageUrl]
             });
           }
@@ -213,7 +213,8 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
 
   const removeWrapperPhoto = (index: number) => {
     const currentUrls = Array.isArray(editedPromotion.wrapperPhotosUrls) ? editedPromotion.wrapperPhotosUrls : [];
-    autoSave({ 
+    setEditedPromotion({ 
+      ...editedPromotion, 
       wrapperPhotosUrls: currentUrls.filter((_, i) => i !== index)
     });
   };
@@ -245,7 +246,7 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
               <Button
                 size="sm"
                 variant="secondary"
-                onClick={handleSave}
+                onClick={saveChanges}
                 disabled={updateMutation.isPending}
                 data-testid="button-save-promotion"
               >
@@ -311,8 +312,6 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                   onChange={(e) => {
                     const newValue = parseInt(e.target.value);
                     setEditedPromotion({ ...editedPromotion, startYear: newValue });
-                    // Auto-save after a short delay
-                    setTimeout(() => autoSave({ startYear: newValue }), 2000);
                   }}
                   className="w-16 h-5 text-xs border-0 bg-transparent p-0"
                   data-testid="input-start-year"
@@ -329,8 +328,6 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
               onChange={(e) => {
                 const newValue = e.target.value;
                 setEditedPromotion({ ...editedPromotion, name: newValue });
-                // Auto-save after a short delay
-                setTimeout(() => autoSave({ name: newValue }), 2000);
               }}
               className="text-xl font-bold text-promo-black border-0 bg-transparent p-0"
               style={{ fontFamily: 'Righteous, cursive' }}
@@ -345,8 +342,6 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                   onChange={(e) => {
                     const newValue = e.target.value;
                     setEditedPromotion({ ...editedPromotion, description: newValue });
-                    // Auto-save after a short delay
-                    setTimeout(() => autoSave({ description: newValue }), 2000);
                   }}
                   className="text-gray-600 text-sm leading-relaxed mb-4 border-0 bg-white/50 rounded"
                   rows={3}
@@ -390,7 +385,7 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                               className="h-4 w-4 p-0 ml-1 hover:bg-red-100"
                               onClick={() => {
                                 const newTags = editedPromotion.tags?.filter((_, i) => i !== index) || null;
-                                autoSave({ tags: newTags });
+                                setEditedPromotion({ ...editedPromotion, tags: newTags });
                               }}
                             >
                               ×
@@ -419,10 +414,10 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                                 if (currentTags.includes(category)) {
                                   // Remover etiqueta
                                   const newTags = currentTags.filter(t => t !== category);
-                                  autoSave({ tags: newTags.length > 0 ? newTags : null });
+                                  setEditedPromotion({ ...editedPromotion, tags: newTags.length > 0 ? newTags : null });
                                 } else {
                                   // Agregar etiqueta
-                                  autoSave({ tags: [...currentTags, category] });
+                                  setEditedPromotion({ ...editedPromotion, tags: [...currentTags, category] });
                                 }
                               }}
                             >
@@ -442,7 +437,7 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                                 const trimmed = newTag.trim().toLowerCase();
                                 const currentTags = Array.isArray(editedPromotion.tags) ? editedPromotion.tags : [];
                                 if (!currentTags.includes(trimmed)) {
-                                  autoSave({ tags: [...currentTags, trimmed] });
+                                  setEditedPromotion({ ...editedPromotion, tags: [...currentTags, trimmed] });
                                 }
                                 setNewTag("");
                               }
@@ -458,7 +453,7 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                                 const trimmed = newTag.trim().toLowerCase();
                                 const currentTags = Array.isArray(editedPromotion.tags) ? editedPromotion.tags : [];
                                 if (!currentTags.includes(trimmed)) {
-                                  autoSave({ tags: [...currentTags, trimmed] });
+                                  setEditedPromotion({ ...editedPromotion, tags: [...currentTags, trimmed] });
                                 }
                                 setNewTag("");
                               }
@@ -606,8 +601,6 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                   onChange={(e) => {
                     const newValue = e.target.value;
                     setEditedPromotion({ ...editedPromotion, imageUrl: newValue });
-                    // Auto-save after a short delay
-                    setTimeout(() => autoSave({ imageUrl: newValue }), 2000);
                   }}
                   placeholder="URL de imagen principal"
                   data-testid="input-image-url"
@@ -620,8 +613,6 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                   onChange={(e) => {
                     const newValue = e.target.value;
                     setEditedPromotion({ ...editedPromotion, wrapperPhotoUrl: newValue });
-                    // Auto-save after a short delay
-                    setTimeout(() => autoSave({ wrapperPhotoUrl: newValue }), 2000);
                   }}
                   placeholder="URL de envoltura principal"
                   data-testid="input-wrapper-url"
@@ -634,8 +625,6 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                   onChange={(e) => {
                     const newValue = e.target.value;
                     setEditedPromotion({ ...editedPromotion, youtubeCommercialUrl: newValue });
-                    // Auto-save after a short delay
-                    setTimeout(() => autoSave({ youtubeCommercialUrl: newValue }), 2000);
                   }}
                   placeholder="URL del comercial de YouTube"
                   data-testid="input-youtube-url"
@@ -648,8 +637,6 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                   onChange={(e) => {
                     const newValue = e.target.value;
                     setEditedPromotion({ ...editedPromotion, buffetGamesVideoUrl: newValue });
-                    // Auto-save after a short delay
-                    setTimeout(() => autoSave({ buffetGamesVideoUrl: newValue }), 2000);
                   }}
                   placeholder="URL del video de Buffet Games"
                   data-testid="input-buffet-url"
