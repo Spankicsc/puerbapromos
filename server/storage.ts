@@ -72,7 +72,7 @@ export class MemStorage implements IStorage {
       name: "ChocoShok Punki Punky",
       slug: "chocoshok-punki-punky",
       description: "Promoción especial de ChocoShok con elementos de Punki Punky incluidos.",
-      imageUrl: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=300",
+      imageUrl: null,
       startYear: 2010,
       endYear: 2011,
       category: "stickers",
@@ -82,9 +82,9 @@ export class MemStorage implements IStorage {
           "/attached_assets/rotated/IMG_4301-removebg-preview (1)_1755219298609_rotated.png"
 ],
       promotionImagesUrls: null,
-      youtubeCommercialUrl: null,
-      buffetGamesVideoUrl: null,
-      wrapperRotation: 0,
+      youtubeCommercialUrl: "https://www.youtube.com/watch?v=7whH2AUpW0I&t=3726s",
+      buffetGamesVideoUrl: "https://www.youtube.com/watch?v=7whH2AUpW0I&t=3726s",
+      wrapperRotation: 270,
       createdAt: new Date(),
     };
     this.promotions.set(chocoshok_punki_punky.id, chocoshok_punki_punky);
@@ -95,7 +95,7 @@ export class MemStorage implements IStorage {
       name: "ChocoShok Gormiti",
       slug: "chocoshok-gormiti",
       description: "Promoción de ChocoShok con figuras coleccionables de Gormiti, los guardianes de los elementos.",
-      imageUrl: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=300",
+      imageUrl: null,
       startYear: 2010,
       endYear: 2012,
       category: "figuras",
@@ -107,9 +107,9 @@ export class MemStorage implements IStorage {
           "/attached_assets/rotated/IMG_4300-removebg-preview_1755219298608_rotated.png"
 ],
       promotionImagesUrls: null,
-      youtubeCommercialUrl: null,
-      buffetGamesVideoUrl: null,
-      wrapperRotation: 0,
+      youtubeCommercialUrl: "https://www.youtube.com/watch?v=7whH2AUpW0I&t=3726s",
+      buffetGamesVideoUrl: "https://www.youtube.com/watch?v=7whH2AUpW0I&t=3726s",
+      wrapperRotation: 270,
       createdAt: new Date(),
     };
     this.promotions.set(chocoshok_gormiti.id, chocoshok_gormiti);
@@ -170,7 +170,7 @@ export class MemStorage implements IStorage {
       name: "Vualá Croissant",
       slug: "vuala-croissant",
       description: "Una probada de Europa. En 2002, Vualá introdujo al mercado mexicano una línea de croissants inspirados en la repostería europea. Disponibles en sabores vainilla, chocolate y mermelada.",
-      imageUrl: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=300",
+      imageUrl: null,
       startYear: 2002,
       endYear: 2010,
       category: "accesorios",
@@ -182,9 +182,9 @@ export class MemStorage implements IStorage {
         "/attached_assets/rotated/IMG_4248-removebg-preview_1755219298612_rotated.png"
       ],
       promotionImagesUrls: null,
-      youtubeCommercialUrl: null,
-      buffetGamesVideoUrl: null,
-      wrapperRotation: 0,
+      youtubeCommercialUrl: "https://www.youtube.com/watch?v=7whH2AUpW0I&t=3726s",
+      buffetGamesVideoUrl: "https://www.youtube.com/watch?v=7whH2AUpW0I&t=3726s",
+      wrapperRotation: 270,
       createdAt: new Date(),
     };
     this.promotions.set(vuala_croissant.id, vuala_croissant);
@@ -195,7 +195,7 @@ export class MemStorage implements IStorage {
       name: "Dancemania 2008",
       slug: "dancemania-2008",
       description: "Promoción de Vualá con música y baile, presentando figuras y accesorios inspirados en la cultura dance de finales de los 2000s.",
-      imageUrl: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=300",
+      imageUrl: null,
       startYear: 2008,
       endYear: 2008,
       category: "figuras",
@@ -205,9 +205,9 @@ export class MemStorage implements IStorage {
         "/attached_assets/rotated/Dancemania 2008 frontal chocolate_1755219298609_rotated.png"
       ],
       promotionImagesUrls: null,
-      youtubeCommercialUrl: null,
-      buffetGamesVideoUrl: null,
-      wrapperRotation: 0,
+      youtubeCommercialUrl: "https://www.youtube.com/watch?v=7whH2AUpW0I&t=3726s",
+      buffetGamesVideoUrl: "https://www.youtube.com/watch?v=7whH2AUpW0I&t=3726s",
+      wrapperRotation: 270,
       createdAt: new Date(),
     };
     this.promotions.set(dancemania2008.id, dancemania2008);
@@ -218,7 +218,7 @@ export class MemStorage implements IStorage {
       name: "El Chavo Sorpresa",
       slug: "el-chavo-sorpresa",
       description: "Promoción de sorpresas del Chavo del Ocho con figuras y accesorios coleccionables.",
-      imageUrl: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=300",
+      imageUrl: null,
       startYear: 2010,
       endYear: 2012,
       category: "figuras",
@@ -228,9 +228,9 @@ export class MemStorage implements IStorage {
           "/attached_assets/rotated/IMG_4296-removebg-preview_1755219298608_rotated.png"
 ],
       promotionImagesUrls: null,
-      youtubeCommercialUrl: null,
-      buffetGamesVideoUrl: null,
-      wrapperRotation: 0,
+      youtubeCommercialUrl: "https://www.youtube.com/watch?v=7whH2AUpW0I&t=3726s",
+      buffetGamesVideoUrl: "https://www.youtube.com/watch?v=7whH2AUpW0I&t=3726s",
+      wrapperRotation: 270,
       createdAt: new Date(),
     };
     this.promotions.set(el_chavo_sorpresa.id, el_chavo_sorpresa);
@@ -241,7 +241,7 @@ export class MemStorage implements IStorage {
       name: "Vualá Mini Chocos",
       slug: "vuala-mini-chocos",
       description: "Pequeños croissants de chocolate de Vualá con promociones especiales incluidas.",
-      imageUrl: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=300",
+      imageUrl: null,
       startYear: 2008,
       endYear: 2012,
       category: "accesorios",
@@ -251,9 +251,9 @@ export class MemStorage implements IStorage {
           "/attached_assets/rotated/IMG_4303-removebg-preview_1755219298609_rotated.png"
 ],
       promotionImagesUrls: null,
-      youtubeCommercialUrl: null,
-      buffetGamesVideoUrl: null,
-      wrapperRotation: 0,
+      youtubeCommercialUrl: "https://www.youtube.com/watch?v=7whH2AUpW0I&t=3726s",
+      buffetGamesVideoUrl: "https://www.youtube.com/watch?v=7whH2AUpW0I&t=3726s",
+      wrapperRotation: 270,
       createdAt: new Date(),
     };
     this.promotions.set(vuala_mini_chocos.id, vuala_mini_chocos);
@@ -265,7 +265,7 @@ export class MemStorage implements IStorage {
       name: "Tazos",
       slug: "tazos",
       description: "Los coleccionables más icónicos de México. Discos de cartón con personajes de Dragon Ball Z, Pokémon, Looney Tunes y más series populares.",
-      imageUrl: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=300",
+      imageUrl: null,
       startYear: 1994,
       endYear: 2010,
       category: "tazos",
@@ -273,9 +273,9 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
-      youtubeCommercialUrl: null,
-      buffetGamesVideoUrl: null,
-      wrapperRotation: 0,
+      youtubeCommercialUrl: "https://www.youtube.com/watch?v=7whH2AUpW0I&t=3726s",
+      buffetGamesVideoUrl: "https://www.youtube.com/watch?v=7whH2AUpW0I&t=3726s",
+      wrapperRotation: 270,
       createdAt: new Date(),
     };
     this.promotions.set(tazos.id, tazos);
@@ -286,7 +286,7 @@ export class MemStorage implements IStorage {
       name: "Spinners Chokas",
       slug: "spinners-chokas",
       description: "La fiebre mundial de los fidget spinners llegó a México con estos increíbles spinners promocionales que causaron furor.",
-      imageUrl: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=300",
+      imageUrl: null,
       startYear: 2017,
       endYear: 2018,
       category: "spinners",
@@ -294,9 +294,9 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
-      youtubeCommercialUrl: null,
-      buffetGamesVideoUrl: null,
-      wrapperRotation: 0,
+      youtubeCommercialUrl: "https://www.youtube.com/watch?v=7whH2AUpW0I&t=3726s",
+      buffetGamesVideoUrl: "https://www.youtube.com/watch?v=7whH2AUpW0I&t=3726s",
+      wrapperRotation: 270,
       createdAt: new Date(),
     };
     this.promotions.set(spinners.id, spinners);
@@ -307,7 +307,7 @@ export class MemStorage implements IStorage {
       name: "Funki Punky",
       slug: "funki-punky",
       description: "Stickers con personajes rebeldes y actitud punk que se convirtieron en objetos de culto entre los coleccionistas mexicanos.",
-      imageUrl: "https://images.unsplash.com/photo-1541961017774-22349e4a1262?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=300",
+      imageUrl: null,
       startYear: 1998,
       endYear: 2005,
       category: "stickers",
@@ -315,9 +315,9 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
-      youtubeCommercialUrl: null,
-      buffetGamesVideoUrl: null,
-      wrapperRotation: 0,
+      youtubeCommercialUrl: "https://www.youtube.com/watch?v=7whH2AUpW0I&t=3726s",
+      buffetGamesVideoUrl: "https://www.youtube.com/watch?v=7whH2AUpW0I&t=3726s",
+      wrapperRotation: 270,
       createdAt: new Date(),
     };
     this.promotions.set(funkiPunky.id, funkiPunky);
@@ -328,7 +328,7 @@ export class MemStorage implements IStorage {
       name: "Bubulubu Stickers",
       slug: "bubulubu-stickers",
       description: "Colección de stickers que venían con los chocolates Bubulubu, featuring personajes originales y diseños únicos.",
-      imageUrl: "https://images.unsplash.com/photo-1607734834519-d8576ae60ea4?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=300",
+      imageUrl: null,
       startYear: 2000,
       endYear: 2008,
       category: "stickers",
@@ -336,9 +336,9 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
-      youtubeCommercialUrl: null,
-      buffetGamesVideoUrl: null,
-      wrapperRotation: 0,
+      youtubeCommercialUrl: "https://www.youtube.com/watch?v=7whH2AUpW0I&t=3726s",
+      buffetGamesVideoUrl: "https://www.youtube.com/watch?v=7whH2AUpW0I&t=3726s",
+      wrapperRotation: 270,
       createdAt: new Date(),
     };
     this.promotions.set(bubulubu.id, bubulubu);
@@ -356,12 +356,13 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
-      youtubeCommercialUrl: null,
-      buffetGamesVideoUrl: null,
+      youtubeCommercialUrl: "https://www.youtube.com/watch?v=7whH2AUpW0I&t=3726s",
+      buffetGamesVideoUrl: "https://www.youtube.com/watch?v=7whH2AUpW0I&t=3726s",
       startYear: 2002,
       endYear: 2002,
       category: "postales",
       tags: null,
+      wrapperRotation: 270,
       createdAt: new Date(),
     };
     this.promotions.set(europaPromotion.id, europaPromotion);
@@ -373,15 +374,15 @@ export class MemStorage implements IStorage {
       name: "The Dog: The Artist Collection",
       slug: "the-dog-2004",
       description: "En 2004, Vualá lanzó la promoción 'The Dog: The Artist Collection', vigente del 1 de junio al 4 de septiembre. Siendo la primera colección con un premio exclusivo para Vualá Esta campaña ofrecía a los consumidores la oportunidad de coleccionar 10 miniaturas de perros, solo una de cada dos bolsas contenían una mascota, cada una representando una raza diferente, incluidas en los paquetes de sus productos. Además de las miniaturas, la promoción incluía stix con imágenes de los perritos, fortaleciendo la conexión emocional entre los consumidores y los productos de la marca.",
-      imageUrl: "/attached_assets/rotated/The dog 2004 vainilla frontal_1755151969696_rotated.png",
+      imageUrl: null,
       wrapperPhotoUrl: "/attached_assets/rotated/The dog 2004 vainilla frontal_1755151969696_rotated.png",
       wrapperPhotosUrls: [
         "/attached_assets/rotated/The dog 2004 vainilla frontal_1755151969696_rotated.png",
         "/attached_assets/The dog y the cat 2007 chocolate_1755151969689.png"
       ],
       promotionImagesUrls: null,
-      youtubeCommercialUrl: null,
-      buffetGamesVideoUrl: null,
+      youtubeCommercialUrl: "https://www.youtube.com/watch?v=7whH2AUpW0I&t=3726s",
+      buffetGamesVideoUrl: "https://www.youtube.com/watch?v=7whH2AUpW0I&t=3726s",
       startYear: 2004,
       endYear: 2004,
       category: "figuras",
@@ -407,6 +408,7 @@ export class MemStorage implements IStorage {
       endYear: 2005,
       category: "llaveros",
       tags: null,
+      wrapperRotation: 0,
       createdAt: new Date(),
     };
     this.promotions.set(bobEsponja2005.id, bobEsponja2005);
@@ -418,20 +420,21 @@ export class MemStorage implements IStorage {
       name: "Funki Punky by Faustin Bros",
       slug: "funki-punky-2007",
       description: "En 2007, Vualá lanzó la promoción 'Funki Punky', conocida anteriormente en sudamérica como Funky Punky pinky Pow, en colaboración con Faustin Bros, presentando una nueva línea de personajes eran pequeños demonios o figuras simpáticas y traviesas con un estilo irreverente. Los objetos promocionales venían dentro de pequeñas cajas de cartón, y al abrirlas, se encontraba un Funki Punky 3D, una mini figura con un diseño especial. Cada llavero tenía una frase grabada en relieve, personalizada para cada personaje, lo que los hacía únicos y coleccionables. Esta promoción se destacaba por los personajes irreverentes y las frases personalizadas que le daban un carácter distintivo. La vigencia comenzó el 1 de febrero de 2007, extendiéndose hasta agotar existencias.",
-      imageUrl: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400",
+      imageUrl: null,
       wrapperPhotoUrl: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300",
-      wrapperPhotosUrls: null,
-      promotionImagesUrls: [
+      wrapperPhotosUrls: [
         "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300",
         "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300",
         "https://images.unsplash.com/photo-1594736797933-d0401ba5faab?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300"
       ],
+      promotionImagesUrls: null,
       youtubeCommercialUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
       buffetGamesVideoUrl: "https://www.youtube.com/watch?v=sample_funki_buffet",
       startYear: 2007,
       endYear: 2007,
       category: "llaveros",
       tags: null,
+      wrapperRotation: 0,
       createdAt: new Date(),
     };
     this.promotions.set(funkiPunky2007.id, funkiPunky2007);
@@ -443,7 +446,7 @@ export class MemStorage implements IStorage {
       name: "Spiderman 3",
       slug: "spiderman-3-2007",
       description: "En marzo de 2007, Vualá lanzó la promoción de 'Spiderman 3' para coincidir con el estreno de la película. Los consumidores podían encontrar en los paquetes de Vualá uno de los siguientes artículos: un sticker, un tatuaje, un colgante o un cupón canjeable. La colección incluía 5 colgantes diferentes, con diseños como la cabeza de spiderman, venom y los emblemas de los personajes, además el cupón canjeable te daba la oportunidad de cambiarlo por los clásicos pegajosos de Spiderman. La promoción comenzó el 15 de marzo de 2007 y se extendió hasta agotar existencias, atrayendo tanto a los fanáticos del personaje.",
-      imageUrl: "/attached_assets/rotated/Chocolate frontal spiderman 3_1755196507572_rotated.png",
+      imageUrl: null,
       startYear: 2007,
       endYear: 2007,
       category: "colgantes",
@@ -456,9 +459,9 @@ export class MemStorage implements IStorage {
         "/attached_assets/rotated/Vainilla  frontal spiderman 3_1755219753445_rotated.png"
       ],
       promotionImagesUrls: null,
-      youtubeCommercialUrl: null,
-      buffetGamesVideoUrl: null,
-      wrapperRotation: 0,
+      youtubeCommercialUrl: "https://www.youtube.com/watch?v=7whH2AUpW0I&t=3726s",
+      buffetGamesVideoUrl: "https://www.youtube.com/watch?v=7whH2AUpW0I&t=3726s",
+      wrapperRotation: 270,
       createdAt: new Date(),
     };
     this.promotions.set(spiderman2007.id, spiderman2007);
@@ -478,9 +481,9 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
-      youtubeCommercialUrl: null,
-      buffetGamesVideoUrl: null,
-      wrapperRotation: 0,
+      youtubeCommercialUrl: "https://www.youtube.com/watch?v=7whH2AUpW0I&t=3726s",
+      buffetGamesVideoUrl: "https://www.youtube.com/watch?v=7whH2AUpW0I&t=3726s",
+      wrapperRotation: 270,
       createdAt: new Date(),
     };
     this.promotions.set(reyesOlas.id, reyesOlas);
@@ -500,9 +503,9 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
-      youtubeCommercialUrl: null,
-      buffetGamesVideoUrl: null,
-      wrapperRotation: 0,
+      youtubeCommercialUrl: "https://www.youtube.com/watch?v=7whH2AUpW0I&t=3726s",
+      buffetGamesVideoUrl: "https://www.youtube.com/watch?v=7whH2AUpW0I&t=3726s",
+      wrapperRotation: 270,
       createdAt: new Date(),
     };
     this.promotions.set(dogCat2007.id, dogCat2007);
@@ -522,9 +525,9 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
-      youtubeCommercialUrl: null,
-      buffetGamesVideoUrl: null,
-      wrapperRotation: 0,
+      youtubeCommercialUrl: "https://www.youtube.com/watch?v=7whH2AUpW0I&t=3726s",
+      buffetGamesVideoUrl: "https://www.youtube.com/watch?v=7whH2AUpW0I&t=3726s",
+      wrapperRotation: 270,
       createdAt: new Date(),
     };
     this.promotions.set(funkiPeores.id, funkiPeores);
@@ -544,9 +547,9 @@ export class MemStorage implements IStorage {
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
-      youtubeCommercialUrl: null,
-      buffetGamesVideoUrl: null,
-      wrapperRotation: 0,
+      youtubeCommercialUrl: "https://www.youtube.com/watch?v=7whH2AUpW0I&t=3726s",
+      buffetGamesVideoUrl: "https://www.youtube.com/watch?v=7whH2AUpW0I&t=3726s",
+      wrapperRotation: 270,
       createdAt: new Date(),
     };
     this.promotions.set(fonomania.id, fonomania);
@@ -570,9 +573,9 @@ export class MemStorage implements IStorage {
         "/attached_assets/rotated/bob espona en movimiento 2009 frontal cajeta_1755196507568_rotated.png"
       ],
       promotionImagesUrls: null,
-      youtubeCommercialUrl: null,
-      buffetGamesVideoUrl: null,
-      wrapperRotation: 0,
+      youtubeCommercialUrl: "https://www.youtube.com/watch?v=7whH2AUpW0I&t=3726s",
+      buffetGamesVideoUrl: "https://www.youtube.com/watch?v=7whH2AUpW0I&t=3726s",
+      wrapperRotation: 270,
       createdAt: new Date(),
     };
     this.promotions.set(bobMovimiento.id, bobMovimiento);
@@ -594,6 +597,7 @@ export class MemStorage implements IStorage {
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: "https://www.youtube.com/watch?v=sample_cmll_buffet",
+      wrapperRotation: 0,
       createdAt: new Date(),
     };
     this.promotions.set(cmll.id, cmll);
@@ -1833,6 +1837,7 @@ export class MemStorage implements IStorage {
       endYear: 2004,
       category: "accesorios",
       tags: null,
+      wrapperRotation: 0,
       createdAt: new Date(),
     };
     this.promotions.set(askistix2004.id, askistix2004);
