@@ -28,7 +28,8 @@ export const promotions = pgTable("promotions", {
   buffetGamesVideoUrl: text("buffet_games_video_url"),
   startYear: integer("start_year").notNull(),
   endYear: integer("end_year"),
-  category: text("category").notNull(), // tazos, stickers, spinners, toys, etc.
+  category: text("category").notNull(), // main category: tazos, stickers, spinners, toys, etc.
+  tags: jsonb("tags").$type<string[] | null>(), // additional tags/categories
   createdAt: timestamp("created_at").defaultNow(),
 });
 

@@ -63,8 +63,8 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
   const [showImageEditor, setShowImageEditor] = useState(false);
   const [currentEditingImage, setCurrentEditingImage] = useState<string | null>(null);
   const [customCategories, setCustomCategories] = useState<string[]>([]);
-  const [newCategory, setNewCategory] = useState("");
-  const [showAddCategory, setShowAddCategory] = useState(false);
+  const [newTag, setNewTag] = useState("");
+  const [showAddTags, setShowAddTags] = useState(false);
 
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -130,6 +130,7 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
       name: editedPromotion.name,
       description: editedPromotion.description,
       category: editedPromotion.category,
+      tags: editedPromotion.tags,
       startYear: editedPromotion.startYear,
       endYear: editedPromotion.endYear,
       wrapperPhotoUrl: editedPromotion.wrapperPhotoUrl,
@@ -317,37 +318,78 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                   rows={3}
                   data-testid="textarea-description"
                 />
-                <div className="flex items-center justify-between">
+                <div className="flex items-start justify-between">
                   <div className="flex flex-col gap-2 w-full">
+                    {/* Categoría Principal */}
                     <div className="flex items-center gap-2">
                       <Badge variant="outline" className="text-xs">
                         <Tag className="w-3 h-3 mr-1" />
                         {editedPromotion.category || "tazos"}
                       </Badge>
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="sm"
-                        className="h-6 px-2 text-xs"
-                        onClick={() => setShowAddCategory(!showAddCategory)}
-                      >
-                        ✏️ Cambiar
-                      </Button>
+                      <span className="text-xs text-gray-500">Principal</span>
                     </div>
                     
-                    {showAddCategory && (
+                    {/* Etiquetas Adicionales */}
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs font-medium">Etiquetas:</span>
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="sm"
+                          className="h-6 px-2 text-xs"
+                          onClick={() => setShowAddTags(!showAddTags)}
+                        >
+                          ✏️ Editar
+                        </Button>
+                      </div>
+                      
+                      {/* Mostrar etiquetas actuales */}
+                      <div className="flex flex-wrap gap-1">
+                        {Array.isArray(editedPromotion.tags) && editedPromotion.tags.map((tag, index) => (
+                          <Badge key={index} variant="secondary" className="text-xs">
+                            {tag}
+                            <Button
+                              type="button"
+                              variant="ghost"
+                              size="sm"
+                              className="h-4 w-4 p-0 ml-1 hover:bg-red-100"
+                              onClick={() => {
+                                const newTags = editedPromotion.tags?.filter((_, i) => i !== index);
+                                setEditedPromotion({ ...editedPromotion, tags: newTags });
+                              }}
+                            >
+                              ×
+                            </Button>
+                          </Badge>
+                        ))}
+                        {(!editedPromotion.tags || editedPromotion.tags.length === 0) && (
+                          <span className="text-xs text-gray-400">Sin etiquetas adicionales</span>
+                        )}
+                      </div>
+                    </div>
+                    
+                    {showAddTags && (
                       <div className="space-y-2 p-2 bg-white rounded border">
+                        <div className="text-xs font-medium">Categorías disponibles:</div>
                         <div className="flex flex-wrap gap-1">
                           {[...validCategories, ...customCategories].map((category) => (
                             <Button
                               key={category}
                               type="button"
-                              variant={editedPromotion.category === category ? "default" : "outline"}
+                              variant={Array.isArray(editedPromotion.tags) && editedPromotion.tags.includes(category) ? "default" : "outline"}
                               size="sm"
                               className="h-6 px-2 text-xs"
                               onClick={() => {
-                                setEditedPromotion({ ...editedPromotion, category });
-                                setShowAddCategory(false);
+                                const currentTags = Array.isArray(editedPromotion.tags) ? editedPromotion.tags : [];
+                                if (currentTags.includes(category)) {
+                                  // Remover etiqueta
+                                  const newTags = currentTags.filter(t => t !== category);
+                                  setEditedPromotion({ ...editedPromotion, tags: newTags });
+                                } else {
+                                  // Agregar etiqueta
+                                  setEditedPromotion({ ...editedPromotion, tags: [...currentTags, category] });
+                                }
                               }}
                             >
                               {category}
@@ -357,19 +399,18 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                         
                         <div className="flex gap-1">
                           <Input
-                            value={newCategory}
-                            onChange={(e) => setNewCategory(e.target.value)}
-                            placeholder="Nueva categoría"
+                            value={newTag}
+                            onChange={(e) => setNewTag(e.target.value)}
+                            placeholder="Nueva etiqueta"
                             className="h-6 text-xs"
                             onKeyPress={(e) => {
-                              if (e.key === 'Enter' && newCategory.trim()) {
-                                const trimmed = newCategory.trim().toLowerCase();
-                                if (!validCategories.includes(trimmed) && !customCategories.includes(trimmed)) {
-                                  setCustomCategories([...customCategories, trimmed]);
-                                  setEditedPromotion({ ...editedPromotion, category: trimmed });
+                              if (e.key === 'Enter' && newTag.trim()) {
+                                const trimmed = newTag.trim().toLowerCase();
+                                const currentTags = Array.isArray(editedPromotion.tags) ? editedPromotion.tags : [];
+                                if (!currentTags.includes(trimmed)) {
+                                  setEditedPromotion({ ...editedPromotion, tags: [...currentTags, trimmed] });
                                 }
-                                setNewCategory("");
-                                setShowAddCategory(false);
+                                setNewTag("");
                               }
                             }}
                           />
@@ -379,20 +420,29 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                             size="sm"
                             className="h-6 px-2 text-xs"
                             onClick={() => {
-                              if (newCategory.trim()) {
-                                const trimmed = newCategory.trim().toLowerCase();
-                                if (!validCategories.includes(trimmed) && !customCategories.includes(trimmed)) {
-                                  setCustomCategories([...customCategories, trimmed]);
-                                  setEditedPromotion({ ...editedPromotion, category: trimmed });
+                              if (newTag.trim()) {
+                                const trimmed = newTag.trim().toLowerCase();
+                                const currentTags = Array.isArray(editedPromotion.tags) ? editedPromotion.tags : [];
+                                if (!currentTags.includes(trimmed)) {
+                                  setEditedPromotion({ ...editedPromotion, tags: [...currentTags, trimmed] });
                                 }
-                                setNewCategory("");
-                                setShowAddCategory(false);
+                                setNewTag("");
                               }
                             }}
                           >
                             +
                           </Button>
                         </div>
+                        
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="sm"
+                          className="h-6 px-2 text-xs"
+                          onClick={() => setShowAddTags(false)}
+                        >
+                          Cerrar
+                        </Button>
                       </div>
                     )}
                   </div>
@@ -405,7 +455,7 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                       <img 
                         src={editedPromotion.wrapperPhotoUrl} 
                         alt={`Envoltura ${editedPromotion.name}`}
-                        className="max-w-full max-h-full object-contain drop-shadow-sm cursor-pointer hover:scale-105 transition-transform"
+                        className="w-full h-full object-contain drop-shadow-sm cursor-pointer hover:scale-105 transition-transform"
                         style={{ transform: `rotate(${wrapperRotation}deg)` }}
                         data-testid="img-wrapper-preview"
                       />
@@ -587,10 +637,22 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                       : promotion.description}
                   </p>
                   <div className="flex items-center justify-between">
-                    <Badge variant="outline" className="text-xs">
-                      <Tag className="w-3 h-3 mr-1" />
-                      {promotion.category}
-                    </Badge>
+                    <div className="flex flex-wrap gap-1">
+                      <Badge variant="outline" className="text-xs">
+                        <Tag className="w-3 h-3 mr-1" />
+                        {promotion.category}
+                      </Badge>
+                      {Array.isArray(promotion.tags) && promotion.tags.slice(0, 2).map((tag, index) => (
+                        <Badge key={index} variant="secondary" className="text-xs">
+                          {tag}
+                        </Badge>
+                      ))}
+                      {Array.isArray(promotion.tags) && promotion.tags.length > 2 && (
+                        <Badge variant="secondary" className="text-xs">
+                          +{promotion.tags.length - 2}
+                        </Badge>
+                      )}
+                    </div>
                     <span className="text-sm text-gray-500">Ver más →</span>
                   </div>
                 </div>
@@ -601,7 +663,7 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                         <img 
                           src={promotion.wrapperPhotoUrl} 
                           alt={`Envoltura ${promotion.name}`}
-                          className="max-w-full max-h-full object-contain drop-shadow-sm cursor-pointer hover:scale-105 transition-transform"
+                          className="w-full h-full object-contain drop-shadow-sm cursor-pointer hover:scale-105 transition-transform"
                           style={{ transform: `rotate(${wrapperRotation}deg)` }}
                           data-testid="img-wrapper-normal"
                           onClick={(e) => e.preventDefault()}

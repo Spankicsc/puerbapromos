@@ -76,6 +76,7 @@ export class MemStorage implements IStorage {
       startYear: 2010,
       endYear: 2011,
       category: "stickers",
+      tags: null,
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: [
           "/attached_assets/rotated/IMG_4301-removebg-preview (1)_1755219298609_rotated.png"
@@ -97,6 +98,7 @@ export class MemStorage implements IStorage {
       startYear: 2010,
       endYear: 2012,
       category: "figuras",
+      tags: null,
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: [
           "/attached_assets/rotated/IMG_4298-removebg-preview_1755219298608_rotated.png",
@@ -170,6 +172,7 @@ export class MemStorage implements IStorage {
       startYear: 2002,
       endYear: 2010,
       category: "accesorios",
+      tags: null,
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: [
         "/attached_assets/rotated/IMG_4249-removebg-preview_1755219298607_rotated.png",
@@ -193,6 +196,7 @@ export class MemStorage implements IStorage {
       startYear: 2008,
       endYear: 2008,
       category: "figuras",
+      tags: null,
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: [
         "/attached_assets/rotated/Dancemania 2008 frontal chocolate_1755219298609_rotated.png"
@@ -214,6 +218,7 @@ export class MemStorage implements IStorage {
       startYear: 2010,
       endYear: 2012,
       category: "figuras",
+      tags: null,
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: [
           "/attached_assets/rotated/IMG_4296-removebg-preview_1755219298608_rotated.png"
@@ -235,6 +240,7 @@ export class MemStorage implements IStorage {
       startYear: 2008,
       endYear: 2012,
       category: "accesorios",
+      tags: null,
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: [
           "/attached_assets/rotated/IMG_4303-removebg-preview_1755219298609_rotated.png"
@@ -257,6 +263,7 @@ export class MemStorage implements IStorage {
       startYear: 1994,
       endYear: 2010,
       category: "tazos",
+      tags: null,
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
@@ -276,6 +283,7 @@ export class MemStorage implements IStorage {
       startYear: 2017,
       endYear: 2018,
       category: "spinners",
+      tags: null,
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
@@ -295,6 +303,7 @@ export class MemStorage implements IStorage {
       startYear: 1998,
       endYear: 2005,
       category: "stickers",
+      tags: null,
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
@@ -314,6 +323,7 @@ export class MemStorage implements IStorage {
       startYear: 2000,
       endYear: 2008,
       category: "stickers",
+      tags: null,
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
@@ -341,6 +351,7 @@ export class MemStorage implements IStorage {
       startYear: 2002,
       endYear: 2002,
       category: "postales",
+      tags: null,
       createdAt: new Date(),
     };
     this.promotions.set(europaPromotion.id, europaPromotion);
@@ -364,6 +375,7 @@ export class MemStorage implements IStorage {
       startYear: 2004,
       endYear: 2004,
       category: "figuras",
+      tags: null,
       createdAt: new Date(),
     };
     this.promotions.set(theDog2004.id, theDog2004);
@@ -384,6 +396,7 @@ export class MemStorage implements IStorage {
       startYear: 2005,
       endYear: 2005,
       category: "llaveros",
+      tags: null,
       createdAt: new Date(),
     };
     this.promotions.set(bobEsponja2005.id, bobEsponja2005);
@@ -408,6 +421,7 @@ export class MemStorage implements IStorage {
       startYear: 2007,
       endYear: 2007,
       category: "llaveros",
+      tags: null,
       createdAt: new Date(),
     };
     this.promotions.set(funkiPunky2007.id, funkiPunky2007);
@@ -423,6 +437,7 @@ export class MemStorage implements IStorage {
       startYear: 2007,
       endYear: 2007,
       category: "colgantes",
+      tags: null,
       wrapperPhotoUrl: "/attached_assets/rotated/Chocolate frontal spiderman 3_1755148526399_rotated.png",
       wrapperPhotosUrls: [
         "/attached_assets/rotated/Chocolate frontal spiderman 3_1755148526399_rotated.png",
@@ -448,6 +463,7 @@ export class MemStorage implements IStorage {
       startYear: 2007,
       endYear: 2007,
       category: "tatuajes",
+      tags: null,
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
@@ -468,6 +484,7 @@ export class MemStorage implements IStorage {
       startYear: 2007,
       endYear: 2007,
       category: "colgantes",
+      tags: null,
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
@@ -488,6 +505,7 @@ export class MemStorage implements IStorage {
       startYear: 2007,
       endYear: 2008,
       category: "llaveros",
+      tags: null,
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
@@ -508,6 +526,7 @@ export class MemStorage implements IStorage {
       startYear: 2008,
       endYear: 2008,
       category: "accesorios",
+      tags: null,
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
@@ -528,6 +547,7 @@ export class MemStorage implements IStorage {
       startYear: 2009,
       endYear: 2009,
       category: "accesorios",
+      tags: null,
       wrapperPhotoUrl: "/attached_assets/bob espona en movimiento 2009 frontal cajeta_1755148526401.png",
       wrapperPhotosUrls: [
         "/attached_assets/rotated/bob espona en movimiento 2009 frontal cajeta_1755148526401_rotated.png",
@@ -552,6 +572,7 @@ export class MemStorage implements IStorage {
       startYear: 2009,
       endYear: 2009,
       category: "spinners",
+      tags: null,
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
@@ -572,6 +593,7 @@ export class MemStorage implements IStorage {
       startYear: 2010,
       endYear: 2010,
       category: "accesorios",
+      tags: null,
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
@@ -592,6 +614,7 @@ export class MemStorage implements IStorage {
       startYear: 2010,
       endYear: 2010,
       category: "colgantes",
+      tags: null,
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
@@ -614,6 +637,7 @@ export class MemStorage implements IStorage {
       startYear: 2012,
       endYear: 2012,
       category: "figuras",
+      tags: null,
       wrapperPhotoUrl: "/attached_assets/El chavo 2012 Fontal Cajeta_1755145664202.JPG",
       wrapperPhotosUrls: [
         "/attached_assets/El chavo 2012 Fontal Cajeta_1755145664202.JPG",
@@ -638,6 +662,7 @@ export class MemStorage implements IStorage {
       startYear: 2009,
       endYear: 2009,
       category: "figuras",
+      tags: null,
       wrapperPhotoUrl: "/attached_assets/Frontal cajeta looney tunes 2009_1755145664204.JPG",
       wrapperPhotosUrls: [
         "/attached_assets/Frontal cajeta looney tunes 2009_1755145664204.JPG",
@@ -663,6 +688,7 @@ export class MemStorage implements IStorage {
       startYear: 2012,
       endYear: 2012,
       category: "figuras",
+      tags: null,
       wrapperPhotoUrl: "/attached_assets/Frontal cajeta el futbol de huevos cajeta_1755145664203.JPG",
       wrapperPhotosUrls: [
         "/attached_assets/Frontal cajeta el futbol de huevos cajeta_1755145664203.JPG",
@@ -689,6 +715,7 @@ export class MemStorage implements IStorage {
       startYear: 2010,
       endYear: 2010,
       category: "colgantes",
+      tags: null,
       wrapperPhotoUrl: "/attached_assets/Vive el futbol con huevos 2010 frontal chocolate_1755219753446.png",
       wrapperPhotosUrls: [
         "/attached_assets/rotated/vive el futbol con huevos 2010 frontal vainilla_1755152265576_rotated.png",
@@ -712,6 +739,7 @@ export class MemStorage implements IStorage {
       startYear: 2010,
       endYear: 2010,
       category: "figuras",
+      tags: null,
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
@@ -732,6 +760,7 @@ export class MemStorage implements IStorage {
       startYear: 2010,
       endYear: 2010,
       category: "figuras",
+      tags: null,
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
@@ -752,6 +781,7 @@ export class MemStorage implements IStorage {
       startYear: 2011,
       endYear: 2011,
       category: "colgantes",
+      tags: null,
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
@@ -772,6 +802,7 @@ export class MemStorage implements IStorage {
       startYear: 2011,
       endYear: 2011,
       category: "tazos",
+      tags: null,
       wrapperPhotoUrl: "/attached_assets/rotated/vainilla funki punky extremo_1755152265578_rotated.png",
       wrapperPhotosUrls: [
         "/attached_assets/rotated/vainilla funki punky extremo_1755152265578_rotated.png",
@@ -798,6 +829,7 @@ export class MemStorage implements IStorage {
       startYear: 2014,
       endYear: 2015,
       category: "figuras",
+      tags: null,
       wrapperPhotoUrl: "/attached_assets/vainilla angry birds GO_1755219753445.png",
       wrapperPhotosUrls: [
         "/attached_assets/trasera vainilla angry birds go_1755145428099.JPG",
@@ -825,6 +857,7 @@ export class MemStorage implements IStorage {
       startYear: 2012,
       endYear: 2012,
       category: "figuras",
+      tags: null,
       wrapperPhotoUrl: "/attached_assets/Frontal bob esponja 2012 chocolate_1755219298611.png",
       wrapperPhotosUrls: [
         "/attached_assets/Trasera Bob esponja 2012_1755145664205.JPG",
@@ -853,6 +886,7 @@ export class MemStorage implements IStorage {
       startYear: 2011,
       endYear: 2011,
       category: "figuras",
+      tags: null,
       wrapperPhotoUrl: "/attached_assets/Cajeta frontal ecolokitos_1755219753445.png",
       wrapperPhotosUrls: [
         "/attached_assets/Ecoinvasores trasera cajeta_1755145428099.JPG",
@@ -876,6 +910,7 @@ export class MemStorage implements IStorage {
       startYear: 2017,
       endYear: 2017,
       category: "figuras",
+      tags: null,
       wrapperPhotoUrl: "/attached_assets/Frontal chocolate hora de aventura 2018_1755219298611.png",
       wrapperPhotosUrls: [
         "/attached_assets/trasera chocolate steven universe_1755145428103.JPG",
@@ -899,6 +934,7 @@ export class MemStorage implements IStorage {
       startYear: 2018,
       endYear: 2018,
       category: "figuras",
+      tags: null,
       wrapperPhotoUrl: "/attached_assets/Cartoon network chocolate_1755219753445.png",
       wrapperPhotosUrls: [
         "/attached_assets/Trasera chocolate cartoon network 2018_1755145428103.JPG",
@@ -922,6 +958,7 @@ export class MemStorage implements IStorage {
       startYear: 2019,
       endYear: 2020,
       category: "figuras",
+      tags: null,
       wrapperPhotoUrl: "/attached_assets/rotated/Cartoon network chocolate_1755150784757_rotated.png",
       wrapperPhotosUrls: [
         "/attached_assets/rotated/Cartoon network chocolate_1755150784757_rotated.png",
@@ -947,6 +984,7 @@ export class MemStorage implements IStorage {
       startYear: 2020,
       endYear: 2020,
       category: "figuras",
+      tags: null,
       wrapperPhotoUrl: "/attached_assets/rotated/Teen titans vainilla version 1_1755151969695_rotated.png",
       wrapperPhotosUrls: [
         "/attached_assets/rotated/Teen titans vainilla version 1_1755151969695_rotated.png",
@@ -972,6 +1010,7 @@ export class MemStorage implements IStorage {
       startYear: 2020,
       endYear: 2021,
       category: "figuras",
+      tags: null,
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
@@ -992,6 +1031,7 @@ export class MemStorage implements IStorage {
       startYear: 2021,
       endYear: 2021,
       category: "figuras",
+      tags: null,
       wrapperPhotoUrl: "/attached_assets/rotated/Pinki pow punks funki tubers vainilla 2020_1755151969694_rotated.png",
       wrapperPhotosUrls: [
         "/attached_assets/rotated/Pinki pow punks funki tubers vainilla 2020_1755151969694_rotated.png"
@@ -1014,6 +1054,7 @@ export class MemStorage implements IStorage {
       startYear: 2024,
       endYear: 2024,
       category: "figuras",
+      tags: null,
       wrapperPhotoUrl: "/attached_assets/rotated/Vainilla bob esponja 2024_1755152265578_rotated.png",
       wrapperPhotosUrls: [
         "/attached_assets/rotated/Vainilla bob esponja 2024_1755152265578_rotated.png",
@@ -1039,6 +1080,7 @@ export class MemStorage implements IStorage {
       startYear: 2017,
       endYear: 2017,
       category: "stickers",
+      tags: null,
       wrapperPhotoUrl: "/attached_assets/processed/Trasera corazones 2017 chocolate_1755145664206_processed.png",
       wrapperPhotosUrls: [
         "/attached_assets/Trasera corazones 2017 chocolate_1755145428104.JPG",
@@ -1062,6 +1104,7 @@ export class MemStorage implements IStorage {
       startYear: 2012,
       endYear: 2012,
       category: "figuras",
+      tags: null,
       wrapperPhotoUrl: "/attached_assets/processed/Trasera la era del hielo 2012 chocolate_1755145664207_processed.png",
       wrapperPhotosUrls: [
         "/attached_assets/Trasera la era del hielo 2012 chocolate_1755145428139.JPG",
@@ -1085,6 +1128,7 @@ export class MemStorage implements IStorage {
       startYear: 2011,
       endYear: 2011,
       category: "figuras",
+      tags: null,
       wrapperPhotoUrl: "/attached_assets/processed/trasera cajeta funki punky xtremo 2011_1755145664205_processed.png",
       wrapperPhotosUrls: [
         "/attached_assets/trasera cajeta funki punky xtremo 2011_1755145428102.JPG",
@@ -1109,6 +1153,7 @@ export class MemStorage implements IStorage {
       startYear: 2011,
       endYear: 2011,
       category: "figuras",
+      tags: null,
       wrapperPhotoUrl: "/attached_assets/processed/Trasera cajeta rebeldes con causa funky punki_1755145664206_processed.png",
       wrapperPhotosUrls: [
         "/attached_assets/Trasera cajeta rebeldes con causa funky punki_1755145428103.JPG",
@@ -1132,6 +1177,7 @@ export class MemStorage implements IStorage {
       startYear: 2011,
       endYear: 2011,
       category: "colgantes",
+      tags: null,
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
@@ -1152,6 +1198,7 @@ export class MemStorage implements IStorage {
       startYear: 2011,
       endYear: 2011,
       category: "tazos",
+      tags: null,
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
@@ -1172,6 +1219,7 @@ export class MemStorage implements IStorage {
       startYear: 2012,
       endYear: 2012,
       category: "figuras",
+      tags: null,
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
@@ -1194,6 +1242,7 @@ export class MemStorage implements IStorage {
       startYear: 2012,
       endYear: 2012,
       category: "tazos",
+      tags: null,
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
@@ -1214,6 +1263,7 @@ export class MemStorage implements IStorage {
       startYear: 2012,
       endYear: 2012,
       category: "tazos",
+      tags: null,
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
@@ -1234,6 +1284,7 @@ export class MemStorage implements IStorage {
       startYear: 2012,
       endYear: 2013,
       category: "tazos",
+      tags: null,
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
@@ -1254,6 +1305,7 @@ export class MemStorage implements IStorage {
       startYear: 2013,
       endYear: 2013,
       category: "llaveros",
+      tags: null,
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
@@ -1276,6 +1328,7 @@ export class MemStorage implements IStorage {
       startYear: 2013,
       endYear: 2013,
       category: "llaveros",
+      tags: null,
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
@@ -1296,6 +1349,7 @@ export class MemStorage implements IStorage {
       startYear: 2013,
       endYear: 2013,
       category: "tazos",
+      tags: null,
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
@@ -1316,6 +1370,7 @@ export class MemStorage implements IStorage {
       startYear: 2014,
       endYear: 2014,
       category: "accesorios",
+      tags: null,
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
@@ -1336,6 +1391,7 @@ export class MemStorage implements IStorage {
       startYear: 2014,
       endYear: 2014,
       category: "accesorios",
+      tags: null,
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
@@ -1356,6 +1412,7 @@ export class MemStorage implements IStorage {
       startYear: 2014,
       endYear: 2014,
       category: "llaveros",
+      tags: null,
       wrapperPhotoUrl: "/attached_assets/rotated/Cajeta tortugas ninja_1755148526403_rotated.png",
       wrapperPhotosUrls: [
         "/attached_assets/rotated/Cajeta tortugas ninja_1755148526403_rotated.png",
@@ -1381,6 +1438,7 @@ export class MemStorage implements IStorage {
       startYear: 2014,
       endYear: 2015,
       category: "figuras",
+      tags: null,
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
@@ -1401,6 +1459,7 @@ export class MemStorage implements IStorage {
       startYear: 2016,
       endYear: 2016,
       category: "figuras",
+      tags: null,
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
@@ -1421,6 +1480,7 @@ export class MemStorage implements IStorage {
       startYear: 2017,
       endYear: 2018,
       category: "figuras",
+      tags: null,
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
@@ -1441,6 +1501,7 @@ export class MemStorage implements IStorage {
       startYear: 2018,
       endYear: 2018,
       category: "figuras",
+      tags: null,
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: [
         "/attached_assets/rotated/Frontal chocolate hora de aventura 2018_1755219298611_rotated.png"
@@ -1463,6 +1524,7 @@ export class MemStorage implements IStorage {
       startYear: 2019,
       endYear: 2019,
       category: "caps",
+      tags: null,
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
@@ -1483,6 +1545,7 @@ export class MemStorage implements IStorage {
       startYear: 2019,
       endYear: 2020,
       category: "figuras",
+      tags: null,
       wrapperPhotoUrl: "/attached_assets/rotated/Cartoon network chocolate_1755150784757_rotated.png",
       wrapperPhotosUrls: [
         "/attached_assets/rotated/Cartoon network chocolate_1755148526403_rotated.png",
@@ -1508,6 +1571,7 @@ export class MemStorage implements IStorage {
       startYear: 2020,
       endYear: 2021,
       category: "figuras",
+      tags: null,
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
@@ -1528,6 +1592,7 @@ export class MemStorage implements IStorage {
       startYear: 2021,
       endYear: 2021,
       category: "figuras",
+      tags: null,
       wrapperPhotoUrl: "/attached_assets/vainilla funki punky extremo_1755219753446.png",
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
@@ -1548,6 +1613,7 @@ export class MemStorage implements IStorage {
       startYear: 2021,
       endYear: 2022,
       category: "figuras",
+      tags: null,
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
@@ -1568,6 +1634,7 @@ export class MemStorage implements IStorage {
       startYear: 2022,
       endYear: 2022,
       category: "figuras",
+      tags: null,
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
@@ -1588,6 +1655,7 @@ export class MemStorage implements IStorage {
       startYear: 2022,
       endYear: 2022,
       category: "figuras",
+      tags: null,
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
@@ -1608,6 +1676,7 @@ export class MemStorage implements IStorage {
       startYear: 2022,
       endYear: 2023,
       category: "figuras",
+      tags: null,
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
@@ -1628,6 +1697,7 @@ export class MemStorage implements IStorage {
       startYear: 2023,
       endYear: 2023,
       category: "tarjetas",
+      tags: null,
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
@@ -1648,6 +1718,7 @@ export class MemStorage implements IStorage {
       startYear: 2023,
       endYear: 2023,
       category: "figuras",
+      tags: null,
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
@@ -1668,6 +1739,7 @@ export class MemStorage implements IStorage {
       startYear: 2023,
       endYear: 2024,
       category: "figuras",
+      tags: null,
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
       promotionImagesUrls: null,
@@ -1693,6 +1765,7 @@ export class MemStorage implements IStorage {
       startYear: 2004,
       endYear: 2004,
       category: "accesorios",
+      tags: null,
       createdAt: new Date(),
     };
     this.promotions.set(askistix2004.id, askistix2004);
@@ -1719,6 +1792,7 @@ export class MemStorage implements IStorage {
       startYear: 2012,
       endYear: 2012,
       category: "figuras",
+      tags: null,
       createdAt: new Date(),
     };
     this.promotions.set(avengers.id, avengers);
@@ -1744,6 +1818,7 @@ export class MemStorage implements IStorage {
       startYear: 2015,
       endYear: 2015,
       category: "figuras",
+      tags: null,
       createdAt: new Date(),
     };
     this.promotions.set(ecolokitos.id, ecolokitos);
@@ -1768,6 +1843,7 @@ export class MemStorage implements IStorage {
       startYear: 2004,
       endYear: 2004,
       category: "figuras",
+      tags: null,
       createdAt: new Date(),
     };
     this.promotions.set(conexionAlien2004.id, conexionAlien2004);
@@ -1797,6 +1873,7 @@ export class MemStorage implements IStorage {
       startYear: 2005,
       endYear: 2005,
       category: "figuras",
+      tags: null,
       createdAt: new Date(),
     };
     this.promotions.set(teenTitans.id, teenTitans);
@@ -1816,6 +1893,7 @@ export class MemStorage implements IStorage {
       startYear: 2006,
       endYear: 2006,
       category: "figuras",
+      tags: null,
       createdAt: new Date(),
     };
     this.promotions.set(reyesDeLasOlas.id, reyesDeLasOlas);
@@ -1838,6 +1916,7 @@ export class MemStorage implements IStorage {
       startYear: 2008,
       endYear: 2008,
       category: "figuras",
+      tags: null,
       createdAt: new Date(),
     };
     this.promotions.set(danceMania2008.id, danceMania2008);
@@ -1859,6 +1938,7 @@ export class MemStorage implements IStorage {
       startYear: 2010,
       endYear: 2010,
       category: "figuras",
+      tags: null,
       createdAt: new Date(),
     };
     this.promotions.set(chavoChavitops.id, chavoChavitops);
@@ -1886,6 +1966,7 @@ export class MemStorage implements IStorage {
       startYear: 2015,
       endYear: 2015,
       category: "figuras",
+      tags: null,
       createdAt: new Date(),
     };
     this.promotions.set(chavoMini2015.id, chavoMini2015);
@@ -1907,6 +1988,7 @@ export class MemStorage implements IStorage {
       startYear: 2008,
       endYear: 2008,
       category: "figuras",
+      tags: null,
       createdAt: new Date(),
     };
     this.promotions.set(fonomania2008.id, fonomania2008);
@@ -1926,6 +2008,7 @@ export class MemStorage implements IStorage {
       startYear: 2018,
       endYear: 2018,
       category: "figuras",
+      tags: null,
       createdAt: new Date(),
     };
     this.promotions.set(horaDeAventura2018.id, horaDeAventura2018);
@@ -1947,6 +2030,7 @@ export class MemStorage implements IStorage {
       startYear: 2008,
       endYear: 2008,
       category: "figuras",
+      tags: null,
       createdAt: new Date(),
     };
     this.promotions.set(losSimpsons2008.id, losSimpsons2008);
@@ -1968,6 +2052,7 @@ export class MemStorage implements IStorage {
       startYear: 2015,
       endYear: 2015,
       category: "figuras",
+      tags: null,
       createdAt: new Date(),
     };
     this.promotions.set(minions.id, minions);
@@ -1989,6 +2074,7 @@ export class MemStorage implements IStorage {
       startYear: 2020,
       endYear: 2020,
       category: "figuras",
+      tags: null,
       createdAt: new Date(),
     };
     this.promotions.set(pinkiPowPunks2020.id, pinkiPowPunks2020);
@@ -2010,6 +2096,7 @@ export class MemStorage implements IStorage {
       startYear: 2003,
       endYear: 2003,
       category: "tatuajes",
+      tags: null,
       createdAt: new Date(),
     };
     this.promotions.set(tattomania2003.id, tattomania2003);
@@ -2031,6 +2118,7 @@ export class MemStorage implements IStorage {
       startYear: 2011,
       endYear: 2011,
       category: "figuras",
+      tags: null,
       createdAt: new Date(),
     };
     this.promotions.set(funkiPunkyExtremoChocolate.id, funkiPunkyExtremoChocolate);
@@ -2174,6 +2262,7 @@ export class MemStorage implements IStorage {
       youtubeCommercialUrl: insertPromotion.youtubeCommercialUrl ?? null,
       buffetGamesVideoUrl: insertPromotion.buffetGamesVideoUrl ?? null,
       endYear: insertPromotion.endYear ?? null,
+      tags: (insertPromotion.tags as string[] | null) ?? null,
       createdAt: new Date() 
     };
     this.promotions.set(id, promotion);
@@ -2190,6 +2279,7 @@ export class MemStorage implements IStorage {
       id: existingPromotion.id,
       createdAt: existingPromotion.createdAt,
       wrapperPhotosUrls: updatePromotion.wrapperPhotosUrls ? (updatePromotion.wrapperPhotosUrls as string[]) : existingPromotion.wrapperPhotosUrls,
+      tags: updatePromotion.tags !== undefined ? (updatePromotion.tags as string[] | null) : existingPromotion.tags,
     };
     this.promotions.set(id, updatedPromotion);
     return updatedPromotion;
@@ -2341,11 +2431,14 @@ export class DatabaseStorage implements IStorage {
     const { db } = await import("./db");
     const { promotions } = await import("../shared/schema");
     
-    // Ensure wrapperPhotosUrls is properly typed for database
+    // Ensure wrapperPhotosUrls and tags are properly typed for database
     const insertData = {
       ...insertPromotion,
       wrapperPhotosUrls: insertPromotion.wrapperPhotosUrls ? 
         (Array.isArray(insertPromotion.wrapperPhotosUrls) ? insertPromotion.wrapperPhotosUrls : JSON.parse(insertPromotion.wrapperPhotosUrls as string)) 
+        : null,
+      tags: insertPromotion.tags ? 
+        (Array.isArray(insertPromotion.tags) ? insertPromotion.tags : JSON.parse(insertPromotion.tags as string)) 
         : null
     };
     
@@ -2358,12 +2451,15 @@ export class DatabaseStorage implements IStorage {
     const { eq } = await import("drizzle-orm");
     const { promotions } = await import("../shared/schema");
     
-    // Ensure wrapperPhotosUrls is properly typed for database
+    // Ensure wrapperPhotosUrls and tags are properly typed for database
     const updateData = {
       ...updatePromotion,
       wrapperPhotosUrls: updatePromotion.wrapperPhotosUrls ? 
         (Array.isArray(updatePromotion.wrapperPhotosUrls) ? updatePromotion.wrapperPhotosUrls : JSON.parse(updatePromotion.wrapperPhotosUrls as string)) 
-        : updatePromotion.wrapperPhotosUrls
+        : updatePromotion.wrapperPhotosUrls,
+      tags: updatePromotion.tags !== undefined ? 
+        (updatePromotion.tags ? (Array.isArray(updatePromotion.tags) ? updatePromotion.tags : JSON.parse(updatePromotion.tags as string)) : null) 
+        : undefined
     };
     
     const [promotion] = await db.update(promotions).set(updateData).where(eq(promotions.id, id)).returning();
