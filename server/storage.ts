@@ -76,11 +76,14 @@ export class MemStorage implements IStorage {
       startYear: 2010,
       endYear: 2011,
       category: "stickers",
-      tags: null,
+      tags: [
+        "spinners"
+      ],
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: [
-          "/attached_assets/rotated/IMG_4301-removebg-preview (1)_1755219298609_rotated.png"
-],
+        "/attached_assets/rotated/bob espona en movimiento 2009 frontal cajeta_1755196507568_rotated.png",
+        "/attached_assets/rotated/IMG_4301-removebg-preview (1)_1755219298609_rotated.png"
+      ],
       promotionImagesUrls: null,
       youtubeCommercialUrl: "https://www.youtube.com/watch?v=7whH2AUpW0I&t=3726s",
       buffetGamesVideoUrl: "https://www.youtube.com/watch?v=7whH2AUpW0I&t=3726s",
@@ -387,6 +390,7 @@ export class MemStorage implements IStorage {
       endYear: 2004,
       category: "figuras",
       tags: null,
+      wrapperRotation: 0,
       createdAt: new Date(),
     };
     this.promotions.set(theDog2004.id, theDog2004);
@@ -1865,6 +1869,7 @@ export class MemStorage implements IStorage {
       endYear: 2012,
       category: "figuras",
       tags: null,
+      wrapperRotation: 0,
       createdAt: new Date(),
     };
     this.promotions.set(avengers.id, avengers);
@@ -1891,6 +1896,7 @@ export class MemStorage implements IStorage {
       endYear: 2015,
       category: "figuras",
       tags: null,
+      wrapperRotation: 0,
       createdAt: new Date(),
     };
     this.promotions.set(ecolokitos.id, ecolokitos);
@@ -1916,6 +1922,7 @@ export class MemStorage implements IStorage {
       endYear: 2004,
       category: "figuras",
       tags: null,
+      wrapperRotation: 0,
       createdAt: new Date(),
     };
     this.promotions.set(conexionAlien2004.id, conexionAlien2004);
@@ -1946,6 +1953,7 @@ export class MemStorage implements IStorage {
       endYear: 2005,
       category: "figuras",
       tags: null,
+      wrapperRotation: 0,
       createdAt: new Date(),
     };
     this.promotions.set(teenTitans.id, teenTitans);
@@ -1966,6 +1974,7 @@ export class MemStorage implements IStorage {
       endYear: 2006,
       category: "figuras",
       tags: null,
+      wrapperRotation: 0,
       createdAt: new Date(),
     };
     this.promotions.set(reyesDeLasOlas.id, reyesDeLasOlas);
@@ -1989,6 +1998,7 @@ export class MemStorage implements IStorage {
       endYear: 2008,
       category: "figuras",
       tags: null,
+      wrapperRotation: 0,
       createdAt: new Date(),
     };
     this.promotions.set(danceMania2008.id, danceMania2008);

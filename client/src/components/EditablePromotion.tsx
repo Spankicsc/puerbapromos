@@ -311,18 +311,17 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
         </div>
       )}
 
-      {/* Main Card - Exactly Same Design as Normal View */}
-      {isEditing ? (
-        // Editing Mode - Keep same visual design but with editable fields
-        <Card className="group overflow-hidden card-splat bg-promo-yellow/95 backdrop-blur-sm h-full transition-all duration-300">
-          <CardHeader className="pb-2">
-            <div className="flex items-center justify-between mb-2">
-              <Badge 
-                variant="secondary" 
-                className="text-xs px-2 py-1"
-                style={{ backgroundColor: `${brand.primaryColor}20`, color: brand.primaryColor }}
-              >
-                <Calendar className="w-3 h-3 mr-1" />
+      {/* Main Card - Always same design, inline editing when active */}
+      <Card className="group overflow-hidden card-splat cursor-pointer bg-promo-yellow/95 backdrop-blur-sm h-full hover:shadow-2xl transition-all duration-300">
+        <CardHeader className="pb-2">
+          <div className="flex items-center justify-between mb-2">
+            <Badge 
+              variant="secondary" 
+              className="text-xs px-2 py-1"
+              style={{ backgroundColor: `${brand.primaryColor}20`, color: brand.primaryColor }}
+            >
+              <Calendar className="w-3 h-3 mr-1" />
+              {isEditing ? (
                 <Input
                   type="number"
                   value={editedPromotion.startYear}
@@ -333,13 +332,18 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                   className="w-16 h-5 text-xs border-0 bg-transparent p-0"
                   data-testid="input-start-year"
                 />
-              </Badge>
-              <img 
-                src={brand.logoUrl || ''} 
-                alt={brand.name}
-                className="w-8 h-8 object-contain"
-              />
-            </div>
+              ) : (
+                promotion.startYear
+              )}
+            </Badge>
+            <img 
+              src={brand.logoUrl || ''} 
+              alt={brand.name}
+              className="w-8 h-8 object-contain"
+            />
+          </div>
+          
+          {isEditing ? (
             <Input
               value={editedPromotion.name}
               onChange={(e) => {
@@ -350,173 +354,229 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
               style={{ fontFamily: 'Righteous, cursive' }}
               data-testid="input-promotion-name"
             />
-          </CardHeader>
-          <CardContent>
-            <div className="flex gap-3">
-              <div className="flex-1 min-w-0">
+          ) : (
+            <CardTitle className="text-xl font-bold text-promo-black group-hover:text-promo-yellow transition-colors" style={{ fontFamily: 'Righteous, cursive' }}>
+              {promotion.name}
+            </CardTitle>
+          )}
+        </CardHeader>
+        <CardContent>
+          <div className="flex gap-3">
+            <div className="flex-1 min-w-0">
+              {isEditing ? (
                 <Textarea
                   value={editedPromotion.description}
                   onChange={(e) => {
                     const newValue = e.target.value;
                     setEditedPromotion({ ...editedPromotion, description: newValue });
                   }}
-                  className="text-gray-600 text-sm leading-relaxed mb-4 border-0 bg-white/50 rounded"
-                  rows={3}
+                  className="text-gray-600 text-sm leading-relaxed mb-4 border-1 bg-white/50 rounded"
+                  rows={4}
                   data-testid="textarea-description"
                 />
-                <div className="flex items-start justify-between">
-                  <div className="flex flex-col gap-2 w-full">
-                    {/* Categoría Principal */}
+              ) : (
+                <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                  {promotion.description.length > 120
+                    ? `${promotion.description.substring(0, 120)}...`
+                    : promotion.description}
+                </p>
+              )}
+              
+              {/* Tags and Categories */}
+              <div className="flex items-center justify-between">
+                <div className="flex flex-wrap gap-1">
+                  <Badge variant="outline" className="text-xs">
+                    <Tag className="w-3 h-3 mr-1" />
+                    {promotion.category}
+                  </Badge>
+                  {Array.isArray(promotion.tags) && promotion.tags.slice(0, 2).map((tag, index) => (
+                    <Badge key={index} variant="secondary" className="text-xs">
+                      {tag}
+                    </Badge>
+                  ))}
+                  {Array.isArray(promotion.tags) && promotion.tags.length > 2 && (
+                    <Badge variant="secondary" className="text-xs">
+                      +{promotion.tags.length - 2}
+                    </Badge>
+                  )}
+                </div>
+                {!isEditing && (
+                  <span className="text-sm text-gray-500">Ver más →</span>
+                )}
+              </div>
+              
+              {/* Extended editing fields when in edit mode */}
+              {isEditing && (
+                <div className="mt-4 space-y-3 border-t pt-4">
+                  {/* Tags editing */}
+                  <div className="space-y-2">
                     <div className="flex items-center gap-2">
-                      <Badge variant="outline" className="text-xs">
-                        <Tag className="w-3 h-3 mr-1" />
-                        {editedPromotion.category || "tazos"}
-                      </Badge>
-                      <span className="text-xs text-gray-500">Principal</span>
+                      <span className="text-xs font-medium">Etiquetas:</span>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        className="h-6 px-2 text-xs"
+                        onClick={() => setShowAddTags(!showAddTags)}
+                      >
+                        ✏️ Editar
+                      </Button>
                     </div>
                     
-                    {/* Etiquetas Adicionales */}
-                    <div className="space-y-2">
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs font-medium">Etiquetas:</span>
-                        <Button
-                          type="button"
-                          variant="ghost"
-                          size="sm"
-                          className="h-6 px-2 text-xs"
-                          onClick={() => setShowAddTags(!showAddTags)}
-                        >
-                          ✏️ Editar
-                        </Button>
-                      </div>
-                      
-                      {/* Mostrar etiquetas actuales */}
-                      <div className="flex flex-wrap gap-1">
-                        {Array.isArray(editedPromotion.tags) && editedPromotion.tags.map((tag, index) => (
-                          <Badge key={index} variant="secondary" className="text-xs">
-                            {tag}
-                            <Button
-                              type="button"
-                              variant="ghost"
-                              size="sm"
-                              className="h-4 w-4 p-0 ml-1 hover:bg-red-100"
-                              onClick={() => {
-                                const newTags = editedPromotion.tags?.filter((_, i) => i !== index) || null;
-                                setEditedPromotion({ ...editedPromotion, tags: newTags });
-                              }}
-                            >
-                              ×
-                            </Button>
-                          </Badge>
-                        ))}
-                        {(!editedPromotion.tags || editedPromotion.tags.length === 0) && (
-                          <span className="text-xs text-gray-400">Sin etiquetas adicionales</span>
-                        )}
-                      </div>
-                    </div>
-                    
-                    {showAddTags && (
-                      <div className="space-y-2 p-2 bg-white rounded border">
-                        <div className="text-xs font-medium">Categorías disponibles:</div>
-                        <div className="flex flex-wrap gap-1">
-                          {[...validCategories, ...customCategories].map((category) => (
-                            <Button
-                              key={category}
-                              type="button"
-                              variant={Array.isArray(editedPromotion.tags) && editedPromotion.tags.includes(category) ? "default" : "outline"}
-                              size="sm"
-                              className="h-6 px-2 text-xs"
-                              onClick={() => {
-                                const currentTags = Array.isArray(editedPromotion.tags) ? editedPromotion.tags : [];
-                                if (currentTags.includes(category)) {
-                                  // Remover etiqueta
-                                  const newTags = currentTags.filter(t => t !== category);
-                                  setEditedPromotion({ ...editedPromotion, tags: newTags.length > 0 ? newTags : null });
-                                } else {
-                                  // Agregar etiqueta
-                                  setEditedPromotion({ ...editedPromotion, tags: [...currentTags, category] });
-                                }
-                              }}
-                            >
-                              {category}
-                            </Button>
-                          ))}
-                        </div>
-                        
-                        <div className="flex gap-1">
-                          <Input
-                            value={newTag}
-                            onChange={(e) => setNewTag(e.target.value)}
-                            placeholder="Nueva etiqueta"
-                            className="h-6 text-xs"
-                            onKeyPress={(e) => {
-                              if (e.key === 'Enter' && newTag.trim()) {
-                                const trimmed = newTag.trim().toLowerCase();
-                                const currentTags = Array.isArray(editedPromotion.tags) ? editedPromotion.tags : [];
-                                if (!currentTags.includes(trimmed)) {
-                                  setEditedPromotion({ ...editedPromotion, tags: [...currentTags, trimmed] });
-                                }
-                                setNewTag("");
-                              }
-                            }}
-                          />
+                    {/* Current tags */}
+                    <div className="flex flex-wrap gap-1">
+                      {Array.isArray(editedPromotion.tags) && editedPromotion.tags.map((tag, index) => (
+                        <Badge key={index} variant="secondary" className="text-xs">
+                          {tag}
                           <Button
                             type="button"
-                            variant="outline"
+                            variant="ghost"
+                            size="sm"
+                            className="h-4 w-4 p-0 ml-1 hover:bg-red-100"
+                            onClick={() => {
+                              const newTags = editedPromotion.tags?.filter((_, i) => i !== index) || null;
+                              setEditedPromotion({ ...editedPromotion, tags: newTags });
+                            }}
+                          >
+                            ×
+                          </Button>
+                        </Badge>
+                      ))}
+                      {(!editedPromotion.tags || editedPromotion.tags.length === 0) && (
+                        <span className="text-xs text-gray-400">Sin etiquetas adicionales</span>
+                      )}
+                    </div>
+                  </div>
+                  
+                  {showAddTags && (
+                    <div className="space-y-2 p-2 bg-white rounded border">
+                      <div className="text-xs font-medium">Categorías disponibles:</div>
+                      <div className="flex flex-wrap gap-1">
+                        {[...validCategories, ...customCategories].map((category) => (
+                          <Button
+                            key={category}
+                            type="button"
+                            variant={Array.isArray(editedPromotion.tags) && editedPromotion.tags.includes(category) ? "default" : "outline"}
                             size="sm"
                             className="h-6 px-2 text-xs"
                             onClick={() => {
-                              if (newTag.trim()) {
-                                const trimmed = newTag.trim().toLowerCase();
-                                const currentTags = Array.isArray(editedPromotion.tags) ? editedPromotion.tags : [];
-                                if (!currentTags.includes(trimmed)) {
-                                  setEditedPromotion({ ...editedPromotion, tags: [...currentTags, trimmed] });
-                                }
-                                setNewTag("");
+                              const currentTags = Array.isArray(editedPromotion.tags) ? editedPromotion.tags : [];
+                              if (currentTags.includes(category)) {
+                                const newTags = currentTags.filter(t => t !== category);
+                                setEditedPromotion({ ...editedPromotion, tags: newTags.length > 0 ? newTags : null });
+                              } else {
+                                setEditedPromotion({ ...editedPromotion, tags: [...currentTags, category] });
                               }
                             }}
                           >
-                            +
+                            {category}
                           </Button>
-                        </div>
-                        
+                        ))}
+                      </div>
+                      
+                      <div className="flex gap-1">
+                        <Input
+                          value={newTag}
+                          onChange={(e) => setNewTag(e.target.value)}
+                          placeholder="Nueva etiqueta"
+                          className="h-6 text-xs"
+                          onKeyPress={(e) => {
+                            if (e.key === 'Enter' && newTag.trim()) {
+                              const trimmed = newTag.trim().toLowerCase();
+                              const currentTags = Array.isArray(editedPromotion.tags) ? editedPromotion.tags : [];
+                              if (!currentTags.includes(trimmed)) {
+                                setEditedPromotion({ ...editedPromotion, tags: [...currentTags, trimmed] });
+                              }
+                              setNewTag("");
+                            }
+                          }}
+                        />
                         <Button
                           type="button"
-                          variant="ghost"
+                          variant="outline"
                           size="sm"
                           className="h-6 px-2 text-xs"
-                          onClick={() => setShowAddTags(false)}
+                          onClick={() => {
+                            if (newTag.trim()) {
+                              const trimmed = newTag.trim().toLowerCase();
+                              const currentTags = Array.isArray(editedPromotion.tags) ? editedPromotion.tags : [];
+                              if (!currentTags.includes(trimmed)) {
+                                setEditedPromotion({ ...editedPromotion, tags: [...currentTags, trimmed] });
+                              }
+                              setNewTag("");
+                            }
+                          }}
                         >
-                          Cerrar
+                          +
                         </Button>
                       </div>
-                    )}
+                      
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        className="h-6 px-2 text-xs"
+                        onClick={() => setShowAddTags(false)}
+                      >
+                        Cerrar
+                      </Button>
+                    </div>
+                  )}
+                  
+                  {/* URL inputs */}
+                  <div className="space-y-2">
+                    <Label htmlFor="youtube-url">Video de YouTube</Label>
+                    <Input
+                      id="youtube-url"
+                      value={editedPromotion.youtubeCommercialUrl || ""}
+                      onChange={(e) => {
+                        const newValue = e.target.value;
+                        setEditedPromotion({ ...editedPromotion, youtubeCommercialUrl: newValue });
+                      }}
+                      placeholder="URL del comercial de YouTube"
+                      data-testid="input-youtube-url"
+                    />
+                    
+                    <Label htmlFor="buffet-url">Video de Buffet Games</Label>
+                    <Input
+                      id="buffet-url"
+                      value={editedPromotion.buffetGamesVideoUrl || ""}
+                      onChange={(e) => {
+                        const newValue = e.target.value;
+                        setEditedPromotion({ ...editedPromotion, buffetGamesVideoUrl: newValue });
+                      }}
+                      placeholder="URL del video de Buffet Games"
+                      data-testid="input-buffet-url"
+                    />
                   </div>
                 </div>
-              </div>
-              {editedPromotion.wrapperPhotoUrl && (
-                <div className="flex-shrink-0 w-20 h-24 flex items-center justify-center relative">
-                  <Dialog>
-                    <DialogTrigger asChild>
+              )}
+            </div>
+            {promotion.wrapperPhotoUrl && (
+              <div className="flex-shrink-0 w-20 h-24 flex items-center justify-center relative">
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <img 
+                      src={promotion.wrapperPhotoUrl} 
+                      alt={`Envoltura ${promotion.name}`}
+                      className="w-full h-full object-contain drop-shadow-sm cursor-pointer hover:scale-105 transition-transform"
+                      style={{ transform: `rotate(${wrapperRotation}deg)` }}
+                      data-testid="img-wrapper-normal"
+                      onClick={(e) => !isEditing && e.preventDefault()}
+                    />
+                  </DialogTrigger>
+                  <DialogContent className="max-w-4xl w-full">
+                    <div className="flex items-center justify-center p-4">
                       <img 
-                        src={editedPromotion.wrapperPhotoUrl} 
-                        alt={`Envoltura ${editedPromotion.name}`}
-                        className="w-full h-full object-contain drop-shadow-sm cursor-pointer hover:scale-105 transition-transform"
+                        src={promotion.wrapperPhotoUrl} 
+                        alt={`Envoltura ${promotion.name}`}
+                        className="max-w-full max-h-[80vh] object-contain"
                         style={{ transform: `rotate(${wrapperRotation}deg)` }}
-                        data-testid="img-wrapper-preview"
                       />
-                    </DialogTrigger>
-                    <DialogContent className="max-w-4xl w-full">
-                      <div className="flex items-center justify-center p-4">
-                        <img 
-                          src={editedPromotion.wrapperPhotoUrl} 
-                          alt={`Envoltura ${editedPromotion.name}`}
-                          className="max-w-full max-h-[80vh] object-contain"
-                          style={{ transform: `rotate(${wrapperRotation}deg)` }}
-                        />
-                      </div>
-                    </DialogContent>
-                  </Dialog>
+                    </div>
+                  </DialogContent>
+                </Dialog>
+                {isEditing && (
                   <Button
                     size="sm"
                     variant="secondary"
@@ -526,339 +586,49 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                   >
                     <RotateCw className="w-3 h-3" />
                   </Button>
-                </div>
-              )}
-            </div>
-            
-            {/* Additional Wrapper Photos Section */}
-            <div className="mt-4 space-y-3 border-t pt-4">
-              <div className="flex items-center justify-between">
-                <Label className="text-sm font-medium">Imágenes de Envolturas</Label>
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="sm"
-                  onClick={addWrapperPhoto}
-                  data-testid="button-add-wrapper"
-                >
-                  <Plus className="w-3 h-3 mr-1" />
-                  Agregar
-                </Button>
-              </div>
-              
-              {/* Drag and Drop Zone */}
-              <div 
-                className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-gray-400 transition-colors"
-                onDrop={(e) => {
-                  e.preventDefault();
-                  const files = Array.from(e.dataTransfer.files);
-                  files.forEach(file => {
-                    if (file.type.startsWith('image/')) {
-                      const reader = new FileReader();
-                      reader.onload = (e) => {
-                        const imageUrl = e.target?.result as string;
-                        if (imageUrl) {
-                          const currentUrls = Array.isArray(editedPromotion.wrapperPhotosUrls) ? editedPromotion.wrapperPhotosUrls : [];
-                          setEditedPromotion({ 
-                            ...editedPromotion, 
-                            wrapperPhotosUrls: [...currentUrls, imageUrl]
-                          });
-                        }
-                      };
-                      reader.readAsDataURL(file);
-                    }
-                  });
-                }}
-                onDragOver={(e) => e.preventDefault()}
-                onDragEnter={(e) => e.preventDefault()}
-              >
-                <div className="text-gray-500">
-                  <div className="text-2xl mb-2">📷</div>
-                  <p>Arrastra imágenes aquí o </p>
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    onClick={addWrapperPhoto}
-                    className="mt-2"
-                  >
-                    Seleccionar archivo
-                  </Button>
-                </div>
-              </div>
-              
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                {Array.isArray(editedPromotion.wrapperPhotosUrls) && editedPromotion.wrapperPhotosUrls.map((url: string, index: number) => (
-                  <div key={index} className="relative group">
-                    <img 
-                      src={url} 
-                      alt={`Envoltura ${index + 1}`}
-                      className="w-full h-16 object-contain bg-white rounded border cursor-pointer hover:scale-105 transition-transform shadow-sm"
-                      onClick={() => openImageEditor(url)}
-                    />
-                    <Button
-                      type="button"
-                      variant="destructive"
-                      size="sm"
-                      className="absolute -top-2 -right-2 w-6 h-6 p-0 opacity-0 group-hover:opacity-100 transition-opacity shadow-lg"
-                      onClick={() => removeWrapperPhoto(index)}
-                    >
-                      <X className="w-4 h-4" />
-                    </Button>
-                  </div>
-                ))}
-              </div>
-              
-              {/* Image URL Inputs */}
-              <div className="space-y-2">
-                <Label htmlFor="image-url">Imagen Principal</Label>
-                <Input
-                  id="image-url"
-                  value={editedPromotion.imageUrl || ""}
-                  onChange={(e) => {
-                    const newValue = e.target.value;
-                    setEditedPromotion({ ...editedPromotion, imageUrl: newValue });
-                  }}
-                  placeholder="URL de imagen principal"
-                  data-testid="input-image-url"
-                />
-                
-                <Label htmlFor="wrapper-url">Envoltura Principal</Label>
-                <Input
-                  id="wrapper-url"
-                  value={editedPromotion.wrapperPhotoUrl || ""}
-                  onChange={(e) => {
-                    const newValue = e.target.value;
-                    setEditedPromotion({ ...editedPromotion, wrapperPhotoUrl: newValue });
-                  }}
-                  placeholder="URL de envoltura principal"
-                  data-testid="input-wrapper-url"
-                />
-                
-                <Label htmlFor="youtube-url">Video de YouTube</Label>
-                <Input
-                  id="youtube-url"
-                  value={editedPromotion.youtubeCommercialUrl || ""}
-                  onChange={(e) => {
-                    const newValue = e.target.value;
-                    setEditedPromotion({ ...editedPromotion, youtubeCommercialUrl: newValue });
-                  }}
-                  placeholder="URL del comercial de YouTube"
-                  data-testid="input-youtube-url"
-                />
-                
-                <Label htmlFor="buffet-url">Video de Buffet Games</Label>
-                <Input
-                  id="buffet-url"
-                  value={editedPromotion.buffetGamesVideoUrl || ""}
-                  onChange={(e) => {
-                    const newValue = e.target.value;
-                    setEditedPromotion({ ...editedPromotion, buffetGamesVideoUrl: newValue });
-                  }}
-                  placeholder="URL del video de Buffet Games"
-                  data-testid="input-buffet-url"
-                />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      ) : (
-        // Normal View Mode - Exact same design as the original cards
-        <Link href={`/promotion/${promotion.slug}`} data-testid={`link-promotion-${promotion.slug}`}>
-          <Card className="group overflow-hidden card-splat cursor-pointer bg-promo-yellow/95 backdrop-blur-sm h-full hover:shadow-2xl transition-all duration-300">
-            <CardHeader className="pb-2">
-              <div className="flex items-center justify-between mb-2">
-                <Badge 
-                  variant="secondary" 
-                  className="text-xs px-2 py-1"
-                  style={{ backgroundColor: `${brand.primaryColor}20`, color: brand.primaryColor }}
-                >
-                  <Calendar className="w-3 h-3 mr-1" />
-                  {promotion.startYear}
-                </Badge>
-                <img 
-                  src={brand.logoUrl || ''} 
-                  alt={brand.name}
-                  className="w-8 h-8 object-contain"
-                />
-              </div>
-              <CardTitle className="text-xl font-bold text-promo-black group-hover:text-promo-yellow transition-colors" style={{ fontFamily: 'Righteous, cursive' }}>
-                {promotion.name}
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex gap-3">
-                <div className="flex-1 min-w-0">
-                  <p className="text-gray-600 text-sm leading-relaxed mb-4">
-                    {promotion.description.length > 120
-                      ? `${promotion.description.substring(0, 120)}...`
-                      : promotion.description}
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <div className="flex flex-wrap gap-1">
-                      <Badge variant="outline" className="text-xs">
-                        <Tag className="w-3 h-3 mr-1" />
-                        {promotion.category}
-                      </Badge>
-                      {Array.isArray(promotion.tags) && promotion.tags.slice(0, 2).map((tag, index) => (
-                        <Badge key={index} variant="secondary" className="text-xs">
-                          {tag}
-                        </Badge>
-                      ))}
-                      {Array.isArray(promotion.tags) && promotion.tags.length > 2 && (
-                        <Badge variant="secondary" className="text-xs">
-                          +{promotion.tags.length - 2}
-                        </Badge>
-                      )}
-                    </div>
-                    <span className="text-sm text-gray-500">Ver más →</span>
-                  </div>
-                </div>
-                {promotion.wrapperPhotoUrl && (
-                  <div className="flex-shrink-0 w-20 h-24 flex items-center justify-center">
-                    <Dialog>
-                      <DialogTrigger asChild>
-                        <img 
-                          src={promotion.wrapperPhotoUrl} 
-                          alt={`Envoltura ${promotion.name}`}
-                          className="w-full h-full object-contain drop-shadow-sm cursor-pointer hover:scale-105 transition-transform"
-                          style={{ transform: `rotate(${wrapperRotation}deg)` }}
-                          data-testid="img-wrapper-normal"
-                          onClick={(e) => e.preventDefault()}
-                        />
-                      </DialogTrigger>
-                      <DialogContent className="max-w-4xl w-full">
-                        <div className="flex items-center justify-center p-4">
-                          <img 
-                            src={promotion.wrapperPhotoUrl} 
-                            alt={`Envoltura ${promotion.name}`}
-                            className="max-w-full max-h-[80vh] object-contain"
-                            style={{ transform: `rotate(${wrapperRotation}deg)` }}
-                          />
-                        </div>
-                      </DialogContent>
-                    </Dialog>
-                  </div>
                 )}
               </div>
-            </CardContent>
-          </Card>
-        </Link>
-      )}
-      
-      {/* Enhanced Image Editor Dialog */}
-      <Dialog open={showImageEditor} onOpenChange={setShowImageEditor}>
-        <DialogContent className="max-w-5xl w-full max-h-[90vh]">
-          <DialogHeader>
-            <DialogTitle className="flex items-center">
-              <Maximize2 className="w-5 h-5 mr-2" />
-              Editor de Imagen - {editedPromotion.name}
-            </DialogTitle>
-          </DialogHeader>
-          
-          <div className="flex flex-col space-y-4">
-            {/* Image Controls */}
-            <div className="flex items-center justify-center space-x-4 bg-gray-100 p-3 rounded-lg">
-              <div className="flex items-center space-x-2">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={handleZoomOut}
-                  disabled={imageZoom <= 0.5}
-                >
-                  <ZoomOut className="w-4 h-4" />
-                </Button>
-                <span className="text-sm font-medium min-w-[60px] text-center">
-                  {Math.round(imageZoom * 100)}%
-                </span>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={handleZoomIn}
-                  disabled={imageZoom >= 3}
-                >
-                  <ZoomIn className="w-4 h-4" />
-                </Button>
-              </div>
-              
-              <div className="flex items-center space-x-2">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={handleRotateWrapper}
-                >
-                  <RotateCw className="w-4 h-4 mr-1" />
-                  Rotar
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={resetImageTransforms}
-                >
-                  Resetear
-                </Button>
-              </div>
-            </div>
-            
-            {/* Image Display Area */}
-            <div className="flex items-center justify-center bg-gray-50 rounded-lg p-8 min-h-[400px] overflow-hidden">
-              {currentEditingImage && (
-                <div 
-                  className="cursor-move"
-                  style={{
-                    transform: `scale(${imageZoom}) rotate(${wrapperRotation}deg) translate(${imagePosition.x}px, ${imagePosition.y}px)`,
-                    transition: 'transform 0.2s ease'
-                  }}
-                  onMouseDown={(e) => {
-                    const startX = e.clientX - imagePosition.x;
-                    const startY = e.clientY - imagePosition.y;
-                    
-                    const handleMouseMove = (e: MouseEvent) => {
-                      setImagePosition({
-                        x: e.clientX - startX,
-                        y: e.clientY - startY
-                      });
-                    };
-                    
-                    const handleMouseUp = () => {
-                      document.removeEventListener('mousemove', handleMouseMove);
-                      document.removeEventListener('mouseup', handleMouseUp);
-                    };
-                    
-                    document.addEventListener('mousemove', handleMouseMove);
-                    document.addEventListener('mouseup', handleMouseUp);
-                  }}
-                >
-                  <img 
-                    src={currentEditingImage} 
-                    alt="Imagen en edición"
-                    className="max-w-full max-h-[400px] object-contain drop-shadow-lg"
-                    draggable={false}
-                  />
-                </div>
-              )}
-            </div>
-            
-            {/* Tips */}
-            <div className="text-center text-sm text-gray-600 bg-blue-50 p-3 rounded">
-              <div className="flex items-center justify-center space-x-4">
-                <span className="flex items-center">
-                  <Move className="w-4 h-4 mr-1" />
-                  Arrastra para mover
-                </span>
-                <span className="flex items-center">
-                  <ZoomIn className="w-4 h-4 mr-1" />
-                  Botones para zoom
-                </span>
-                <span className="flex items-center">
-                  <RotateCw className="w-4 h-4 mr-1" />
-                  Rotar en incrementos de 90°
-                </span>
-              </div>
-            </div>
+            )}
           </div>
-        </DialogContent>
-      </Dialog>
+        </CardContent>
+      </Card>
+      
+      {/* Image Editor Dialog */}
+      {showImageEditor && currentEditingImage && (
+        <Dialog open={showImageEditor} onOpenChange={setShowImageEditor}>
+          <DialogContent className="max-w-4xl w-full">
+            <DialogHeader>
+              <DialogTitle>Editor de Imagen</DialogTitle>
+            </DialogHeader>
+            <div className="relative flex items-center justify-center p-4 bg-gray-100 rounded">
+              <div 
+                className="relative overflow-hidden bg-white rounded border shadow-lg"
+                style={{ 
+                  transform: `scale(${imageZoom}) translate(${imagePosition.x}px, ${imagePosition.y}px)`,
+                  transition: 'transform 0.2s ease'
+                }}
+              >
+                <img 
+                  src={currentEditingImage} 
+                  alt="Editing"
+                  className="max-w-[500px] max-h-[400px] object-contain"
+                />
+              </div>
+            </div>
+            <div className="flex items-center justify-center gap-2 p-4">
+              <Button size="sm" onClick={handleZoomOut}>
+                <ZoomOut className="w-4 h-4" />
+              </Button>
+              <Button size="sm" onClick={handleZoomIn}>
+                <ZoomIn className="w-4 h-4" />
+              </Button>
+              <Button size="sm" onClick={resetImageTransforms}>
+                <Maximize2 className="w-4 h-4" />
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
     </div>
   );
 }
