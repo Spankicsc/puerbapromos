@@ -86,8 +86,23 @@ const Promotion = () => {
   };
   
   const saveField = (field: string) => {
-    if (!editedPromotion[field as keyof Promotion]) return;
-    updateMutation.mutate({ [field]: editedPromotion[field as keyof Promotion] });
+    const updateData: any = {};
+    
+    if (field === 'tags') {
+      updateData.tags = editedPromotion.tags || [];
+    } else if (field === 'description') {
+      updateData.description = editedPromotion.description || '';
+    } else if (field === 'youtubeCommercialUrl') {
+      updateData.youtubeCommercialUrl = editedPromotion.youtubeCommercialUrl;
+    } else if (field === 'buffetGamesVideoUrl') {
+      updateData.buffetGamesVideoUrl = editedPromotion.buffetGamesVideoUrl;
+    } else if (field === 'years') {
+      updateData.startYear = editedPromotion.startYear;
+      updateData.endYear = editedPromotion.endYear;
+    }
+    
+    updateMutation.mutate(updateData);
+    setIsEditing({ ...isEditing, [field]: false });
   };
   
   const addPromotionImage = () => {
@@ -464,8 +479,45 @@ const Promotion = () => {
                 <span>{items?.length || 0} items</span>
               </div>
               {/* Tags */}
-              {Array.isArray(promotion.tags) && promotion.tags.length > 0 && (
-                <div className="flex items-center space-x-2 text-gray-600">
+              <div className="flex items-center space-x-2 text-gray-600">
+                {isEditMode && !isEditing.tags ? (
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => startEditing('tags')}
+                    className="text-xs"
+                  >
+                    <Tag className="w-3 h-3 mr-1" />
+                    {Array.isArray(promotion.tags) && promotion.tags.length > 0 ? 'Editar etiquetas' : 'Agregar etiquetas'}
+                  </Button>
+                ) : isEditMode && isEditing.tags ? (
+                  <div className="flex flex-col gap-2 w-full">
+                    <Input
+                      value={editedPromotion.tags ? editedPromotion.tags.join(', ') : (Array.isArray(promotion.tags) ? promotion.tags.join(', ') : '')}
+                      onChange={(e) => setEditedPromotion({ ...editedPromotion, tags: e.target.value.split(',').map(t => t.trim()).filter(t => t.length > 0) })}
+                      placeholder="Ingresa etiquetas separadas por comas"
+                      className="w-full"
+                    />
+                    <div className="flex gap-2">
+                      <Button
+                        size="sm"
+                        onClick={() => saveField('tags')}
+                        disabled={updateMutation.isPending}
+                      >
+                        <Save className="w-3 h-3 mr-1" />
+                        Guardar
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => cancelEditing('tags')}
+                      >
+                        <X className="w-3 h-3 mr-1" />
+                        Cancelar
+                      </Button>
+                    </div>
+                  </div>
+                ) : Array.isArray(promotion.tags) && promotion.tags.length > 0 ? (
                   <div className="flex flex-wrap gap-1">
                     {promotion.tags.map((tag, index) => (
                       <Badge key={index} variant="outline" className="text-xs">
@@ -473,13 +525,60 @@ const Promotion = () => {
                       </Badge>
                     ))}
                   </div>
-                </div>
-              )}
+                ) : (
+                  <span className="text-sm text-gray-500">Sin etiquetas</span>
+                )}
+              </div>
             </div>
             
-            <p className="text-gray-700 text-lg leading-relaxed" data-testid="text-promotion-description">
-              {promotion.description}
-            </p>
+            {isEditMode && !isEditing.description ? (
+              <div className="flex items-start gap-2">
+                <p className="text-gray-700 text-lg leading-relaxed flex-1" data-testid="text-promotion-description">
+                  {promotion.description}
+                </p>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => startEditing('description')}
+                  className="text-xs"
+                >
+                  <Edit2 className="w-3 h-3 mr-1" />
+                  Editar
+                </Button>
+              </div>
+            ) : isEditMode && isEditing.description ? (
+              <div className="space-y-3">
+                <textarea
+                  value={editedPromotion.description || promotion.description || ''}
+                  onChange={(e) => setEditedPromotion({ ...editedPromotion, description: e.target.value })}
+                  placeholder="Ingresa la descripción de la promoción"
+                  className="w-full p-3 border border-gray-300 rounded-lg resize-none"
+                  rows={4}
+                />
+                <div className="flex gap-2">
+                  <Button
+                    size="sm"
+                    onClick={() => saveField('description')}
+                    disabled={updateMutation.isPending}
+                  >
+                    <Save className="w-3 h-3 mr-1" />
+                    Guardar
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => cancelEditing('description')}
+                  >
+                    <X className="w-3 h-3 mr-1" />
+                    Cancelar
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              <p className="text-gray-700 text-lg leading-relaxed" data-testid="text-promotion-description">
+                {promotion.description}
+              </p>
+            )}
           </div>
         </div>
 
@@ -677,86 +776,94 @@ const Promotion = () => {
           </div>
         </div>
 
-        {/* Promotion Images Gallery */}
-        <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
-          <div className="p-6">
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-xl font-bold text-promo-black flex items-center">
-                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-                Imágenes de la Promoción
-              </h3>
-              {isEditMode && (
-                <Button
-                  size="sm"
-                  onClick={addPromotionImage}
-                  className="bg-promo-yellow text-promo-black hover:bg-yellow-400"
-                >
-                  <Plus className="w-4 h-4 mr-2" />
-                  Agregar Imagen
-                </Button>
-              )}
-            </div>
-            {promotion.promotionImagesUrls && Array.isArray(promotion.promotionImagesUrls) && promotion.promotionImagesUrls.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                {(promotion.promotionImagesUrls as string[]).map((imageUrl: string, index: number) => (
-                  <div key={index} className="relative group">
-                    <img 
-                      src={imageUrl}
-                      alt={`Imagen promocional ${index + 1} de ${promotion.name}`}
-                      className="w-full h-48 object-cover rounded-lg hover:scale-105 transition-transform duration-300"
-                      data-testid={`img-promotion-${index}`}
-                    />
-                    {isEditMode && (
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        className="absolute top-2 right-2 w-8 h-8 p-0 bg-red-600 border-red-500 text-white hover:bg-red-700 opacity-0 group-hover:opacity-100 transition-opacity"
-                        onClick={() => removePromotionImage(index)}
-                        title="Eliminar imagen"
-                      >
-                        <Trash2 className="w-3 h-3" />
-                      </Button>
-                    )}
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="text-center py-12 bg-gray-50 rounded-lg">
-                <svg className="w-16 h-16 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-                <h3 className="text-lg font-semibold text-gray-600 mb-2">
-                  Sin Imágenes de Promoción
-                </h3>
-                <p className="text-gray-500 mb-4">
-                  No hay imágenes promocionales disponibles
-                </p>
-                {isEditMode && (
-                  <Button
-                    onClick={addPromotionImage}
-                    className="bg-promo-yellow text-promo-black hover:bg-yellow-400"
-                  >
-                    <Plus className="w-4 h-4 mr-2" />
-                    Agregar Primera Imagen
-                  </Button>
-                )}
-              </div>
-            )}
-          </div>
-        </div>
 
-        {/* Items Section */}
+        {/* Elements Collection Section */}
         <section>
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-bold text-promo-black">
-              Colección de {promotion.name}
+              Elementos de la Colección
             </h2>
             <span className="text-sm text-gray-500" data-testid="text-items-count">
-              {items?.length || 0} items
+              {items?.length || 0} elementos • {(Array.isArray(promotion.promotionImagesUrls) ? promotion.promotionImagesUrls.length : 0)} imágenes
             </span>
           </div>
+
+          {/* Promotion Images Gallery */}
+          {(promotion.promotionImagesUrls && Array.isArray(promotion.promotionImagesUrls) && promotion.promotionImagesUrls.length > 0) || isEditMode ? (
+            <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
+              <div className="p-6">
+                <div className="flex items-center justify-between mb-6">
+                  <h3 className="text-xl font-bold text-promo-black flex items-center">
+                    <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    Imágenes Promocionales
+                  </h3>
+                  {isEditMode && (
+                    <Button
+                      size="sm"
+                      onClick={addPromotionImage}
+                      className="bg-promo-yellow text-promo-black hover:bg-yellow-400"
+                    >
+                      <Plus className="w-4 h-4 mr-2" />
+                      Agregar Imagen
+                    </Button>
+                  )}
+                </div>
+                {promotion.promotionImagesUrls && Array.isArray(promotion.promotionImagesUrls) && promotion.promotionImagesUrls.length > 0 ? (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                    {(promotion.promotionImagesUrls as string[]).map((imageUrl: string, index: number) => (
+                      <div key={index} className="relative group">
+                        <img 
+                          src={imageUrl}
+                          alt={`Imagen promocional ${index + 1} de ${promotion.name}`}
+                          className="w-full h-48 object-cover rounded-lg hover:scale-105 transition-transform duration-300"
+                          data-testid={`img-promotion-${index}`}
+                        />
+                        {isEditMode && (
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="absolute top-2 right-2 w-8 h-8 p-0 bg-red-600 border-red-500 text-white hover:bg-red-700 opacity-0 group-hover:opacity-100 transition-opacity"
+                            onClick={() => removePromotionImage(index)}
+                            title="Eliminar imagen"
+                          >
+                            <Trash2 className="w-3 h-3" />
+                          </Button>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-12 bg-gray-50 rounded-lg">
+                    <svg className="w-16 h-16 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    <h3 className="text-lg font-semibold text-gray-600 mb-2">
+                      Sin Imágenes Promocionales
+                    </h3>
+                    <p className="text-gray-500 mb-4">
+                      No hay imágenes promocionales disponibles
+                    </p>
+                    {isEditMode && (
+                      <Button
+                        onClick={addPromotionImage}
+                        className="bg-promo-yellow text-promo-black hover:bg-yellow-400"
+                      >
+                        <Plus className="w-4 h-4 mr-2" />
+                        Agregar Primera Imagen
+                      </Button>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+          ) : null}
+
+          {/* Items Grid */}
+          <h3 className="text-lg font-semibold text-promo-black mb-4">
+            Elementos Coleccionables
+          </h3>
 
           {itemsLoading ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
