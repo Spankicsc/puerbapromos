@@ -141,6 +141,25 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
     });
   };
 
+  // Auto-save function to save changes immediately
+  const autoSave = (updates: Partial<Promotion>) => {
+    const updatedPromotion = { ...editedPromotion, ...updates };
+    setEditedPromotion(updatedPromotion);
+    updateMutation.mutate({
+      name: updatedPromotion.name,
+      description: updatedPromotion.description,
+      category: updatedPromotion.category,
+      tags: updatedPromotion.tags,
+      startYear: updatedPromotion.startYear,
+      endYear: updatedPromotion.endYear,
+      wrapperPhotoUrl: updatedPromotion.wrapperPhotoUrl,
+      wrapperPhotosUrls: updatedPromotion.wrapperPhotosUrls,
+      imageUrl: updatedPromotion.imageUrl,
+      youtubeCommercialUrl: updatedPromotion.youtubeCommercialUrl,
+      buffetGamesVideoUrl: updatedPromotion.buffetGamesVideoUrl,
+    });
+  };
+
   const handleCancel = () => {
     setEditedPromotion(promotion);
     setIsEditing(false);
@@ -179,8 +198,7 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
           const imageUrl = e.target?.result as string;
           if (imageUrl) {
             const currentUrls = Array.isArray(editedPromotion.wrapperPhotosUrls) ? editedPromotion.wrapperPhotosUrls : [];
-            setEditedPromotion({ 
-              ...editedPromotion, 
+            autoSave({ 
               wrapperPhotosUrls: [...currentUrls, imageUrl]
             });
           }
@@ -193,8 +211,7 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
 
   const removeWrapperPhoto = (index: number) => {
     const currentUrls = Array.isArray(editedPromotion.wrapperPhotosUrls) ? editedPromotion.wrapperPhotosUrls : [];
-    setEditedPromotion({ 
-      ...editedPromotion, 
+    autoSave({ 
       wrapperPhotosUrls: currentUrls.filter((_, i) => i !== index)
     });
   };
@@ -289,7 +306,12 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                 <Input
                   type="number"
                   value={editedPromotion.startYear}
-                  onChange={(e) => setEditedPromotion({ ...editedPromotion, startYear: parseInt(e.target.value) })}
+                  onChange={(e) => {
+                    const newValue = parseInt(e.target.value);
+                    setEditedPromotion({ ...editedPromotion, startYear: newValue });
+                    // Auto-save after a short delay
+                    setTimeout(() => autoSave({ startYear: newValue }), 500);
+                  }}
                   className="w-16 h-5 text-xs border-0 bg-transparent p-0"
                   data-testid="input-start-year"
                 />
@@ -302,7 +324,12 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
             </div>
             <Input
               value={editedPromotion.name}
-              onChange={(e) => setEditedPromotion({ ...editedPromotion, name: e.target.value })}
+              onChange={(e) => {
+                const newValue = e.target.value;
+                setEditedPromotion({ ...editedPromotion, name: newValue });
+                // Auto-save after a short delay
+                setTimeout(() => autoSave({ name: newValue }), 800);
+              }}
               className="text-xl font-bold text-promo-black border-0 bg-transparent p-0"
               style={{ fontFamily: 'Righteous, cursive' }}
               data-testid="input-promotion-name"
@@ -313,7 +340,12 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
               <div className="flex-1 min-w-0">
                 <Textarea
                   value={editedPromotion.description}
-                  onChange={(e) => setEditedPromotion({ ...editedPromotion, description: e.target.value })}
+                  onChange={(e) => {
+                    const newValue = e.target.value;
+                    setEditedPromotion({ ...editedPromotion, description: newValue });
+                    // Auto-save after a short delay
+                    setTimeout(() => autoSave({ description: newValue }), 800);
+                  }}
                   className="text-gray-600 text-sm leading-relaxed mb-4 border-0 bg-white/50 rounded"
                   rows={3}
                   data-testid="textarea-description"
@@ -355,8 +387,8 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                               size="sm"
                               className="h-4 w-4 p-0 ml-1 hover:bg-red-100"
                               onClick={() => {
-                                const newTags = editedPromotion.tags?.filter((_, i) => i !== index);
-                                setEditedPromotion({ ...editedPromotion, tags: newTags });
+                                const newTags = editedPromotion.tags?.filter((_, i) => i !== index) || null;
+                                autoSave({ tags: newTags });
                               }}
                             >
                               ×
@@ -385,10 +417,10 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                                 if (currentTags.includes(category)) {
                                   // Remover etiqueta
                                   const newTags = currentTags.filter(t => t !== category);
-                                  setEditedPromotion({ ...editedPromotion, tags: newTags });
+                                  autoSave({ tags: newTags.length > 0 ? newTags : null });
                                 } else {
                                   // Agregar etiqueta
-                                  setEditedPromotion({ ...editedPromotion, tags: [...currentTags, category] });
+                                  autoSave({ tags: [...currentTags, category] });
                                 }
                               }}
                             >
@@ -408,7 +440,7 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                                 const trimmed = newTag.trim().toLowerCase();
                                 const currentTags = Array.isArray(editedPromotion.tags) ? editedPromotion.tags : [];
                                 if (!currentTags.includes(trimmed)) {
-                                  setEditedPromotion({ ...editedPromotion, tags: [...currentTags, trimmed] });
+                                  autoSave({ tags: [...currentTags, trimmed] });
                                 }
                                 setNewTag("");
                               }
@@ -424,7 +456,7 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                                 const trimmed = newTag.trim().toLowerCase();
                                 const currentTags = Array.isArray(editedPromotion.tags) ? editedPromotion.tags : [];
                                 if (!currentTags.includes(trimmed)) {
-                                  setEditedPromotion({ ...editedPromotion, tags: [...currentTags, trimmed] });
+                                  autoSave({ tags: [...currentTags, trimmed] });
                                 }
                                 setNewTag("");
                               }
@@ -569,7 +601,12 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                 <Input
                   id="image-url"
                   value={editedPromotion.imageUrl || ""}
-                  onChange={(e) => setEditedPromotion({ ...editedPromotion, imageUrl: e.target.value })}
+                  onChange={(e) => {
+                    const newValue = e.target.value;
+                    setEditedPromotion({ ...editedPromotion, imageUrl: newValue });
+                    // Auto-save after a short delay
+                    setTimeout(() => autoSave({ imageUrl: newValue }), 800);
+                  }}
                   placeholder="URL de imagen principal"
                   data-testid="input-image-url"
                 />
@@ -578,7 +615,12 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                 <Input
                   id="wrapper-url"
                   value={editedPromotion.wrapperPhotoUrl || ""}
-                  onChange={(e) => setEditedPromotion({ ...editedPromotion, wrapperPhotoUrl: e.target.value })}
+                  onChange={(e) => {
+                    const newValue = e.target.value;
+                    setEditedPromotion({ ...editedPromotion, wrapperPhotoUrl: newValue });
+                    // Auto-save after a short delay
+                    setTimeout(() => autoSave({ wrapperPhotoUrl: newValue }), 800);
+                  }}
                   placeholder="URL de envoltura principal"
                   data-testid="input-wrapper-url"
                 />
@@ -587,7 +629,12 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                 <Input
                   id="youtube-url"
                   value={editedPromotion.youtubeCommercialUrl || ""}
-                  onChange={(e) => setEditedPromotion({ ...editedPromotion, youtubeCommercialUrl: e.target.value })}
+                  onChange={(e) => {
+                    const newValue = e.target.value;
+                    setEditedPromotion({ ...editedPromotion, youtubeCommercialUrl: newValue });
+                    // Auto-save after a short delay
+                    setTimeout(() => autoSave({ youtubeCommercialUrl: newValue }), 800);
+                  }}
                   placeholder="URL del comercial de YouTube"
                   data-testid="input-youtube-url"
                 />
@@ -596,7 +643,12 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                 <Input
                   id="buffet-url"
                   value={editedPromotion.buffetGamesVideoUrl || ""}
-                  onChange={(e) => setEditedPromotion({ ...editedPromotion, buffetGamesVideoUrl: e.target.value })}
+                  onChange={(e) => {
+                    const newValue = e.target.value;
+                    setEditedPromotion({ ...editedPromotion, buffetGamesVideoUrl: newValue });
+                    // Auto-save after a short delay
+                    setTimeout(() => autoSave({ buffetGamesVideoUrl: newValue }), 800);
+                  }}
                   placeholder="URL del video de Buffet Games"
                   data-testid="input-buffet-url"
                 />
