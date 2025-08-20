@@ -2189,6 +2189,7 @@ export class MemStorage implements IStorage {
       ...updatePromotion,
       id: existingPromotion.id,
       createdAt: existingPromotion.createdAt,
+      wrapperPhotosUrls: updatePromotion.wrapperPhotosUrls ? (updatePromotion.wrapperPhotosUrls as string[]) : existingPromotion.wrapperPhotosUrls,
     };
     this.promotions.set(id, updatedPromotion);
     return updatedPromotion;
@@ -2304,7 +2305,7 @@ export class DatabaseStorage implements IStorage {
     const { eq } = await import("drizzle-orm");
     const { brands } = await import("../shared/schema");
     const result = await db.delete(brands).where(eq(brands.id, id));
-    return result.rowCount > 0;
+    return (result.rowCount || 0) > 0;
   }
 
   async getPromotion(id: string): Promise<Promotion | undefined> {
@@ -2339,36 +2340,58 @@ export class DatabaseStorage implements IStorage {
   async createPromotion(insertPromotion: InsertPromotion): Promise<Promotion> {
     const { db } = await import("./db");
     const { promotions } = await import("../shared/schema");
-    const [promotion] = await db.insert(promotions).values(insertPromotion).returning();
+    
+    // Ensure wrapperPhotosUrls is properly typed for database
+    const insertData = {
+      ...insertPromotion,
+      wrapperPhotosUrls: insertPromotion.wrapperPhotosUrls ? 
+        (Array.isArray(insertPromotion.wrapperPhotosUrls) ? insertPromotion.wrapperPhotosUrls : JSON.parse(insertPromotion.wrapperPhotosUrls as string)) 
+        : null
+    };
+    
+    const [promotion] = await db.insert(promotions).values(insertData).returning();
     return promotion;
   }
 
   async updatePromotion(id: string, updatePromotion: Partial<InsertPromotion>): Promise<Promotion | undefined> {
     const { db } = await import("./db");
-    const { promotions, eq } = await import("drizzle-orm");
-    const [promotion] = await db.update(promotions).set(updatePromotion).where(eq(promotions.id, id)).returning();
+    const { eq } = await import("drizzle-orm");
+    const { promotions } = await import("../shared/schema");
+    
+    // Ensure wrapperPhotosUrls is properly typed for database
+    const updateData = {
+      ...updatePromotion,
+      wrapperPhotosUrls: updatePromotion.wrapperPhotosUrls ? 
+        (Array.isArray(updatePromotion.wrapperPhotosUrls) ? updatePromotion.wrapperPhotosUrls : JSON.parse(updatePromotion.wrapperPhotosUrls as string)) 
+        : updatePromotion.wrapperPhotosUrls
+    };
+    
+    const [promotion] = await db.update(promotions).set(updateData).where(eq(promotions.id, id)).returning();
     return promotion || undefined;
   }
 
   async deletePromotion(id: string): Promise<boolean> {
     const { db } = await import("./db");
-    const { promotions, promotionItems, eq } = await import("drizzle-orm");
+    const { eq } = await import("drizzle-orm");
+    const { promotions, promotionItems } = await import("../shared/schema");
     // Delete associated items first
     await db.delete(promotionItems).where(eq(promotionItems.promotionId, id));
     const result = await db.delete(promotions).where(eq(promotions.id, id));
-    return result.rowCount > 0;
+    return (result.rowCount || 0) > 0;
   }
 
   async getPromotionItem(id: string): Promise<PromotionItem | undefined> {
     const { db } = await import("./db");
-    const { promotionItems, eq } = await import("drizzle-orm");
+    const { eq } = await import("drizzle-orm");
+    const { promotionItems } = await import("../shared/schema");
     const [item] = await db.select().from(promotionItems).where(eq(promotionItems.id, id));
     return item || undefined;
   }
 
   async getPromotionItemsByPromotionId(promotionId: string): Promise<PromotionItem[]> {
     const { db } = await import("./db");
-    const { promotionItems, eq } = await import("drizzle-orm");
+    const { eq } = await import("drizzle-orm");
+    const { promotionItems } = await import("../shared/schema");
     return await db.select().from(promotionItems).where(eq(promotionItems.promotionId, promotionId));
   }
 
@@ -2381,21 +2404,24 @@ export class DatabaseStorage implements IStorage {
 
   async updatePromotionItem(id: string, updateItem: Partial<InsertPromotionItem>): Promise<PromotionItem | undefined> {
     const { db } = await import("./db");
-    const { promotionItems, eq } = await import("drizzle-orm");
+    const { eq } = await import("drizzle-orm");
+    const { promotionItems } = await import("../shared/schema");
     const [item] = await db.update(promotionItems).set(updateItem).where(eq(promotionItems.id, id)).returning();
     return item || undefined;
   }
 
   async deletePromotionItem(id: string): Promise<boolean> {
     const { db } = await import("./db");
-    const { promotionItems, eq } = await import("drizzle-orm");
+    const { eq } = await import("drizzle-orm");
+    const { promotionItems } = await import("../shared/schema");
     const result = await db.delete(promotionItems).where(eq(promotionItems.id, id));
-    return result.rowCount > 0;
+    return (result.rowCount || 0) > 0;
   }
 
   async searchPromotions(query: string): Promise<Promotion[]> {
     const { db } = await import("./db");
-    const { promotions, ilike, or } = await import("drizzle-orm");
+    const { ilike, or } = await import("drizzle-orm");
+    const { promotions } = await import("../shared/schema");
     const searchPattern = `%${query}%`;
     return await db.select().from(promotions).where(
       or(
@@ -2408,7 +2434,8 @@ export class DatabaseStorage implements IStorage {
 
   async searchItems(query: string): Promise<PromotionItem[]> {
     const { db } = await import("./db");
-    const { promotionItems, ilike, or } = await import("drizzle-orm");
+    const { ilike, or } = await import("drizzle-orm");
+    const { promotionItems } = await import("../shared/schema");
     const searchPattern = `%${query}%`;
     return await db.select().from(promotionItems).where(
       or(

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Label } from "@/components/ui/label";
 import { 
   AlertDialog, 
   AlertDialogAction, 
@@ -20,10 +21,12 @@ import {
 import {
   Dialog,
   DialogContent,
+  DialogHeader,
+  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
-import { Edit2, Save, Trash2, RotateCw, Calendar, Tag, X } from "lucide-react";
+import { Edit2, Save, Trash2, RotateCw, Calendar, Tag, X, ZoomIn, ZoomOut, Move, Plus, Maximize2 } from "lucide-react";
 import { type Promotion, type Brand } from "@shared/schema";
 import { apiRequest } from "@/lib/queryClient";
 import { Link } from "wouter";
@@ -55,6 +58,10 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
   const [isEditing, setIsEditing] = useState(false);
   const [editedPromotion, setEditedPromotion] = useState(promotion);
   const [wrapperRotation, setWrapperRotation] = useState(0);
+  const [imageZoom, setImageZoom] = useState(1);
+  const [imagePosition, setImagePosition] = useState({ x: 0, y: 0 });
+  const [showImageEditor, setShowImageEditor] = useState(false);
+  const [currentEditingImage, setCurrentEditingImage] = useState<string | null>(null);
 
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -123,7 +130,10 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
       startYear: editedPromotion.startYear,
       endYear: editedPromotion.endYear,
       wrapperPhotoUrl: editedPromotion.wrapperPhotoUrl,
+      wrapperPhotosUrls: editedPromotion.wrapperPhotosUrls,
       imageUrl: editedPromotion.imageUrl,
+      youtubeCommercialUrl: editedPromotion.youtubeCommercialUrl,
+      buffetGamesVideoUrl: editedPromotion.buffetGamesVideoUrl,
     });
   };
 
@@ -135,6 +145,45 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
   const handleRotateWrapper = () => {
     const newRotation = (wrapperRotation + 90) % 360;
     setWrapperRotation(newRotation);
+  };
+
+  const handleZoomIn = () => {
+    setImageZoom(prev => Math.min(prev + 0.25, 3));
+  };
+
+  const handleZoomOut = () => {
+    setImageZoom(prev => Math.max(prev - 0.25, 0.5));
+  };
+
+  const resetImageTransforms = () => {
+    setImageZoom(1);
+    setImagePosition({ x: 0, y: 0 });
+    setWrapperRotation(0);
+  };
+
+  const addWrapperPhoto = () => {
+    const url = prompt("Ingresa la URL de la imagen de envoltura:");
+    if (url && url.trim()) {
+      const currentUrls = Array.isArray(editedPromotion.wrapperPhotosUrls) ? editedPromotion.wrapperPhotosUrls : [];
+      setEditedPromotion({ 
+        ...editedPromotion, 
+        wrapperPhotosUrls: [...currentUrls, url.trim()]
+      });
+    }
+  };
+
+  const removeWrapperPhoto = (index: number) => {
+    const currentUrls = Array.isArray(editedPromotion.wrapperPhotosUrls) ? editedPromotion.wrapperPhotosUrls : [];
+    setEditedPromotion({ 
+      ...editedPromotion, 
+      wrapperPhotosUrls: currentUrls.filter((_, i) => i !== index)
+    });
+  };
+
+  const openImageEditor = (imageUrl: string) => {
+    setCurrentEditingImage(imageUrl);
+    setShowImageEditor(true);
+    resetImageTransforms();
   };
 
   if (!brand) return null;
@@ -303,6 +352,84 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                 </div>
               )}
             </div>
+            
+            {/* Additional Wrapper Photos Section */}
+            <div className="mt-4 space-y-3 border-t pt-4">
+              <div className="flex items-center justify-between">
+                <Label className="text-sm font-medium">Imágenes de Envolturas</Label>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={addWrapperPhoto}
+                  data-testid="button-add-wrapper"
+                >
+                  <Plus className="w-3 h-3 mr-1" />
+                  Agregar
+                </Button>
+              </div>
+              
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                {Array.isArray(editedPromotion.wrapperPhotosUrls) && editedPromotion.wrapperPhotosUrls.map((url: string, index: number) => (
+                  <div key={index} className="relative group">
+                    <img 
+                      src={url} 
+                      alt={`Envoltura ${index + 1}`}
+                      className="w-full h-16 object-contain bg-white rounded border cursor-pointer hover:scale-105 transition-transform"
+                      onClick={() => openImageEditor(url)}
+                    />
+                    <Button
+                      type="button"
+                      variant="destructive"
+                      size="sm"
+                      className="absolute -top-1 -right-1 w-5 h-5 p-0 opacity-0 group-hover:opacity-100 transition-opacity"
+                      onClick={() => removeWrapperPhoto(index)}
+                    >
+                      <X className="w-3 h-3" />
+                    </Button>
+                  </div>
+                ))}
+              </div>
+              
+              {/* Image URL Inputs */}
+              <div className="space-y-2">
+                <Label htmlFor="image-url">Imagen Principal</Label>
+                <Input
+                  id="image-url"
+                  value={editedPromotion.imageUrl || ""}
+                  onChange={(e) => setEditedPromotion({ ...editedPromotion, imageUrl: e.target.value })}
+                  placeholder="URL de imagen principal"
+                  data-testid="input-image-url"
+                />
+                
+                <Label htmlFor="wrapper-url">Envoltura Principal</Label>
+                <Input
+                  id="wrapper-url"
+                  value={editedPromotion.wrapperPhotoUrl || ""}
+                  onChange={(e) => setEditedPromotion({ ...editedPromotion, wrapperPhotoUrl: e.target.value })}
+                  placeholder="URL de envoltura principal"
+                  data-testid="input-wrapper-url"
+                />
+                
+                <Label htmlFor="youtube-url">Video de YouTube</Label>
+                <Input
+                  id="youtube-url"
+                  value={editedPromotion.youtubeCommercialUrl || ""}
+                  onChange={(e) => setEditedPromotion({ ...editedPromotion, youtubeCommercialUrl: e.target.value })}
+                  placeholder="URL del comercial de YouTube"
+                  data-testid="input-youtube-url"
+                />
+                
+                <Label htmlFor="buffet-url">Video de Buffet Games</Label>
+                <Input
+                  id="buffet-url"
+                  value={editedPromotion.buffetGamesVideoUrl || ""}
+                  onChange={(e) => setEditedPromotion({ ...editedPromotion, buffetGamesVideoUrl: e.target.value })}
+                  placeholder="URL del video de Buffet Games"
+                  data-testid="input-buffet-url"
+                />
+              </div>
+            </div>
           </CardContent>
         </Card>
       ) : (
@@ -376,6 +503,120 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
           </Card>
         </Link>
       )}
+      
+      {/* Enhanced Image Editor Dialog */}
+      <Dialog open={showImageEditor} onOpenChange={setShowImageEditor}>
+        <DialogContent className="max-w-5xl w-full max-h-[90vh]">
+          <DialogHeader>
+            <DialogTitle className="flex items-center">
+              <Maximize2 className="w-5 h-5 mr-2" />
+              Editor de Imagen - {editedPromotion.name}
+            </DialogTitle>
+          </DialogHeader>
+          
+          <div className="flex flex-col space-y-4">
+            {/* Image Controls */}
+            <div className="flex items-center justify-center space-x-4 bg-gray-100 p-3 rounded-lg">
+              <div className="flex items-center space-x-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleZoomOut}
+                  disabled={imageZoom <= 0.5}
+                >
+                  <ZoomOut className="w-4 h-4" />
+                </Button>
+                <span className="text-sm font-medium min-w-[60px] text-center">
+                  {Math.round(imageZoom * 100)}%
+                </span>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleZoomIn}
+                  disabled={imageZoom >= 3}
+                >
+                  <ZoomIn className="w-4 h-4" />
+                </Button>
+              </div>
+              
+              <div className="flex items-center space-x-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleRotateWrapper}
+                >
+                  <RotateCw className="w-4 h-4 mr-1" />
+                  Rotar
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={resetImageTransforms}
+                >
+                  Resetear
+                </Button>
+              </div>
+            </div>
+            
+            {/* Image Display Area */}
+            <div className="flex items-center justify-center bg-gray-50 rounded-lg p-8 min-h-[400px] overflow-hidden">
+              {currentEditingImage && (
+                <div 
+                  className="cursor-move"
+                  style={{
+                    transform: `scale(${imageZoom}) rotate(${wrapperRotation}deg) translate(${imagePosition.x}px, ${imagePosition.y}px)`,
+                    transition: 'transform 0.2s ease'
+                  }}
+                  onMouseDown={(e) => {
+                    const startX = e.clientX - imagePosition.x;
+                    const startY = e.clientY - imagePosition.y;
+                    
+                    const handleMouseMove = (e: MouseEvent) => {
+                      setImagePosition({
+                        x: e.clientX - startX,
+                        y: e.clientY - startY
+                      });
+                    };
+                    
+                    const handleMouseUp = () => {
+                      document.removeEventListener('mousemove', handleMouseMove);
+                      document.removeEventListener('mouseup', handleMouseUp);
+                    };
+                    
+                    document.addEventListener('mousemove', handleMouseMove);
+                    document.addEventListener('mouseup', handleMouseUp);
+                  }}
+                >
+                  <img 
+                    src={currentEditingImage} 
+                    alt="Imagen en edición"
+                    className="max-w-full max-h-[400px] object-contain drop-shadow-lg"
+                    draggable={false}
+                  />
+                </div>
+              )}
+            </div>
+            
+            {/* Tips */}
+            <div className="text-center text-sm text-gray-600 bg-blue-50 p-3 rounded">
+              <div className="flex items-center justify-center space-x-4">
+                <span className="flex items-center">
+                  <Move className="w-4 h-4 mr-1" />
+                  Arrastra para mover
+                </span>
+                <span className="flex items-center">
+                  <ZoomIn className="w-4 h-4 mr-1" />
+                  Botones para zoom
+                </span>
+                <span className="flex items-center">
+                  <RotateCw className="w-4 h-4 mr-1" />
+                  Rotar en incrementos de 90°
+                </span>
+              </div>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

@@ -5,16 +5,18 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import { Calendar, Package, Tag, Filter, Edit } from "lucide-react";
+import { Calendar, Package, Tag, Filter, Edit, Plus } from "lucide-react";
 import { useState } from "react";
 import { type Promotion, type Brand } from "@shared/schema";
 import { EditablePromotion } from "@/components/EditablePromotion";
+import { CreatePromotionDialog } from "@/components/CreatePromotionDialog";
 // import { getBrandLogo } from "@/utils/brandLogos";
 
 const Promotions = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedBrand, setSelectedBrand] = useState<string | null>(null);
   const [isEditMode, setIsEditMode] = useState(false);
+  const [showCreateDialog, setShowCreateDialog] = useState(false);
 
   const { data: promotions, isLoading: promotionsLoading } = useQuery<Promotion[]>({
     queryKey: ['/api/promotions'],
@@ -78,14 +80,25 @@ const Promotions = () => {
               Promociones Nostálgicas
             </h1>
             <div className="flex-1 flex justify-end">
-              <div className="flex items-center space-x-2 bg-white px-4 py-2 rounded-lg shadow-sm border">
-                <Edit className="w-4 h-4 text-gray-600" />
-                <span className="text-sm font-medium">Modo Edición</span>
-                <Switch
-                  checked={isEditMode}
-                  onCheckedChange={setIsEditMode}
-                  data-testid="switch-edit-mode"
-                />
+              <div className="flex items-center space-x-4">
+                {isEditMode && (
+                  <Button
+                    onClick={() => setShowCreateDialog(true)}
+                    className="btn-splat bg-green-600 hover:bg-green-700 text-white"
+                  >
+                    <Plus className="w-4 h-4 mr-2" />
+                    Nueva Promoción
+                  </Button>
+                )}
+                <div className="flex items-center space-x-2 bg-white px-4 py-2 rounded-lg shadow-sm border">
+                  <Edit className="w-4 h-4 text-gray-600" />
+                  <span className="text-sm font-medium">Modo Edición</span>
+                  <Switch
+                    checked={isEditMode}
+                    onCheckedChange={setIsEditMode}
+                    data-testid="switch-edit-mode"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -251,6 +264,13 @@ const Promotions = () => {
             </div>
           )}
         </div>
+        
+        {/* Create Promotion Dialog */}
+        <CreatePromotionDialog
+          open={showCreateDialog}
+          onOpenChange={setShowCreateDialog}
+          brands={brands || []}
+        />
       </div>
     </div>
   );
