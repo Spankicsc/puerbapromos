@@ -1,22 +1,31 @@
 import React, { useState } from "react";
 import { useParams } from "wouter";
-import { useQuery } from "@tanstack/react-query";
-import { ArrowLeft, Calendar, Tag, Package, Edit2, Save, X } from "lucide-react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { ArrowLeft, Calendar, Tag, Package, Edit2, Save, X, Plus, Trash2, Youtube, Video } from "lucide-react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Card, CardContent } from "@/components/ui/card";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { type Promotion, type PromotionItem, type Brand } from "@shared/schema";
 import { EditablePromotion } from "@/components/EditablePromotion";
 import { WrapperCarousel } from "@/components/WrapperCarousel";
 import { getBrandLogo } from "@/utils/brandLogos";
 import { getYouTubeEmbedUrl } from "@/utils/youtube";
+import { apiRequest } from "@/lib/queryClient";
+import { useToast } from "@/hooks/use-toast";
 
 const Promotion = () => {
   const { slug } = useParams<{ slug: string }>();
   const [isEditMode, setIsEditMode] = useState(false);
+  const [editedPromotion, setEditedPromotion] = useState<Partial<Promotion>>({});
+  const [isEditing, setIsEditing] = useState<{ [key: string]: boolean }>({});
+  
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
 
   const { data: promotion, isLoading: promotionLoading } = useQuery<Promotion>({
     queryKey: ['/api/promotions', slug],
@@ -35,6 +44,82 @@ const Promotion = () => {
   const getBrand = () => {
     if (!promotion || !brands) return null;
     return brands.find(brand => brand.id === promotion.brandId);
+  };
+  
+  // Update mutation
+  const updateMutation = useMutation({
+    mutationFn: async (updateData: Partial<Promotion>) => {
+      if (!promotion) throw new Error('No promotion data');
+      return await apiRequest('PUT', `/api/promotions/${promotion.id}`, updateData);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/promotions'] });
+      toast({
+        title: 'Promoción actualizada',
+        description: 'Los cambios se han guardado correctamente.',
+      });
+      setIsEditing({});
+      setEditedPromotion({});
+    },
+    onError: (error) => {
+      console.error('Error updating promotion:', error);
+      toast({
+        title: 'Error',
+        description: 'No se pudo actualizar la promoción.',
+        variant: 'destructive',
+      });
+    },
+  });
+  
+  const startEditing = (field: string) => {
+    if (!promotion) return;
+    setIsEditing({ ...isEditing, [field]: true });
+    setEditedPromotion({ 
+      ...editedPromotion, 
+      [field]: promotion[field as keyof Promotion] 
+    });
+  };
+  
+  const cancelEditing = (field: string) => {
+    setIsEditing({ ...isEditing, [field]: false });
+    setEditedPromotion({ ...editedPromotion, [field]: undefined });
+  };
+  
+  const saveField = (field: string) => {
+    if (!editedPromotion[field as keyof Promotion]) return;
+    updateMutation.mutate({ [field]: editedPromotion[field as keyof Promotion] });
+  };
+  
+  const addPromotionImage = () => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.multiple = true;
+    input.onchange = (e) => {
+      const files = Array.from((e.target as HTMLInputElement).files || []);
+      files.forEach(file => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const imageUrl = e.target?.result as string;
+          if (imageUrl && promotion) {
+            const currentUrls = Array.isArray(promotion.promotionImagesUrls) ? promotion.promotionImagesUrls : [];
+            updateMutation.mutate({
+              promotionImagesUrls: [...currentUrls, imageUrl],
+            });
+          }
+        };
+        reader.readAsDataURL(file);
+      });
+    };
+    input.click();
+  };
+  
+  const removePromotionImage = (index: number) => {
+    if (!promotion || !Array.isArray(promotion.promotionImagesUrls)) return;
+    const updatedImages = promotion.promotionImagesUrls.filter((_, i) => i !== index);
+    updateMutation.mutate({
+      promotionImagesUrls: updatedImages.length > 0 ? updatedImages : null,
+    });
   };
 
   const getRarityColor = (rarity?: string) => {
@@ -188,14 +273,103 @@ const Promotion = () => {
                       {brand.name}
                     </Badge>
                   )}
-                  <Badge variant="secondary" className="text-xs">
-                    <Calendar className="w-3 h-3 mr-1" />
-                    {promotion.startYear}{promotion.endYear ? `-${promotion.endYear}` : '-presente'}
-                  </Badge>
+                  {isEditMode && !isEditing.years ? (
+                    <Badge variant="secondary" className="text-xs cursor-pointer" onClick={() => startEditing('years')}>
+                      <Calendar className="w-3 h-3 mr-1" />
+                      {promotion.startYear}{promotion.endYear ? `-${promotion.endYear}` : '-presente'}
+                      <Edit2 className="w-2 h-2 ml-1" />
+                    </Badge>
+                  ) : isEditMode && isEditing.years ? (
+                    <div className="flex items-center gap-1">
+                      <Input
+                        type="number"
+                        value={editedPromotion.startYear || promotion.startYear}
+                        onChange={(e) => setEditedPromotion({ ...editedPromotion, startYear: parseInt(e.target.value) })}
+                        className="w-16 h-6 text-xs bg-white border border-gray-300"
+                        placeholder="Año inicio"
+                      />
+                      <span className="text-xs text-white">-</span>
+                      <Input
+                        type="number"
+                        value={editedPromotion.endYear || promotion.endYear || ''}
+                        onChange={(e) => setEditedPromotion({ ...editedPromotion, endYear: e.target.value ? parseInt(e.target.value) : null })}
+                        className="w-16 h-6 text-xs bg-white border border-gray-300"
+                        placeholder="Año fin"
+                      />
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="h-6 w-6 p-0 bg-green-600 border-green-500 text-white hover:bg-green-700"
+                        onClick={() => {
+                          updateMutation.mutate({
+                            startYear: editedPromotion.startYear || promotion.startYear,
+                            endYear: editedPromotion.endYear !== undefined ? editedPromotion.endYear : promotion.endYear
+                          });
+                        }}
+                      >
+                        <Save className="w-2 h-2" />
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="h-6 w-6 p-0 bg-red-600 border-red-500 text-white hover:bg-red-700"
+                        onClick={() => cancelEditing('years')}
+                      >
+                        <X className="w-2 h-2" />
+                      </Button>
+                    </div>
+                  ) : (
+                    <Badge variant="secondary" className="text-xs">
+                      <Calendar className="w-3 h-3 mr-1" />
+                      {promotion.startYear}{promotion.endYear ? `-${promotion.endYear}` : '-presente'}
+                    </Badge>
+                  )}
                 </div>
-                <h1 className="text-3xl font-bold text-white" data-testid="text-promotion-name">
-                  {promotion.name}
-                </h1>
+                {isEditMode && !isEditing.name ? (
+                  <div className="flex items-center gap-2">
+                    <h1 className="text-3xl font-bold text-white" data-testid="text-promotion-name">
+                      {promotion.name}
+                    </h1>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="bg-white/20 border-white/30 text-white hover:bg-white hover:text-black"
+                      onClick={() => startEditing('name')}
+                    >
+                      <Edit2 className="w-3 h-3" />
+                    </Button>
+                  </div>
+                ) : isEditMode && isEditing.name ? (
+                  <div className="flex items-center gap-2">
+                    <Input
+                      value={editedPromotion.name || promotion.name}
+                      onChange={(e) => setEditedPromotion({ ...editedPromotion, name: e.target.value })}
+                      className="text-3xl font-bold bg-white/90 text-black border-none"
+                      autoFocus
+                    />
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="bg-green-600 border-green-500 text-white hover:bg-green-700"
+                      onClick={() => saveField('name')}
+                      disabled={updateMutation.isPending}
+                    >
+                      <Save className="w-3 h-3" />
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="bg-red-600 border-red-500 text-white hover:bg-red-700"
+                      onClick={() => cancelEditing('name')}
+                    >
+                      <X className="w-3 h-3" />
+                    </Button>
+                  </div>
+                ) : (
+                  <h1 className="text-3xl font-bold text-white" data-testid="text-promotion-name">
+                    {promotion.name}
+                  </h1>
+                )}
               </div>
             </div>
           )}
@@ -222,10 +396,57 @@ const Promotion = () => {
                       {brand.name}
                     </Badge>
                   )}
-                  <Badge variant="secondary" className="text-xs">
-                    <Calendar className="w-3 h-3 mr-1" />
-                    {promotion.startYear}{promotion.endYear ? `-${promotion.endYear}` : '-presente'}
-                  </Badge>
+                  {isEditMode && !isEditing.years ? (
+                    <Badge variant="secondary" className="text-xs cursor-pointer" onClick={() => startEditing('years')}>
+                      <Calendar className="w-3 h-3 mr-1" />
+                      {promotion.startYear}{promotion.endYear ? `-${promotion.endYear}` : '-presente'}
+                      <Edit2 className="w-2 h-2 ml-1" />
+                    </Badge>
+                  ) : isEditMode && isEditing.years ? (
+                    <div className="flex items-center gap-1">
+                      <Input
+                        type="number"
+                        value={editedPromotion.startYear || promotion.startYear}
+                        onChange={(e) => setEditedPromotion({ ...editedPromotion, startYear: parseInt(e.target.value) })}
+                        className="w-16 h-6 text-xs bg-white border border-gray-300"
+                        placeholder="Año inicio"
+                      />
+                      <span className="text-xs text-white">-</span>
+                      <Input
+                        type="number"
+                        value={editedPromotion.endYear || promotion.endYear || ''}
+                        onChange={(e) => setEditedPromotion({ ...editedPromotion, endYear: e.target.value ? parseInt(e.target.value) : null })}
+                        className="w-16 h-6 text-xs bg-white border border-gray-300"
+                        placeholder="Año fin"
+                      />
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="h-6 w-6 p-0 bg-green-600 border-green-500 text-white hover:bg-green-700"
+                        onClick={() => {
+                          updateMutation.mutate({
+                            startYear: editedPromotion.startYear || promotion.startYear,
+                            endYear: editedPromotion.endYear !== undefined ? editedPromotion.endYear : promotion.endYear
+                          });
+                        }}
+                      >
+                        <Save className="w-2 h-2" />
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="h-6 w-6 p-0 bg-red-600 border-red-500 text-white hover:bg-red-700"
+                        onClick={() => cancelEditing('years')}
+                      >
+                        <X className="w-2 h-2" />
+                      </Button>
+                    </div>
+                  ) : (
+                    <Badge variant="secondary" className="text-xs">
+                      <Calendar className="w-3 h-3 mr-1" />
+                      {promotion.startYear}{promotion.endYear ? `-${promotion.endYear}` : '-presente'}
+                    </Badge>
+                  )}
                 </div>
                 <h1 className="text-3xl font-bold text-promo-black" data-testid="text-promotion-name">
                   {promotion.name}
@@ -278,7 +499,7 @@ const Promotion = () => {
                 promotionName={promotion.name}
                 isEditable={isEditMode}
                 promotionId={promotion.id}
-                currentRotation={promotion.wrapperRotation || 0}
+                imageRotations={{ 0: promotion.wrapperRotation || 0 }}
               />
             </div>
           </div>
@@ -286,13 +507,53 @@ const Promotion = () => {
           {/* YouTube Commercial Section */}
           <div className="bg-white rounded-xl shadow-lg overflow-hidden">
             <div className="p-6">
-              <h3 className="text-xl font-bold text-promo-black mb-4 flex items-center">
-                <svg className="w-5 h-5 mr-2 text-red-600" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M23.498 6.186a2.999 2.999 0 0 0-2.108-2.135C19.505 3.546 12 3.546 12 3.546s-7.505 0-9.39.505A2.999 2.999 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a2.999 2.999 0 0 0 2.108 2.135c1.885.505 9.39.505 9.39.505s7.505 0 9.39-.505a2.999 2.999 0 0 0 2.108-2.135C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                </svg>
-                Comercial de YouTube
-              </h3>
-              {promotion.youtubeCommercialUrl ? (
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-xl font-bold text-promo-black flex items-center">
+                  <svg className="w-5 h-5 mr-2 text-red-600" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M23.498 6.186a2.999 2.999 0 0 0-2.108-2.135C19.505 3.546 12 3.546 12 3.546s-7.505 0-9.39.505A2.999 2.999 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a2.999 2.999 0 0 0 2.108 2.135c1.885.505 9.39.505 9.39.505s7.505 0 9.39-.505a2.999 2.999 0 0 0 2.108-2.135C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                  </svg>
+                  Comercial de YouTube
+                </h3>
+                {isEditMode && (
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => startEditing('youtubeCommercialUrl')}
+                    className="text-xs"
+                  >
+                    <Edit2 className="w-3 h-3 mr-1" />
+                    Editar URL
+                  </Button>
+                )}
+              </div>
+              {isEditing.youtubeCommercialUrl ? (
+                <div className="space-y-3">
+                  <Input
+                    value={editedPromotion.youtubeCommercialUrl || promotion.youtubeCommercialUrl || ''}
+                    onChange={(e) => setEditedPromotion({ ...editedPromotion, youtubeCommercialUrl: e.target.value })}
+                    placeholder="Ingresa la URL del video de YouTube"
+                    className="w-full"
+                  />
+                  <div className="flex gap-2">
+                    <Button
+                      size="sm"
+                      onClick={() => saveField('youtubeCommercialUrl')}
+                      disabled={updateMutation.isPending}
+                    >
+                      <Save className="w-3 h-3 mr-1" />
+                      Guardar
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => cancelEditing('youtubeCommercialUrl')}
+                    >
+                      <X className="w-3 h-3 mr-1" />
+                      Cancelar
+                    </Button>
+                  </div>
+                </div>
+              ) : promotion.youtubeCommercialUrl ? (
                 <div className="aspect-video">
                   <iframe
                     src={getYouTubeEmbedUrl(promotion.youtubeCommercialUrl)}
@@ -310,6 +571,16 @@ const Promotion = () => {
                       <path d="M23.498 6.186a2.999 2.999 0 0 0-2.108-2.135C19.505 3.546 12 3.546 12 3.546s-7.505 0-9.39.505A2.999 2.999 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a2.999 2.999 0 0 0 2.108 2.135c1.885.505 9.39.505 9.39.505s7.505 0 9.39-.505a2.999 2.999 0 0 0 2.108-2.135C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
                     </svg>
                     <p className="text-sm">Sin comercial de YouTube</p>
+                    {isEditMode && (
+                      <Button
+                        size="sm"
+                        className="mt-2"
+                        onClick={() => startEditing('youtubeCommercialUrl')}
+                      >
+                        <Plus className="w-3 h-3 mr-1" />
+                        Agregar video
+                      </Button>
+                    )}
                   </div>
                 </div>
               )}
@@ -320,19 +591,59 @@ const Promotion = () => {
         {/* Buffet Games Video Section */}
         <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
           <div className="p-6">
-            <h3 className="text-xl font-bold text-promo-black mb-4 flex items-center">
-              <img 
-                src="/attached_assets/buffet_games_logo.png" 
-                alt="Buffet Games Logo"
-                className="w-5 h-5 mr-2 object-contain"
-                onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-                  // Fallback si la imagen no existe
-                  e.currentTarget.style.display = 'none';
-                }}
-              />
-              Video Explicativo de Buffet Games
-            </h3>
-            {promotion.buffetGamesVideoUrl ? (
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-xl font-bold text-promo-black flex items-center">
+                <img 
+                  src="/attached_assets/buffet_games_logo.png" 
+                  alt="Buffet Games Logo"
+                  className="w-5 h-5 mr-2 object-contain"
+                  onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+                    // Fallback si la imagen no existe
+                    e.currentTarget.style.display = 'none';
+                  }}
+                />
+                Video Explicativo de Buffet Games
+              </h3>
+              {isEditMode && (
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => startEditing('buffetGamesVideoUrl')}
+                  className="text-xs"
+                >
+                  <Edit2 className="w-3 h-3 mr-1" />
+                  Editar URL
+                </Button>
+              )}
+            </div>
+            {isEditing.buffetGamesVideoUrl ? (
+              <div className="space-y-3">
+                <Input
+                  value={editedPromotion.buffetGamesVideoUrl || promotion.buffetGamesVideoUrl || ''}
+                  onChange={(e) => setEditedPromotion({ ...editedPromotion, buffetGamesVideoUrl: e.target.value })}
+                  placeholder="Ingresa la URL del video de Buffet Games"
+                  className="w-full"
+                />
+                <div className="flex gap-2">
+                  <Button
+                    size="sm"
+                    onClick={() => saveField('buffetGamesVideoUrl')}
+                    disabled={updateMutation.isPending}
+                  >
+                    <Save className="w-3 h-3 mr-1" />
+                    Guardar
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => cancelEditing('buffetGamesVideoUrl')}
+                  >
+                    <X className="w-3 h-3 mr-1" />
+                    Cancelar
+                  </Button>
+                </div>
+              </div>
+            ) : promotion.buffetGamesVideoUrl ? (
               <div className="aspect-video">
                 <iframe
                   src={getYouTubeEmbedUrl(promotion.buffetGamesVideoUrl)}
@@ -350,6 +661,16 @@ const Promotion = () => {
                     <span className="text-2xl">🎮</span>
                   </div>
                   <p className="text-sm">Sin video de Buffet Games</p>
+                  {isEditMode && (
+                    <Button
+                      size="sm"
+                      className="mt-2"
+                      onClick={() => startEditing('buffetGamesVideoUrl')}
+                    >
+                      <Plus className="w-3 h-3 mr-1" />
+                      Agregar video
+                    </Button>
+                  )}
                 </div>
               </div>
             )}

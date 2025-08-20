@@ -72,22 +72,22 @@ export class MemStorage implements IStorage {
       name: "ChocoShok Punki Punky",
       slug: "chocoshok-punki-punky",
       description: "Promoción especial de ChocoShok con elementos de Punki Punky incluidos.",
-      imageUrl: null,
+      imageUrl: "/attached_assets/rotated/vainilla funki punky extremo_1755152265578_rotated.png",
       startYear: 2010,
       endYear: 2011,
       category: "stickers",
-      tags: [
-        "spinners"
-      ],
+      tags: ["spinners"],
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: [
-        "/attached_assets/rotated/bob espona en movimiento 2009 frontal cajeta_1755196507568_rotated.png",
-        "/attached_assets/rotated/IMG_4301-removebg-preview (1)_1755219298609_rotated.png"
+        "/attached_assets/rotated/vainilla funki punky extremo_1755152265578_rotated.png",
+        "/attached_assets/rotated/Cajeta funki punky extremo_1755150784762_rotated.png",
+        "/attached_assets/rotated/Funki punky extremo chocolate_1755219298611_rotated.png",
+        "/attached_assets/rotated/vainilla funki punky extremo_1755219753446_rotated.png"
       ],
       promotionImagesUrls: null,
-      youtubeCommercialUrl: "https://www.youtube.com/watch?v=7whH2AUpW0I&t=3726s",
-      buffetGamesVideoUrl: "https://www.youtube.com/watch?v=7whH2AUpW0I&t=3726s",
-      wrapperRotation: 270,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      wrapperRotation: 0,
       createdAt: new Date(),
     };
     this.promotions.set(chocoshok_punki_punky.id, chocoshok_punki_punky);

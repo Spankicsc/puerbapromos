@@ -12,13 +12,13 @@ interface WrapperCarouselProps {
   promotionName: string;
   isEditable?: boolean;
   promotionId?: string;
-  currentRotation?: number;
+  imageRotations?: { [key: number]: number };
 }
 
-export function WrapperCarousel({ wrapperPhotos, promotionName, isEditable = false, promotionId, currentRotation = 0 }: WrapperCarouselProps) {
+export function WrapperCarousel({ wrapperPhotos, promotionName, isEditable = false, promotionId, imageRotations = {} }: WrapperCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [rotation, setRotation] = useState(currentRotation);
+  const [rotations, setRotations] = useState<{ [key: number]: number }>(imageRotations);
   const [isEditMode, setIsEditMode] = useState(false);
   
   const { toast } = useToast();
@@ -74,8 +74,10 @@ export function WrapperCarousel({ wrapperPhotos, promotionName, isEditable = fal
   });
 
   const handleRotateImage = () => {
-    const newRotation = (rotation + 90) % 360;
-    setRotation(newRotation);
+    const currentRotation = rotations[currentIndex] || 0;
+    const newRotation = (currentRotation + 90) % 360;
+    const newRotations = { ...rotations, [currentIndex]: newRotation };
+    setRotations(newRotations);
     
     if (promotionId) {
       updateMutation.mutate({
@@ -170,7 +172,7 @@ export function WrapperCarousel({ wrapperPhotos, promotionName, isEditable = fal
             src={wrapperPhotos[currentIndex]}
             alt={`Envoltura ${currentIndex + 1} de ${promotionName}`}
             className="w-full h-full object-contain cursor-pointer transition-transform hover:scale-105"
-            style={{ transform: `rotate(${rotation}deg)` }}
+            style={{ transform: `rotate(${rotations[currentIndex] || 0}deg)` }}
             onClick={() => !isEditMode && setSelectedImage(wrapperPhotos[currentIndex])}
             data-testid={`wrapper-image-${currentIndex}`}
           />
@@ -255,7 +257,7 @@ export function WrapperCarousel({ wrapperPhotos, promotionName, isEditable = fal
                   src={photo}
                   alt={`Miniatura ${index + 1}`}
                   className="w-full h-full object-cover"
-                  style={{ transform: `rotate(${rotation}deg)` }}
+                  style={{ transform: `rotate(${rotations[index] || 0}deg)` }}
                 />
               </button>
               
