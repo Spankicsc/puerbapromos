@@ -138,6 +138,7 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
       imageUrl: editedPromotion.imageUrl,
       youtubeCommercialUrl: editedPromotion.youtubeCommercialUrl,
       buffetGamesVideoUrl: editedPromotion.buffetGamesVideoUrl,
+      wrapperRotation: wrapperRotation, // Incluir la rotación actual
     });
   };
 
@@ -155,7 +156,7 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
       imageUrl: editedPromotion.imageUrl,
       youtubeCommercialUrl: editedPromotion.youtubeCommercialUrl,
       buffetGamesVideoUrl: editedPromotion.buffetGamesVideoUrl,
-      wrapperRotation: editedPromotion.wrapperRotation,
+      wrapperRotation: wrapperRotation, // Usar la rotación actual del estado
     });
     setIsEditing(false);
   };
@@ -169,6 +170,22 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
     const newRotation = (wrapperRotation + 90) % 360;
     setWrapperRotation(newRotation);
     setEditedPromotion({ ...editedPromotion, wrapperRotation: newRotation });
+    
+    // Guardar automáticamente la rotación
+    updateMutation.mutate({
+      name: editedPromotion.name,
+      description: editedPromotion.description,
+      category: editedPromotion.category,
+      tags: editedPromotion.tags,
+      startYear: editedPromotion.startYear,
+      endYear: editedPromotion.endYear,
+      wrapperPhotoUrl: editedPromotion.wrapperPhotoUrl,
+      wrapperPhotosUrls: editedPromotion.wrapperPhotosUrls,
+      imageUrl: editedPromotion.imageUrl,
+      youtubeCommercialUrl: editedPromotion.youtubeCommercialUrl,
+      buffetGamesVideoUrl: editedPromotion.buffetGamesVideoUrl,
+      wrapperRotation: newRotation, // Usar la nueva rotación
+    });
   };
 
   const handleZoomIn = () => {

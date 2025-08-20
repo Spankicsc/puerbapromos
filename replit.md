@@ -3,10 +3,12 @@
 Promospedia is a nostalgic encyclopedia web application dedicated to preserving and cataloging Mexican promotional items and collectibles. The platform focuses on famous promotional campaigns from Mexican brands like Sabritas, Gamesa, Barcel, Bimbo, Marinela, and Vualá, featuring iconic items such as Tazos, stickers, spinners, and Funki Punky collectibles. The application serves as a comprehensive database where users can explore brands, their promotional campaigns, and individual collectible items with detailed information including rarity levels and historical context.
 
 ## Recent Changes (August 2025)
-- **Space-Optimized Card Layout**: Reduced wrapper photo container size from 224px x 256px to 80px x 96px for better space utilization while maintaining visual impact
-- **Comprehensive Editing System**: Implemented full content management functionality with edit mode toggle, allowing inline editing of promotion details, image rotation, content deletion, and persistent changes through PostgreSQL database
-- **Database Integration**: Added DatabaseStorage class with complete CRUD operations for brands, promotions, and promotion items, enabling persistent editing capabilities
-- **API Enhancement**: Extended REST API with PUT/DELETE endpoints for all entity types, supporting real-time content updates
+- **Individual Page Editing Mode**: Added toggle-based editing system for individual promotion pages that preserves original layout while providing comprehensive editing capabilities
+- **Persistent Wrapper Rotation**: Fixed wrapper photo rotation functionality to save rotations permanently in database, preventing data loss during code modifications
+- **Search Functionality**: Implemented dedicated search page with filtering by category, brand, and year, accessible via /buscar route
+- **Data Persistence Issue Resolution**: Fixed critical issue where user edits were lost when agent modified code - all changes now persist correctly through database updates
+- **Comprehensive Editing System**: Full content management with edit mode toggle, allowing inline editing of promotion details, image rotation, content deletion, and persistent changes
+- **Database Integration**: Complete CRUD operations for brands, promotions, and promotion items with proper PostgreSQL persistence
 
 # User Preferences
 
