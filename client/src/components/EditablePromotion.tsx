@@ -317,14 +317,17 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                 <div className="flex items-center justify-between">
                   <Select
                     value={editedPromotion.category || "tazos"}
-                    onValueChange={(value) => setEditedPromotion({ ...editedPromotion, category: value })}
+                    onValueChange={(value) => {
+                      console.log('Changing category to:', value);
+                      setEditedPromotion({ ...editedPromotion, category: value });
+                    }}
                   >
-                    <SelectTrigger className="w-32 h-8 text-xs" data-testid="select-category">
-                      <SelectValue placeholder="Categoría" />
+                    <SelectTrigger className="w-36 h-8 text-xs bg-white" data-testid="select-category">
+                      <SelectValue placeholder="Seleccionar categoría" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="z-50">
                       {validCategories.map((category) => (
-                        <SelectItem key={category} value={category}>
+                        <SelectItem key={category} value={category} className="text-xs">
                           {category.charAt(0).toUpperCase() + category.slice(1)}
                         </SelectItem>
                       ))}
@@ -333,7 +336,7 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                 </div>
               </div>
               {editedPromotion.wrapperPhotoUrl && (
-                <div className="flex-shrink-0 w-24 h-28 flex items-center justify-center relative">
+                <div className="flex-shrink-0 w-32 h-36 flex items-center justify-center relative">
                   <Dialog>
                     <DialogTrigger asChild>
                       <img 
@@ -431,7 +434,7 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                     <img 
                       src={url} 
                       alt={`Envoltura ${index + 1}`}
-                      className="w-full h-24 object-contain bg-white rounded border cursor-pointer hover:scale-105 transition-transform shadow-sm"
+                      className="w-full h-32 object-contain bg-white rounded border cursor-pointer hover:scale-105 transition-transform shadow-sm"
                       onClick={() => openImageEditor(url)}
                     />
                     <Button
@@ -529,7 +532,7 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                   </div>
                 </div>
                 {promotion.wrapperPhotoUrl && (
-                  <div className="flex-shrink-0 w-20 h-24 flex items-center justify-center">
+                  <div className="flex-shrink-0 w-28 h-32 flex items-center justify-center">
                     <Dialog>
                       <DialogTrigger asChild>
                         <img 
