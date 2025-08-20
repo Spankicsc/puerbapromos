@@ -62,6 +62,9 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
   const [imagePosition, setImagePosition] = useState({ x: 0, y: 0 });
   const [showImageEditor, setShowImageEditor] = useState(false);
   const [currentEditingImage, setCurrentEditingImage] = useState<string | null>(null);
+  const [customCategories, setCustomCategories] = useState<string[]>([]);
+  const [newCategory, setNewCategory] = useState("");
+  const [showAddCategory, setShowAddCategory] = useState(false);
 
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -315,31 +318,84 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                   data-testid="textarea-description"
                 />
                 <div className="flex items-center justify-between">
-                  <Badge variant="outline" className="text-xs">
-                    <Tag className="w-3 h-3 mr-1" />
-                    {editedPromotion.category || "tazos"}
-                  </Badge>
-                  <Select
-                    value={editedPromotion.category}
-                    onValueChange={(value) => {
-                      try {
-                        setEditedPromotion(prev => ({ ...prev, category: value }));
-                      } catch (error) {
-                        console.error('Error updating category:', error);
-                      }
-                    }}
-                  >
-                    <SelectTrigger className="w-8 h-6 border-0 bg-transparent p-0 hover:bg-gray-100 ml-2">
-                      <span className="text-xs">✏️</span>
-                    </SelectTrigger>
-                    <SelectContent>
-                      {validCategories.map((category) => (
-                        <SelectItem key={category} value={category}>
-                          {category}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  <div className="flex flex-col gap-2 w-full">
+                    <div className="flex items-center gap-2">
+                      <Badge variant="outline" className="text-xs">
+                        <Tag className="w-3 h-3 mr-1" />
+                        {editedPromotion.category || "tazos"}
+                      </Badge>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        className="h-6 px-2 text-xs"
+                        onClick={() => setShowAddCategory(!showAddCategory)}
+                      >
+                        ✏️ Cambiar
+                      </Button>
+                    </div>
+                    
+                    {showAddCategory && (
+                      <div className="space-y-2 p-2 bg-white rounded border">
+                        <div className="flex flex-wrap gap-1">
+                          {[...validCategories, ...customCategories].map((category) => (
+                            <Button
+                              key={category}
+                              type="button"
+                              variant={editedPromotion.category === category ? "default" : "outline"}
+                              size="sm"
+                              className="h-6 px-2 text-xs"
+                              onClick={() => {
+                                setEditedPromotion({ ...editedPromotion, category });
+                                setShowAddCategory(false);
+                              }}
+                            >
+                              {category}
+                            </Button>
+                          ))}
+                        </div>
+                        
+                        <div className="flex gap-1">
+                          <Input
+                            value={newCategory}
+                            onChange={(e) => setNewCategory(e.target.value)}
+                            placeholder="Nueva categoría"
+                            className="h-6 text-xs"
+                            onKeyPress={(e) => {
+                              if (e.key === 'Enter' && newCategory.trim()) {
+                                const trimmed = newCategory.trim().toLowerCase();
+                                if (!validCategories.includes(trimmed) && !customCategories.includes(trimmed)) {
+                                  setCustomCategories([...customCategories, trimmed]);
+                                  setEditedPromotion({ ...editedPromotion, category: trimmed });
+                                }
+                                setNewCategory("");
+                                setShowAddCategory(false);
+                              }
+                            }}
+                          />
+                          <Button
+                            type="button"
+                            variant="outline"
+                            size="sm"
+                            className="h-6 px-2 text-xs"
+                            onClick={() => {
+                              if (newCategory.trim()) {
+                                const trimmed = newCategory.trim().toLowerCase();
+                                if (!validCategories.includes(trimmed) && !customCategories.includes(trimmed)) {
+                                  setCustomCategories([...customCategories, trimmed]);
+                                  setEditedPromotion({ ...editedPromotion, category: trimmed });
+                                }
+                                setNewCategory("");
+                                setShowAddCategory(false);
+                              }
+                            }}
+                          >
+                            +
+                          </Button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
               {editedPromotion.wrapperPhotoUrl && (
