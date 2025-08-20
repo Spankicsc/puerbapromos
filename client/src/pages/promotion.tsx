@@ -9,8 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { Badge } from "@/components/ui/badge";
 import { type Promotion, type PromotionItem, type Brand } from "@shared/schema";
-import { ImageUploadButton } from "@/components/ImageUploadButton";
-import { WrapperCarousel } from "@/components/WrapperCarousel";
+import { EditablePromotion } from "@/components/EditablePromotion";
 import { getBrandLogo } from "@/utils/brandLogos";
 
 const Promotion = () => {
@@ -65,25 +64,6 @@ const Promotion = () => {
     }
   };
 
-  const getYouTubeEmbedUrl = (url: string): string => {
-    if (!url) return '';
-    
-    // Handle different YouTube URL formats
-    const youtubeRegex = /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/;
-    const match = url.match(youtubeRegex);
-    
-    if (match && match[1]) {
-      return `https://www.youtube.com/embed/${match[1]}`;
-    }
-    
-    // If already an embed URL, return as is
-    if (url.includes('youtube.com/embed/')) {
-      return url;
-    }
-    
-    return url; // Return original if can't parse
-  };
-
   if (promotionLoading) {
     return (
       <div className="bg-promo-gray min-h-screen">
@@ -122,7 +102,7 @@ const Promotion = () => {
   const brand = getBrand();
 
   return (
-    <div className="min-h-screen">
+    <div className="bg-promo-gray min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Breadcrumb */}
         <Breadcrumb className="mb-8">
@@ -147,234 +127,13 @@ const Promotion = () => {
           </BreadcrumbList>
         </Breadcrumb>
 
-        {/* Promotion Header */}
-        <div className="card-splat overflow-hidden mb-8">
-          {promotion.imageUrl && (
-            <div className="h-64 bg-cover bg-center relative" style={{ backgroundImage: `url(${promotion.imageUrl})` }}>
-              <div className="absolute inset-0 bg-black bg-opacity-40"></div>
-              <div className="absolute bottom-4 left-6 right-6">
-                <div className="flex items-center space-x-3 mb-2">
-                  {brand && getBrandLogo(brand.slug) && (
-                    <img 
-                      src={getBrandLogo(brand.slug)!} 
-                      alt={`${brand.name} logo`}
-                      className="h-10 w-auto object-contain drop-shadow-lg"
-                    />
-                  )}
-                  {brand && (
-                    <Badge 
-                      className="text-xs font-semibold"
-                      style={{ 
-                        backgroundColor: brand.primaryColor + '20',
-                        color: brand.primaryColor
-                      }}
-                    >
-                      {brand.name}
-                    </Badge>
-                  )}
-                  <Badge variant="secondary" className="text-xs">
-                    <Calendar className="w-3 h-3 mr-1" />
-                    {promotion.startYear}{promotion.endYear ? `-${promotion.endYear}` : '-presente'}
-                  </Badge>
-                </div>
-                <h1 className="text-3xl font-bold text-white" data-testid="text-promotion-name">
-                  {promotion.name}
-                </h1>
-              </div>
-            </div>
-          )}
-          
-          <div className="p-8">
-            {!promotion.imageUrl && (
-              <div className="mb-6">
-                <div className="flex items-center space-x-3 mb-4">
-                  {brand && getBrandLogo(brand.slug) && (
-                    <img 
-                      src={getBrandLogo(brand.slug)!} 
-                      alt={`${brand.name} logo`}
-                      className="h-8 w-auto object-contain drop-shadow-md"
-                    />
-                  )}
-                  {brand && (
-                    <Badge 
-                      className="text-xs font-semibold"
-                      style={{ 
-                        backgroundColor: brand.primaryColor + '20',
-                        color: brand.primaryColor
-                      }}
-                    >
-                      {brand.name}
-                    </Badge>
-                  )}
-                  <Badge variant="secondary" className="text-xs">
-                    <Calendar className="w-3 h-3 mr-1" />
-                    {promotion.startYear}{promotion.endYear ? `-${promotion.endYear}` : '-presente'}
-                  </Badge>
-                </div>
-                <h1 className="text-3xl font-bold text-promo-black" data-testid="text-promotion-name">
-                  {promotion.name}
-                </h1>
-              </div>
-            )}
-            
-            <div className="flex flex-wrap gap-4 mb-6">
-              <div className="flex items-center space-x-2 text-gray-600">
-                <Tag className="w-4 h-4" />
-                <span className="capitalize">{promotion.category}</span>
-              </div>
-              <div className="flex items-center space-x-2 text-gray-600">
-                <Package className="w-4 h-4" />
-                <span>{items?.length || 0} items</span>
-              </div>
-            </div>
-            
-            <p className="text-gray-700 text-lg leading-relaxed" data-testid="text-promotion-description">
-              {promotion.description}
-            </p>
-          </div>
+        {/* Editable Promotion Component */}
+        <div className="mb-8">
+          <EditablePromotion 
+            promotion={promotion}
+            isEditable={true}
+          />
         </div>
-
-        {/* Additional Promotion Content */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-          {/* Wrapper Photos Section - New Carousel */}
-          <div className="bg-promo-black rounded-xl shadow-lg overflow-hidden border border-yellow-400/30">
-            <div className="p-6">
-              <WrapperCarousel 
-                wrapperPhotos={
-                  promotion.wrapperPhotosUrls && promotion.wrapperPhotosUrls.length > 0 
-                    ? promotion.wrapperPhotosUrls as string[]
-                    : promotion.wrapperPhotoUrl 
-                      ? [promotion.wrapperPhotoUrl] 
-                      : null
-                }
-                promotionName={promotion.name}
-              />
-            </div>
-          </div>
-
-          {/* YouTube Commercial Section */}
-          <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-            <div className="p-6">
-              <h3 className="text-xl font-bold text-promo-black mb-4 flex items-center">
-                <svg className="w-5 h-5 mr-2 text-red-600" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M23.498 6.186a2.999 2.999 0 0 0-2.108-2.135C19.505 3.546 12 3.546 12 3.546s-7.505 0-9.39.505A2.999 2.999 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a2.999 2.999 0 0 0 2.108 2.135c1.885.505 9.39.505 9.39.505s7.505 0 9.39-.505a2.999 2.999 0 0 0 2.108-2.135C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                </svg>
-                Comercial de YouTube
-              </h3>
-              {promotion.youtubeCommercialUrl ? (
-                <div className="aspect-video">
-                  <iframe
-                    src={getYouTubeEmbedUrl(promotion.youtubeCommercialUrl)}
-                    title={`Comercial de ${promotion.name}`}
-                    className="w-full h-full rounded-lg"
-                    frameBorder="0"
-                    allowFullScreen
-                    data-testid="iframe-youtube-commercial"
-                  />
-                </div>
-              ) : (
-                <div className="aspect-video bg-gray-100 rounded-lg flex items-center justify-center">
-                  <div className="text-center text-gray-500">
-                    <svg className="w-12 h-12 mx-auto mb-2 opacity-50" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M23.498 6.186a2.999 2.999 0 0 0-2.108-2.135C19.505 3.546 12 3.546 12 3.546s-7.505 0-9.39.505A2.999 2.999 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a2.999 2.999 0 0 0 2.108 2.135c1.885.505 9.39.505 9.39.505s7.505 0 9.39-.505a2.999 2.999 0 0 0 2.108-2.135C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                    </svg>
-                    <p>Comercial de YouTube no disponible</p>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {/* Grid Layout for Videos */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-          {/* Buffet Games Video Section - Always Show */}
-          <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-            <div className="p-6">
-              <h3 className="text-xl font-bold text-promo-black mb-4 flex items-center">
-                <img 
-                  src="/attached_assets/IMG_7040_1755142054930.PNG" 
-                  alt="Buffet Games" 
-                  className="w-6 h-6 mr-2 object-contain"
-                />
-                Video Explicativo de Buffet Games
-              </h3>
-              {promotion.buffetGamesVideoUrl ? (
-                <div className="aspect-video">
-                  <iframe
-                    src={getYouTubeEmbedUrl(promotion.buffetGamesVideoUrl)}
-                    title={`Video explicativo de ${promotion.name} por Buffet Games`}
-                    className="w-full h-full rounded-lg"
-                    frameBorder="0"
-                    allowFullScreen
-                    data-testid="iframe-buffet-games-video"
-                  />
-                </div>
-              ) : (
-                <div className="aspect-video bg-gray-100 rounded-lg flex items-center justify-center">
-                  <div className="text-center text-gray-500">
-                    <img 
-                      src="/attached_assets/IMG_7040_1755142054930.PNG" 
-                      alt="Buffet Games" 
-                      className="w-12 h-12 mx-auto mb-2 opacity-50 object-contain"
-                    />
-                    <p>Video de Buffet Games no disponible</p>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Additional Content Slot */}
-          <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-            <div className="p-6">
-              <h3 className="text-xl font-bold text-promo-black mb-4">
-                Información Adicional
-              </h3>
-              <div className="text-gray-600">
-                <p className="mb-4">
-                  Esta promoción forma parte del rico patrimonio de coleccionables mexicanos 
-                  que han marcado generaciones enteras.
-                </p>
-                <div className="space-y-2">
-                  <div className="flex items-center space-x-2">
-                    <span className="text-yellow-600">📅</span>
-                    <span>Año: {promotion.startYear}{promotion.endYear ? `-${promotion.endYear}` : ''}</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <span className="text-yellow-600">🏷️</span>
-                    <span className="capitalize">Categoría: {promotion.category}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Promotion Images Gallery */}
-        {promotion.promotionImagesUrls && Array.isArray(promotion.promotionImagesUrls) && promotion.promotionImagesUrls.length > 0 && (
-          <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
-            <div className="p-6">
-              <h3 className="text-xl font-bold text-promo-black mb-6 flex items-center">
-                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-                Imágenes de la Promoción
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                {(promotion.promotionImagesUrls as string[]).map((imageUrl: string, index: number) => (
-                  <img 
-                    key={index}
-                    src={imageUrl}
-                    alt={`Imagen promocional ${index + 1} de ${promotion.name}`}
-                    className="w-full h-48 object-cover rounded-lg hover:scale-105 transition-transform duration-300"
-                    data-testid={`img-promotion-${index}`}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
 
         {/* Items Section */}
         <section>
@@ -441,35 +200,19 @@ const Promotion = () => {
           ) : (
             <div className="bg-white rounded-xl shadow-lg p-12 text-center">
               <div className="text-6xl mb-4">📦</div>
-              <h3 className="text-xl font-semibold text-promo-black mb-2">
-                No hay items disponibles
+              <h3 className="text-xl font-semibold text-gray-600 mb-2">
+                Aún no hay elementos en esta colección
               </h3>
-              <p className="text-gray-600">
-                Aún no hemos catalogado items para esta promoción. ¡Regresa pronto para ver más contenido!
+              <p className="text-gray-500 mb-6">
+                Los elementos de esta promoción se agregarán pronto.
               </p>
+              <Link href="/promociones">
+                <Button className="bg-promo-yellow text-promo-black hover:bg-yellow-500">
+                  Ver otras promociones
+                </Button>
+              </Link>
             </div>
           )}
-        </section>
-
-        {/* Admin Section for Image Upload */}
-        <section className="card-splat overflow-hidden">
-          <div className="p-6">
-            <h3 className="text-xl font-bold text-promo-black mb-4 flex items-center">
-              <Package className="w-5 h-5 mr-2 text-promo-yellow" />
-              Administración de Imágenes
-            </h3>
-            <p className="text-gray-600 mb-4">
-              Sube nuevas imágenes para esta promoción. Las imágenes se guardarán de forma segura en el almacenamiento en la nube.
-            </p>
-            <div className="flex justify-start">
-              <ImageUploadButton 
-                promotionSlug={slug!} 
-                onImageUploaded={(url) => {
-                  console.log("Nueva imagen subida:", url);
-                }}
-              />
-            </div>
-          </div>
         </section>
       </div>
     </div>

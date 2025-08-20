@@ -10,6 +10,7 @@ import Brand from "@/pages/brand";
 import Brands from "@/pages/brands";
 import Promotion from "@/pages/promotion";
 import Promotions from "@/pages/promotions";
+import Search from "@/pages/search";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -23,6 +24,7 @@ function Router() {
           <Route path="/marcas/:slug" component={Brand} />
           <Route path="/promociones" component={Promotions} />
           <Route path="/promotion/:slug" component={Promotion} />
+          <Route path="/buscar" component={Search} />
           <Route component={NotFound} />
         </Switch>
       </main>
