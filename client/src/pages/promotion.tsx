@@ -678,29 +678,74 @@ const Promotion = () => {
         </div>
 
         {/* Promotion Images Gallery */}
-        {promotion.promotionImagesUrls && Array.isArray(promotion.promotionImagesUrls) && promotion.promotionImagesUrls.length > 0 && (
-          <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
-            <div className="p-6">
-              <h3 className="text-xl font-bold text-promo-black mb-6 flex items-center">
+        <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
+          <div className="p-6">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-xl font-bold text-promo-black flex items-center">
                 <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
                 Imágenes de la Promoción
               </h3>
+              {isEditMode && (
+                <Button
+                  size="sm"
+                  onClick={addPromotionImage}
+                  className="bg-promo-yellow text-promo-black hover:bg-yellow-400"
+                >
+                  <Plus className="w-4 h-4 mr-2" />
+                  Agregar Imagen
+                </Button>
+              )}
+            </div>
+            {promotion.promotionImagesUrls && Array.isArray(promotion.promotionImagesUrls) && promotion.promotionImagesUrls.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                 {(promotion.promotionImagesUrls as string[]).map((imageUrl: string, index: number) => (
-                  <img 
-                    key={index}
-                    src={imageUrl}
-                    alt={`Imagen promocional ${index + 1} de ${promotion.name}`}
-                    className="w-full h-48 object-cover rounded-lg hover:scale-105 transition-transform duration-300"
-                    data-testid={`img-promotion-${index}`}
-                  />
+                  <div key={index} className="relative group">
+                    <img 
+                      src={imageUrl}
+                      alt={`Imagen promocional ${index + 1} de ${promotion.name}`}
+                      className="w-full h-48 object-cover rounded-lg hover:scale-105 transition-transform duration-300"
+                      data-testid={`img-promotion-${index}`}
+                    />
+                    {isEditMode && (
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="absolute top-2 right-2 w-8 h-8 p-0 bg-red-600 border-red-500 text-white hover:bg-red-700 opacity-0 group-hover:opacity-100 transition-opacity"
+                        onClick={() => removePromotionImage(index)}
+                        title="Eliminar imagen"
+                      >
+                        <Trash2 className="w-3 h-3" />
+                      </Button>
+                    )}
+                  </div>
                 ))}
               </div>
-            </div>
+            ) : (
+              <div className="text-center py-12 bg-gray-50 rounded-lg">
+                <svg className="w-16 h-16 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <h3 className="text-lg font-semibold text-gray-600 mb-2">
+                  Sin Imágenes de Promoción
+                </h3>
+                <p className="text-gray-500 mb-4">
+                  No hay imágenes promocionales disponibles
+                </p>
+                {isEditMode && (
+                  <Button
+                    onClick={addPromotionImage}
+                    className="bg-promo-yellow text-promo-black hover:bg-yellow-400"
+                  >
+                    <Plus className="w-4 h-4 mr-2" />
+                    Agregar Primera Imagen
+                  </Button>
+                )}
+              </div>
+            )}
           </div>
-        )}
+        </div>
 
         {/* Items Section */}
         <section>

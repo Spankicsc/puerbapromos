@@ -24,32 +24,6 @@ export function WrapperCarousel({ wrapperPhotos, promotionName, isEditable = fal
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
-  if (!wrapperPhotos || wrapperPhotos.length === 0) {
-    return (
-      <div className="text-center py-12">
-        <Package className="w-16 h-16 mx-auto mb-4 text-yellow-400/50" />
-        <h3 className="text-xl font-bold text-yellow-400 mb-2">
-          Fotos de Envolturas
-        </h3>
-        <p className="text-yellow-400/70">
-          No hay fotos de envoltura disponibles para esta promoción
-        </p>
-      </div>
-    );
-  }
-
-  const nextImage = () => {
-    setCurrentIndex((prev) => (prev + 1) % wrapperPhotos.length);
-  };
-
-  const prevImage = () => {
-    setCurrentIndex((prev) => (prev - 1 + wrapperPhotos.length) % wrapperPhotos.length);
-  };
-
-  const goToImage = (index: number) => {
-    setCurrentIndex(index);
-  };
-
   // Mutation for updating promotion
   const updateMutation = useMutation({
     mutationFn: async (updateData: Partial<Promotion>) => {
@@ -72,19 +46,6 @@ export function WrapperCarousel({ wrapperPhotos, promotionName, isEditable = fal
       });
     },
   });
-
-  const handleRotateImage = () => {
-    const currentRotation = rotations[currentIndex] || 0;
-    const newRotation = (currentRotation + 90) % 360;
-    const newRotations = { ...rotations, [currentIndex]: newRotation };
-    setRotations(newRotations);
-    
-    if (promotionId) {
-      updateMutation.mutate({
-        wrapperRotation: newRotation,
-      });
-    }
-  };
 
   const handleAddImage = () => {
     const input = document.createElement('input');
@@ -110,6 +71,41 @@ export function WrapperCarousel({ wrapperPhotos, promotionName, isEditable = fal
     input.click();
   };
 
+  if (!wrapperPhotos || wrapperPhotos.length === 0) {
+    return (
+      <div className="text-center py-12">
+        <Package className="w-16 h-16 mx-auto mb-4 text-yellow-400/50" />
+        <h3 className="text-xl font-bold text-yellow-400 mb-2">
+          Fotos de Envolturas
+        </h3>
+        <p className="text-yellow-400/70 mb-4">
+          No hay fotos de envoltura disponibles para esta promoción
+        </p>
+        {isEditable && (
+          <Button
+            onClick={handleAddImage}
+            className="bg-promo-yellow text-promo-black hover:bg-yellow-400 font-semibold"
+          >
+            <Plus className="w-4 h-4 mr-2" />
+            Agregar Primera Foto
+          </Button>
+        )}
+      </div>
+    );
+  }
+
+  const nextImage = () => {
+    setCurrentIndex((prev) => (prev + 1) % wrapperPhotos.length);
+  };
+
+  const prevImage = () => {
+    setCurrentIndex((prev) => (prev - 1 + wrapperPhotos.length) % wrapperPhotos.length);
+  };
+
+  const goToImage = (index: number) => {
+    setCurrentIndex(index);
+  };
+
   const handleRemoveImage = (indexToRemove: number) => {
     if (!wrapperPhotos || !promotionId) return;
     
@@ -121,6 +117,19 @@ export function WrapperCarousel({ wrapperPhotos, promotionName, isEditable = fal
     // Adjust current index if needed
     if (currentIndex >= updatedPhotos.length && updatedPhotos.length > 0) {
       setCurrentIndex(updatedPhotos.length - 1);
+    }
+  };
+
+  const handleRotateImage = () => {
+    const currentRotation = rotations[currentIndex] || 0;
+    const newRotation = (currentRotation + 90) % 360;
+    const newRotations = { ...rotations, [currentIndex]: newRotation };
+    setRotations(newRotations);
+    
+    if (promotionId) {
+      updateMutation.mutate({
+        wrapperRotation: newRotation,
+      });
     }
   };
 
