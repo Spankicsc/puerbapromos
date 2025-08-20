@@ -151,13 +151,15 @@ const Promotion = () => {
           </Button>
         </div>
 
-        {/* Editable Promotion Component - Solo se muestra en modo edición */}
+        {/* Status indicator for edit mode */}
         {isEditMode && (
-          <div className="mb-8">
-            <EditablePromotion 
-              promotion={promotion}
-              isEditable={true}
-            />
+          <div className="bg-yellow-100 border-l-4 border-yellow-500 p-4 mb-6 rounded-r">
+            <div className="flex">
+              <Edit2 className="w-5 h-5 text-yellow-500 mr-2" />
+              <p className="text-sm text-yellow-800">
+                <strong>Modo de edición activado:</strong> Ahora puedes editar las imágenes directamente. Haz clic en "Editar" en las secciones de envolturas para rotar imágenes, agregar nuevas o eliminar existentes.
+              </p>
+            </div>
           </div>
         )}
 
@@ -274,6 +276,9 @@ const Promotion = () => {
                       : null
                 }
                 promotionName={promotion.name}
+                isEditable={isEditMode}
+                promotionId={promotion.id}
+                currentRotation={promotion.wrapperRotation || 0}
               />
             </div>
           </div>

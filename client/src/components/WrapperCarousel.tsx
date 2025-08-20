@@ -1,16 +1,28 @@
 import { useState } from 'react';
-import { ChevronLeft, ChevronRight, X, Package } from 'lucide-react';
+import { ChevronLeft, ChevronRight, X, Package, RotateCw, Edit2, Plus, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useToast } from '@/hooks/use-toast';
+import { apiRequest } from '@/lib/queryClient';
+import { type Promotion } from '@shared/schema';
 
 interface WrapperCarouselProps {
   wrapperPhotos: string[] | null;
   promotionName: string;
+  isEditable?: boolean;
+  promotionId?: string;
+  currentRotation?: number;
 }
 
-export function WrapperCarousel({ wrapperPhotos, promotionName }: WrapperCarouselProps) {
+export function WrapperCarousel({ wrapperPhotos, promotionName, isEditable = false, promotionId, currentRotation = 0 }: WrapperCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [rotation, setRotation] = useState(currentRotation);
+  const [isEditMode, setIsEditMode] = useState(false);
+  
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
 
   if (!wrapperPhotos || wrapperPhotos.length === 0) {
     return (
@@ -38,11 +50,118 @@ export function WrapperCarousel({ wrapperPhotos, promotionName }: WrapperCarouse
     setCurrentIndex(index);
   };
 
+  // Mutation for updating promotion
+  const updateMutation = useMutation({
+    mutationFn: async (updateData: Partial<Promotion>) => {
+      if (!promotionId) throw new Error('No promotion ID');
+      return await apiRequest('PUT', `/api/promotions/${promotionId}`, updateData);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/promotions'] });
+      toast({
+        title: 'Promoción actualizada',
+        description: 'Los cambios se han guardado correctamente.',
+      });
+    },
+    onError: (error) => {
+      console.error('Error updating promotion:', error);
+      toast({
+        title: 'Error',
+        description: 'No se pudo actualizar la promoción.',
+        variant: 'destructive',
+      });
+    },
+  });
+
+  const handleRotateImage = () => {
+    const newRotation = (rotation + 90) % 360;
+    setRotation(newRotation);
+    
+    if (promotionId) {
+      updateMutation.mutate({
+        wrapperRotation: newRotation,
+      });
+    }
+  };
+
+  const handleAddImage = () => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.multiple = true;
+    input.onchange = (e) => {
+      const files = Array.from((e.target as HTMLInputElement).files || []);
+      files.forEach(file => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const imageUrl = e.target?.result as string;
+          if (imageUrl && promotionId) {
+            const currentUrls = wrapperPhotos || [];
+            updateMutation.mutate({
+              wrapperPhotosUrls: [...currentUrls, imageUrl],
+            });
+          }
+        };
+        reader.readAsDataURL(file);
+      });
+    };
+    input.click();
+  };
+
+  const handleRemoveImage = (indexToRemove: number) => {
+    if (!wrapperPhotos || !promotionId) return;
+    
+    const updatedPhotos = wrapperPhotos.filter((_, index) => index !== indexToRemove);
+    updateMutation.mutate({
+      wrapperPhotosUrls: updatedPhotos.length > 0 ? updatedPhotos : null,
+    });
+    
+    // Adjust current index if needed
+    if (currentIndex >= updatedPhotos.length && updatedPhotos.length > 0) {
+      setCurrentIndex(updatedPhotos.length - 1);
+    }
+  };
+
   return (
     <div className="space-y-4" data-testid="wrapper-carousel">
-      <h3 className="text-xl font-bold text-yellow-400">
-        Fotos de Envolturas ({wrapperPhotos.length})
-      </h3>
+      <div className="flex items-center justify-between">
+        <h3 className="text-xl font-bold text-yellow-400">
+          Fotos de Envolturas ({wrapperPhotos.length})
+        </h3>
+        {isEditable && (
+          <div className="flex gap-2">
+            {!isEditMode ? (
+              <Button
+                size="sm"
+                variant="outline"
+                className="border-yellow-400/50 text-yellow-400 hover:bg-yellow-400 hover:text-black"
+                onClick={() => setIsEditMode(true)}
+              >
+                <Edit2 className="w-4 h-4" />
+              </Button>
+            ) : (
+              <>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="border-green-400/50 text-green-400 hover:bg-green-400 hover:text-black"
+                  onClick={() => setIsEditMode(false)}
+                >
+                  Listo
+                </Button>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="border-yellow-400/50 text-yellow-400 hover:bg-yellow-400 hover:text-black"
+                  onClick={handleAddImage}
+                >
+                  <Plus className="w-4 h-4" />
+                </Button>
+              </>
+            )}
+          </div>
+        )}
+      </div>
       
       {/* Main Carousel */}
       <div className="relative bg-black/20 rounded-lg p-4 border border-yellow-400/30">
@@ -51,12 +170,39 @@ export function WrapperCarousel({ wrapperPhotos, promotionName }: WrapperCarouse
             src={wrapperPhotos[currentIndex]}
             alt={`Envoltura ${currentIndex + 1} de ${promotionName}`}
             className="w-full h-full object-contain cursor-pointer transition-transform hover:scale-105"
-            onClick={() => setSelectedImage(wrapperPhotos[currentIndex])}
+            style={{ transform: `rotate(${rotation}deg)` }}
+            onClick={() => !isEditMode && setSelectedImage(wrapperPhotos[currentIndex])}
             data-testid={`wrapper-image-${currentIndex}`}
           />
           
-          {/* Navigation Arrows */}
-          {wrapperPhotos.length > 1 && (
+          {/* Inline editing controls */}
+          {isEditable && isEditMode && (
+            <div className="absolute top-2 right-2 flex flex-col gap-1">
+              <Button
+                size="sm"
+                variant="outline"
+                className="w-8 h-8 p-0 bg-black/80 border-yellow-400/50 text-yellow-400 hover:bg-yellow-400 hover:text-black"
+                onClick={handleRotateImage}
+                title="Rotar imagen 90°"
+              >
+                <RotateCw className="w-3 h-3" />
+              </Button>
+              {wrapperPhotos && wrapperPhotos.length > 1 && (
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="w-8 h-8 p-0 bg-black/80 border-red-400/50 text-red-400 hover:bg-red-400 hover:text-white"
+                  onClick={() => handleRemoveImage(currentIndex)}
+                  title="Eliminar imagen"
+                >
+                  <Trash2 className="w-3 h-3" />
+                </Button>
+              )}
+            </div>
+          )}
+          
+          {/* Navigation Arrows - Hide in edit mode */}
+          {wrapperPhotos.length > 1 && !isEditMode && (
             <>
               <Button
                 variant="outline"
@@ -92,22 +238,40 @@ export function WrapperCarousel({ wrapperPhotos, promotionName }: WrapperCarouse
       {wrapperPhotos.length > 1 && (
         <div className="flex gap-2 overflow-x-auto pb-2">
           {wrapperPhotos.map((photo, index) => (
-            <button
+            <div
               key={index}
-              onClick={() => goToImage(index)}
-              className={`flex-shrink-0 w-16 h-16 rounded border-2 overflow-hidden transition-all ${
+              className={`relative flex-shrink-0 w-16 h-16 rounded border-2 overflow-hidden transition-all ${
                 index === currentIndex
                   ? 'border-yellow-400 scale-110'
                   : 'border-yellow-400/30 hover:border-yellow-400/60'
               }`}
-              data-testid={`thumbnail-${index}`}
             >
-              <img
-                src={photo}
-                alt={`Miniatura ${index + 1}`}
-                className="w-full h-full object-cover"
-              />
-            </button>
+              <button
+                onClick={() => goToImage(index)}
+                className="w-full h-full"
+                data-testid={`thumbnail-${index}`}
+              >
+                <img
+                  src={photo}
+                  alt={`Miniatura ${index + 1}`}
+                  className="w-full h-full object-cover"
+                  style={{ transform: `rotate(${rotation}deg)` }}
+                />
+              </button>
+              
+              {/* Thumbnail edit controls */}
+              {isEditable && isEditMode && (
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="absolute -top-2 -right-2 w-6 h-6 p-0 bg-red-600 border-red-400 text-white hover:bg-red-700"
+                  onClick={() => handleRemoveImage(index)}
+                  title="Eliminar imagen"
+                >
+                  <X className="w-3 h-3" />
+                </Button>
+              )}
+            </div>
           ))}
         </div>
       )}
