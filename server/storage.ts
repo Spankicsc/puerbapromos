@@ -1,36 +1,39 @@
-import type { Brand, Promotion, PromotionItem, InsertBrand, InsertPromotion, InsertPromotionItem } from "../shared/schema";
 import { randomUUID } from "crypto";
+import type { Brand, Promotion, PromotionItem, InsertBrand, InsertPromotion, InsertPromotionItem } from "@shared/schema";
 
 export interface IStorage {
-  getBrand(id: string): Promise<Brand | null>;
-  getBrandBySlug(slug: string): Promise<Brand | null>;
+  // Brand methods
+  getBrand(id: string): Promise<Brand | undefined>;
+  getBrandBySlug(slug: string): Promise<Brand | undefined>;
   getAllBrands(): Promise<Brand[]>;
   createBrand(brand: InsertBrand): Promise<Brand>;
-  updateBrand(id: string, updates: Partial<InsertBrand>): Promise<Brand | null>;
-  deleteBrand(id: string): Promise<boolean>;
-
-  getPromotion(id: string): Promise<Promotion | null>;
-  getPromotionBySlug(slug: string): Promise<Promotion | null>;
+  updateBrand(id: string, updates: Partial<InsertBrand>): Promise<Brand | undefined>;
+  
+  // Promotion methods
+  getPromotion(id: string): Promise<Promotion | undefined>;
+  getPromotionBySlug(slug: string): Promise<Promotion | undefined>;
   getAllPromotions(): Promise<Promotion[]>;
-  getPromotionsByBrandId(brandId: string): Promise<Promotion[]>;
+  getPromotionsByBrand(brandId: string): Promise<Promotion[]>;
   createPromotion(promotion: InsertPromotion): Promise<Promotion>;
-  updatePromotion(id: string, updates: Partial<InsertPromotion>): Promise<Promotion | null>;
-  deletePromotion(id: string): Promise<boolean>;
-
-  getPromotionItem(id: string): Promise<PromotionItem | null>;
-  getPromotionItemsByPromotionId(promotionId: string): Promise<PromotionItem[]>;
+  updatePromotion(id: string, updates: Partial<InsertPromotion>): Promise<Promotion | undefined>;
+  
+  // PromotionItem methods
+  getPromotionItem(id: string): Promise<PromotionItem | undefined>;
+  getAllPromotionItems(): Promise<PromotionItem[]>;
+  getPromotionItemsByPromotion(promotionId: string): Promise<PromotionItem[]>;
   createPromotionItem(item: InsertPromotionItem): Promise<PromotionItem>;
-  updatePromotionItem(id: string, updates: Partial<InsertPromotionItem>): Promise<PromotionItem | null>;
+  updatePromotionItem(id: string, updates: Partial<InsertPromotionItem>): Promise<PromotionItem | undefined>;
   deletePromotionItem(id: string): Promise<boolean>;
 
+  // Add search methods to match IStorage interface
   searchPromotions(query: string): Promise<Promotion[]>;
   searchItems(query: string): Promise<PromotionItem[]>;
 }
 
 export class MemStorage implements IStorage {
-  private brands: Map<string, Brand> = new Map();
-  private promotions: Map<string, Promotion> = new Map();
-  private promotionItems: Map<string, PromotionItem> = new Map();
+  private brands = new Map<string, Brand>();
+  private promotions = new Map<string, Promotion>();
+  private promotionItems = new Map<string, PromotionItem>();
 
   constructor() {
     this.seedData();
@@ -115,16 +118,16 @@ export class MemStorage implements IStorage {
       name: "Marinela",
       slug: "marinela",
       description: "Reconocida marca mexicana de panecillos y repostería, parte del Grupo Bimbo.",
-      logoUrl: null,
+      logoUrl: "/attached_assets/Marinela-Logo-Vector.svg-_1755143611550.png",
       primaryColor: "#FF1744",
       founded: 1954,
       createdAt: new Date(),
     };
     this.brands.set(marinela.id, marinela);
 
-    // Sample promotions
+    // Promociones de Sabritas
     const spiderman3: Promotion = {
-      id: "a98e7021-f55f-4af2-81c6-92f9e990d308",
+      id: randomUUID(),
       brandId: sabritas.id,
       name: "Spiderman 3",
       slug: "spiderman-3-2007",
@@ -147,6 +150,54 @@ export class MemStorage implements IStorage {
     };
     this.promotions.set(spiderman3.id, spiderman3);
 
+    const askistix_2004: Promotion = {
+      id: randomUUID(),
+      brandId: sabritas.id,
+      name: "Askistix 2004",
+      slug: "askistix-2004",
+      description: "Promoción clásica de Sabritas con los icónicos personajes de Astérix y Obélix.",
+      imageUrl: null,
+      startYear: 2004,
+      endYear: 2004,
+      category: "tazos",
+      tags: ["asterix", "obelix", "galos", "cómic"],
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/Askistix 2004 chocolate frontal_1755148526400.png"
+      ],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      wrapperRotation: 0,
+      createdAt: new Date(),
+    };
+    this.promotions.set(askistix_2004.id, askistix_2004);
+
+    const avengers: Promotion = {
+      id: randomUUID(),
+      brandId: sabritas.id,
+      name: "Avengers",
+      slug: "avengers",
+      description: "Promoción épica con los Vengadores de Marvel: Iron Man, Capitán América, Thor y Hulk.",
+      imageUrl: null,
+      startYear: 2012,
+      endYear: 2012,
+      category: "tazos",
+      tags: ["avengers", "marvel", "iron man", "capitán américa", "thor", "hulk"],
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/Avengers cajeta_1755148526400.png",
+        "/attached_assets/Avengers vainilla_1755148526400.png"
+      ],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      wrapperRotation: 0,
+      createdAt: new Date(),
+    };
+    this.promotions.set(avengers.id, avengers);
+
+    // Promociones de Gamesa
     const chocoshok_punki_punky: Promotion = {
       id: randomUUID(),
       brandId: gamesa.id,
@@ -196,7 +247,55 @@ export class MemStorage implements IStorage {
     };
     this.promotions.set(chocoshok_gormiti.id, chocoshok_gormiti);
 
-    // Vualá Promotions
+    const fonomania_2008: Promotion = {
+      id: randomUUID(),
+      brandId: gamesa.id,
+      name: "Fonomania 2008",
+      slug: "fonomania-2008",
+      description: "Promoción musical de ChocoShok con artistas y bandas populares de la época.",
+      imageUrl: null,
+      startYear: 2008,
+      endYear: 2008,
+      category: "musica",
+      tags: ["música", "artistas", "bandas"],
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/rotated/Fonomania 2008 frontal chocolate_1755219298611_rotated.png"
+      ],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      wrapperRotation: 0,
+      createdAt: new Date(),
+    };
+    this.promotions.set(fonomania_2008.id, fonomania_2008);
+
+    // Promociones de Barcel
+    const funki_punky_extremo: Promotion = {
+      id: randomUUID(),
+      brandId: barcel.id,
+      name: "Funki Punky Extremo",
+      slug: "funki-punky-extremo",
+      description: "La versión más extrema de los icónicos stickers Funki Punky con diseños más atrevidos y coleccionables raros.",
+      imageUrl: null,
+      startYear: 2011,
+      endYear: 2012,
+      category: "stickers",
+      tags: ["funki punky", "extremo", "stickers", "coleccionables"],
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/rotated/Funki punky extremo chocolate_1755219298611_rotated.png",
+        "/attached_assets/rotated/vainilla funki punky extremo_1755219753446_rotated.png"
+      ],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      wrapperRotation: 0,
+      createdAt: new Date(),
+    };
+    this.promotions.set(funki_punky_extremo.id, funki_punky_extremo);
+
+    // Promociones de Vualá
     const angry_birds_go: Promotion = {
       id: randomUUID(),
       brandId: vuala.id,
@@ -428,55 +527,6 @@ export class MemStorage implements IStorage {
     };
     this.promotions.set(hora_aventura.id, hora_aventura);
 
-    // Más promociones de Barcel
-    const funki_punky_extremo: Promotion = {
-      id: randomUUID(),
-      brandId: barcel.id,
-      name: "Funki Punky Extremo",
-      slug: "funki-punky-extremo",
-      description: "La versión más extrema de los icónicos stickers Funki Punky con diseños más atrevidos y coleccionables raros.",
-      imageUrl: null,
-      startYear: 2011,
-      endYear: 2012,
-      category: "stickers",
-      tags: ["funki punky", "extremo", "stickers", "coleccionables"],
-      wrapperPhotoUrl: null,
-      wrapperPhotosUrls: [
-        "/attached_assets/rotated/Funki punky extremo chocolate_1755219298611_rotated.png",
-        "/attached_assets/rotated/vainilla funki punky extremo_1755219753446_rotated.png"
-      ],
-      promotionImagesUrls: null,
-      youtubeCommercialUrl: null,
-      buffetGamesVideoUrl: null,
-      wrapperRotation: 0,
-      createdAt: new Date(),
-    };
-    this.promotions.set(funki_punky_extremo.id, funki_punky_extremo);
-
-    // Promociones adicionales de Gamesa
-    const fonomania_2008: Promotion = {
-      id: randomUUID(),
-      brandId: gamesa.id,
-      name: "Fonomania 2008",
-      slug: "fonomania-2008",
-      description: "Promoción musical de ChocoShok con artistas y bandas populares de la época.",
-      imageUrl: null,
-      startYear: 2008,
-      endYear: 2008,
-      category: "musica",
-      tags: ["música", "artistas", "bandas"],
-      wrapperPhotoUrl: null,
-      wrapperPhotosUrls: [
-        "/attached_assets/rotated/Fonomania 2008 frontal chocolate_1755219298611_rotated.png"
-      ],
-      promotionImagesUrls: null,
-      youtubeCommercialUrl: null,
-      buffetGamesVideoUrl: null,
-      wrapperRotation: 0,
-      createdAt: new Date(),
-    };
-    this.promotions.set(fonomania_2008.id, fonomania_2008);
-
     const dancemania_2008: Promotion = {
       id: randomUUID(),
       brandId: vuala.id,
@@ -500,7 +550,6 @@ export class MemStorage implements IStorage {
     };
     this.promotions.set(dancemania_2008.id, dancemania_2008);
 
-    // Más promociones de Vualá
     const los_simpson_2008: Promotion = {
       id: randomUUID(),
       brandId: vuala.id,
@@ -659,68 +708,17 @@ export class MemStorage implements IStorage {
       createdAt: new Date(),
     };
     this.promotions.set(el_futbol_huevos.id, el_futbol_huevos);
-
-    // Promociones adicionales de Sabritas
-    const askistix_2004: Promotion = {
-      id: randomUUID(),
-      brandId: sabritas.id,
-      name: "Askistix 2004",
-      slug: "askistix-2004",
-      description: "Promoción clásica de Sabritas con los icónicos personajes de Astérix y Obélix.",
-      imageUrl: null,
-      startYear: 2004,
-      endYear: 2004,
-      category: "tazos",
-      tags: ["asterix", "obelix", "galos", "cómic"],
-      wrapperPhotoUrl: null,
-      wrapperPhotosUrls: [
-        "/attached_assets/Askistix 2004 chocolate frontal_1755148526400.png"
-      ],
-      promotionImagesUrls: null,
-      youtubeCommercialUrl: null,
-      buffetGamesVideoUrl: null,
-      wrapperRotation: 0,
-      createdAt: new Date(),
-    };
-    this.promotions.set(askistix_2004.id, askistix_2004);
-
-    const avengers: Promotion = {
-      id: randomUUID(),
-      brandId: sabritas.id,
-      name: "Avengers",
-      slug: "avengers",
-      description: "Promoción épica con los Vengadores de Marvel: Iron Man, Capitán América, Thor y Hulk.",
-      imageUrl: null,
-      startYear: 2012,
-      endYear: 2012,
-      category: "tazos",
-      tags: ["avengers", "marvel", "iron man", "capitán américa", "thor", "hulk"],
-      wrapperPhotoUrl: null,
-      wrapperPhotosUrls: [
-        "/attached_assets/Avengers cajeta_1755148526400.png",
-        "/attached_assets/Avengers vainilla_1755148526400.png"
-      ],
-      promotionImagesUrls: null,
-      youtubeCommercialUrl: null,
-      buffetGamesVideoUrl: null,
-      wrapperRotation: 0,
-      createdAt: new Date(),
-    };
-    this.promotions.set(avengers.id, avengers);
   }
 
   // Brand methods
-  async getBrand(id: string): Promise<Brand | null> {
-    return this.brands.get(id) || null;
+  async getBrand(id: string): Promise<Brand | undefined> {
+    const brand = this.brands.get(id);
+    return brand || undefined;
   }
 
-  async getBrandBySlug(slug: string): Promise<Brand | null> {
-    for (const brand of this.brands.values()) {
-      if (brand.slug === slug) {
-        return brand;
-      }
-    }
-    return null;
+  async getBrandBySlug(slug: string): Promise<Brand | undefined> {
+    const brand = Array.from(this.brands.values()).find(brand => brand.slug === slug);
+    return brand || undefined;
   }
 
   async getAllBrands(): Promise<Brand[]> {
@@ -729,102 +727,106 @@ export class MemStorage implements IStorage {
 
   async createBrand(brand: InsertBrand): Promise<Brand> {
     const newBrand: Brand = {
-      id: randomUUID(),
       ...brand,
+      id: randomUUID(),
+      logoUrl: brand.logoUrl ?? null,
+      founded: brand.founded ?? null,
       createdAt: new Date(),
     };
     this.brands.set(newBrand.id, newBrand);
     return newBrand;
   }
 
-  async updateBrand(id: string, updates: Partial<InsertBrand>): Promise<Brand | null> {
+  async updateBrand(id: string, updates: Partial<InsertBrand>): Promise<Brand | undefined> {
     const brand = this.brands.get(id);
-    if (!brand) return null;
-
-    const updatedBrand = { ...brand, ...updates };
+    if (!brand) return undefined;
+    
+    const updatedBrand: Brand = { ...brand, ...updates };
     this.brands.set(id, updatedBrand);
     return updatedBrand;
   }
 
-  async deleteBrand(id: string): Promise<boolean> {
-    return this.brands.delete(id);
-  }
-
   // Promotion methods
-  async getPromotion(id: string): Promise<Promotion | null> {
-    return this.promotions.get(id) || null;
+  async getPromotion(id: string): Promise<Promotion | undefined> {
+    const promotion = this.promotions.get(id);
+    return promotion || undefined;
   }
 
-  async getPromotionBySlug(slug: string): Promise<Promotion | null> {
-    for (const promotion of this.promotions.values()) {
-      if (promotion.slug === slug) {
-        return promotion;
-      }
-    }
-    return null;
+  async getPromotionBySlug(slug: string): Promise<Promotion | undefined> {
+    const promotion = Array.from(this.promotions.values()).find(p => p.slug === slug);
+    return promotion || undefined;
   }
 
   async getAllPromotions(): Promise<Promotion[]> {
     return Array.from(this.promotions.values());
   }
 
-  async getPromotionsByBrandId(brandId: string): Promise<Promotion[]> {
+  async getPromotionsByBrand(brandId: string): Promise<Promotion[]> {
     return Array.from(this.promotions.values()).filter(p => p.brandId === brandId);
   }
 
   async createPromotion(promotion: InsertPromotion): Promise<Promotion> {
     const newPromotion: Promotion = {
-      id: randomUUID(),
       ...promotion,
+      id: randomUUID(),
+      imageUrl: promotion.imageUrl ?? null,
+      endYear: promotion.endYear ?? null,
+      tags: promotion.tags ?? null,
+      wrapperPhotoUrl: promotion.wrapperPhotoUrl ?? null,
+      wrapperPhotosUrls: promotion.wrapperPhotosUrls ?? null,
+      promotionImagesUrls: promotion.promotionImagesUrls ?? null,
+      youtubeCommercialUrl: promotion.youtubeCommercialUrl ?? null,
+      buffetGamesVideoUrl: promotion.buffetGamesVideoUrl ?? null,
+      wrapperRotation: promotion.wrapperRotation ?? null,
       createdAt: new Date(),
     };
     this.promotions.set(newPromotion.id, newPromotion);
     return newPromotion;
   }
 
-  async updatePromotion(id: string, updates: Partial<InsertPromotion>): Promise<Promotion | null> {
+  async updatePromotion(id: string, updates: Partial<InsertPromotion>): Promise<Promotion | undefined> {
     const promotion = this.promotions.get(id);
-    if (!promotion) return null;
-
-    const updatedPromotion = { ...promotion, ...updates };
+    if (!promotion) return undefined;
+    
+    const updatedPromotion: Promotion = { ...promotion, ...updates };
     this.promotions.set(id, updatedPromotion);
     return updatedPromotion;
   }
 
-  async deletePromotion(id: string): Promise<boolean> {
-    // Also delete associated items
-    for (const [itemId, item] of this.promotionItems.entries()) {
-      if (item.promotionId === id) {
-        this.promotionItems.delete(itemId);
-      }
-    }
-    return this.promotions.delete(id);
+  // PromotionItem methods
+  async getPromotionItem(id: string): Promise<PromotionItem | undefined> {
+    const item = this.promotionItems.get(id);
+    return item || undefined;
   }
 
-  // Promotion Item methods
-  async getPromotionItem(id: string): Promise<PromotionItem | null> {
-    return this.promotionItems.get(id) || null;
+  async getAllPromotionItems(): Promise<PromotionItem[]> {
+    return Array.from(this.promotionItems.values());
   }
 
-  async getPromotionItemsByPromotionId(promotionId: string): Promise<PromotionItem[]> {
+  async getPromotionItemsByPromotion(promotionId: string): Promise<PromotionItem[]> {
     return Array.from(this.promotionItems.values()).filter(item => item.promotionId === promotionId);
   }
 
   async createPromotionItem(item: InsertPromotionItem): Promise<PromotionItem> {
     const newItem: PromotionItem = {
-      id: randomUUID(),
       ...item,
+      id: randomUUID(),
+      description: item.description ?? null,
+      imageUrl: item.imageUrl ?? null,
+      rarity: item.rarity ?? null,
+      itemNumber: item.itemNumber ?? null,
+      metadata: item.metadata ?? null,
       createdAt: new Date(),
     };
     this.promotionItems.set(newItem.id, newItem);
     return newItem;
   }
 
-  async updatePromotionItem(id: string, updates: Partial<InsertPromotionItem>): Promise<PromotionItem | null> {
+  async updatePromotionItem(id: string, updates: Partial<InsertPromotionItem>): Promise<PromotionItem | undefined> {
     const item = this.promotionItems.get(id);
-    if (!item) return null;
-
-    const updatedItem = { ...item, ...updates };
+    if (!item) return undefined;
+    
+    const updatedItem: PromotionItem = { ...item, ...updates };
     this.promotionItems.set(id, updatedItem);
     return updatedItem;
   }
@@ -833,22 +835,22 @@ export class MemStorage implements IStorage {
     return this.promotionItems.delete(id);
   }
 
-  // Search methods
+  // Search methods to complete IStorage interface
   async searchPromotions(query: string): Promise<Promotion[]> {
-    const lowerQuery = query.toLowerCase();
-    return Array.from(this.promotions.values()).filter(promotion =>
-      promotion.name.toLowerCase().includes(lowerQuery) ||
-      promotion.description.toLowerCase().includes(lowerQuery) ||
-      promotion.category.toLowerCase().includes(lowerQuery) ||
-      (promotion.tags && promotion.tags.some(tag => tag.toLowerCase().includes(lowerQuery)))
+    const allPromotions = await this.getAllPromotions();
+    return allPromotions.filter(p => 
+      p.name.toLowerCase().includes(query.toLowerCase()) ||
+      p.description.toLowerCase().includes(query.toLowerCase()) ||
+      p.category.toLowerCase().includes(query.toLowerCase()) ||
+      (p.tags && p.tags.some(tag => tag.toLowerCase().includes(query.toLowerCase())))
     );
   }
 
   async searchItems(query: string): Promise<PromotionItem[]> {
-    const lowerQuery = query.toLowerCase();
-    return Array.from(this.promotionItems.values()).filter(item =>
-      item.name.toLowerCase().includes(lowerQuery) ||
-      (item.description && item.description.toLowerCase().includes(lowerQuery))
+    const allItems = await this.getAllPromotionItems();
+    return allItems.filter(item => 
+      item.name.toLowerCase().includes(query.toLowerCase()) ||
+      (item.description && item.description.toLowerCase().includes(query.toLowerCase()))
     );
   }
 }
