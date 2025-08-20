@@ -86,6 +86,42 @@ export class MemStorage implements IStorage {
     };
     this.brands.set(bimbo.id, bimbo);
 
+    const vuala: Brand = {
+      id: randomUUID(),
+      name: "Vualá",
+      slug: "vuala",
+      description: "Marca icónica mexicana de panecillos y repostería, famosa por sus promociones coleccionables con personajes animados.",
+      logoUrl: "/attached_assets/vuala_logo.png",
+      primaryColor: "#FF6B35",
+      founded: 1990,
+      createdAt: new Date(),
+    };
+    this.brands.set(vuala.id, vuala);
+
+    const ricolino: Brand = {
+      id: randomUUID(),
+      name: "Ricolino",
+      slug: "ricolino",
+      description: "Marca mexicana de dulces y chocolates, reconocida por sus promociones de figuras y coleccionables.",
+      logoUrl: "/attached_assets/ricolino_logo.png",
+      primaryColor: "#8B0000",
+      founded: 1928,
+      createdAt: new Date(),
+    };
+    this.brands.set(ricolino.id, ricolino);
+
+    const marinela: Brand = {
+      id: randomUUID(),
+      name: "Marinela",
+      slug: "marinela",
+      description: "Reconocida marca mexicana de panecillos y repostería, parte del Grupo Bimbo.",
+      logoUrl: "/attached_assets/marinela_logo.png",
+      primaryColor: "#FF1744",
+      founded: 1954,
+      createdAt: new Date(),
+    };
+    this.brands.set(marinela.id, marinela);
+
     // Sample promotions
     const spiderman3: Promotion = {
       id: "a98e7021-f55f-4af2-81c6-92f9e990d308",
@@ -159,6 +195,310 @@ export class MemStorage implements IStorage {
       createdAt: new Date(),
     };
     this.promotions.set(chocoshok_gormiti.id, chocoshok_gormiti);
+
+    // Vualá Promotions
+    const angry_birds_go: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Angry Birds GO",
+      slug: "angry-birds-go",
+      description: "Promoción de Vualá con los personajes de Angry Birds en su versión racing, incluye stickers y figuras coleccionables.",
+      imageUrl: null,
+      startYear: 2012,
+      endYear: 2013,
+      category: "stickers",
+      tags: ["angry birds", "racing", "videojuegos"],
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/rotated/vainilla angry birds GO_1755219753445_rotated.png"
+      ],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      wrapperRotation: 0,
+      createdAt: new Date(),
+    };
+    this.promotions.set(angry_birds_go.id, angry_birds_go);
+
+    const el_chavo: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "El Chavo del Ocho",
+      slug: "el-chavo-del-ocho",
+      description: "Promoción especial de Vualá con los personajes del icónico programa El Chavo del Ocho de Chespirito.",
+      imageUrl: null,
+      startYear: 2012,
+      endYear: 2015,
+      category: "stickers",
+      tags: ["chespirito", "el chavo", "comedia mexicana"],
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/rotated/El chavo mini 2015 vainilla_1755219298610_rotated.png",
+        "/attached_assets/rotated/El chavo mini chocolate_1755219298610_rotated.png"
+      ],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      wrapperRotation: 0,
+      createdAt: new Date(),
+    };
+    this.promotions.set(el_chavo.id, el_chavo);
+
+    const bob_esponja_2012: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Bob Esponja 2012",
+      slug: "bob-esponja-2012",
+      description: "Promoción de Vualá con Bob Esponja y sus amigos de Fondo de Bikini, incluye stickers y figuras.",
+      imageUrl: null,
+      startYear: 2012,
+      endYear: 2012,
+      category: "stickers",
+      tags: ["bob esponja", "nickelodeon", "cartoon"],
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/rotated/Frontal bob esponja 2012 chocolate_1755219298611_rotated.png"
+      ],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      wrapperRotation: 0,
+      createdAt: new Date(),
+    };
+    this.promotions.set(bob_esponja_2012.id, bob_esponja_2012);
+
+    const bob_esponja_2024: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Bob Esponja 2024",
+      slug: "bob-esponja-2024",
+      description: "Promoción actualizada de Bob Esponja con diseños modernos y nuevos personajes.",
+      imageUrl: null,
+      startYear: 2024,
+      endYear: 2024,
+      category: "stickers",
+      tags: ["bob esponja", "nickelodeon", "cartoon", "moderna"],
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/rotated/Vainilla bob esponja 2024_1755219753445_rotated.png"
+      ],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      wrapperRotation: 0,
+      createdAt: new Date(),
+    };
+    this.promotions.set(bob_esponja_2024.id, bob_esponja_2024);
+
+    const looney_tunes: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Looney Tunes 2009",
+      slug: "looney-tunes-2009",
+      description: "Promoción clásica con Bugs Bunny, Pato Lucas y todos los personajes de Looney Tunes.",
+      imageUrl: null,
+      startYear: 2009,
+      endYear: 2009,
+      category: "stickers",
+      tags: ["looney tunes", "bugs bunny", "warner bros"],
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: [],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      wrapperRotation: 0,
+      createdAt: new Date(),
+    };
+    this.promotions.set(looney_tunes.id, looney_tunes);
+
+    const teen_titans: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Teen Titans",
+      slug: "teen-titans",
+      description: "Promoción de los Jóvenes Titanes con Robin, Starfire, Raven, Beast Boy y Cyborg.",
+      imageUrl: null,
+      startYear: 2015,
+      endYear: 2016,
+      category: "stickers",
+      tags: ["teen titans", "dc comics", "superhéroes"],
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/rotated/Teen titans vainilla version 1_1755219753444_rotated.png",
+        "/attached_assets/rotated/Teen titans vainilla version 2_1755219753444_rotated.png"
+      ],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      wrapperRotation: 0,
+      createdAt: new Date(),
+    };
+    this.promotions.set(teen_titans.id, teen_titans);
+
+    const the_dog_2004: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "The Dog 2004",
+      slug: "the-dog-2004",
+      description: "Promoción icónica con los personajes de The Dog, la famosa serie de fotografías de perros.",
+      imageUrl: null,
+      startYear: 2004,
+      endYear: 2004,
+      category: "stickers",
+      tags: ["the dog", "fotografía", "mascotas"],
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/rotated/The dog 2004 vainilla frontal_1755219753444_rotated.png"
+      ],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      wrapperRotation: 90,
+      createdAt: new Date(),
+    };
+    this.promotions.set(the_dog_2004.id, the_dog_2004);
+
+    const the_dog_2007: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "The Dog y The Cat 2007",
+      slug: "the-dog-y-the-cat-2007",
+      description: "Continuación de The Dog ahora incluyendo gatos, ampliando la colección de mascotas.",
+      imageUrl: null,
+      startYear: 2007,
+      endYear: 2007,
+      category: "stickers",
+      tags: ["the dog", "the cat", "mascotas"],
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/rotated/The dog y the cat 2007 chocolate_1755219753445_rotated.png"
+      ],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      wrapperRotation: 0,
+      createdAt: new Date(),
+    };
+    this.promotions.set(the_dog_2007.id, the_dog_2007);
+
+    const vuala_croissant: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Vualá Croissant",
+      slug: "vuala-croissant",
+      description: "Una probada de Europa. En 2002, Vualá introdujo al mercado mexicano una línea de croissants inspirados en la repostería europea. Disponibles en sabores vainilla, chocolate y mermelada.",
+      imageUrl: null,
+      startYear: 2002,
+      endYear: 2010,
+      category: "croissants",
+      tags: ["europa", "repostería", "croissant"],
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/rotated/IMG_4249-removebg-preview_1755219298607_rotated.png",
+        "/attached_assets/rotated/IMG_4302-removebg-preview_1755219298609_rotated.png"
+      ],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      wrapperRotation: 0,
+      createdAt: new Date(),
+    };
+    this.promotions.set(vuala_croissant.id, vuala_croissant);
+
+    const hora_aventura: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Hora de Aventura 2018",
+      slug: "hora-de-aventura-2018",
+      description: "Promoción con Finn y Jake en sus aventuras matemáticas por la Tierra de Ooo.",
+      imageUrl: null,
+      startYear: 2018,
+      endYear: 2018,
+      category: "stickers",
+      tags: ["adventure time", "cartoon network", "finn", "jake"],
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/rotated/Frontal chocolate hora de aventura 2018_1755219298611_rotated.png"
+      ],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      wrapperRotation: 0,
+      createdAt: new Date(),
+    };
+    this.promotions.set(hora_aventura.id, hora_aventura);
+
+    // Más promociones de Barcel
+    const funki_punky_extremo: Promotion = {
+      id: randomUUID(),
+      brandId: barcel.id,
+      name: "Funki Punky Extremo",
+      slug: "funki-punky-extremo",
+      description: "La versión más extrema de los icónicos stickers Funki Punky con diseños más atrevidos y coleccionables raros.",
+      imageUrl: null,
+      startYear: 2011,
+      endYear: 2012,
+      category: "stickers",
+      tags: ["funki punky", "extremo", "stickers", "coleccionables"],
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/rotated/Funki punky extremo chocolate_1755219298611_rotated.png",
+        "/attached_assets/rotated/vainilla funki punky extremo_1755219753446_rotated.png"
+      ],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      wrapperRotation: 0,
+      createdAt: new Date(),
+    };
+    this.promotions.set(funki_punky_extremo.id, funki_punky_extremo);
+
+    // Promociones adicionales de Gamesa
+    const fonomania_2008: Promotion = {
+      id: randomUUID(),
+      brandId: gamesa.id,
+      name: "Fonomania 2008",
+      slug: "fonomania-2008",
+      description: "Promoción musical de ChocoShok con artistas y bandas populares de la época.",
+      imageUrl: null,
+      startYear: 2008,
+      endYear: 2008,
+      category: "musica",
+      tags: ["música", "artistas", "bandas"],
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/rotated/Fonomania 2008 frontal chocolate_1755219298611_rotated.png"
+      ],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      wrapperRotation: 0,
+      createdAt: new Date(),
+    };
+    this.promotions.set(fonomania_2008.id, fonomania_2008);
+
+    const dancemania_2008: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Dancemania 2008",
+      slug: "dancemania-2008",
+      description: "Promoción de Vualá con música y baile, presentando figuras y accesorios inspirados en la cultura dance de finales de los 2000s.",
+      imageUrl: null,
+      startYear: 2008,
+      endYear: 2008,
+      category: "figuras",
+      tags: ["dance", "música", "baile"],
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/rotated/Dancemania 2008 frontal chocolate_1755219298609_rotated.png"
+      ],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      wrapperRotation: 0,
+      createdAt: new Date(),
+    };
+    this.promotions.set(dancemania_2008.id, dancemania_2008);
   }
 
   // Brand methods
