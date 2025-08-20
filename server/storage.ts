@@ -79,7 +79,7 @@ export class MemStorage implements IStorage {
       name: "Bimbo",
       slug: "bimbo",
       description: "La panificadora más grande de México, reconocida por sus promocionales de figuras y juguetes.",
-      logoUrl: "/attached_assets/bimbo_1755143611551.png",
+      logoUrl: "/attached_assets/Logo_Bimbo_2000_1755143611549.png",
       primaryColor: "#FFD700",
       founded: 1945,
       createdAt: new Date(),
@@ -91,7 +91,7 @@ export class MemStorage implements IStorage {
       name: "Vualá",
       slug: "vuala",
       description: "Marca icónica mexicana de panecillos y repostería, famosa por sus promociones coleccionables con personajes animados.",
-      logoUrl: "/attached_assets/vuala_logo.png",
+      logoUrl: "/attached_assets/Vuala_1755143611550.png",
       primaryColor: "#FF6B35",
       founded: 1990,
       createdAt: new Date(),
@@ -103,7 +103,7 @@ export class MemStorage implements IStorage {
       name: "Ricolino",
       slug: "ricolino",
       description: "Marca mexicana de dulces y chocolates, reconocida por sus promociones de figuras y coleccionables.",
-      logoUrl: "/attached_assets/ricolino_logo.png",
+      logoUrl: null,
       primaryColor: "#8B0000",
       founded: 1928,
       createdAt: new Date(),
@@ -115,7 +115,7 @@ export class MemStorage implements IStorage {
       name: "Marinela",
       slug: "marinela",
       description: "Reconocida marca mexicana de panecillos y repostería, parte del Grupo Bimbo.",
-      logoUrl: "/attached_assets/marinela_logo.png",
+      logoUrl: null,
       primaryColor: "#FF1744",
       founded: 1954,
       createdAt: new Date(),
@@ -499,6 +499,214 @@ export class MemStorage implements IStorage {
       createdAt: new Date(),
     };
     this.promotions.set(dancemania_2008.id, dancemania_2008);
+
+    // Más promociones de Vualá
+    const los_simpson_2008: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Los Simpson 2008",
+      slug: "los-simpson-2008",
+      description: "Promoción clásica con los icónicos personajes de Los Simpson: Homer, Marge, Bart, Lisa y Maggie.",
+      imageUrl: null,
+      startYear: 2008,
+      endYear: 2008,
+      category: "stickers",
+      tags: ["los simpson", "homer", "bart", "fox"],
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/Los simpson 2008 chocolate frontal_1755148526407.png"
+      ],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      wrapperRotation: 0,
+      createdAt: new Date(),
+    };
+    this.promotions.set(los_simpson_2008.id, los_simpson_2008);
+
+    const minions: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Minions",
+      slug: "minions",
+      description: "Promoción con los adorables Minions de la película Mi Villano Favorito.",
+      imageUrl: null,
+      startYear: 2015,
+      endYear: 2016,
+      category: "stickers",
+      tags: ["minions", "mi villano favorito", "gru", "universal"],
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/minions chocolate_1755148526408.png"
+      ],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      wrapperRotation: 0,
+      createdAt: new Date(),
+    };
+    this.promotions.set(minions.id, minions);
+
+    const tattomania_2003: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Tattomania 2003",
+      slug: "tattomania-2003",
+      description: "Promoción de tatuajes temporales con diseños únicos y coleccionables.",
+      imageUrl: null,
+      startYear: 2003,
+      endYear: 2003,
+      category: "tatuajes",
+      tags: ["tatuajes", "temporales", "diseños"],
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/Tattomania 2003 chocolate_1755219753444.png"
+      ],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      wrapperRotation: 90,
+      createdAt: new Date(),
+    };
+    this.promotions.set(tattomania_2003.id, tattomania_2003);
+
+    const pinki_pow_punks: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Pinki Pow Punks Funki Tubers 2020",
+      slug: "pinki-pow-punks-funki-tubers-2020",
+      description: "Promoción moderna con personajes de Pinki Pow Punks inspirados en YouTubers y cultura digital.",
+      imageUrl: null,
+      startYear: 2020,
+      endYear: 2020,
+      category: "stickers",
+      tags: ["pinki pow punks", "youtubers", "digital", "moderna"],
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/Pinki pow punks funki tubers vainilla 2020_1755219753446.png"
+      ],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      wrapperRotation: 0,
+      createdAt: new Date(),
+    };
+    this.promotions.set(pinki_pow_punks.id, pinki_pow_punks);
+
+    const ecoinvasores: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Ecoinvasores",
+      slug: "ecoinvasores",
+      description: "Promoción ecológica con personajes alienígenas que promueven el cuidado del medio ambiente.",
+      imageUrl: null,
+      startYear: 2011,
+      endYear: 2011,
+      category: "stickers",
+      tags: ["ecología", "alien", "medio ambiente", "invasores"],
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: [],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      wrapperRotation: 0,
+      createdAt: new Date(),
+    };
+    this.promotions.set(ecoinvasores.id, ecoinvasores);
+
+    const tortugas_ninja: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Tortugas Ninja",
+      slug: "tortugas-ninja",
+      description: "Promoción con Leonardo, Donatello, Rafael y Miguel Ángel, las Tortugas Ninja mutantes adolescentes.",
+      imageUrl: null,
+      startYear: 2014,
+      endYear: 2015,
+      category: "stickers",
+      tags: ["tortugas ninja", "leonardo", "donatello", "nickelodeon"],
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/Tortugas ninja chocolate_1755219753444.png"
+      ],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      wrapperRotation: 0,
+      createdAt: new Date(),
+    };
+    this.promotions.set(tortugas_ninja.id, tortugas_ninja);
+
+    const el_futbol_huevos: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Vive el Fútbol con Huevos 2010",
+      slug: "vive-el-futbol-con-huevos-2010",
+      description: "Promoción futbolística con los personajes de la película mexicana 'El Fútbol de Huevos'.",
+      imageUrl: null,
+      startYear: 2010,
+      endYear: 2010,
+      category: "stickers",
+      tags: ["fútbol", "huevos", "deporte", "película mexicana"],
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/Vive el futbol con huevos 2010 frontal chocolate_1755219753446.png"
+      ],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      wrapperRotation: 0,
+      createdAt: new Date(),
+    };
+    this.promotions.set(el_futbol_huevos.id, el_futbol_huevos);
+
+    // Promociones adicionales de Sabritas
+    const askistix_2004: Promotion = {
+      id: randomUUID(),
+      brandId: sabritas.id,
+      name: "Askistix 2004",
+      slug: "askistix-2004",
+      description: "Promoción clásica de Sabritas con los icónicos personajes de Astérix y Obélix.",
+      imageUrl: null,
+      startYear: 2004,
+      endYear: 2004,
+      category: "tazos",
+      tags: ["asterix", "obelix", "galos", "cómic"],
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/Askistix 2004 chocolate frontal_1755148526400.png"
+      ],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      wrapperRotation: 0,
+      createdAt: new Date(),
+    };
+    this.promotions.set(askistix_2004.id, askistix_2004);
+
+    const avengers: Promotion = {
+      id: randomUUID(),
+      brandId: sabritas.id,
+      name: "Avengers",
+      slug: "avengers",
+      description: "Promoción épica con los Vengadores de Marvel: Iron Man, Capitán América, Thor y Hulk.",
+      imageUrl: null,
+      startYear: 2012,
+      endYear: 2012,
+      category: "tazos",
+      tags: ["avengers", "marvel", "iron man", "capitán américa", "thor", "hulk"],
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/Avengers cajeta_1755148526400.png",
+        "/attached_assets/Avengers vainilla_1755148526400.png"
+      ],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      wrapperRotation: 0,
+      createdAt: new Date(),
+    };
+    this.promotions.set(avengers.id, avengers);
   }
 
   // Brand methods
