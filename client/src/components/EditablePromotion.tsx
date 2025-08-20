@@ -162,14 +162,29 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
   };
 
   const addWrapperPhoto = () => {
-    const url = prompt("Ingresa la URL de la imagen de envoltura:");
-    if (url && url.trim()) {
-      const currentUrls = Array.isArray(editedPromotion.wrapperPhotosUrls) ? editedPromotion.wrapperPhotosUrls : [];
-      setEditedPromotion({ 
-        ...editedPromotion, 
-        wrapperPhotosUrls: [...currentUrls, url.trim()]
+    // Create hidden file input
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.multiple = true;
+    input.onchange = (e) => {
+      const files = Array.from((e.target as HTMLInputElement).files || []);
+      files.forEach(file => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const imageUrl = e.target?.result as string;
+          if (imageUrl) {
+            const currentUrls = Array.isArray(editedPromotion.wrapperPhotosUrls) ? editedPromotion.wrapperPhotosUrls : [];
+            setEditedPromotion({ 
+              ...editedPromotion, 
+              wrapperPhotosUrls: [...currentUrls, imageUrl]
+            });
+          }
+        };
+        reader.readAsDataURL(file);
       });
-    }
+    };
+    input.click();
   };
 
   const removeWrapperPhoto = (index: number) => {
@@ -301,16 +316,16 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                 />
                 <div className="flex items-center justify-between">
                   <Select
-                    value={editedPromotion.category}
+                    value={editedPromotion.category || "tazos"}
                     onValueChange={(value) => setEditedPromotion({ ...editedPromotion, category: value })}
                   >
-                    <SelectTrigger className="w-32 h-6 text-xs" data-testid="select-category">
-                      <SelectValue />
+                    <SelectTrigger className="w-32 h-8 text-xs" data-testid="select-category">
+                      <SelectValue placeholder="Categoría" />
                     </SelectTrigger>
                     <SelectContent>
                       {validCategories.map((category) => (
                         <SelectItem key={category} value={category}>
-                          {category}
+                          {category.charAt(0).toUpperCase() + category.slice(1)}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -318,7 +333,7 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                 </div>
               </div>
               {editedPromotion.wrapperPhotoUrl && (
-                <div className="flex-shrink-0 w-20 h-24 flex items-center justify-center relative">
+                <div className="flex-shrink-0 w-24 h-28 flex items-center justify-center relative">
                   <Dialog>
                     <DialogTrigger asChild>
                       <img 
@@ -369,23 +384,64 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                 </Button>
               </div>
               
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+              {/* Drag and Drop Zone */}
+              <div 
+                className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-gray-400 transition-colors"
+                onDrop={(e) => {
+                  e.preventDefault();
+                  const files = Array.from(e.dataTransfer.files);
+                  files.forEach(file => {
+                    if (file.type.startsWith('image/')) {
+                      const reader = new FileReader();
+                      reader.onload = (e) => {
+                        const imageUrl = e.target?.result as string;
+                        if (imageUrl) {
+                          const currentUrls = Array.isArray(editedPromotion.wrapperPhotosUrls) ? editedPromotion.wrapperPhotosUrls : [];
+                          setEditedPromotion({ 
+                            ...editedPromotion, 
+                            wrapperPhotosUrls: [...currentUrls, imageUrl]
+                          });
+                        }
+                      };
+                      reader.readAsDataURL(file);
+                    }
+                  });
+                }}
+                onDragOver={(e) => e.preventDefault()}
+                onDragEnter={(e) => e.preventDefault()}
+              >
+                <div className="text-gray-500">
+                  <div className="text-2xl mb-2">📷</div>
+                  <p>Arrastra imágenes aquí o </p>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={addWrapperPhoto}
+                    className="mt-2"
+                  >
+                    Seleccionar archivo
+                  </Button>
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
                 {Array.isArray(editedPromotion.wrapperPhotosUrls) && editedPromotion.wrapperPhotosUrls.map((url: string, index: number) => (
                   <div key={index} className="relative group">
                     <img 
                       src={url} 
                       alt={`Envoltura ${index + 1}`}
-                      className="w-full h-16 object-contain bg-white rounded border cursor-pointer hover:scale-105 transition-transform"
+                      className="w-full h-24 object-contain bg-white rounded border cursor-pointer hover:scale-105 transition-transform shadow-sm"
                       onClick={() => openImageEditor(url)}
                     />
                     <Button
                       type="button"
                       variant="destructive"
                       size="sm"
-                      className="absolute -top-1 -right-1 w-5 h-5 p-0 opacity-0 group-hover:opacity-100 transition-opacity"
+                      className="absolute -top-2 -right-2 w-6 h-6 p-0 opacity-0 group-hover:opacity-100 transition-opacity shadow-lg"
                       onClick={() => removeWrapperPhoto(index)}
                     >
-                      <X className="w-3 h-3" />
+                      <X className="w-4 h-4" />
                     </Button>
                   </div>
                 ))}
