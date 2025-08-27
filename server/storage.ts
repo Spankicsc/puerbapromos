@@ -136,51 +136,9 @@ export class MemStorage implements IStorage {
       startYear: 2007,
       endYear: 2007,
       category: "tazos",
-      tags: [
-        "bob esponja",
-        "nickelodeon",
-        "cartoon"
-      ]
-        "bob esponja",
-        "nickelodeon",
-        "cartoon"
-      ]
-        "bob esponja",
-        "nickelodeon",
-        "cartoon"
-      ]
-        "bob esponja",
-        "nickelodeon",
-        "cartoon"
-      ]
-        "bob esponja",
-        "nickelodeon",
-        "cartoon"
-      ]
-        "bob esponja",
-        "nickelodeon",
-        "cartoon"
-      ]
-        "bob esponja",
-        "nickelodeon",
-        "cartoon"
-      ], "marvel", "cine", "coleccionables"],
+      tags: ["spiderman", "marvel", "cine", "coleccionables"],
       wrapperPhotoUrl: "/attached_assets/spiderman3_wrapper_1755143611553.jpg",
       wrapperPhotosUrls: [
-        "/attached_assets/rotated/Frontal bob esponja 2012 chocolate_1755219298611_rotated.png"
-      ]
-        "/attached_assets/rotated/Frontal bob esponja 2012 chocolate_1755219298611_rotated.png"
-      ]
-        "/attached_assets/rotated/Frontal bob esponja 2012 chocolate_1755219298611_rotated.png"
-      ]
-        "/attached_assets/rotated/Frontal bob esponja 2012 chocolate_1755219298611_rotated.png"
-      ]
-        "/attached_assets/rotated/Frontal bob esponja 2012 chocolate_1755219298611_rotated.png"
-      ]
-        "/attached_assets/rotated/Frontal bob esponja 2012 chocolate_1755219298611_rotated.png"
-      ]
-        "/attached_assets/rotated/Frontal bob esponja 2012 chocolate_1755219298611_rotated.png"
-      ]
         "/attached_assets/rotated/Vainilla frontal spiderman 3_1755152265577_rotated.png",
         "/attached_assets/rotated/Chocolate frontal spiderman 3_1755196507572_rotated.png"
       ],
@@ -813,9 +771,9 @@ export class MemStorage implements IStorage {
       id: randomUUID(),
       imageUrl: promotion.imageUrl ?? null,
       endYear: promotion.endYear ?? null,
-      tags: promotion.tags ?? null,
+      tags: promotion.tags as string[] | null ?? null,
       wrapperPhotoUrl: promotion.wrapperPhotoUrl ?? null,
-      wrapperPhotosUrls: promotion.wrapperPhotosUrls ?? null,
+      wrapperPhotosUrls: promotion.wrapperPhotosUrls as string[] | null ?? null,
       promotionImagesUrls: promotion.promotionImagesUrls ?? null,
       youtubeCommercialUrl: promotion.youtubeCommercialUrl ?? null,
       buffetGamesVideoUrl: promotion.buffetGamesVideoUrl ?? null,
@@ -830,7 +788,12 @@ export class MemStorage implements IStorage {
     const promotion = this.promotions.get(id);
     if (!promotion) return undefined;
     
-    const updatedPromotion: Promotion = { ...promotion, ...updates };
+    const updatedPromotion: Promotion = { 
+      ...promotion, 
+      ...updates,
+      tags: (updates.tags as string[] | null) ?? promotion.tags,
+      wrapperPhotosUrls: (updates.wrapperPhotosUrls as string[] | null) ?? promotion.wrapperPhotosUrls
+    };
     this.promotions.set(id, updatedPromotion);
     return updatedPromotion;
   }
