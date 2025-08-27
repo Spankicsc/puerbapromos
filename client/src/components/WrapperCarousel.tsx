@@ -348,6 +348,10 @@ export function WrapperCarousel({ wrapperPhotos, promotionName, isEditable = fal
                   src={selectedImage}
                   alt={`Envoltura de ${promotionName}`}
                   className="w-full h-auto max-h-[75vh] object-contain mx-auto"
+                  style={{ 
+                    transform: `rotate(${rotations[currentIndex] || 0}deg)`,
+                    transition: 'transform 0.3s ease'
+                  }}
                 />
                 <div className="mt-6 text-center">
                   <h3 className="text-2xl font-bold text-yellow-400 mb-2">
