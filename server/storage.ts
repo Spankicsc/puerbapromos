@@ -136,16 +136,28 @@ export class MemStorage implements IStorage {
       startYear: 2007,
       endYear: 2007,
       category: "tazos",
-      tags: ["spiderman", "marvel", "cine", "coleccionables"],
+      tags: [
+        "Carritos"
+      ]
+        "Carritos"
+      ]
+        "Carritos"
+      ], "marvel", "cine", "coleccionables"],
       wrapperPhotoUrl: "/attached_assets/spiderman3_wrapper_1755143611553.jpg",
       wrapperPhotosUrls: [
+        "/attached_assets/rotated/vainilla angry birds GO_1755219753445_rotated.png"
+      ]
+        "/attached_assets/rotated/vainilla angry birds GO_1755219753445_rotated.png"
+      ]
+        "/attached_assets/rotated/vainilla angry birds GO_1755219753445_rotated.png"
+      ]
         "/attached_assets/rotated/Vainilla frontal spiderman 3_1755152265577_rotated.png",
         "/attached_assets/rotated/Chocolate frontal spiderman 3_1755196507572_rotated.png"
       ],
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
-      wrapperRotation: 270,
+      wrapperRotation: 90,
       createdAt: new Date(),
     };
     this.promotions.set(spiderman3.id, spiderman3);
