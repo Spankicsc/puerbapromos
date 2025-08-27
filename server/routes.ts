@@ -39,7 +39,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (!brand) {
         return res.status(404).json({ message: "Brand not found" });
       }
-      const promotions = await storage.getPromotionsByBrandId(brand.id);
+      const promotions = await storage.getPromotionsByBrand(brand.id);
       res.json(promotions);
     } catch (error) {
       res.status(500).json({ message: "Failed to fetch promotions" });
@@ -76,7 +76,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (!promotion) {
         return res.status(404).json({ message: "Promotion not found" });
       }
-      const items = await storage.getPromotionItemsByPromotionId(promotion.id);
+      const items = await storage.getPromotionItemsByPromotion(promotion.id);
       res.json(items);
     } catch (error) {
       res.status(500).json({ message: "Failed to fetch promotion items" });
@@ -225,11 +225,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.delete("/api/brands/:id", async (req, res) => {
     try {
       const { id } = req.params;
-      const deleted = await storage.deleteBrand(id);
-      if (!deleted) {
-        return res.status(404).json({ message: "Brand not found" });
-      }
-      res.status(204).send();
+      // Delete method not implemented for brands
+      res.status(405).json({ message: "Delete operation not supported for brands" });
+      return;
     } catch (error) {
       res.status(500).json({ message: "Failed to delete brand" });
     }
@@ -269,11 +267,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.delete("/api/promotions/:id", async (req, res) => {
     try {
       const { id } = req.params;
-      const deleted = await storage.deletePromotion(id);
-      if (!deleted) {
-        return res.status(404).json({ message: "Promotion not found" });
-      }
-      res.status(204).send();
+      // Delete method not implemented for promotions
+      res.status(405).json({ message: "Delete operation not supported for promotions" });
+      return;
     } catch (error) {
       res.status(500).json({ message: "Failed to delete promotion" });
     }

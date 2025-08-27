@@ -552,12 +552,14 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                 </div>
               )}
             </div>
-            {promotion.wrapperPhotoUrl && (
+            {((promotion.wrapperPhotosUrls && promotion.wrapperPhotosUrls.length > 0) || promotion.wrapperPhotoUrl) && (
               <div className="flex-shrink-0 w-20 h-24 flex items-center justify-center relative">
                 <Dialog>
                   <DialogTrigger asChild>
                     <img 
-                      src={promotion.wrapperPhotoUrl} 
+                      src={(promotion.wrapperPhotosUrls && promotion.wrapperPhotosUrls.length > 0) 
+                        ? promotion.wrapperPhotosUrls[0] 
+                        : promotion.wrapperPhotoUrl || ''} 
                       alt={`Envoltura ${promotion.name}`}
                       className="w-full h-full object-contain drop-shadow-sm cursor-pointer hover:scale-105 transition-transform"
                       style={{ transform: `rotate(${wrapperRotation}deg)` }}
@@ -568,7 +570,9 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                   <DialogContent className="max-w-4xl w-full">
                     <div className="flex items-center justify-center p-4">
                       <img 
-                        src={promotion.wrapperPhotoUrl} 
+                        src={(promotion.wrapperPhotosUrls && promotion.wrapperPhotosUrls.length > 0) 
+                          ? promotion.wrapperPhotosUrls[0] 
+                          : promotion.wrapperPhotoUrl || ''} 
                         alt={`Envoltura ${promotion.name}`}
                         className="max-w-full max-h-[80vh] object-contain"
                         style={{ transform: `rotate(${wrapperRotation}deg)` }}

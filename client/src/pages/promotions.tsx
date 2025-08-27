@@ -235,15 +235,23 @@ const Promotions = () => {
                             <span className="text-sm text-gray-500">Ver más →</span>
                           </div>
                         </div>
-                        {promotion.wrapperPhotoUrl && (
+                        {(promotion.wrapperPhotosUrls && promotion.wrapperPhotosUrls.length > 0) || promotion.wrapperPhotoUrl ? (
                           <div className="flex-shrink-0 w-20 h-24 flex items-center justify-center">
                             <img 
-                              src={promotion.wrapperPhotoUrl} 
+                              src={(promotion.wrapperPhotosUrls && promotion.wrapperPhotosUrls.length > 0) 
+                                ? promotion.wrapperPhotosUrls[0] 
+                                : promotion.wrapperPhotoUrl || ''} 
                               alt={`Envoltura ${promotion.name}`}
                               className="max-w-full max-h-full object-contain drop-shadow-sm"
+                              style={{ transform: `rotate(${promotion.wrapperRotation || 0}deg)` }}
                             />
+                            {promotion.wrapperPhotosUrls && promotion.wrapperPhotosUrls.length > 1 && (
+                              <div className="absolute -bottom-1 -right-1 bg-yellow-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center shadow-md">
+                                +{promotion.wrapperPhotosUrls.length - 1}
+                              </div>
+                            )}
                           </div>
-                        )}
+                        ) : null}
                       </div>
                     </CardContent>
                   </Card>
