@@ -132,20 +132,62 @@ export class MemStorage implements IStorage {
       name: "Spiderman 3",
       slug: "spiderman-3-2007",
       description: "Promoción épica de Sabritas con tazos coleccionables de Spider-Man 3. Incluye tazos dorados especiales y figuras exclusivas del hombre araña.",
-      imageUrl: "/attached_assets/spiderman3_hero_1755143611552.jpg",
+      imageUrl: null,
       startYear: 2007,
       endYear: 2007,
       category: "tazos",
-      tags: ["superhéroes", "marvel", "cine", "coleccionables"],
+      tags: [
+        "bob esponja",
+        "nickelodeon",
+        "cartoon"
+      ]
+        "bob esponja",
+        "nickelodeon",
+        "cartoon"
+      ]
+        "bob esponja",
+        "nickelodeon",
+        "cartoon"
+      ]
+        "bob esponja",
+        "nickelodeon",
+        "cartoon"
+      ]
+        "bob esponja",
+        "nickelodeon",
+        "cartoon"
+      ]
+        "bob esponja",
+        "nickelodeon",
+        "cartoon"
+      ]
+        "bob esponja",
+        "nickelodeon",
+        "cartoon"
+      ], "marvel", "cine", "coleccionables"],
       wrapperPhotoUrl: "/attached_assets/spiderman3_wrapper_1755143611553.jpg",
       wrapperPhotosUrls: [
+        "/attached_assets/rotated/Frontal bob esponja 2012 chocolate_1755219298611_rotated.png"
+      ]
+        "/attached_assets/rotated/Frontal bob esponja 2012 chocolate_1755219298611_rotated.png"
+      ]
+        "/attached_assets/rotated/Frontal bob esponja 2012 chocolate_1755219298611_rotated.png"
+      ]
+        "/attached_assets/rotated/Frontal bob esponja 2012 chocolate_1755219298611_rotated.png"
+      ]
+        "/attached_assets/rotated/Frontal bob esponja 2012 chocolate_1755219298611_rotated.png"
+      ]
+        "/attached_assets/rotated/Frontal bob esponja 2012 chocolate_1755219298611_rotated.png"
+      ]
+        "/attached_assets/rotated/Frontal bob esponja 2012 chocolate_1755219298611_rotated.png"
+      ]
         "/attached_assets/rotated/Vainilla frontal spiderman 3_1755152265577_rotated.png",
         "/attached_assets/rotated/Chocolate frontal spiderman 3_1755196507572_rotated.png"
       ],
       promotionImagesUrls: null,
-      youtubeCommercialUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      buffetGamesVideoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-      wrapperRotation: 0,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      wrapperRotation: 270,
       createdAt: new Date(),
     };
     this.promotions.set(spiderman3.id, spiderman3);
