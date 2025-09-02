@@ -1,5 +1,7 @@
 import { randomUUID } from "crypto";
-import { Brand, Promotion, PromotionItem } from "../shared/schema.js";
+import { Brand, Promotion, PromotionItem, brands, promotions, promotionItems } from "../shared/schema.js";
+import { db } from "./db.js";
+import { eq, like, or, sql } from "drizzle-orm";
 
 export interface IStorage {
   // Brand methods
@@ -646,5 +648,136 @@ export class MemStorage implements IStorage {
   }
 }
 
-// Export a singleton instance
-export const storage = new MemStorage();
+export class DatabaseStorage implements IStorage {
+  constructor() {
+    this.seedIfEmpty();
+  }
+
+  private async seedIfEmpty() {
+    const existingBrands = await this.getAllBrands();
+    if (existingBrands.length === 0) {
+      await this.seedDatabase();
+    }
+  }
+
+  // Brand methods
+  async getAllBrands(): Promise<Brand[]> {
+    return await db.select().from(brands);
+  }
+
+  async getBrandBySlug(slug: string): Promise<Brand | null> {
+    const [brand] = await db.select().from(brands).where(eq(brands.slug, slug));
+    return brand || null;
+  }
+
+  async createBrand(data: Omit<Brand, 'id' | 'createdAt'>): Promise<Brand> {
+    const [brand] = await db.insert(brands).values(data).returning();
+    return brand;
+  }
+
+  async updateBrand(id: string, data: Partial<Brand>): Promise<Brand | null> {
+    const [brand] = await db.update(brands).set(data).where(eq(brands.id, id)).returning();
+    return brand || null;
+  }
+
+  // Promotion methods
+  async getAllPromotions(): Promise<Promotion[]> {
+    return await db.select().from(promotions);
+  }
+
+  async getPromotionBySlug(slug: string): Promise<Promotion | null> {
+    const [promotion] = await db.select().from(promotions).where(eq(promotions.slug, slug));
+    return promotion || null;
+  }
+
+  async getPromotionsByBrand(brandId: string): Promise<Promotion[]> {
+    return await db.select().from(promotions).where(eq(promotions.brandId, brandId));
+  }
+
+  async createPromotion(data: Omit<Promotion, 'id' | 'createdAt'>): Promise<Promotion> {
+    const [promotion] = await db.insert(promotions).values(data).returning();
+    return promotion;
+  }
+
+  async updatePromotion(id: string, data: Partial<Promotion>): Promise<Promotion | null> {
+    const [promotion] = await db.update(promotions).set(data).where(eq(promotions.id, id)).returning();
+    return promotion || null;
+  }
+
+  // Promotion Item methods
+  async getPromotionItemsByPromotion(promotionId: string): Promise<PromotionItem[]> {
+    return await db.select().from(promotionItems).where(eq(promotionItems.promotionId, promotionId));
+  }
+
+  async createPromotionItem(data: Omit<PromotionItem, 'id' | 'createdAt'>): Promise<PromotionItem> {
+    const [item] = await db.insert(promotionItems).values(data).returning();
+    return item;
+  }
+
+  async updatePromotionItem(id: string, data: Partial<PromotionItem>): Promise<PromotionItem | null> {
+    const [item] = await db.update(promotionItems).set(data).where(eq(promotionItems.id, id)).returning();
+    return item || null;
+  }
+
+  async deletePromotionItem(id: string): Promise<boolean> {
+    const result = await db.delete(promotionItems).where(eq(promotionItems.id, id));
+    return (result as any).rowCount > 0;
+  }
+
+  // Search methods
+  async searchPromotions(query: string): Promise<Promotion[]> {
+    const lowercaseQuery = `%${query.toLowerCase()}%`;
+    return await db.select().from(promotions).where(
+      or(
+        like(sql`lower(${promotions.name})`, lowercaseQuery),
+        like(sql`lower(${promotions.description})`, lowercaseQuery)
+      )
+    );
+  }
+
+  async searchItems(query: string): Promise<PromotionItem[]> {
+    const lowercaseQuery = `%${query.toLowerCase()}%`;
+    return await db.select().from(promotionItems).where(
+      or(
+        like(sql`lower(${promotionItems.name})`, lowercaseQuery),
+        like(sql`lower(${promotionItems.description})`, lowercaseQuery)
+      )
+    );
+  }
+
+  private async seedDatabase() {
+    // Create brands first
+    const memStorage = new MemStorage();
+    const brandsToSeed = await memStorage.getAllBrands();
+    const promotionsToSeed = await memStorage.getAllPromotions();
+
+    // Insert brands
+    for (const brand of brandsToSeed) {
+      const { id, createdAt, ...brandData } = brand;
+      await this.createBrand(brandData);
+    }
+
+    // Get brand IDs from database to map them
+    const dbBrands = await this.getAllBrands();
+    const brandIdMap = new Map<string, string>();
+    
+    for (let i = 0; i < brandsToSeed.length; i++) {
+      brandIdMap.set(brandsToSeed[i].id, dbBrands[i].id);
+    }
+
+    // Insert promotions with mapped brand IDs
+    for (const promotion of promotionsToSeed) {
+      const { id, createdAt, ...promotionData } = promotion;
+      const mappedBrandId = brandIdMap.get(promotion.brandId);
+      if (mappedBrandId) {
+        await this.createPromotion({
+          ...promotionData,
+          brandId: mappedBrandId
+        });
+      }
+    }
+  }
+}
+
+// Export a singleton instance - switch to DatabaseStorage to persist data
+export const storage = new DatabaseStorage();
