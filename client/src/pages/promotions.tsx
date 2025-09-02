@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import { Calendar, Package, Tag, Filter, Edit, Plus, GripVertical } from "lucide-react";
+import { Calendar, Package, Tag, Filter, Edit, Plus, GripVertical, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { type Promotion, type Brand } from "@shared/schema";
 import { EditablePromotion } from "@/components/EditablePromotion";
@@ -33,10 +33,11 @@ import { apiRequest } from "@/lib/queryClient";
 // import { getBrandLogo } from "@/utils/brandLogos";
 
 // Componente sortable para cada promoción
-function SortablePromotionCard({ promotion, getBrand, isEditMode }: {
+function SortablePromotionCard({ promotion, getBrand, isEditMode, onDelete }: {
   promotion: Promotion;
   getBrand: (brandId: string) => Brand | undefined;
   isEditMode: boolean;
+  onDelete?: (promotionId: string) => void;
 }) {
   const {
     attributes,
@@ -60,13 +61,28 @@ function SortablePromotionCard({ promotion, getBrand, isEditMode }: {
   return (
     <div ref={setNodeRef} style={style} className={`relative ${isDragging ? 'z-10' : ''}`}>
       {isEditMode && (
-        <div 
-          {...attributes} 
-          {...listeners}
-          className="absolute top-2 right-2 z-10 cursor-grab active:cursor-grabbing bg-white/80 p-1 rounded shadow-sm"
-        >
-          <GripVertical className="w-4 h-4 text-gray-500" />
-        </div>
+        <>
+          <div 
+            {...attributes} 
+            {...listeners}
+            className="absolute top-2 right-2 z-10 cursor-grab active:cursor-grabbing bg-white/80 p-1 rounded shadow-sm"
+          >
+            <GripVertical className="w-4 h-4 text-gray-500" />
+          </div>
+          {onDelete && (
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                onDelete(promotion.id);
+              }}
+              className="absolute top-2 left-2 z-10 bg-red-500/80 hover:bg-red-600/90 p-1 rounded shadow-sm transition-colors"
+              title="Eliminar promoción"
+            >
+              <Trash2 className="w-4 h-4 text-white" />
+            </button>
+          )}
+        </>
       )}
       
       <Link href={`/promotion/${promotion.slug}`} data-testid={`link-promotion-${promotion.slug}`}>
@@ -175,6 +191,23 @@ const Promotions = () => {
     },
   });
 
+  const deleteMutation = useMutation({
+    mutationFn: async (promotionId: string) => {
+      const response = await fetch(`/api/promotions/${promotionId}`, {
+        method: 'DELETE',
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to delete promotion');
+      }
+      
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/promotions'] });
+    },
+  });
+
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
 
@@ -193,6 +226,12 @@ const Promotions = () => {
       reorderMutation.mutate(promotionUpdates);
     }
   }
+
+  const handleDeletePromotion = (promotionId: string) => {
+    if (confirm('¿Estás seguro de que quieres eliminar esta promoción? Esta acción no se puede deshacer.')) {
+      deleteMutation.mutate(promotionId);
+    }
+  };
 
   const getBrand = (brandId: string) => {
     return brands?.find(brand => brand.id === brandId);
@@ -378,6 +417,7 @@ const Promotions = () => {
                       promotion={promotion}
                       getBrand={getBrand}
                       isEditMode={isEditMode}
+                      onDelete={handleDeletePromotion}
                     />
                   ))
                 ) : (
@@ -397,6 +437,7 @@ const Promotions = () => {
                   promotion={promotion}
                   getBrand={getBrand}
                   isEditMode={false}
+                  onDelete={handleDeletePromotion}
                 />
               ))
             ) : (
