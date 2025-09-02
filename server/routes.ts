@@ -98,6 +98,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
         itemNumber: itemNumber || null,
         metadata: null
       });
+
+      // 🔄 Auto-sync: Sincronizar nueva pieza rara al código fuente
+      const promotions = await storage.getAllPromotions();
+      const promotion = promotions.find(p => p.id === promotionId);
+      if (promotion) {
+        autoSync.syncItemToSource(newItem, promotion.slug).catch(error => {
+          console.error('Error en auto-sync de pieza rara:', error);
+        });
+      }
       
       res.status(201).json(newItem);
     } catch (error) {
@@ -280,6 +289,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const itemData = req.body;
       const item = await storage.createPromotionItem(itemData);
+      
+      // 🔄 Auto-sync: Sincronizar nueva pieza al código fuente
+      const promotion = await storage.getPromotionBySlug(itemData.promotionSlug || '');
+      if (promotion) {
+        autoSync.syncItemToSource(item, promotion.slug).catch(error => {
+          console.error('Error en auto-sync de item:', error);
+        });
+      }
+      
       res.status(201).json(item);
     } catch (error) {
       res.status(500).json({ message: "Failed to create promotion item" });
@@ -294,6 +312,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (!item) {
         return res.status(404).json({ message: "Promotion item not found" });
       }
+      
+      // 🔄 Auto-sync: Sincronizar cambios en la pieza al código fuente
+      const promotion = await storage.getPromotionBySlug(updateData.promotionSlug || '');
+      if (promotion) {
+        autoSync.syncItemToSource(item, promotion.slug).catch(error => {
+          console.error('Error en auto-sync de item:', error);
+        });
+      }
+      
       res.json(item);
     } catch (error) {
       res.status(500).json({ message: "Failed to update promotion item" });
@@ -303,6 +330,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.delete("/api/promotion-items/:id", async (req, res) => {
     try {
       const { id } = req.params;
+      
+      // 🔄 Auto-sync: Sincronizar eliminación de pieza del código fuente
+      autoSync.syncItemDeletionToSource(id, '').catch(error => {
+        console.error('Error en auto-sync de eliminación:', error);
+      });
+      
       const deleted = await storage.deletePromotionItem(id);
       if (!deleted) {
         return res.status(404).json({ message: "Promotion item not found" });

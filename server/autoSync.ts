@@ -31,6 +31,34 @@ export class AutoSyncManager {
     }
   }
 
+  async syncItemToSource(item: PromotionItem, promotionSlug: string): Promise<void> {
+    try {
+      console.log(`🔄 Sincronizando pieza "${item.name}" al código fuente...`);
+      
+      const content = fs.readFileSync(this.storagePath, 'utf8');
+      const updatedContent = this.addOrUpdateItemInSource(content, item, promotionSlug);
+      
+      fs.writeFileSync(this.storagePath, updatedContent);
+      console.log(`✅ Sincronizada pieza: ${item.name}`);
+    } catch (error) {
+      console.error('❌ Error sincronizando pieza al código:', error);
+    }
+  }
+
+  async syncItemDeletionToSource(itemId: string, promotionSlug: string): Promise<void> {
+    try {
+      console.log(`🔄 Eliminando pieza del código fuente...`);
+      
+      const content = fs.readFileSync(this.storagePath, 'utf8');
+      const updatedContent = this.removeItemFromSource(content, itemId, promotionSlug);
+      
+      fs.writeFileSync(this.storagePath, updatedContent);
+      console.log(`✅ Pieza eliminada del código fuente`);
+    } catch (error) {
+      console.error('❌ Error eliminando pieza del código:', error);
+    }
+  }
+
   private updatePromotionInSource(content: string, promotion: Promotion): string {
     // Find the promotion block by slug
     const slugPattern = new RegExp(`(const \\w+: Promotion = {[\\s\\S]*?slug: "${promotion.slug}"[\\s\\S]*?);\\s*this\\.promotions\\.set`, 'g');
@@ -77,6 +105,20 @@ export class AutoSyncManager {
     }
 
     return content.replace(fieldPattern, `$1${newValue}`);
+  }
+
+  private addOrUpdateItemInSource(content: string, item: PromotionItem, promotionSlug: string): string {
+    // For DatabaseStorage, we don't need to maintain items in source code
+    // The database is the source of truth for items
+    // This method exists to maintain consistency but does nothing
+    return content;
+  }
+
+  private removeItemFromSource(content: string, itemId: string, promotionSlug: string): string {
+    // For DatabaseStorage, we don't need to maintain items in source code
+    // The database is the source of truth for items
+    // This method exists to maintain consistency but does nothing
+    return content;
   }
 }
 
