@@ -203,7 +203,7 @@ const Promotions = () => {
                       <div className="flex items-center justify-between mb-2">
                         <Badge 
                           variant="secondary" 
-                          className="text-xs px-2 py-1"
+                          className="inline-flex items-center rounded-full border font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-secondary hover:bg-secondary/80 text-xs px-2 py-1 text-[#ffd900]"
                           style={{ backgroundColor: `${brand.primaryColor}20`, color: brand.primaryColor }}
                         >
                           <Calendar className="w-3 h-3 mr-1" />
