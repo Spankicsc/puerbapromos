@@ -276,9 +276,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.delete("/api/promotions/:id", async (req, res) => {
     try {
       const { id } = req.params;
-      // Delete method not implemented for promotions
-      res.status(405).json({ message: "Delete operation not supported for promotions" });
-      return;
+      
+      const deleted = await storage.deletePromotion(id);
+      if (!deleted) {
+        return res.status(404).json({ message: "Promotion not found" });
+      }
+      res.status(204).send();
     } catch (error) {
       res.status(500).json({ message: "Failed to delete promotion" });
     }

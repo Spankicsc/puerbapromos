@@ -16,6 +16,7 @@ export interface IStorage {
   getPromotionsByBrand(brandId: string): Promise<Promotion[]>;
   createPromotion(data: Omit<Promotion, 'id' | 'createdAt'>): Promise<Promotion>;
   updatePromotion(id: string, data: Partial<Promotion>): Promise<Promotion | null>;
+  deletePromotion(id: string): Promise<boolean>;
 
   // Promotion Item methods
   getPromotionItemsByPromotion(promotionId: string): Promise<PromotionItem[]>;
@@ -82,6 +83,11 @@ export class DatabaseStorage implements IStorage {
   async updatePromotion(id: string, data: Partial<Promotion>): Promise<Promotion | null> {
     const [promotion] = await db.update(promotions).set(data).where(eq(promotions.id, id)).returning();
     return promotion || null;
+  }
+
+  async deletePromotion(id: string): Promise<boolean> {
+    const result = await db.delete(promotions).where(eq(promotions.id, id));
+    return (result as any).rowCount > 0;
   }
 
   // Promotion Item methods
