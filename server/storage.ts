@@ -194,8 +194,11 @@ export class MemStorage implements IStorage {
       slug: "angry-birds-go",
       description: "Emocionante promoción de Vualá con personajes de Angry Birds Go. Colecciona todos los pájaros y cerditos en carreras.",
       imageUrl: null,
-      wrapperPhotoUrl: null,
-      wrapperPhotosUrls: null,
+      wrapperPhotoUrl: "/attached_assets/trasera vainilla angry birds go_1755145664056_processed.png",
+      wrapperPhotosUrls: [
+        "/attached_assets/trasera vainilla angry birds go_1755145664056_processed.png",
+        "/attached_assets/rotated/vainilla angry birds GO_1755219753445_rotated.png"
+      ],
       wrapperRotation: 0,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
@@ -215,8 +218,13 @@ export class MemStorage implements IStorage {
       slug: "el-chavo-2012",
       description: "Promoción del Chavo del Ocho con figuras y accesorios coleccionables de todos los personajes de la vecindad.",
       imageUrl: null,
-      wrapperPhotoUrl: null,
-      wrapperPhotosUrls: null,
+      wrapperPhotoUrl: "/attached_assets/El chavo 2012 Trasera cajeta_1755145664203_processed.png",
+      wrapperPhotosUrls: [
+        "/attached_assets/El chavo 2012 Trasera cajeta_1755145664203_processed.png",
+        "/attached_assets/rotated/El chavo mini 2015 vainilla_1755219298610_rotated.png",
+        "/attached_assets/rotated/El chavo mini chocolate_1755219298610_rotated.png",
+        "/attached_assets/rotated/el chavo chavitops chocolate_1755219298610_rotated.png"
+      ],
       wrapperRotation: 0,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
@@ -236,8 +244,13 @@ export class MemStorage implements IStorage {
       slug: "looney-tunes-2009",
       description: "Clásicos personajes de Looney Tunes en una increíble promoción con figuras coleccionables de Bugs Bunny, Pato Lucas y más.",
       imageUrl: null,
-      wrapperPhotoUrl: null,
-      wrapperPhotosUrls: null,
+      wrapperPhotoUrl: "/attached_assets/Frontal cajeta looney tunes 2009_1755145664204_processed.png",
+      wrapperPhotosUrls: [
+        "/attached_assets/Frontal cajeta looney tunes 2009_1755145664204_processed.png",
+        "/attached_assets/Frontal Chocolate  looney tunes 2009.jpg",
+        "/attached_assets/Lateral Chocolate  looney tunes 2009.jpg",
+        "/attached_assets/Traera Chocolate  looney tunes 2009.jpg"
+      ],
       wrapperRotation: 0,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
@@ -257,8 +270,12 @@ export class MemStorage implements IStorage {
       slug: "funki-punky-xtremo-2011",
       description: "Promoción extrema de Funki Punky con stickers, lápices y accesorios únicos con diseños rebeldes.",
       imageUrl: null,
-      wrapperPhotoUrl: null,
-      wrapperPhotosUrls: null,
+      wrapperPhotoUrl: "/attached_assets/trasera cajeta funki punky xtremo 2011_1755145664205_processed.png",
+      wrapperPhotosUrls: [
+        "/attached_assets/trasera cajeta funki punky xtremo 2011_1755145664205_processed.png",
+        "/attached_assets/Trasera cajeta rebeldes con causa funky punki_1755145664206_processed.png",
+        "/attached_assets/rotated/Funki punky extremo chocolate_1755219298611_rotated.png"
+      ],
       wrapperRotation: 0,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
@@ -278,8 +295,11 @@ export class MemStorage implements IStorage {
       slug: "cartoon-network-2018",
       description: "Espectacular promoción con personajes de Cartoon Network: Ben 10, Las Chicas Superpoderosas, Hora de Aventura y más.",
       imageUrl: null,
-      wrapperPhotoUrl: null,
-      wrapperPhotosUrls: null,
+      wrapperPhotoUrl: "/attached_assets/Trasera chocolate cartoon network 2018_1755145664206_processed.png",
+      wrapperPhotosUrls: [
+        "/attached_assets/Trasera chocolate cartoon network 2018_1755145664206_processed.png",
+        "/attached_assets/rotated/Frontal chocolate hora de aventura 2018_1755219298611_rotated.png"
+      ],
       wrapperRotation: 0,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
@@ -299,16 +319,18 @@ export class MemStorage implements IStorage {
       slug: "steven-universe-2017",
       description: "Mágica promoción de Steven Universe con gemas coleccionables y figuras de Steven, Garnet, Amatista y Perla.",
       imageUrl: null,
-      wrapperPhotoUrl: null,
-      wrapperPhotosUrls: null,
+      wrapperPhotoUrl: "/attached_assets/trasera chocolate steven universe_1755145664206_processed.png",
+      wrapperPhotosUrls: [
+        "/attached_assets/trasera chocolate steven universe_1755145664206_processed.png"
+      ],
       wrapperRotation: 0,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
       startYear: 2017,
       endYear: 2017,
-      category: "figuras",
-      tags: ["steven-universe", "gemas", "cartoon-network", "magia"],
+      category: "Mini Colgantes",
+      tags: ["steven-universe", "gemas", "cartoon-network", "magia", "mini-colgantes"],
       createdAt: new Date(),
     };
     this.promotions.set(stevenUniverse.id, stevenUniverse);
@@ -320,16 +342,18 @@ export class MemStorage implements IStorage {
       slug: "corazones-2017",
       description: "Romántica promoción de San Valentín con colgantes, stickers y accesorios en forma de corazón.",
       imageUrl: null,
-      wrapperPhotoUrl: null,
-      wrapperPhotosUrls: null,
+      wrapperPhotoUrl: "/attached_assets/Trasera corazones 2017 chocolate_1755145664206_processed.png",
+      wrapperPhotosUrls: [
+        "/attached_assets/Trasera corazones 2017 chocolate_1755145664206_processed.png"
+      ],
       wrapperRotation: 0,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
       startYear: 2017,
       endYear: 2017,
-      category: "colgantes",
-      tags: ["corazones", "san-valentin", "romántico", "colgantes"],
+      category: "Mini Colgantes",
+      tags: ["corazones", "san-valentin", "romántico", "mini-colgantes"],
       createdAt: new Date(),
     };
     this.promotions.set(corazones.id, corazones);
@@ -341,8 +365,10 @@ export class MemStorage implements IStorage {
       slug: "la-era-del-hielo-2012",
       description: "Aventura glacial con Manny, Sid, Diego y Scrat en una promoción llena de figuras coleccionables prehistóricas.",
       imageUrl: null,
-      wrapperPhotoUrl: null,
-      wrapperPhotosUrls: null,
+      wrapperPhotoUrl: "/attached_assets/Trasera la era del hielo 2012 chocolate_1755145664207_processed.png",
+      wrapperPhotosUrls: [
+        "/attached_assets/Trasera la era del hielo 2012 chocolate_1755145664207_processed.png"
+      ],
       wrapperRotation: 0,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
@@ -362,8 +388,12 @@ export class MemStorage implements IStorage {
       slug: "bob-esponja-2012",
       description: "Diversión submarina con Bob Esponja, Patricio, Calamardo y el Señor Cangrejo en Fondo de Bikini.",
       imageUrl: null,
-      wrapperPhotoUrl: null,
-      wrapperPhotosUrls: null,
+      wrapperPhotoUrl: "/attached_assets/Trasera Bob esponja 2012_1755145664205_processed.png",
+      wrapperPhotosUrls: [
+        "/attached_assets/Trasera Bob esponja 2012_1755145664205_processed.png",
+        "/attached_assets/rotated/Frontal bob esponja 2012 chocolate_1755219298611_rotated.png",
+        "/attached_assets/rotated/Vainilla bob esponja 2024_1755219753445_rotated.png"
+      ],
       wrapperRotation: 0,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
@@ -383,8 +413,10 @@ export class MemStorage implements IStorage {
       slug: "ecoinvasores-2011",
       description: "Promoción ecológica con alienígenas que enseñan sobre el cuidado del medio ambiente y el reciclaje.",
       imageUrl: null,
-      wrapperPhotoUrl: null,
-      wrapperPhotosUrls: null,
+      wrapperPhotoUrl: "/attached_assets/Ecoinvasores trasera cajeta_1755145664202_processed.png",
+      wrapperPhotosUrls: [
+        "/attached_assets/Ecoinvasores trasera cajeta_1755145664202_processed.png"
+      ],
       wrapperRotation: 0,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
@@ -396,6 +428,78 @@ export class MemStorage implements IStorage {
       createdAt: new Date(),
     };
     this.promotions.set(ecoinvasores.id, ecoinvasores);
+
+    // Promociones adicionales de Vualá
+    const theDog: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "The Dog 2004",
+      slug: "the-dog-2004",
+      description: "Promoción kawaii con lindos perritos de diferentes razas. Colecciona todos los cachorros de The Dog.",
+      imageUrl: null,
+      wrapperPhotoUrl: "/attached_assets/rotated/The dog 2004 vainilla frontal_1755219753444_rotated.png",
+      wrapperPhotosUrls: [
+        "/attached_assets/rotated/The dog 2004 vainilla frontal_1755219753444_rotated.png",
+        "/attached_assets/rotated/IMG_4257-removebg-preview_1755219298607_rotated.png",
+        "/attached_assets/rotated/IMG_4269-removebg-preview_1755219298608_rotated.png"
+      ],
+      wrapperRotation: 90,
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      startYear: 2004,
+      endYear: 2004,
+      category: "Mini Colgantes",
+      tags: ["the-dog", "kawaii", "perritos", "razas", "mini-colgantes"],
+      createdAt: new Date(),
+    };
+    this.promotions.set(theDog.id, theDog);
+
+    const vualaMiniChocos: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Vualá Mini Chocos",
+      slug: "vuala-mini-chocos",
+      description: "Pequeños croissants de chocolate de Vualá con promociones especiales incluidas.",
+      imageUrl: null,
+      wrapperPhotoUrl: "/attached_assets/rotated/IMG_4303-removebg-preview_1755219298609_rotated.png",
+      wrapperPhotosUrls: [
+        "/attached_assets/rotated/IMG_4303-removebg-preview_1755219298609_rotated.png"
+      ],
+      wrapperRotation: 0,
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      startYear: 2008,
+      endYear: 2012,
+      category: "croissants",
+      tags: ["mini-chocos", "chocolate", "croissants"],
+      createdAt: new Date(),
+    };
+    this.promotions.set(vualaMiniChocos.id, vualaMiniChocos);
+
+    const elChavoSorpresa: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "El Chavo Sorpresa",
+      slug: "el-chavo-sorpresa",
+      description: "Promoción de sorpresas del Chavo del Ocho con figuras y accesorios coleccionables.",
+      imageUrl: null,
+      wrapperPhotoUrl: "/attached_assets/rotated/IMG_4296-removebg-preview_1755219298608_rotated.png",
+      wrapperPhotosUrls: [
+        "/attached_assets/rotated/IMG_4296-removebg-preview_1755219298608_rotated.png"
+      ],
+      wrapperRotation: 0,
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      startYear: 2010,
+      endYear: 2012,
+      category: "figuras",
+      tags: ["el-chavo", "sorpresas", "figuras", "coleccionables"],
+      createdAt: new Date(),
+    };
+    this.promotions.set(elChavoSorpresa.id, elChavoSorpresa);
   }
 
   // Brand methods
