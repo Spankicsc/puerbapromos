@@ -129,9 +129,11 @@ export class MemStorage implements IStorage {
       slug: "spiderman-3-2007",
       description: "Promoción épica de Sabritas con tazos coleccionables de Spider-Man 3. Incluye tazos dorados especiales y figuras exclusivas del hombre araña.",
       imageUrl: null,
-      wrapperPhotoUrl: null,
-      wrapperPhotosUrls: null,
-      wrapperRotation: 0,
+      wrapperPhotoUrl: "/attached_assets/rotated/sabritas tazos spiderman 3 trasera_1755219753445_rotated.png",
+      wrapperPhotosUrls: [
+        "/attached_assets/rotated/sabritas tazos spiderman 3 trasera_1755219753445_rotated.png"
+      ],
+      wrapperRotation: 90,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
@@ -151,9 +153,13 @@ export class MemStorage implements IStorage {
       slug: "chocoshok-gormiti",
       description: "Promoción de ChocoShok con figuras coleccionables de Gormiti, los guardianes de los elementos.",
       imageUrl: null,
-      wrapperPhotoUrl: null,
-      wrapperPhotosUrls: null,
-      wrapperRotation: 0,
+      wrapperPhotoUrl: "/attached_assets/rotated/Chocoshok gormiti frontal_1755219298606_rotated.png",
+      wrapperPhotosUrls: [
+        "/attached_assets/rotated/Chocoshok gormiti frontal_1755219298606_rotated.png",
+        "/attached_assets/rotated/Chocoshok gormiti lateral_1755219298606_rotated.png",
+        "/attached_assets/rotated/Chocoshok gormiti trasera_1755219298606_rotated.png"
+      ],
+      wrapperRotation: 90,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,
@@ -172,9 +178,13 @@ export class MemStorage implements IStorage {
       slug: "chocoshok-punki-punky",
       description: "Promoción especial de ChocoShok con elementos de Punki Punky incluidos.",
       imageUrl: null,
-      wrapperPhotoUrl: null,
-      wrapperPhotosUrls: null,
-      wrapperRotation: 0,
+      wrapperPhotoUrl: "/attached_assets/rotated/Chocoshok punky punki frontal_1755219298606_rotated.png",
+      wrapperPhotosUrls: [
+        "/attached_assets/rotated/Chocoshok punky punki frontal_1755219298606_rotated.png",
+        "/attached_assets/rotated/Chocoshok punky punki lateral_1755219298606_rotated.png",
+        "/attached_assets/rotated/Chocoshok punky punki trasera_1755219298606_rotated.png"
+      ],
+      wrapperRotation: 90,
       promotionImagesUrls: null,
       youtubeCommercialUrl: null,
       buffetGamesVideoUrl: null,

@@ -17,21 +17,22 @@ const Home = () => {
   const getFeaturedPromotions = () => {
     if (!promotions) return [];
     
-    // Seleccionar promociones destacadas específicas por nombre
+    // Seleccionar promociones destacadas específicas por nombre exacto
     const featuredNames = [
-      "Tazos", // El más icónico de todos
-      "Funki Punky Extremo", // Muy popular de Barcel
-      "Bob Esponja 2024" // Más reciente y popular
+      "Spiderman 3", // Promoción icónica de Sabritas
+      "Angry Birds Go", // Popular de Vualá
+      "Funki Punky Xtremo" // Popular de Vualá
     ];
     
     const featured = featuredNames
       .map(name => promotions.find(p => p.name === name))
       .filter((p): p is Promotion => p !== undefined);
     
-    // Si no encontramos todas, completamos con las primeras disponibles
+    // Si no encontramos todas, completamos con las primeras disponibles que tengan imágenes
     if (featured.length < 3) {
       const remaining = promotions
         .filter(p => !featuredNames.includes(p.name))
+        .filter(p => p.wrapperPhotoUrl || (p.wrapperPhotosUrls && p.wrapperPhotosUrls.length > 0))
         .slice(0, 3 - featured.length);
       featured.push(...remaining);
     }
