@@ -287,6 +287,29 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Endpoint para actualizar el orden de promociones (drag and drop)
+  app.put("/api/promotions/reorder", async (req, res) => {
+    try {
+      const { promotions: promotionOrders } = req.body; // Array de {id, sortOrder}
+      
+      if (!Array.isArray(promotionOrders)) {
+        return res.status(400).json({ message: "promotions debe ser un array" });
+      }
+
+      // Actualizar cada promoción con su nuevo orden
+      const updatePromises = promotionOrders.map(({ id, sortOrder }) => 
+        storage.updatePromotion(id, { sortOrder })
+      );
+      
+      await Promise.all(updatePromises);
+      
+      res.json({ message: "Orden actualizado correctamente" });
+    } catch (error) {
+      console.error('Error updating promotion order:', error);
+      res.status(500).json({ message: "Failed to update promotion order" });
+    }
+  });
+
   // CRUD routes for Promotion Items
   app.post("/api/promotion-items", async (req, res) => {
     try {

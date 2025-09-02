@@ -92,6 +92,8 @@ const Promotion = () => {
       updateData.tags = editedPromotion.tags || [];
     } else if (field === 'description') {
       updateData.description = editedPromotion.description || '';
+    } else if (field === 'category') {
+      updateData.category = editedPromotion.category || '';
     } else if (field === 'youtubeCommercialUrl') {
       updateData.youtubeCommercialUrl = editedPromotion.youtubeCommercialUrl;
     } else if (field === 'buffetGamesVideoUrl') {
@@ -546,7 +548,44 @@ const Promotion = () => {
             <div className="flex flex-wrap gap-4 mb-6">
               <div className="flex items-center space-x-2 text-gray-600">
                 <Tag className="w-4 h-4" />
-                <span className="capitalize">{promotion.category}</span>
+                {isEditMode && !isEditing.category ? (
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => startEditing('category')}
+                    className="text-xs capitalize"
+                  >
+                    {promotion.category}
+                    <Edit2 className="w-2 h-2 ml-1" />
+                  </Button>
+                ) : isEditMode && isEditing.category ? (
+                  <div className="flex items-center gap-2">
+                    <Input
+                      value={editedPromotion.category || promotion.category || ''}
+                      onChange={(e) => setEditedPromotion({ ...editedPromotion, category: e.target.value })}
+                      placeholder="Tipo de promocional"
+                      className="w-32 h-6 text-xs"
+                    />
+                    <Button
+                      size="sm"
+                      className="h-6 w-6 p-0 bg-green-600 border-green-500 text-white hover:bg-green-700"
+                      onClick={() => saveField('category')}
+                      disabled={updateMutation.isPending}
+                    >
+                      <Save className="w-2 h-2" />
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="h-6 w-6 p-0"
+                      onClick={() => cancelEditing('category')}
+                    >
+                      <X className="w-2 h-2" />
+                    </Button>
+                  </div>
+                ) : (
+                  <span className="capitalize">{promotion.category}</span>
+                )}
               </div>
               <div className="flex items-center space-x-2 text-gray-600">
                 <Package className="w-4 h-4" />
@@ -594,8 +633,19 @@ const Promotion = () => {
                 ) : Array.isArray(promotion.tags) && promotion.tags.length > 0 ? (
                   <div className="flex flex-wrap gap-1">
                     {promotion.tags.map((tag, index) => (
-                      <Badge key={index} variant="outline" className="text-xs">
+                      <Badge key={index} variant="outline" className="text-xs relative group">
                         {tag}
+                        {isEditMode && (
+                          <button
+                            onClick={() => {
+                              const newTags = promotion.tags?.filter((_, i) => i !== index) || [];
+                              updateMutation.mutate({ tags: newTags });
+                            }}
+                            className="ml-1 opacity-0 group-hover:opacity-100 transition-opacity text-red-500 hover:text-red-700"
+                          >
+                            <X className="w-2 h-2" />
+                          </button>
+                        )}
                       </Badge>
                     ))}
                   </div>

@@ -31,6 +31,7 @@ export const promotions = pgTable("promotions", {
   endYear: integer("end_year"),
   category: text("category").notNull(), // main category: tazos, stickers, spinners, toys, etc.
   tags: jsonb("tags").$type<string[] | null>(), // additional tags/categories
+  sortOrder: integer("sort_order").default(0), // Custom sort order for drag and drop
   createdAt: timestamp("created_at").defaultNow(),
 });
 
