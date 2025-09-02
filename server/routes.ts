@@ -246,6 +246,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/promotions", async (req, res) => {
     try {
       const promotionData = req.body;
+      
+      // Validar categoría
+      const validCategories = ['Mini colgantes', 'Figuras', 'Stickers', 'Tazos'];
+      if (promotionData.category && !validCategories.includes(promotionData.category)) {
+        return res.status(400).json({ 
+          message: `Categoría inválida. Solo se permiten: ${validCategories.join(', ')}` 
+        });
+      }
+      
       const promotion = await storage.createPromotion(promotionData);
       res.status(201).json(promotion);
     } catch (error) {
@@ -257,6 +266,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { id } = req.params;
       const updateData = req.body;
+      
+      // Validar categoría si se está actualizando
+      const validCategories = ['Mini colgantes', 'Figuras', 'Stickers', 'Tazos'];
+      if (updateData.category && !validCategories.includes(updateData.category)) {
+        return res.status(400).json({ 
+          message: `Categoría inválida. Solo se permiten: ${validCategories.join(', ')}` 
+        });
+      }
+      
       const promotion = await storage.updatePromotion(id, updateData);
       if (!promotion) {
         return res.status(404).json({ message: "Promotion not found" });
