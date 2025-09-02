@@ -44,12 +44,28 @@ export interface PromotionItem {
 }
 
 export interface IStorage {
-  getBrands(): Promise<Brand[]>;
+  // Brand methods
+  getAllBrands(): Promise<Brand[]>;
   getBrandBySlug(slug: string): Promise<Brand | null>;
-  getPromotions(): Promise<Promotion[]>;
+  createBrand(data: Omit<Brand, 'id' | 'createdAt'>): Promise<Brand>;
+  updateBrand(id: string, data: Partial<Brand>): Promise<Brand | null>;
+  
+  // Promotion methods
+  getAllPromotions(): Promise<Promotion[]>;
   getPromotionBySlug(slug: string): Promise<Promotion | null>;
-  getPromotionsByBrandId(brandId: string): Promise<Promotion[]>;
-  getPromotionItems(promotionId: string): Promise<PromotionItem[]>;
+  getPromotionsByBrand(brandId: string): Promise<Promotion[]>;
+  createPromotion(data: Omit<Promotion, 'id' | 'createdAt'>): Promise<Promotion>;
+  updatePromotion(id: string, data: Partial<Promotion>): Promise<Promotion | null>;
+  
+  // Promotion item methods
+  getPromotionItemsByPromotion(promotionId: string): Promise<PromotionItem[]>;
+  createPromotionItem(data: Omit<PromotionItem, 'id' | 'createdAt'>): Promise<PromotionItem>;
+  updatePromotionItem(id: string, data: Partial<PromotionItem>): Promise<PromotionItem | null>;
+  deletePromotionItem(id: string): Promise<boolean>;
+  
+  // Search methods
+  searchPromotions(query: string): Promise<Promotion[]>;
+  searchItems(query: string): Promise<PromotionItem[]>;
 }
 
 export class MemStorage implements IStorage {
@@ -369,7 +385,8 @@ export class MemStorage implements IStorage {
     this.promotions.set(pingüinos_aventura.id, pingüinos_aventura);
   }
 
-  async getBrands(): Promise<Brand[]> {
+  // Brand methods
+  async getAllBrands(): Promise<Brand[]> {
     return Array.from(this.brands.values());
   }
 
@@ -378,7 +395,27 @@ export class MemStorage implements IStorage {
     return brands.find(brand => brand.slug === slug) || null;
   }
 
-  async getPromotions(): Promise<Promotion[]> {
+  async createBrand(data: Omit<Brand, 'id' | 'createdAt'>): Promise<Brand> {
+    const brand: Brand = {
+      ...data,
+      id: randomUUID(),
+      createdAt: new Date(),
+    };
+    this.brands.set(brand.id, brand);
+    return brand;
+  }
+
+  async updateBrand(id: string, data: Partial<Brand>): Promise<Brand | null> {
+    const brand = this.brands.get(id);
+    if (!brand) return null;
+    
+    const updatedBrand = { ...brand, ...data };
+    this.brands.set(id, updatedBrand);
+    return updatedBrand;
+  }
+
+  // Promotion methods
+  async getAllPromotions(): Promise<Promotion[]> {
     return Array.from(this.promotions.values());
   }
 
@@ -387,12 +424,97 @@ export class MemStorage implements IStorage {
     return promotions.find(promotion => promotion.slug === slug) || null;
   }
 
-  async getPromotionsByBrandId(brandId: string): Promise<Promotion[]> {
+  async getPromotionsByBrand(brandId: string): Promise<Promotion[]> {
     const promotions = Array.from(this.promotions.values());
     return promotions.filter(promotion => promotion.brandId === brandId);
   }
 
-  async getPromotionItems(promotionId: string): Promise<PromotionItem[]> {
+  async createPromotion(data: Omit<Promotion, 'id' | 'createdAt'>): Promise<Promotion> {
+    const promotion: Promotion = {
+      ...data,
+      id: randomUUID(),
+      createdAt: new Date(),
+    };
+    this.promotions.set(promotion.id, promotion);
+    return promotion;
+  }
+
+  async updatePromotion(id: string, data: Partial<Promotion>): Promise<Promotion | null> {
+    const promotion = this.promotions.get(id);
+    if (!promotion) return null;
+    
+    const updatedPromotion = { ...promotion, ...data };
+    this.promotions.set(id, updatedPromotion);
+    return updatedPromotion;
+  }
+
+  // Promotion item methods
+  async getPromotionItemsByPromotion(promotionId: string): Promise<PromotionItem[]> {
     return this.promotionItems.get(promotionId) || [];
   }
+
+  async createPromotionItem(data: Omit<PromotionItem, 'id' | 'createdAt'>): Promise<PromotionItem> {
+    const item: PromotionItem = {
+      ...data,
+      id: randomUUID(),
+      createdAt: new Date(),
+    };
+    
+    const existingItems = this.promotionItems.get(data.promotionId) || [];
+    this.promotionItems.set(data.promotionId, [...existingItems, item]);
+    return item;
+  }
+
+  async updatePromotionItem(id: string, data: Partial<PromotionItem>): Promise<PromotionItem | null> {
+    for (const [promotionId, items] of Array.from(this.promotionItems.entries())) {
+      const itemIndex = items.findIndex((item: PromotionItem) => item.id === id);
+      if (itemIndex !== -1) {
+        const updatedItem = { ...items[itemIndex], ...data };
+        items[itemIndex] = updatedItem;
+        this.promotionItems.set(promotionId, items);
+        return updatedItem;
+      }
+    }
+    return null;
+  }
+
+  async deletePromotionItem(id: string): Promise<boolean> {
+    for (const [promotionId, items] of Array.from(this.promotionItems.entries())) {
+      const itemIndex = items.findIndex((item: PromotionItem) => item.id === id);
+      if (itemIndex !== -1) {
+        items.splice(itemIndex, 1);
+        this.promotionItems.set(promotionId, items);
+        return true;
+      }
+    }
+    return false;
+  }
+
+  // Search methods
+  async searchPromotions(query: string): Promise<Promotion[]> {
+    const promotions = Array.from(this.promotions.values());
+    const lowercaseQuery = query.toLowerCase();
+    
+    return promotions.filter(promotion => 
+      promotion.name.toLowerCase().includes(lowercaseQuery) ||
+      promotion.description.toLowerCase().includes(lowercaseQuery) ||
+      promotion.tags?.some(tag => tag.toLowerCase().includes(lowercaseQuery))
+    );
+  }
+
+  async searchItems(query: string): Promise<PromotionItem[]> {
+    const allItems: PromotionItem[] = [];
+    for (const items of Array.from(this.promotionItems.values())) {
+      allItems.push(...items);
+    }
+    
+    const lowercaseQuery = query.toLowerCase();
+    return allItems.filter(item => 
+      item.name.toLowerCase().includes(lowercaseQuery) ||
+      (item.description && item.description.toLowerCase().includes(lowercaseQuery))
+    );
+  }
 }
+
+// Export a singleton instance
+export const storage = new MemStorage();
