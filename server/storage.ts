@@ -216,6 +216,7 @@ export class DatabaseStorage implements IStorage {
       endYear: 2007,
       category: "tazos",
       tags: ["spiderman", "marvel", "tazos", "coleccionables"],
+      sortOrder: 0,
     });
 
     await this.createPromotion({
@@ -238,6 +239,7 @@ export class DatabaseStorage implements IStorage {
       endYear: 2004,
       category: "Mini Colgantes",
       tags: ["the-dog", "kawaii", "perritos", "razas", "mini-colgantes"],
+      sortOrder: 0,
     });
 
     await this.createPromotion({
@@ -260,6 +262,7 @@ export class DatabaseStorage implements IStorage {
       endYear: 2014,
       category: "figuras",
       tags: ["angry-birds", "videojuegos", "figuras", "coleccionables"],
+      sortOrder: 0,
     });
   }
 }

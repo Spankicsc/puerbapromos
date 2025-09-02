@@ -290,23 +290,31 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Endpoint para actualizar el orden de promociones (drag and drop)
   app.put("/api/promotions/reorder", async (req, res) => {
     try {
+      console.log('🔄 Reorder request received:', req.body);
       const { promotions: promotionOrders } = req.body; // Array de {id, sortOrder}
       
       if (!Array.isArray(promotionOrders)) {
+        console.error('❌ Invalid promotions array:', promotionOrders);
         return res.status(400).json({ message: "promotions debe ser un array" });
       }
 
+      console.log('✅ Processing', promotionOrders.length, 'promotion updates');
+
       // Actualizar cada promoción con su nuevo orden
-      const updatePromises = promotionOrders.map(({ id, sortOrder }) => 
-        storage.updatePromotion(id, { sortOrder })
-      );
+      const updatePromises = promotionOrders.map(async ({ id, sortOrder }) => {
+        console.log(`📦 Updating promotion ${id} to sortOrder ${sortOrder}`);
+        const result = await storage.updatePromotion(id, { sortOrder });
+        console.log(`${result ? '✅' : '❌'} Updated promotion ${id}:`, result?.name || 'not found');
+        return result;
+      });
       
-      await Promise.all(updatePromises);
+      const results = await Promise.all(updatePromises);
+      console.log('🎉 All updates completed successfully');
       
-      res.json({ message: "Orden actualizado correctamente" });
+      res.json({ message: "Orden actualizado correctamente", updated: results.length });
     } catch (error) {
-      console.error('Error updating promotion order:', error);
-      res.status(500).json({ message: "Failed to update promotion order" });
+      console.error('❌ Error updating promotion order:', error);
+      res.status(500).json({ message: "Failed to update promotion order", error: error.message });
     }
   });
 
