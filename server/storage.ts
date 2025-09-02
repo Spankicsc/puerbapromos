@@ -129,9 +129,10 @@ export class MemStorage implements IStorage {
       slug: "spiderman-3-2007",
       description: "Promoción épica de Sabritas con tazos coleccionables de Spider-Man 3. Incluye tazos dorados especiales y figuras exclusivas del hombre araña.",
       imageUrl: null,
-      wrapperPhotoUrl: "/attached_assets/rotated/sabritas tazos spiderman 3 trasera_1755219753445_rotated.png",
+      wrapperPhotoUrl: "/attached_assets/rotated/Vainilla  frontal spiderman 3_1755219753445_rotated.png",
       wrapperPhotosUrls: [
-        "/attached_assets/rotated/sabritas tazos spiderman 3 trasera_1755219753445_rotated.png"
+        "/attached_assets/rotated/Vainilla  frontal spiderman 3_1755219753445_rotated.png",
+        "/attached_assets/rotated/Chocolate frontal spiderman 3_1755196507572_rotated.png"
       ],
       wrapperRotation: 90,
       promotionImagesUrls: null,
@@ -204,10 +205,11 @@ export class MemStorage implements IStorage {
       slug: "angry-birds-go",
       description: "Emocionante promoción de Vualá con personajes de Angry Birds Go. Colecciona todos los pájaros y cerditos en carreras.",
       imageUrl: null,
-      wrapperPhotoUrl: "/attached_assets/trasera vainilla angry birds go_1755145664056_processed.png",
+      wrapperPhotoUrl: "/attached_assets/rotated/vainilla angry birds GO_1755219753445_rotated.png",
       wrapperPhotosUrls: [
-        "/attached_assets/trasera vainilla angry birds go_1755145664056_processed.png",
-        "/attached_assets/rotated/vainilla angry birds GO_1755219753445_rotated.png"
+        "/attached_assets/rotated/vainilla angry birds GO_1755219753445_rotated.png",
+        "/attached_assets/rotated/Cajeta angry birds Go_1755196507570_rotated.png",
+        "/attached_assets/rotated/Chocolate angry birds Go_1755196507571_rotated.png"
       ],
       wrapperRotation: 0,
       promotionImagesUrls: null,
