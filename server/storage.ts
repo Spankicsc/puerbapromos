@@ -73,7 +73,55 @@ export class MemStorage implements IStorage {
     };
     this.brands.set(marinela.id, marinela);
 
-    // Create sample promotions
+    const bimbo: Brand = {
+      id: randomUUID(),
+      name: "Bimbo",
+      slug: "bimbo",
+      description: "La panificadora más grande de México y América Latina, líder en productos de panificación.",
+      logoUrl: "/attached_assets/Bimbo-Logo-Vector.svg-_1755143611550.png",
+      primaryColor: "#FFB300",
+      founded: 1945,
+      createdAt: new Date(),
+    };
+    this.brands.set(bimbo.id, bimbo);
+
+    const barcel: Brand = {
+      id: randomUUID(),
+      name: "Barcel",
+      slug: "barcel",
+      description: "Marca mexicana especializada en confitería y dulces, famosa por sus Churrumais y Hot Nuts.",
+      logoUrl: "/attached_assets/Barcel-Logo-Vector.svg-_1755143611550.png",
+      primaryColor: "#E53E3E",
+      founded: 1978,
+      createdAt: new Date(),
+    };
+    this.brands.set(barcel.id, barcel);
+
+    const ricolino: Brand = {
+      id: randomUUID(),
+      name: "Ricolino",
+      slug: "ricolino",
+      description: "Reconocida marca mexicana de dulces y chocolates, famosa por Kranky, Bubulubu y Duvalin.",
+      logoUrl: "/attached_assets/Ricolino-Logo-Vector.svg-_1755143611550.png",
+      primaryColor: "#8B5CF6",
+      founded: 1950,
+      createdAt: new Date(),
+    };
+    this.brands.set(ricolino.id, ricolino);
+
+    const vuala: Brand = {
+      id: randomUUID(),
+      name: "Vualá",
+      slug: "vuala",
+      description: "Marca mexicana de croissants y panecillos dulces, conocida por sus sabores únicos y promociones coleccionables.",
+      logoUrl: "/attached_assets/Vuala-Logo-Vector.svg-_1755143611550.png",
+      primaryColor: "#F59E0B",
+      founded: 2002,
+      createdAt: new Date(),
+    };
+    this.brands.set(vuala.id, vuala);
+
+    // Sabritas Promotions
     const spiderman3: Promotion = {
       id: randomUUID(),
       brandId: sabritas.id,
@@ -95,12 +143,98 @@ export class MemStorage implements IStorage {
     };
     this.promotions.set(spiderman3.id, spiderman3);
 
+    // Gamesa Promotions
     const chocoshokGormiti: Promotion = {
       id: randomUUID(),
-      brandId: sabritas.id,
-      name: "Chocoshok Gormiti",
-      slug: "chocoshok-gormiti-2009",
-      description: "Espectacular promoción de Chocoshok con figuras de Gormiti. Los Señores de la Naturaleza llegan con increíbles personajes coleccionables.",
+      brandId: gamesa.id,
+      name: "ChocoShok Gormiti",
+      slug: "chocoshok-gormiti",
+      description: "Promoción de ChocoShok con figuras coleccionables de Gormiti, los guardianes de los elementos.",
+      imageUrl: null,
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: null,
+      wrapperRotation: 0,
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      startYear: 2010,
+      endYear: 2012,
+      category: "figuras",
+      tags: ["gormiti", "figuras", "naturaleza", "coleccionables"],
+      createdAt: new Date(),
+    };
+    this.promotions.set(chocoshokGormiti.id, chocoshokGormiti);
+
+    const chocoshokPunkiPunky: Promotion = {
+      id: randomUUID(),
+      brandId: gamesa.id,
+      name: "ChocoShok Punki Punky",
+      slug: "chocoshok-punki-punky",
+      description: "Promoción especial de ChocoShok con elementos de Punki Punky incluidos.",
+      imageUrl: null,
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: null,
+      wrapperRotation: 0,
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      startYear: 2010,
+      endYear: 2011,
+      category: "stickers",
+      tags: ["punki-punky", "stickers", "coleccionables"],
+      createdAt: new Date(),
+    };
+    this.promotions.set(chocoshokPunkiPunky.id, chocoshokPunkiPunky);
+
+    // Vualá Promotions
+    const angryBirdsGo: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Angry Birds Go",
+      slug: "angry-birds-go",
+      description: "Emocionante promoción de Vualá con personajes de Angry Birds Go. Colecciona todos los pájaros y cerditos en carreras.",
+      imageUrl: null,
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: null,
+      wrapperRotation: 0,
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      startYear: 2014,
+      endYear: 2014,
+      category: "figuras",
+      tags: ["angry-birds", "videojuegos", "figuras", "coleccionables"],
+      createdAt: new Date(),
+    };
+    this.promotions.set(angryBirdsGo.id, angryBirdsGo);
+
+    const elChavo: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "El Chavo",
+      slug: "el-chavo-2012",
+      description: "Promoción del Chavo del Ocho con figuras y accesorios coleccionables de todos los personajes de la vecindad.",
+      imageUrl: null,
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: null,
+      wrapperRotation: 0,
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      startYear: 2012,
+      endYear: 2012,
+      category: "figuras",
+      tags: ["el-chavo", "chespirito", "vecindad", "televisión"],
+      createdAt: new Date(),
+    };
+    this.promotions.set(elChavo.id, elChavo);
+
+    const looney: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Looney Tunes",
+      slug: "looney-tunes-2009",
+      description: "Clásicos personajes de Looney Tunes en una increíble promoción con figuras coleccionables de Bugs Bunny, Pato Lucas y más.",
       imageUrl: null,
       wrapperPhotoUrl: null,
       wrapperPhotosUrls: null,
@@ -111,10 +245,157 @@ export class MemStorage implements IStorage {
       startYear: 2009,
       endYear: 2009,
       category: "figuras",
-      tags: ["gormiti", "figuras", "naturaleza", "coleccionables"],
+      tags: ["looney-tunes", "bugs-bunny", "pato-lucas", "animación"],
       createdAt: new Date(),
     };
-    this.promotions.set(chocoshokGormiti.id, chocoshokGormiti);
+    this.promotions.set(looney.id, looney);
+
+    const funkiPunky: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Funki Punky Xtremo",
+      slug: "funki-punky-xtremo-2011",
+      description: "Promoción extrema de Funki Punky con stickers, lápices y accesorios únicos con diseños rebeldes.",
+      imageUrl: null,
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: null,
+      wrapperRotation: 0,
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      startYear: 2011,
+      endYear: 2011,
+      category: "stickers",
+      tags: ["funki-punky", "stickers", "rebelde", "extremo"],
+      createdAt: new Date(),
+    };
+    this.promotions.set(funkiPunky.id, funkiPunky);
+
+    const cartoonNetwork: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Cartoon Network",
+      slug: "cartoon-network-2018",
+      description: "Espectacular promoción con personajes de Cartoon Network: Ben 10, Las Chicas Superpoderosas, Hora de Aventura y más.",
+      imageUrl: null,
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: null,
+      wrapperRotation: 0,
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      startYear: 2018,
+      endYear: 2018,
+      category: "figuras",
+      tags: ["cartoon-network", "ben-10", "chicas-superpoderosas", "hora-de-aventura"],
+      createdAt: new Date(),
+    };
+    this.promotions.set(cartoonNetwork.id, cartoonNetwork);
+
+    const stevenUniverse: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Steven Universe",
+      slug: "steven-universe-2017",
+      description: "Mágica promoción de Steven Universe con gemas coleccionables y figuras de Steven, Garnet, Amatista y Perla.",
+      imageUrl: null,
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: null,
+      wrapperRotation: 0,
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      startYear: 2017,
+      endYear: 2017,
+      category: "figuras",
+      tags: ["steven-universe", "gemas", "cartoon-network", "magia"],
+      createdAt: new Date(),
+    };
+    this.promotions.set(stevenUniverse.id, stevenUniverse);
+
+    const corazones: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Corazones",
+      slug: "corazones-2017",
+      description: "Romántica promoción de San Valentín con colgantes, stickers y accesorios en forma de corazón.",
+      imageUrl: null,
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: null,
+      wrapperRotation: 0,
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      startYear: 2017,
+      endYear: 2017,
+      category: "colgantes",
+      tags: ["corazones", "san-valentin", "romántico", "colgantes"],
+      createdAt: new Date(),
+    };
+    this.promotions.set(corazones.id, corazones);
+
+    const laEraDelHielo: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "La Era del Hielo",
+      slug: "la-era-del-hielo-2012",
+      description: "Aventura glacial con Manny, Sid, Diego y Scrat en una promoción llena de figuras coleccionables prehistóricas.",
+      imageUrl: null,
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: null,
+      wrapperRotation: 0,
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      startYear: 2012,
+      endYear: 2012,
+      category: "figuras",
+      tags: ["la-era-del-hielo", "manny", "sid", "diego", "scrat"],
+      createdAt: new Date(),
+    };
+    this.promotions.set(laEraDelHielo.id, laEraDelHielo);
+
+    const bobEsponja: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Bob Esponja",
+      slug: "bob-esponja-2012",
+      description: "Diversión submarina con Bob Esponja, Patricio, Calamardo y el Señor Cangrejo en Fondo de Bikini.",
+      imageUrl: null,
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: null,
+      wrapperRotation: 0,
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      startYear: 2012,
+      endYear: 2012,
+      category: "figuras",
+      tags: ["bob-esponja", "patricio", "calamardo", "fondo-de-bikini"],
+      createdAt: new Date(),
+    };
+    this.promotions.set(bobEsponja.id, bobEsponja);
+
+    const ecoinvasores: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Ecoinvasores",
+      slug: "ecoinvasores-2011",
+      description: "Promoción ecológica con alienígenas que enseñan sobre el cuidado del medio ambiente y el reciclaje.",
+      imageUrl: null,
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: null,
+      wrapperRotation: 0,
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      startYear: 2011,
+      endYear: 2011,
+      category: "figuras",
+      tags: ["ecoinvasores", "medio-ambiente", "ecología", "figuras"],
+      createdAt: new Date(),
+    };
+    this.promotions.set(ecoinvasores.id, ecoinvasores);
   }
 
   // Brand methods
@@ -199,7 +480,7 @@ export class MemStorage implements IStorage {
   }
 
   async updatePromotionItem(id: string, data: Partial<PromotionItem>): Promise<PromotionItem | null> {
-    for (const [promotionId, items] of this.promotionItems.entries()) {
+    for (const [promotionId, items] of Array.from(this.promotionItems.entries())) {
       const itemIndex = items.findIndex((item: PromotionItem) => item.id === id);
       if (itemIndex !== -1) {
         const updatedItem = { ...items[itemIndex], ...data };
