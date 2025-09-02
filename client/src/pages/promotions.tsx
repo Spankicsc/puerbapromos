@@ -31,8 +31,9 @@ const Promotions = () => {
   };
 
   const getUniqueCategories = () => {
-    // Lista fija de las 4 categorías válidas de tipos de promocionales
-    return ['Mini colgantes', 'Figuras', 'Stickers', 'Tazos'];
+    if (!promotions) return [];
+    const categories = Array.from(new Set(promotions.map(p => p.category)));
+    return categories.sort();
   };
 
   const filteredPromotions = promotions?.filter(promotion => {
