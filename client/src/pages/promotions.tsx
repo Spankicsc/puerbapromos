@@ -201,11 +201,20 @@ const Promotions = () => {
         throw new Error('Failed to delete promotion');
       }
       
+      // Para DELETE 204, no intentar parsear JSON
+      if (response.status === 204) {
+        return { success: true };
+      }
       return response.json();
     },
     onSuccess: () => {
+      console.log('Eliminación exitosa, invalidando cache...');
       queryClient.invalidateQueries({ queryKey: ['/api/promotions'] });
+      queryClient.refetchQueries({ queryKey: ['/api/promotions'] });
     },
+    onError: (error) => {
+      console.error('Error eliminando promoción:', error);
+    }
   });
 
   function handleDragEnd(event: DragEndEvent) {
