@@ -69,7 +69,7 @@ function SortablePromotionCard({ promotion, getBrand, isEditMode }: {
         </div>
       )}
       
-      <Link href={`/promociones/${promotion.slug}`} data-testid={`link-promotion-${promotion.slug}`}>
+      <Link href={`/promotion/${promotion.slug}`} data-testid={`link-promotion-${promotion.slug}`}>
         <Card className="group overflow-hidden card-splat cursor-pointer bg-promo-yellow/95 backdrop-blur-sm h-full hover:shadow-2xl transition-all duration-300">
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between mb-2">
