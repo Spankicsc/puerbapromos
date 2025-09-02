@@ -40,7 +40,7 @@ const Promotions = () => {
     if (selectedCategory && promotion.category !== selectedCategory) return false;
     if (selectedBrand && promotion.brandId !== selectedBrand) return false;
     return true;
-  });
+  }).sort((a, b) => a.startYear - b.startYear);
 
   if (promotionsLoading) {
     return (
