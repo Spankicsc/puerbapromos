@@ -54,59 +54,80 @@ function SortablePromotionCard({ promotion, getBrand, isEditMode }: {
   };
 
   const brand = getBrand(promotion.brandId);
+  
+  if (!brand) return null;
 
   return (
-    <Card 
-      ref={setNodeRef} 
-      style={style} 
-      className={`relative overflow-hidden hover:shadow-lg transition-shadow ${isDragging ? 'z-10 rotate-3' : ''}`} 
-      data-testid={`card-promotion-${promotion.id}`}
-    >
+    <div ref={setNodeRef} style={style} className={`relative ${isDragging ? 'z-10' : ''}`}>
       {isEditMode && (
         <div 
           {...attributes} 
           {...listeners}
-          className="absolute top-2 right-2 z-10 cursor-grab active:cursor-grabbing bg-white/80 p-1 rounded"
+          className="absolute top-2 right-2 z-10 cursor-grab active:cursor-grabbing bg-white/80 p-1 rounded shadow-sm"
         >
           <GripVertical className="w-4 h-4 text-gray-500" />
         </div>
       )}
       
-      <Link href={`/promociones/${promotion.slug}`}>
-        <CardHeader className="p-0">
-          {promotion.imageUrl && (
-            <div className="h-48 bg-cover bg-center" style={{ backgroundImage: `url(${promotion.imageUrl})` }} />
-          )}
-        </CardHeader>
-        <CardContent className="p-4">
-          <div className="flex items-center justify-between mb-2">
-            <Badge 
-              className="text-xs"
-              style={{
-                backgroundColor: brand?.primaryColor + '20',
-                color: brand?.primaryColor || '#000'
-              }}
-            >
-              {brand?.name}
-            </Badge>
-            <div className="flex items-center space-x-1 text-xs text-gray-500">
-              <Calendar className="w-3 h-3" />
-              <span>{promotion.startYear}</span>
-              {promotion.endYear && <span>-{promotion.endYear}</span>}
+      <Link href={`/promociones/${promotion.slug}`} data-testid={`link-promotion-${promotion.slug}`}>
+        <Card className="group overflow-hidden card-splat cursor-pointer bg-promo-yellow/95 backdrop-blur-sm h-full hover:shadow-2xl transition-all duration-300">
+          <CardHeader className="pb-2">
+            <div className="flex items-center justify-between mb-2">
+              <Badge 
+                variant="secondary" 
+                className="inline-flex items-center rounded-full border font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-secondary hover:bg-secondary/80 text-xs px-2 py-1 text-[#ffd900]"
+              >
+                <Calendar className="w-3 h-3 mr-1" />
+                {promotion.startYear}
+              </Badge>
+              <img 
+                src={brand.logoUrl || ''} 
+                alt={brand.name}
+                className="w-8 h-8 object-contain"
+              />
             </div>
-          </div>
-          <CardTitle className="text-lg mb-2" data-testid={`text-promotion-${promotion.id}`}>
-            {promotion.name}
-          </CardTitle>
-          <div className="flex items-center space-x-4 text-sm text-gray-600">
-            <div className="flex items-center space-x-1">
-              <Tag className="w-3 h-3" />
-              <span className="capitalize">{promotion.category}</span>
+            <CardTitle className="text-xl font-bold text-promo-black group-hover:text-promo-yellow transition-colors" style={{ fontFamily: 'Righteous, cursive' }}>
+              {promotion.name}
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="flex gap-3">
+              <div className="flex-1 min-w-0">
+                <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                  {promotion.description.length > 120
+                    ? `${promotion.description.substring(0, 120)}...`
+                    : promotion.description}
+                </p>
+                <div className="flex items-center justify-between">
+                  <Badge variant="outline" className="text-xs">
+                    <Tag className="w-3 h-3 mr-1" />
+                    {promotion.category}
+                  </Badge>
+                  <span className="text-sm text-gray-500">Ver más →</span>
+                </div>
+              </div>
+              {(promotion.wrapperPhotosUrls && promotion.wrapperPhotosUrls.length > 0) || promotion.wrapperPhotoUrl ? (
+                <div className="flex-shrink-0 w-20 h-24 flex items-center justify-center relative">
+                  <img 
+                    src={(promotion.wrapperPhotosUrls && promotion.wrapperPhotosUrls.length > 0) 
+                      ? promotion.wrapperPhotosUrls[0] 
+                      : promotion.wrapperPhotoUrl || ''} 
+                    alt={`Envoltura ${promotion.name}`}
+                    className="max-w-full max-h-full object-contain drop-shadow-sm"
+                    style={{ transform: `rotate(${promotion.wrapperRotation || 0}deg)` }}
+                  />
+                  {promotion.wrapperPhotosUrls && promotion.wrapperPhotosUrls.length > 1 && (
+                    <div className="absolute -bottom-1 -right-1 bg-yellow-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center shadow-md">
+                      +{promotion.wrapperPhotosUrls.length - 1}
+                    </div>
+                  )}
+                </div>
+              ) : null}
             </div>
-          </div>
-        </CardContent>
+          </CardContent>
+        </Card>
       </Link>
-    </Card>
+    </div>
   );
 }
 
