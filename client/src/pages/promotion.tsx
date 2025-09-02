@@ -173,9 +173,9 @@ const Promotion = () => {
             })
             .then(response => response.json())
             .then(() => {
-              // Refresh the items list
+              // Refresh the items list - usar el mismo format que la query original
               queryClient.invalidateQueries({ 
-                queryKey: [`/api/promotions/${promotion.slug}/items`] 
+                queryKey: ['/api/promotions', promotion.slug, 'items']
               });
               toast({
                 title: 'Pieza rara agregada',
