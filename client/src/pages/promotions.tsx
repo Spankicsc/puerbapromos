@@ -201,33 +201,14 @@ const Promotions = () => {
   const getUniqueCategories = () => {
     if (!promotions) return [];
     
-    // Recopilar tanto categorías principales como tags
-    const allCategories = new Set<string>();
-    
-    promotions.forEach(promotion => {
-      // Agregar la categoría principal
-      if (promotion.category) {
-        allCategories.add(promotion.category);
-      }
-      
-      // Agregar todas las tags
-      if (promotion.tags && Array.isArray(promotion.tags)) {
-        promotion.tags.forEach(tag => allCategories.add(tag));
-      }
-    });
-    
-    return Array.from(allCategories).sort();
+    // Solo categorías principales (tipos de promocionales), no etiquetas temáticas
+    const categories = Array.from(new Set(promotions.map(p => p.category).filter(Boolean)));
+    return categories.sort();
   };
 
   const filteredPromotions = promotions?.filter(promotion => {
-    // Filtrar por categoría (buscar tanto en category como en tags)
-    if (selectedCategory) {
-      const matchesCategory = promotion.category === selectedCategory;
-      const matchesTags = promotion.tags && Array.isArray(promotion.tags) && promotion.tags.includes(selectedCategory);
-      if (!matchesCategory && !matchesTags) {
-        return false;
-      }
-    }
+    // Filtrar solo por categoría principal (no por etiquetas temáticas)
+    if (selectedCategory && promotion.category !== selectedCategory) return false;
     
     // Filtrar por marca
     if (selectedBrand && promotion.brandId !== selectedBrand) return false;
