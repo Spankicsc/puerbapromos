@@ -336,6 +336,316 @@ export class MemStorage implements IStorage {
     };
     this.promotions.set(looney_tunes.id, looney_tunes);
 
+    // Más promociones de Vualá
+    const ecoinvasores: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Ecoinvasores",
+      slug: "ecoinvasores-2011",
+      description: "Promoción de Vualá con los Ecoinvasores, personajes ecológicos que enseñan sobre el cuidado del medio ambiente con figuras coleccionables.",
+      imageUrl: null,
+      startYear: 2011,
+      endYear: 2011,
+      category: "figuras",
+      tags: ["ecoinvasores", "medio-ambiente", "ecología", "figuras"],
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/Ecoinvasores trasera cajeta_1755145428099.JPG"
+      ],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      wrapperRotation: 0,
+      createdAt: new Date(),
+    };
+    this.promotions.set(ecoinvasores.id, ecoinvasores);
+
+    const el_chavo: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "El Chavo",
+      slug: "el-chavo-2012",
+      description: "Promoción de Vualá con los queridos personajes del Chavo del Ocho. Incluye figuras del Chavo, Quico, Chilindrina y toda la vecindad.",
+      imageUrl: null,
+      startYear: 2012,
+      endYear: 2012,
+      category: "figuras",
+      tags: ["el-chavo", "chespirito", "vecindad", "televisión"],
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/El chavo 2012 Trasera Vainilla_1755145428100.JPG",
+        "/attached_assets/El chavo 2012 Trasera cajeta_1755145428100.JPG",
+        "/attached_assets/trasera el hcavo 2012 chocolate_1755145428139.JPG"
+      ],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      wrapperRotation: 0,
+      createdAt: new Date(),
+    };
+    this.promotions.set(el_chavo.id, el_chavo);
+
+    const el_futbol_de_huevos: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "El Fútbol de Huevos",
+      slug: "el-futbol-de-huevos-2012",
+      description: "Promoción de Vualá con los divertidos personajes de la película 'El Fútbol de Huevos'. Figuras coleccionables de Toto, Willy y más.",
+      imageUrl: null,
+      startYear: 2012,
+      endYear: 2012,
+      category: "figuras",
+      tags: ["futbol-de-huevos", "huevos", "futbol", "película"],
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/Frontal cajeta el futbol de huevos cajeta_1755145428100.JPG",
+        "/attached_assets/Trasera cajeta el futbol de huevos cajeta_1755145428102.JPG"
+      ],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      wrapperRotation: 0,
+      createdAt: new Date(),
+    };
+    this.promotions.set(el_futbol_de_huevos.id, el_futbol_de_huevos);
+
+    const bob_esponja: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Bob Esponja",
+      slug: "bob-esponja-2012",
+      description: "Promoción de Vualá con Bob Esponja y sus amigos de Fondo de Bikini. Incluye figuras de Patrick, Calamardo y más personajes marinos.",
+      imageUrl: null,
+      startYear: 2012,
+      endYear: 2012,
+      category: "figuras",
+      tags: ["bob-esponja", "nickelodeon", "fondo-bikini", "marino"],
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/Trasera Bob esponja 2012_1755145428102.JPG",
+        "/attached_assets/rotated/Bob esponja 2012 Cajeta frontal_1755196507568_rotated.png",
+        "/attached_assets/rotated/Bob esponja 2012 vainilla frontal_1755196507569_rotated.png"
+      ],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      wrapperRotation: 0,
+      createdAt: new Date(),
+    };
+    this.promotions.set(bob_esponja.id, bob_esponja);
+
+    const rebeldes_causa_funky: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Rebeldes con Causa Funky Punki",
+      slug: "rebeldes-causa-funky-punki-2011",
+      description: "Promoción especial de Vualá con stickers y figuras de los Rebeldes con Causa. Edición Funky Punki con diseños únicos.",
+      imageUrl: null,
+      startYear: 2011,
+      endYear: 2011,
+      category: "stickers",
+      tags: ["rebeldes", "funky-punki", "stickers", "causa"],
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/Trasera cajeta rebeldes con causa funky punki_1755145428103.JPG"
+      ],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      wrapperRotation: 0,
+      createdAt: new Date(),
+    };
+    this.promotions.set(rebeldes_causa_funky.id, rebeldes_causa_funky);
+
+    const cartoon_network: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Cartoon Network",
+      slug: "cartoon-network-2018",
+      description: "Promoción de Vualá con personajes de Cartoon Network. Incluye figuras de Ben 10, Las Chicas Superpoderosas, y más héroes animados.",
+      imageUrl: null,
+      startYear: 2018,
+      endYear: 2019,
+      category: "figuras",
+      tags: ["cartoon-network", "ben-10", "chicas-superpoderosas", "animación"],
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/Trasera chocolate cartoon network 2018_1755145428103.JPG",
+        "/attached_assets/rotated/Cartoon network chocolate_1755196507571_rotated.png",
+        "/attached_assets/rotated/Chocolate Cartoon network_1755196507572_rotated.png"
+      ],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      wrapperRotation: 0,
+      createdAt: new Date(),
+    };
+    this.promotions.set(cartoon_network.id, cartoon_network);
+
+    const corazones: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Corazones",
+      slug: "corazones-2017",
+      description: "Promoción romántica de Vualá con diseños de corazones. Perfecta para el Día de San Valentín con figuras y stickers temáticos.",
+      imageUrl: null,
+      startYear: 2017,
+      endYear: 2017,
+      category: "stickers",
+      tags: ["corazones", "san-valentin", "amor", "romántico"],
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/Trasera corazones 2017 chocolate_1755145428104.JPG"
+      ],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      wrapperRotation: 0,
+      createdAt: new Date(),
+    };
+    this.promotions.set(corazones.id, corazones);
+
+    const la_era_del_hielo: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "La Era del Hielo",
+      slug: "la-era-del-hielo-2012",
+      description: "Promoción de Vualá con Manny, Sid, Diego y los personajes de La Era del Hielo. Figuras coleccionables de la película animada.",
+      imageUrl: null,
+      startYear: 2012,
+      endYear: 2012,
+      category: "figuras",
+      tags: ["era-del-hielo", "manny", "sid", "diego", "película"],
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/Trasera la era del hielo 2012 chocolate_1755145428139.JPG"
+      ],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      wrapperRotation: 0,
+      createdAt: new Date(),
+    };
+    this.promotions.set(la_era_del_hielo.id, la_era_del_hielo);
+
+    const funki_punky_xtremo: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Funki Punky Xtremo",
+      slug: "funki-punky-xtremo-2011",
+      description: "Versión extrema de los clásicos Funki Punky de Vualá. Stickers brillantes con diseños más atrevidos y coloridos.",
+      imageUrl: null,
+      startYear: 2011,
+      endYear: 2011,
+      category: "stickers",
+      tags: ["funki-punky", "xtremo", "brillantes", "stickers"],
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/trasera cajeta funki punky xtremo 2011_1755145428102.JPG"
+      ],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      wrapperRotation: 0,
+      createdAt: new Date(),
+    };
+    this.promotions.set(funki_punky_xtremo.id, funki_punky_xtremo);
+
+    const steven_universe: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Steven Universe",
+      slug: "steven-universe-2017",
+      description: "Promoción de Vualá con Steven Universe y las Crystal Gems. Figuras coleccionables de Garnet, Perla, Amatista y más.",
+      imageUrl: null,
+      startYear: 2017,
+      endYear: 2017,
+      category: "figuras",
+      tags: ["steven-universe", "crystal-gems", "cartoon-network", "gemas"],
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/trasera chocolate steven universe_1755145428103.JPG"
+      ],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      wrapperRotation: 0,
+      createdAt: new Date(),
+    };
+    this.promotions.set(steven_universe.id, steven_universe);
+
+    const dancemania_2008: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Dancemania 2008",
+      slug: "dancemania-2008",
+      description: "Promoción de Vualá con música y baile, presentando figuras y accesorios inspirados en la cultura dance de finales de los 2000s.",
+      imageUrl: null,
+      startYear: 2008,
+      endYear: 2008,
+      category: "figuras",
+      tags: ["dancemania", "música", "baile", "cultura-dance"],
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/rotated/Dancemania 2008 frontal chocolate_1755219298609_rotated.png"
+      ],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      wrapperRotation: 0,
+      createdAt: new Date(),
+    };
+    this.promotions.set(dancemania_2008.id, dancemania_2008);
+
+    const vuala_croissant: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "Vualá Croissant",
+      slug: "vuala-croissant",
+      description: "Una probada de Europa. En 2002, Vualá introdujo al mercado mexicano una línea de croissants inspirados en la repostería europea. Disponibles en sabores vainilla, chocolate y mermelada.",
+      imageUrl: null,
+      startYear: 2002,
+      endYear: 2010,
+      category: "croissants",
+      tags: ["croissant", "europa", "repostería", "vainilla", "chocolate"],
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/rotated/IMG_4249-removebg-preview_1755219298607_rotated.png",
+        "/attached_assets/rotated/IMG_4302-removebg-preview_1755219298609_rotated.png",
+        "/attached_assets/rotated/IMG_4248-removebg-preview_1755219298612_rotated.png"
+      ],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      wrapperRotation: 0,
+      createdAt: new Date(),
+    };
+    this.promotions.set(vuala_croissant.id, vuala_croissant);
+
+    const the_dog_2004: Promotion = {
+      id: randomUUID(),
+      brandId: vuala.id,
+      name: "The Dog 2004",
+      slug: "the-dog-2004",
+      description: "Primera aparición de The Dog en México. Colección de figuras y accesorios con perritos de diferentes razas en estilo kawaii, disponible en sabores vainilla y chocolate.",
+      imageUrl: null,
+      startYear: 2004,
+      endYear: 2004,
+      category: "figuras",
+      tags: ["the-dog", "kawaii", "perritos", "razas"],
+      wrapperPhotoUrl: null,
+      wrapperPhotosUrls: [
+        "/attached_assets/rotated/IMG_4257-removebg-preview_1755219298607_rotated.png",
+        "/attached_assets/rotated/IMG_4269-removebg-preview_1755219298608_rotated.png"
+      ],
+      promotionImagesUrls: null,
+      youtubeCommercialUrl: null,
+      buffetGamesVideoUrl: null,
+      wrapperRotation: 0,
+      createdAt: new Date(),
+    };
+    this.promotions.set(the_dog_2004.id, the_dog_2004);
+
     // Promociones de Ricolino
     const chocolate_cards: Promotion = {
       id: randomUUID(),
