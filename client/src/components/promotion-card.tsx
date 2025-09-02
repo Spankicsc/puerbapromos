@@ -39,15 +39,21 @@ const PromotionCard = ({ promotion, brandName, itemCount = 0 }: PromotionCardPro
   return (
     <Card className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
       <div className="relative">
-        {promotion.imageUrl && (
+        {promotion.imageUrl ? (
           <img 
             src={promotion.imageUrl} 
             alt={promotion.name}
             className="w-full h-48 object-cover"
             data-testid={`img-promotion-${promotion.slug}`}
           />
-        )}
-        {!promotion.imageUrl && (
+        ) : promotion.wrapperPhotosUrls && promotion.wrapperPhotosUrls.length > 0 ? (
+          <img 
+            src={promotion.wrapperPhotosUrls[0]} 
+            alt={`Envoltura de ${promotion.name}`}
+            className="w-full h-48 object-cover"
+            data-testid={`img-wrapper-${promotion.slug}`}
+          />
+        ) : (
           <div className="w-full h-48 bg-gradient-to-r from-promo-yellow to-yellow-400 flex items-center justify-center">
             <span className="text-4xl">📦</span>
           </div>

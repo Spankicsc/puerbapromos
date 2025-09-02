@@ -23,7 +23,7 @@ const Brand = () => {
 
   if (brandLoading) {
     return (
-      <div className="bg-promo-gray min-h-screen">
+      <div className="min-h-screen">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <Skeleton className="h-6 w-64 mb-8" />
           <Skeleton className="h-12 w-96 mb-4" />
@@ -40,7 +40,7 @@ const Brand = () => {
 
   if (!brand) {
     return (
-      <div className="bg-promo-gray min-h-screen">
+      <div className="min-h-screen">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="text-center py-12">
             <h2 className="text-2xl font-bold text-promo-black mb-4">Marca no encontrada</h2>
@@ -61,7 +61,7 @@ const Brand = () => {
   const sortedPromotions = promotions?.slice().sort((a, b) => a.startYear - b.startYear);
 
   return (
-    <div className="bg-promo-gray min-h-screen">
+    <div className="min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Breadcrumb */}
         <Breadcrumb className="mb-8">
