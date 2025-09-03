@@ -10,6 +10,7 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbP
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { type Promotion, type PromotionItem, type Brand } from "@shared/schema";
 import { EditablePromotion } from "@/components/EditablePromotion";
 import { WrapperCarousel } from "@/components/WrapperCarousel";
@@ -23,6 +24,15 @@ const Promotion = () => {
   const [isEditMode, setIsEditMode] = useState(false);
   const [editedPromotion, setEditedPromotion] = useState<Partial<Promotion>>({});
   const [isEditing, setIsEditing] = useState<{ [key: string]: boolean }>({});
+  
+  // Categorías base disponibles
+  const baseCategories = [
+    'Caps', 'Tazos', 'Mini Colgantes', 'Llaveros', 'Tatoos', 'Postales', 
+    'Parches', 'Figuras', 'Candados', 'Tarjetas', 'Decoralapices', 
+    'Ventosas', 'Dedales', 'Lanzachorros', 'Spinners', 'Piercings', 
+    'Anillos', 'Transfers para ropa', 'Lanza discos', 'Clips', 
+    'Pegajosos', 'Armables'
+  ];
   
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -560,12 +570,21 @@ const Promotion = () => {
                   </Button>
                 ) : isEditMode && isEditing.category ? (
                   <div className="flex items-center gap-2">
-                    <Input
+                    <Select
                       value={editedPromotion.category || promotion.category || ''}
-                      onChange={(e) => setEditedPromotion({ ...editedPromotion, category: e.target.value })}
-                      placeholder="Tipo de promocional"
-                      className="w-32 h-6 text-xs"
-                    />
+                      onValueChange={(value) => setEditedPromotion({ ...editedPromotion, category: value })}
+                    >
+                      <SelectTrigger className="w-48 h-6 text-xs">
+                        <SelectValue placeholder="Selecciona categoría" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {baseCategories.map((category) => (
+                          <SelectItem key={category} value={category}>
+                            {category}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                     <Button
                       size="sm"
                       className="h-6 w-6 p-0 bg-green-600 border-green-500 text-white hover:bg-green-700"

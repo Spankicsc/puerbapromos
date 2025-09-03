@@ -247,40 +247,16 @@ const Promotions = () => {
   };
 
   const getUniqueCategories = () => {
-    if (!promotions) return [];
-    
-    // SOLO estas categorías fijas - las originales
-    const fixedCategories = [
-      'Figuras', 'Mini colgantes', 'Tatoos', 'Tazos'
+    // Categorías base fijas - todas las especificadas
+    const baseCategories = [
+      'Caps', 'Tazos', 'Mini Colgantes', 'Llaveros', 'Tatoos', 'Postales', 
+      'Parches', 'Figuras', 'Candados', 'Tarjetas', 'Decoralapices', 
+      'Ventosas', 'Dedales', 'Lanzachorros', 'Spinners', 'Piercings', 
+      'Anillos', 'Transfers para ropa', 'Lanza discos', 'Clips', 
+      'Pegajosos', 'Armables'
     ];
     
-    // SOLO estas etiquetas específicas que has agregado manualmente
-    const allowedUserTags = [
-      'Caps',      // que agregaste a Corazones Vualá
-      'postales'   // que agregaste a Una probada de Europa
-    ];
-    
-    const categories = new Set<string>();
-    
-    // Agregar categorías fijas que existen en las promociones
-    promotions.forEach(promotion => {
-      if (promotion.category && fixedCategories.includes(promotion.category)) {
-        categories.add(promotion.category);
-      }
-    });
-    
-    // Agregar SOLO las etiquetas específicas permitidas
-    promotions.forEach(promotion => {
-      if (promotion.tags && Array.isArray(promotion.tags)) {
-        promotion.tags.forEach((tag: string) => {
-          if (allowedUserTags.includes(tag)) {
-            categories.add(tag);
-          }
-        });
-      }
-    });
-    
-    return Array.from(categories).sort();
+    return baseCategories.sort();
   };
 
   const filteredPromotions = promotions?.filter(promotion => {
