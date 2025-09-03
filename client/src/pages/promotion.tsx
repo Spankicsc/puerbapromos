@@ -569,50 +569,35 @@ const Promotion = () => {
                     <Edit2 className="w-2 h-2 ml-1" />
                   </Button>
                 ) : isEditMode && isEditing.category ? (
-                  <div className="flex flex-col gap-2">
-                    <div className="flex items-center gap-2">
-                      <Input
-                        value={editedPromotion.category || promotion?.category || ''}
-                        onChange={(e) => setEditedPromotion({ ...editedPromotion, category: e.target.value })}
-                        placeholder="Escribe categoría (ej: Tazos, Caps, Figuras)"
-                        className="w-64 h-6 text-xs"
-                        list="categories-datalist"
-                      />
-                      <datalist id="categories-datalist">
-                        {baseCategories.map((category) => (
-                          <option key={category} value={category} />
-                        ))}
-                      </datalist>
-                      <Button
-                        size="sm"
-                        className="h-6 w-6 p-0 bg-green-600 border-green-500 text-white hover:bg-green-700"
-                        onClick={() => saveField('category')}
-                        disabled={updateMutation.isPending}
-                      >
-                        <Save className="w-2 h-2" />
-                      </Button>
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        className="h-6 w-6 p-0"
-                        onClick={() => cancelEditing('category')}
-                      >
-                        <X className="w-2 h-2" />
-                      </Button>
-                    </div>
-                    <div className="flex flex-wrap gap-1 text-xs">
-                      <span className="text-gray-500">Sugerencias:</span>
-                      {baseCategories.slice(0, 5).map((cat) => (
-                        <button
-                          key={cat}
-                          type="button"
-                          className="px-1 py-0.5 bg-gray-100 rounded text-xs hover:bg-gray-200"
-                          onClick={() => setEditedPromotion({ ...editedPromotion, category: cat })}
-                        >
-                          {cat}
-                        </button>
+                  <div className="flex items-center gap-2">
+                    <select
+                      value={editedPromotion.category || promotion?.category || ''}
+                      onChange={(e) => setEditedPromotion({ ...editedPromotion, category: e.target.value })}
+                      className="w-48 h-6 text-xs border border-gray-300 rounded px-2"
+                    >
+                      <option value="">Selecciona categoría</option>
+                      {baseCategories.map((category) => (
+                        <option key={category} value={category}>
+                          {category}
+                        </option>
                       ))}
-                    </div>
+                    </select>
+                    <Button
+                      size="sm"
+                      className="h-6 w-6 p-0 bg-green-600 border-green-500 text-white hover:bg-green-700"
+                      onClick={() => saveField('category')}
+                      disabled={updateMutation.isPending}
+                    >
+                      <Save className="w-2 h-2" />
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="h-6 w-6 p-0"
+                      onClick={() => cancelEditing('category')}
+                    >
+                      <X className="w-2 h-2" />
+                    </Button>
                   </div>
                 ) : (
                   <span className="capitalize">{promotion.category}</span>
