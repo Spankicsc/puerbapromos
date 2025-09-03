@@ -401,12 +401,15 @@ const Promotion = () => {
         <div className="relative mb-8">
           {/* Imagen de envoltura número 1 flotando por encima del rectángulo */}
           {promotion.wrapperPhotosUrls && promotion.wrapperPhotosUrls.length > 0 && (
-            <div className="absolute top-6 left-1/2 transform -translate-x-1/2 z-20">
+            <div className="absolute top-6 left-1/2 transform -translate-x-1/2 translate-x-8 z-20">
               <img 
                 src={promotion.wrapperPhotosUrls[0]}
                 alt="Envoltura #1"
-                className="w-40 h-40 object-contain opacity-95 drop-shadow-2xl"
-                style={{ transform: `rotate(${promotion.wrapperRotation || 0}deg)` }}
+                className="w-96 h-96 object-contain opacity-95"
+                style={{ 
+                  transform: `rotate(${promotion.wrapperRotation || 0}deg)`,
+                  filter: 'drop-shadow(0 10px 20px rgba(0, 0, 0, 0.25)) drop-shadow(0 6px 6px rgba(0, 0, 0, 0.1))'
+                }}
               />
             </div>
           )}
