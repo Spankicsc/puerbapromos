@@ -23,7 +23,7 @@ function Router() {
           <Route path="/marcas" component={Brands} />
           <Route path="/marcas/:slug" component={Brand} />
           <Route path="/promociones" component={Promotions} />
-          <Route path="/promotion/:slug" component={Promotion} />
+          <Route path="/promociones/:slug" component={Promotion} />
           <Route path="/buscar" component={Search} />
           <Route component={NotFound} />
         </Switch>
