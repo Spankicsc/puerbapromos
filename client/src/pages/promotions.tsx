@@ -249,38 +249,33 @@ const Promotions = () => {
   const getUniqueCategories = () => {
     if (!promotions) return [];
     
-    // Categorías promocionales válidas (tipos de productos)
-    const validPromotionalCategories = new Set([
-      'tazos', 'stickers', 'pulseras', 'ventosas', 'spinners', 'caps', 
-      'figuras', 'mini colgantes', 'tatoos', 'cartas'
+    // Solo las 4 categorías originales que teníamos
+    const originalCategories = new Set([
+      'Figuras', 'Mini colgantes', 'Tatoos', 'Tazos'
     ]);
     
     // Etiquetas temáticas que NO queremos en filtros
     const thematicTags = new Set([
       'spiderman', 'marvel', 'pokemon', 'dragon ball', 'sailor moon', 
-      'simpson', 'futbol', 'batman', 'superman', 'x-men'
+      'simpson', 'futbol', 'batman', 'superman', 'x-men', 'dc', 'anime'
     ]);
     
     const categories = new Set<string>();
     
-    // Agregar categorías principales del campo category
+    // Solo agregar las categorías originales del campo category
     promotions.forEach(promotion => {
-      if (promotion.category) {
-        const categoryLower = promotion.category.toLowerCase();
-        if (validPromotionalCategories.has(categoryLower) || 
-            !thematicTags.has(categoryLower)) {
-          categories.add(promotion.category);
-        }
+      if (promotion.category && originalCategories.has(promotion.category)) {
+        categories.add(promotion.category);
       }
       
-      // Agregar etiquetas que sean tipos promocionales (no temáticas)
+      // Agregar solo etiquetas nuevas que agregue el usuario (no temáticas)
       if (promotion.tags && Array.isArray(promotion.tags)) {
         promotion.tags.forEach((tag: string) => {
           const tagLower = tag.toLowerCase();
-          if (validPromotionalCategories.has(tagLower) || 
-              (!thematicTags.has(tagLower) && 
-               tagLower.length <= 15 && // Tags cortas son más probables que sean tipos
-               !tagLower.includes(' '))) { // Tags sin espacios son tipos, no temas
+          // Solo agregar si no es temática y es corta (tipo promocional)
+          if (!thematicTags.has(tagLower) && 
+              tagLower.length <= 10 && 
+              !tagLower.includes(' ')) {
             categories.add(tag);
           }
         });
