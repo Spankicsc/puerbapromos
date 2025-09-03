@@ -18,7 +18,6 @@ import { getBrandLogo } from "@/utils/brandLogos";
 import { getYouTubeEmbedUrl } from "@/utils/youtube";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
-import wrapperImage from "@assets/photo_5028278390393778003_y_1756942417245.jpg";
 
 const Promotion = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -526,13 +525,16 @@ const Promotion = () => {
           
           <div className="p-8">
             {/* Imagen de envoltura número 1 en la parte superior del área amarilla */}
-            <div className="flex justify-center mb-4">
-              <img 
-                src={wrapperImage}
-                alt="Envoltura #1"
-                className="w-20 h-20 object-contain opacity-90 drop-shadow-lg"
-              />
-            </div>
+            {promotion.wrapperPhotosUrls && promotion.wrapperPhotosUrls.length > 0 && (
+              <div className="flex justify-center mb-4">
+                <img 
+                  src={promotion.wrapperPhotosUrls[0]}
+                  alt="Envoltura #1"
+                  className="w-20 h-20 object-contain opacity-90 drop-shadow-lg"
+                  style={{ transform: `rotate(${promotion.wrapperRotation || 0}deg)` }}
+                />
+              </div>
+            )}
             {!promotion.imageUrl && (
               <div className="mb-6">
                 <div className="flex items-center space-x-3 mb-4">
