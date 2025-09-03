@@ -24,6 +24,7 @@ const Promotion = () => {
   const [isEditMode, setIsEditMode] = useState(false);
   const [editedPromotion, setEditedPromotion] = useState<Partial<Promotion>>({});
   const [isEditing, setIsEditing] = useState<{ [key: string]: boolean }>({});
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   
   // Categorías base disponibles
   const baseCategories = [
@@ -31,7 +32,7 @@ const Promotion = () => {
     'Parches', 'Figuras', 'Candados', 'Tarjetas', 'Decoralapices', 
     'Ventosas', 'Dedales', 'Lanzachorros', 'Spinners', 'Piercings', 
     'Anillos', 'Transfers para ropa', 'Lanza discos', 'Clips', 
-    'Pegajosos', 'Armables'
+    'Pegajosos', 'Armables', 'Stickers'
   ];
   
   const { toast } = useToast();
@@ -84,10 +85,21 @@ const Promotion = () => {
   const startEditing = (field: string) => {
     if (!promotion) return;
     setIsEditing({ ...isEditing, [field]: true });
-    setEditedPromotion({ 
-      ...editedPromotion, 
-      [field]: promotion[field as keyof Promotion] 
-    });
+    
+    if (field === 'category') {
+      // Para categorías, inicializar con las categorías actuales
+      const currentCategories = promotion.category ? [promotion.category] : [];
+      setSelectedCategories(currentCategories);
+      setEditedPromotion({ 
+        ...editedPromotion, 
+        category: promotion.category 
+      });
+    } else {
+      setEditedPromotion({ 
+        ...editedPromotion, 
+        [field]: promotion[field as keyof Promotion] 
+      });
+    }
   };
   
   const cancelEditing = (field: string) => {
@@ -103,7 +115,8 @@ const Promotion = () => {
     } else if (field === 'description') {
       updateData.description = editedPromotion.description || '';
     } else if (field === 'category') {
-      updateData.category = editedPromotion.category || '';
+      // Guardar las categorías seleccionadas como una cadena separada por comas
+      updateData.category = selectedCategories.join(', ');
     } else if (field === 'youtubeCommercialUrl') {
       updateData.youtubeCommercialUrl = editedPromotion.youtubeCommercialUrl;
     } else if (field === 'buffetGamesVideoUrl') {
@@ -569,35 +582,47 @@ const Promotion = () => {
                     <Edit2 className="w-2 h-2 ml-1" />
                   </Button>
                 ) : isEditMode && isEditing.category ? (
-                  <div className="flex items-center gap-2">
-                    <select
-                      value={editedPromotion.category || promotion?.category || ''}
-                      onChange={(e) => setEditedPromotion({ ...editedPromotion, category: e.target.value })}
-                      className="w-48 h-6 text-xs border border-gray-300 rounded px-2"
-                    >
-                      <option value="">Selecciona categoría</option>
+                  <div className="flex flex-col gap-2">
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-medium">Selecciona categorías:</span>
+                      <Button
+                        size="sm"
+                        className="h-6 w-16 p-0 bg-green-600 border-green-500 text-white hover:bg-green-700"
+                        onClick={() => saveField('category')}
+                        disabled={updateMutation.isPending}
+                      >
+                        <Save className="w-2 h-2 mr-1" />
+                        Guardar
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="h-6 w-16 p-0"
+                        onClick={() => cancelEditing('category')}
+                      >
+                        <X className="w-2 h-2 mr-1" />
+                        Cancelar
+                      </Button>
+                    </div>
+                    <div className="grid grid-cols-3 gap-1 max-w-md">
                       {baseCategories.map((category) => (
-                        <option key={category} value={category}>
-                          {category}
-                        </option>
+                        <label key={category} className="flex items-center gap-1 text-xs cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={selectedCategories.includes(category)}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                setSelectedCategories([...selectedCategories, category]);
+                              } else {
+                                setSelectedCategories(selectedCategories.filter(c => c !== category));
+                              }
+                            }}
+                            className="w-3 h-3"
+                          />
+                          <span className="truncate">{category}</span>
+                        </label>
                       ))}
-                    </select>
-                    <Button
-                      size="sm"
-                      className="h-6 w-6 p-0 bg-green-600 border-green-500 text-white hover:bg-green-700"
-                      onClick={() => saveField('category')}
-                      disabled={updateMutation.isPending}
-                    >
-                      <Save className="w-2 h-2" />
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      className="h-6 w-6 p-0"
-                      onClick={() => cancelEditing('category')}
-                    >
-                      <X className="w-2 h-2" />
-                    </Button>
+                    </div>
                   </div>
                 ) : (
                   <span className="capitalize">{promotion.category}</span>

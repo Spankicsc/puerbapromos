@@ -253,7 +253,7 @@ const Promotions = () => {
       'Parches', 'Figuras', 'Candados', 'Tarjetas', 'Decoralapices', 
       'Ventosas', 'Dedales', 'Lanzachorros', 'Spinners', 'Piercings', 
       'Anillos', 'Transfers para ropa', 'Lanza discos', 'Clips', 
-      'Pegajosos', 'Armables'
+      'Pegajosos', 'Armables', 'Stickers'
     ];
     
     return baseCategories.sort();
