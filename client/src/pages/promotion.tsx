@@ -852,96 +852,6 @@ const Promotion = () => {
           </div>
         </div>
 
-        {/* Buffet Games Video Section */}
-        <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
-          <div className="p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-xl font-bold text-promo-black flex items-center">
-                <img 
-                  src="/attached_assets/buffet_games_logo.png" 
-                  alt="Buffet Games Logo"
-                  className="w-5 h-5 mr-2 object-contain"
-                  onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-                    // Fallback si la imagen no existe
-                    e.currentTarget.style.display = 'none';
-                  }}
-                />
-                Video Explicativo de Buffet Games
-              </h3>
-              {isEditMode && (
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => startEditing('buffetGamesVideoUrl')}
-                  className="text-xs"
-                >
-                  <Edit2 className="w-3 h-3 mr-1" />
-                  Editar URL
-                </Button>
-              )}
-            </div>
-            {isEditing.buffetGamesVideoUrl ? (
-              <div className="space-y-3">
-                <Input
-                  value={editedPromotion.buffetGamesVideoUrl || promotion.buffetGamesVideoUrl || ''}
-                  onChange={(e) => setEditedPromotion({ ...editedPromotion, buffetGamesVideoUrl: e.target.value })}
-                  placeholder="Ingresa la URL del video de Buffet Games"
-                  className="w-full"
-                />
-                <div className="flex gap-2">
-                  <Button
-                    size="sm"
-                    onClick={() => saveField('buffetGamesVideoUrl')}
-                    disabled={updateMutation.isPending}
-                  >
-                    <Save className="w-3 h-3 mr-1" />
-                    Guardar
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={() => cancelEditing('buffetGamesVideoUrl')}
-                  >
-                    <X className="w-3 h-3 mr-1" />
-                    Cancelar
-                  </Button>
-                </div>
-              </div>
-            ) : promotion.buffetGamesVideoUrl ? (
-              <div className="aspect-video">
-                <iframe
-                  src={getYouTubeEmbedUrl(promotion.buffetGamesVideoUrl)}
-                  title={`Video explicativo de ${promotion.name} por Buffet Games`}
-                  className="w-full h-full rounded-lg"
-                  frameBorder="0"
-                  allowFullScreen
-                  data-testid="iframe-buffet-games-video"
-                />
-              </div>
-            ) : (
-              <div className="aspect-video bg-gray-100 rounded-lg flex items-center justify-center">
-                <div className="text-center text-gray-500">
-                  <div className="w-16 h-16 mx-auto mb-2 bg-gray-300 rounded-lg flex items-center justify-center">
-                    <span className="text-2xl">🎮</span>
-                  </div>
-                  <p className="text-sm">Sin video de Buffet Games</p>
-                  {isEditMode && (
-                    <Button
-                      size="sm"
-                      className="mt-2"
-                      onClick={() => startEditing('buffetGamesVideoUrl')}
-                    >
-                      <Plus className="w-3 h-3 mr-1" />
-                      Agregar video
-                    </Button>
-                  )}
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-
-
         {/* Elements Collection Section */}
         <section>
           <div className="flex items-center justify-between mb-6">
@@ -1120,6 +1030,95 @@ const Promotion = () => {
             </div>
           )}
         </section>
+
+        {/* Buffet Games Video Section */}
+        <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
+          <div className="p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-xl font-bold text-promo-black flex items-center">
+                <img 
+                  src="/attached_assets/buffet_games_logo.png" 
+                  alt="Buffet Games Logo"
+                  className="w-5 h-5 mr-2 object-contain"
+                  onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+                    // Fallback si la imagen no existe
+                    e.currentTarget.style.display = 'none';
+                  }}
+                />
+                Video Explicativo de Buffet Games
+              </h3>
+              {isEditMode && (
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => startEditing('buffetGamesVideoUrl')}
+                  className="text-xs"
+                >
+                  <Edit2 className="w-3 h-3 mr-1" />
+                  Editar URL
+                </Button>
+              )}
+            </div>
+            {isEditing.buffetGamesVideoUrl ? (
+              <div className="space-y-3">
+                <Input
+                  value={editedPromotion.buffetGamesVideoUrl || promotion.buffetGamesVideoUrl || ''}
+                  onChange={(e) => setEditedPromotion({ ...editedPromotion, buffetGamesVideoUrl: e.target.value })}
+                  placeholder="Ingresa la URL del video de Buffet Games"
+                  className="w-full"
+                />
+                <div className="flex gap-2">
+                  <Button
+                    size="sm"
+                    onClick={() => saveField('buffetGamesVideoUrl')}
+                    disabled={updateMutation.isPending}
+                  >
+                    <Save className="w-3 h-3 mr-1" />
+                    Guardar
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => cancelEditing('buffetGamesVideoUrl')}
+                  >
+                    <X className="w-3 h-3 mr-1" />
+                    Cancelar
+                  </Button>
+                </div>
+              </div>
+            ) : promotion.buffetGamesVideoUrl ? (
+              <div className="aspect-video">
+                <iframe
+                  src={getYouTubeEmbedUrl(promotion.buffetGamesVideoUrl)}
+                  title={`Video explicativo de ${promotion.name} por Buffet Games`}
+                  className="w-full h-full rounded-lg"
+                  frameBorder="0"
+                  allowFullScreen
+                  data-testid="iframe-buffet-games-video"
+                />
+              </div>
+            ) : (
+              <div className="aspect-video bg-gray-100 rounded-lg flex items-center justify-center">
+                <div className="text-center text-gray-500">
+                  <div className="w-16 h-16 mx-auto mb-2 bg-gray-300 rounded-lg flex items-center justify-center">
+                    <span className="text-2xl">🎮</span>
+                  </div>
+                  <p className="text-sm">Sin video de Buffet Games</p>
+                  {isEditMode && (
+                    <Button
+                      size="sm"
+                      className="mt-2"
+                      onClick={() => startEditing('buffetGamesVideoUrl')}
+                    >
+                      <Plus className="w-3 h-3 mr-1" />
+                      Agregar video
+                    </Button>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
