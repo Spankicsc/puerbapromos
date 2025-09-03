@@ -569,38 +569,47 @@ const Promotion = () => {
                     <Edit2 className="w-2 h-2 ml-1" />
                   </Button>
                 ) : isEditMode && isEditing.category ? (
-                  <div className="flex items-center gap-2">
-                    <Select
-                      value={editedPromotion.category || promotion.category || ''}
-                      onValueChange={(value) => setEditedPromotion({ ...editedPromotion, category: value })}
-                    >
-                      <SelectTrigger className="w-48 h-6 text-xs">
-                        <SelectValue placeholder="Selecciona categoría" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {baseCategories.map((category) => (
-                          <SelectItem key={category} value={category}>
-                            {category}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <Button
-                      size="sm"
-                      className="h-6 w-6 p-0 bg-green-600 border-green-500 text-white hover:bg-green-700"
-                      onClick={() => saveField('category')}
-                      disabled={updateMutation.isPending}
-                    >
-                      <Save className="w-2 h-2" />
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      className="h-6 w-6 p-0"
-                      onClick={() => cancelEditing('category')}
-                    >
-                      <X className="w-2 h-2" />
-                    </Button>
+                  <div className="flex flex-col gap-2">
+                    <div className="flex items-center gap-2">
+                      <Select
+                        value={editedPromotion.category || promotion?.category || ''}
+                        onValueChange={(value) => setEditedPromotion({ ...editedPromotion, category: value })}
+                      >
+                        <SelectTrigger className="w-48 h-6 text-xs">
+                          <SelectValue placeholder="Selecciona categoría" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {baseCategories.map((category) => (
+                            <SelectItem key={category} value={category}>
+                              {category}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <Button
+                        size="sm"
+                        className="h-6 w-6 p-0 bg-green-600 border-green-500 text-white hover:bg-green-700"
+                        onClick={() => saveField('category')}
+                        disabled={updateMutation.isPending}
+                      >
+                        <Save className="w-2 h-2" />
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="h-6 w-6 p-0"
+                        onClick={() => cancelEditing('category')}
+                      >
+                        <X className="w-2 h-2" />
+                      </Button>
+                    </div>
+                    <span className="text-xs text-gray-500">O escribe una categoría personalizada:</span>
+                    <Input
+                      value={editedPromotion.category || promotion?.category || ''}
+                      onChange={(e) => setEditedPromotion({ ...editedPromotion, category: e.target.value })}
+                      placeholder="Escribe categoría personalizada"
+                      className="w-48 h-6 text-xs"
+                    />
                   </div>
                 ) : (
                   <span className="capitalize">{promotion.category}</span>
