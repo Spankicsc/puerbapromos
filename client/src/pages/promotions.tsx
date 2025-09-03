@@ -249,22 +249,45 @@ const Promotions = () => {
   const getUniqueCategories = () => {
     if (!promotions) return [];
     
-    // Combinar categorías principales y etiquetas para tener filtros completos
-    const allCategories = new Set<string>();
+    // Categorías promocionales válidas (tipos de productos)
+    const validPromotionalCategories = new Set([
+      'tazos', 'stickers', 'pulseras', 'ventosas', 'spinners', 'caps', 
+      'figuras', 'mini colgantes', 'tatoos', 'cartas'
+    ]);
     
-    // Agregar categorías principales
+    // Etiquetas temáticas que NO queremos en filtros
+    const thematicTags = new Set([
+      'spiderman', 'marvel', 'pokemon', 'dragon ball', 'sailor moon', 
+      'simpson', 'futbol', 'batman', 'superman', 'x-men'
+    ]);
+    
+    const categories = new Set<string>();
+    
+    // Agregar categorías principales del campo category
     promotions.forEach(promotion => {
       if (promotion.category) {
-        allCategories.add(promotion.category);
+        const categoryLower = promotion.category.toLowerCase();
+        if (validPromotionalCategories.has(categoryLower) || 
+            !thematicTags.has(categoryLower)) {
+          categories.add(promotion.category);
+        }
       }
       
-      // Agregar etiquetas (tags) para incluir nuevas categorías agregadas por el usuario
+      // Agregar etiquetas que sean tipos promocionales (no temáticas)
       if (promotion.tags && Array.isArray(promotion.tags)) {
-        promotion.tags.forEach((tag: string) => allCategories.add(tag));
+        promotion.tags.forEach((tag: string) => {
+          const tagLower = tag.toLowerCase();
+          if (validPromotionalCategories.has(tagLower) || 
+              (!thematicTags.has(tagLower) && 
+               tagLower.length <= 15 && // Tags cortas son más probables que sean tipos
+               !tagLower.includes(' '))) { // Tags sin espacios son tipos, no temas
+            categories.add(tag);
+          }
+        });
       }
     });
     
-    return Array.from(allCategories).sort();
+    return Array.from(categories).sort();
   };
 
   const filteredPromotions = promotions?.filter(promotion => {
