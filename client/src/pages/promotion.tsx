@@ -18,6 +18,7 @@ import { getBrandLogo } from "@/utils/brandLogos";
 import { getYouTubeEmbedUrl } from "@/utils/youtube";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
+import wrapperImage from "@assets/photo_5028278390393778003_y_1756942417245.jpg";
 
 const Promotion = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -219,7 +220,7 @@ const Promotion = () => {
             const itemName = prompt('Nombre de la pieza rara:') || `Pieza ${rarityType}`;
             
             // Create new item via API
-            fetch(`/api/promotions/${promotion.id}/items`, {
+            fetch(`/api/promotions/${promotion!.id}/items`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -228,14 +229,14 @@ const Promotion = () => {
                 name: itemName,
                 imageUrl: imageUrl,
                 rarity: rarityType,
-                description: `Pieza ${getRarityLabel(rarityType)} de la promoción ${promotion.name}`,
+                description: `Pieza ${getRarityLabel(rarityType)} de la promoción ${promotion!.name}`,
               }),
             })
             .then(response => response.json())
             .then(() => {
               // Refresh the items list - usar el mismo format que la query original
               queryClient.invalidateQueries({ 
-                queryKey: ['/api/promotions', promotion.slug, 'items']
+                queryKey: ['/api/promotions', promotion!.slug, 'items']
               });
               toast({
                 title: 'Pieza rara agregada',
@@ -525,16 +526,13 @@ const Promotion = () => {
           
           <div className="p-8 relative">
             {/* Imagen de envoltura número 1 en la esquina superior */}
-            {promotion.wrapperPhotoUrl && (
-              <div className="absolute top-4 right-4 z-10">
-                <img 
-                  src={promotion.wrapperPhotoUrl}
-                  alt="Envoltura #1"
-                  className="w-16 h-16 object-contain opacity-80 hover:opacity-100 transition-opacity"
-                  style={{ transform: `rotate(${promotion.wrapperRotation || 0}deg)` }}
-                />
-              </div>
-            )}
+            <div className="absolute top-4 right-4 z-10">
+              <img 
+                src={wrapperImage}
+                alt="Envoltura #1"
+                className="w-16 h-16 object-contain opacity-80 hover:opacity-100 transition-opacity drop-shadow-lg"
+              />
+            </div>
             {!promotion.imageUrl && (
               <div className="mb-6">
                 <div className="flex items-center space-x-3 mb-4">
