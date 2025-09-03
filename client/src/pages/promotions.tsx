@@ -249,25 +249,34 @@ const Promotions = () => {
   const getUniqueCategories = () => {
     if (!promotions) return [];
     
-    // Solo las 4 categorías originales que teníamos - exactamente estas
+    // Categorías originales fijas
     const originalCategories = new Set([
       'Figuras', 'Mini colgantes', 'Tatoos', 'Tazos'
     ]);
     
+    // Etiquetas temáticas que NO queremos en filtros
+    const excludedThematicTags = new Set([
+      'spiderman', 'marvel', 'pokemon', 'dragon ball', 'sailor moon', 
+      'simpson', 'futbol', 'batman', 'superman', 'x-men', 'dc', 'anime',
+      'disney', 'looney toons', 'tom y jerry'
+    ]);
+    
     const categories = new Set<string>();
     
-    // Solo agregar las categorías originales del campo category - NADA MÁS
+    // Agregar categorías originales del campo category
     promotions.forEach(promotion => {
       if (promotion.category && originalCategories.has(promotion.category)) {
         categories.add(promotion.category);
       }
     });
     
-    // SOLO agregar "Caps" que es la etiqueta nueva que quieres
+    // Agregar TODAS las etiquetas nuevas que agregues (excluyendo temáticas)
     promotions.forEach(promotion => {
       if (promotion.tags && Array.isArray(promotion.tags)) {
         promotion.tags.forEach((tag: string) => {
-          if (tag === 'Caps') { // Solo permitir exactamente "Caps"
+          const tagLower = tag.toLowerCase();
+          // Incluir si no es una etiqueta temática
+          if (!excludedThematicTags.has(tagLower)) {
             categories.add(tag);
           }
         });
