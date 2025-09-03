@@ -159,10 +159,27 @@ const Promotion = () => {
     } else if (field === 'years') {
       updateData.startYear = editedPromotion.startYear;
       updateData.endYear = editedPromotion.endYear;
+    } else if (field === 'wrapperControls') {
+      updateData.wrapperScale = editedPromotion.wrapperScale;
+      updateData.wrapperOffsetX = editedPromotion.wrapperOffsetX;
+      updateData.wrapperOffsetY = editedPromotion.wrapperOffsetY;
     }
     
     updateMutation.mutate(updateData);
     setIsEditing({ ...isEditing, [field]: false });
+  };
+
+  // Funciones para manejar los cambios de la envoltura
+  const updateWrapperScale = (scale: number) => {
+    setEditedPromotion({ ...editedPromotion, wrapperScale: scale });
+  };
+
+  const updateWrapperPosition = (offsetX: number, offsetY: number) => {
+    setEditedPromotion({ 
+      ...editedPromotion, 
+      wrapperOffsetX: offsetX, 
+      wrapperOffsetY: offsetY 
+    });
   };
   
   const addPromotionImage = () => {
@@ -401,16 +418,105 @@ const Promotion = () => {
         <div className="relative mb-8">
           {/* Imagen de envoltura número 1 flotando por encima del rectángulo */}
           {promotion.wrapperPhotosUrls && promotion.wrapperPhotosUrls.length > 0 && (
-            <div className="absolute -top-80 left-1/2 transform -translate-x-1/2 -translate-x-16 z-20">
+            <div 
+              className="absolute -top-80 left-1/2 transform -translate-x-1/2 -translate-x-16 z-20"
+              style={{
+                transform: `translateX(${(editedPromotion.wrapperOffsetX ?? promotion.wrapperOffsetX) || 0}px) translateY(${(editedPromotion.wrapperOffsetY ?? promotion.wrapperOffsetY) || 0}px)`
+              }}
+            >
               <img 
                 src={promotion.wrapperPhotosUrls[0]}
                 alt="Envoltura #1"
-                className="w-[48rem] h-[48rem] object-contain opacity-95"
+                className="object-contain opacity-95"
                 style={{ 
+                  width: `${48 * (((editedPromotion.wrapperScale ?? promotion.wrapperScale) || 100) / 100)}rem`,
+                  height: `${48 * (((editedPromotion.wrapperScale ?? promotion.wrapperScale) || 100) / 100)}rem`,
                   transform: `rotate(${promotion.wrapperRotation || 0}deg)`,
                   filter: 'drop-shadow(0 25px 50px rgba(0, 0, 0, 0.8)) drop-shadow(0 15px 25px rgba(0, 0, 0, 0.6))'
                 }}
               />
+            </div>
+          )}
+
+          {/* Controles de edición para la envoltura */}
+          {isEditMode && promotion.wrapperPhotosUrls && promotion.wrapperPhotosUrls.length > 0 && (
+            <div className="absolute top-4 right-4 z-30">
+              <Card className="p-4 bg-white/95 shadow-lg">
+                <h3 className="text-sm font-bold mb-3 text-center">Ajustar Envoltura</h3>
+                
+                {/* Control de Escala */}
+                <div className="mb-3">
+                  <label className="text-xs font-medium mb-1 block">Tamaño: {(editedPromotion.wrapperScale ?? promotion.wrapperScale) || 100}%</label>
+                  <input
+                    type="range"
+                    min="20"
+                    max="200"
+                    value={(editedPromotion.wrapperScale ?? promotion.wrapperScale) || 100}
+                    onChange={(e) => updateWrapperScale(parseInt(e.target.value))}
+                    className="w-full"
+                    data-testid="slider-wrapper-scale"
+                  />
+                </div>
+
+                {/* Control de Posición X */}
+                <div className="mb-3">
+                  <label className="text-xs font-medium mb-1 block">Horizontal: {(editedPromotion.wrapperOffsetX ?? promotion.wrapperOffsetX) || 0}px</label>
+                  <input
+                    type="range"
+                    min="-500"
+                    max="500"
+                    value={(editedPromotion.wrapperOffsetX ?? promotion.wrapperOffsetX) || 0}
+                    onChange={(e) => updateWrapperPosition(parseInt(e.target.value), (editedPromotion.wrapperOffsetY ?? promotion.wrapperOffsetY) || 0)}
+                    className="w-full"
+                    data-testid="slider-wrapper-x"
+                  />
+                </div>
+
+                {/* Control de Posición Y */}
+                <div className="mb-3">
+                  <label className="text-xs font-medium mb-1 block">Vertical: {(editedPromotion.wrapperOffsetY ?? promotion.wrapperOffsetY) || 0}px</label>
+                  <input
+                    type="range"
+                    min="-300"
+                    max="300"
+                    value={(editedPromotion.wrapperOffsetY ?? promotion.wrapperOffsetY) || 0}
+                    onChange={(e) => updateWrapperPosition((editedPromotion.wrapperOffsetX ?? promotion.wrapperOffsetX) || 0, parseInt(e.target.value))}
+                    className="w-full"
+                    data-testid="slider-wrapper-y"
+                  />
+                </div>
+
+                {/* Botones de control */}
+                <div className="flex gap-2">
+                  <Button
+                    size="sm"
+                    onClick={() => saveField('wrapperControls')}
+                    disabled={updateMutation.isPending}
+                    className="flex-1 bg-green-600 text-white hover:bg-green-700 text-xs"
+                    data-testid="button-save-wrapper"
+                  >
+                    <Save className="w-3 h-3 mr-1" />
+                    Guardar
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => {
+                      setEditedPromotion({ 
+                        ...editedPromotion, 
+                        wrapperScale: promotion.wrapperScale,
+                        wrapperOffsetX: promotion.wrapperOffsetX,
+                        wrapperOffsetY: promotion.wrapperOffsetY
+                      });
+                    }}
+                    className="flex-1 text-xs"
+                    data-testid="button-reset-wrapper"
+                  >
+                    <X className="w-3 h-3 mr-1" />
+                    Reset
+                  </Button>
+                </div>
+              </Card>
             </div>
           )}
           

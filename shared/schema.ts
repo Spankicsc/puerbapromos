@@ -24,6 +24,9 @@ export const promotions = pgTable("promotions", {
   wrapperPhotoUrl: text("wrapper_photo_url"),
   wrapperPhotosUrls: jsonb("wrapper_photos_urls").$type<string[] | null>(), // Multiple wrapper photos
   wrapperRotation: integer("wrapper_rotation").default(0), // Rotation in degrees
+  wrapperScale: integer("wrapper_scale").default(100), // Scale percentage (100 = normal size)
+  wrapperOffsetX: integer("wrapper_offset_x").default(0), // X position offset in pixels
+  wrapperOffsetY: integer("wrapper_offset_y").default(0), // Y position offset in pixels
   promotionImagesUrls: jsonb("promotion_images_urls"),
   youtubeCommercialUrl: text("youtube_commercial_url"),
   buffetGamesVideoUrl: text("buffet_games_video_url"),
