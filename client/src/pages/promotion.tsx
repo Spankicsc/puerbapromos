@@ -398,7 +398,20 @@ const Promotion = () => {
         )}
 
         {/* Promotion Header - Layout Original */}
-        <div className="card-splat overflow-hidden mb-8">
+        <div className="relative mb-8">
+          {/* Imagen de envoltura número 1 flotando por encima del rectángulo */}
+          {promotion.wrapperPhotosUrls && promotion.wrapperPhotosUrls.length > 0 && (
+            <div className="absolute top-6 left-1/2 transform -translate-x-1/2 z-20">
+              <img 
+                src={promotion.wrapperPhotosUrls[0]}
+                alt="Envoltura #1"
+                className="w-40 h-40 object-contain opacity-95 drop-shadow-2xl"
+                style={{ transform: `rotate(${promotion.wrapperRotation || 0}deg)` }}
+              />
+            </div>
+          )}
+          
+        <div className="card-splat overflow-hidden">
           {promotion.imageUrl && (
             <div className="h-64 bg-cover bg-center relative" style={{ backgroundImage: `url(${promotion.imageUrl})` }}>
               <div className="absolute inset-0 bg-black bg-opacity-40"></div>
@@ -523,18 +536,7 @@ const Promotion = () => {
             </div>
           )}
           
-          <div className="p-8">
-            {/* Imagen de envoltura número 1 en la parte superior del área amarilla */}
-            {promotion.wrapperPhotosUrls && promotion.wrapperPhotosUrls.length > 0 && (
-              <div className="flex justify-center mb-4">
-                <img 
-                  src={promotion.wrapperPhotosUrls[0]}
-                  alt="Envoltura #1"
-                  className="w-20 h-20 object-contain opacity-90 drop-shadow-lg"
-                  style={{ transform: `rotate(${promotion.wrapperRotation || 0}deg)` }}
-                />
-              </div>
-            )}
+          <div className="p-8 pt-20">
             {!promotion.imageUrl && (
               <div className="mb-6">
                 <div className="flex items-center space-x-3 mb-4">
@@ -797,6 +799,7 @@ const Promotion = () => {
               </p>
             )}
           </div>
+        </div>
         </div>
 
         {/* Additional Promotion Content - Layout Original */}
