@@ -56,6 +56,41 @@ const Promotion = () => {
     if (!promotion || !brands) return null;
     return brands.find(brand => brand.id === promotion.brandId);
   };
+
+  // Función para renderizar texto con markdown
+  const renderMarkdownText = (text: string) => {
+    // Convertir **texto** a <strong>texto</strong>
+    const parts = text.split(/(\*\*[^*]+\*\*)/g);
+    return parts.map((part, index) => {
+      if (part.startsWith('**') && part.endsWith('**')) {
+        return <strong key={index} className="font-bold">{part.slice(2, -2)}</strong>;
+      }
+      return part;
+    });
+  };
+
+  // Función para formatear descripción con negritas
+  const formatDescriptionWithBold = (description: string, promotionName: string, startYear: number, endYear: number | null, itemsCount: number) => {
+    let formatted = description;
+    
+    // Poner en negritas el nombre de la promoción
+    const nameRegex = new RegExp(`\\b${promotionName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'gi');
+    formatted = formatted.replace(nameRegex, `**${promotionName}**`);
+    
+    // Poner en negritas las fechas
+    const yearPattern = new RegExp(`\\b${startYear}\\b`, 'g');
+    formatted = formatted.replace(yearPattern, `**${startYear}**`);
+    if (endYear) {
+      const endYearPattern = new RegExp(`\\b${endYear}\\b`, 'g');
+      formatted = formatted.replace(endYearPattern, `**${endYear}**`);
+    }
+    
+    // Poner en negritas números de piezas
+    const numberPattern = /\b(\d+)\s+(calcomanías|piezas|elementos|figuras|tazos|caps|stickers)\b/gi;
+    formatted = formatted.replace(numberPattern, '**$1** **$2**');
+    
+    return formatted;
+  };
   
   // Update mutation
   const updateMutation = useMutation({
@@ -488,7 +523,18 @@ const Promotion = () => {
             </div>
           )}
           
-          <div className="p-8">
+          <div className="p-8 relative">
+            {/* Imagen de envoltura número 1 en la esquina superior */}
+            {promotion.wrapperPhotoUrl && (
+              <div className="absolute top-4 right-4 z-10">
+                <img 
+                  src={promotion.wrapperPhotoUrl}
+                  alt="Envoltura #1"
+                  className="w-16 h-16 object-contain opacity-80 hover:opacity-100 transition-opacity"
+                  style={{ transform: `rotate(${promotion.wrapperRotation || 0}deg)` }}
+                />
+              </div>
+            )}
             {!promotion.imageUrl && (
               <div className="mb-6">
                 <div className="flex items-center space-x-3 mb-4">
@@ -741,7 +787,13 @@ const Promotion = () => {
               </div>
             ) : (
               <p className="text-gray-700 text-lg leading-relaxed" data-testid="text-promotion-description">
-                {promotion.description}
+                {renderMarkdownText(formatDescriptionWithBold(
+                  promotion.description, 
+                  promotion.name, 
+                  promotion.startYear, 
+                  promotion.endYear, 
+                  items?.length || 0
+                ))}
               </p>
             )}
           </div>
