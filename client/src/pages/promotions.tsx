@@ -249,34 +249,31 @@ const Promotions = () => {
   const getUniqueCategories = () => {
     if (!promotions) return [];
     
-    // Categorías originales fijas
-    const originalCategories = new Set([
+    // SOLO estas categorías fijas - las originales
+    const fixedCategories = [
       'Figuras', 'Mini colgantes', 'Tatoos', 'Tazos'
-    ]);
+    ];
     
-    // Etiquetas temáticas que NO queremos en filtros
-    const excludedThematicTags = new Set([
-      'spiderman', 'marvel', 'pokemon', 'dragon ball', 'sailor moon', 
-      'simpson', 'futbol', 'batman', 'superman', 'x-men', 'dc', 'anime',
-      'disney', 'looney toons', 'tom y jerry'
-    ]);
+    // SOLO estas etiquetas específicas que has agregado manualmente
+    const allowedUserTags = [
+      'Caps',      // que agregaste a Corazones Vualá
+      'postales'   // que agregaste a Una probada de Europa
+    ];
     
     const categories = new Set<string>();
     
-    // Agregar categorías originales del campo category
+    // Agregar categorías fijas que existen en las promociones
     promotions.forEach(promotion => {
-      if (promotion.category && originalCategories.has(promotion.category)) {
+      if (promotion.category && fixedCategories.includes(promotion.category)) {
         categories.add(promotion.category);
       }
     });
     
-    // Agregar TODAS las etiquetas nuevas que agregues (excluyendo temáticas)
+    // Agregar SOLO las etiquetas específicas permitidas
     promotions.forEach(promotion => {
       if (promotion.tags && Array.isArray(promotion.tags)) {
         promotion.tags.forEach((tag: string) => {
-          const tagLower = tag.toLowerCase();
-          // Incluir si no es una etiqueta temática
-          if (!excludedThematicTags.has(tagLower)) {
+          if (allowedUserTags.includes(tag)) {
             categories.add(tag);
           }
         });
