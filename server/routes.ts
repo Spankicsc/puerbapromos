@@ -291,10 +291,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { id } = req.params;
       const updateData = req.body;
+      
+      console.log(`🔄 Updating promotion ${id} with data:`, JSON.stringify(updateData, null, 2));
+      
       const promotion = await storage.updatePromotion(id, updateData);
       if (!promotion) {
+        console.error(`❌ Promotion ${id} not found`);
         return res.status(404).json({ message: "Promotion not found" });
       }
+      
+      console.log(`✅ Successfully updated promotion ${id}:`, promotion.name);
       
       // 🔄 Auto-sync: Actualizar automáticamente el código fuente
       autoSync.syncPromotionToSource(promotion).catch(error => {
@@ -303,7 +309,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       res.json(promotion);
     } catch (error) {
-      res.status(500).json({ message: "Failed to update promotion" });
+      console.error('❌ Error updating promotion:', error);
+      res.status(500).json({ 
+        message: "Failed to update promotion", 
+        error: error instanceof Error ? error.message : String(error) 
+      });
     }
   });
 

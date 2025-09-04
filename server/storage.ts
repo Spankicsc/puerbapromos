@@ -81,8 +81,19 @@ export class DatabaseStorage implements IStorage {
   }
 
   async updatePromotion(id: string, data: Partial<Promotion>): Promise<Promotion | null> {
-    const [promotion] = await db.update(promotions).set(data).where(eq(promotions.id, id)).returning();
-    return promotion || null;
+    try {
+      console.log(`📝 Storage: Updating promotion ${id} with data:`, data);
+      const [promotion] = await db.update(promotions).set(data).where(eq(promotions.id, id)).returning();
+      if (promotion) {
+        console.log(`✅ Storage: Successfully updated promotion ${id}:`, promotion.name);
+      } else {
+        console.log(`⚠️ Storage: No promotion found with id ${id}`);
+      }
+      return promotion || null;
+    } catch (error) {
+      console.error(`❌ Storage: Error updating promotion ${id}:`, error);
+      throw error;
+    }
   }
 
   async deletePromotion(id: string): Promise<boolean> {
