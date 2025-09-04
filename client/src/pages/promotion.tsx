@@ -432,7 +432,7 @@ const Promotion = () => {
                   width: `${24 * (((editedPromotion.wrapperScale ?? promotion.wrapperScale) || 100) / 100)}rem`,
                   height: `${24 * (((editedPromotion.wrapperScale ?? promotion.wrapperScale) || 100) / 100)}rem`,
                   transform: `rotate(${promotion.wrapperRotation || 0}deg)`,
-                  filter: 'drop-shadow(0 25px 50px rgba(0, 0, 0, 0.8)) drop-shadow(0 15px 25px rgba(0, 0, 0, 0.6))'
+                  filter: 'drop-shadow(-15px -20px 40px rgba(0, 0, 0, 0.8)) drop-shadow(-8px -10px 20px rgba(0, 0, 0, 0.6))'
                 }}
               />
             </div>
