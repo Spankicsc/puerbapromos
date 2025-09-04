@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -9,6 +9,7 @@ import { Edit, Save, X } from "lucide-react";
 import { PromotionItem } from "@shared/schema";
 import { apiRequest } from "@/lib/queryClient";
 import { useQueryClient } from "@tanstack/react-query";
+import { useToast } from "@/hooks/use-toast";
 
 interface ItemDetailModalProps {
   item: PromotionItem | null;
@@ -22,6 +23,7 @@ export function ItemDetailModal({ item, isOpen, onClose, promotionSlug }: ItemDe
   const [editingItem, setEditingItem] = useState<PromotionItem | null>(null);
   const [isSaving, setIsSaving] = useState(false);
   const queryClient = useQueryClient();
+  const { toast } = useToast();
 
   const handleEdit = () => {
     setEditingItem(item);
@@ -46,16 +48,34 @@ export function ItemDetailModal({ item, isOpen, onClose, promotionSlug }: ItemDe
         itemNumber: editingItem.itemNumber
       };
 
-      await apiRequest("PUT", `/api/promotion-items/${editingItem.id}`, updateData);
+      const updatedItem = await apiRequest("PUT", `/api/promotion-items/${editingItem.id}`, updateData);
+      
+      // Actualizar el item directamente en el caché
+      queryClient.setQueryData(['/api/promotions', promotionSlug, 'items'], (oldData: PromotionItem[]) => {
+        if (!oldData) return oldData;
+        return oldData.map(item => 
+          item.id === editingItem.id ? { ...item, ...updateData } : item
+        );
+      });
 
-      // Invalidate the items query to refresh the data
-      queryClient.invalidateQueries({ queryKey: [`/api/promotions/${promotionSlug}/items`] });
+      // También invalidar para asegurar que se actualice
+      await queryClient.invalidateQueries({ queryKey: ['/api/promotions', promotionSlug, 'items'] });
+      
+      toast({
+        title: 'Pieza actualizada',
+        description: 'Los cambios se han guardado correctamente.',
+      });
       
       setIsEditing(false);
       setEditingItem(null);
       onClose();
     } catch (error) {
       console.error("Error updating item:", error);
+      toast({
+        title: 'Error',
+        description: 'No se pudo actualizar la pieza.',
+        variant: 'destructive',
+      });
     } finally {
       setIsSaving(false);
     }
@@ -136,6 +156,9 @@ export function ItemDetailModal({ item, isOpen, onClose, promotionSlug }: ItemDe
               )}
             </div>
           </div>
+          <DialogDescription className="text-sm text-gray-600">
+            Vista detallada de la pieza. Haz clic en "Editar" para modificar la información.
+          </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-6">
