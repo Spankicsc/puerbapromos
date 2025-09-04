@@ -9,6 +9,7 @@ import PromotionCard from "@/components/promotion-card";
 import { type Brand, type Promotion } from "@shared/schema";
 import { queryClient } from "@/lib/queryClient";
 import { useState, useEffect } from "react";
+import placeholderImage from "@assets/Generated Image September 04, 2025 - 12_42PM_1757011639528.jpeg";
 
 const Brand = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -181,12 +182,18 @@ const Brand = () => {
             </div>
           ) : (
             <div className="bg-white rounded-xl shadow-lg p-12 text-center">
-              <div className="text-6xl mb-4">📦</div>
+              <div className="mb-6">
+                <img 
+                  src={placeholderImage} 
+                  alt={`Próximamente promociones de ${brand.name}`}
+                  className="mx-auto max-w-md w-full h-auto rounded-lg shadow-md"
+                />
+              </div>
               <h3 className="text-xl font-semibold text-promo-black mb-2">
-                No hay promociones disponibles
+                Próximamente
               </h3>
               <p className="text-gray-600">
-                Aún no hemos catalogado promociones para esta marca. ¡Regresa pronto para ver más contenido!
+                Estamos trabajando en catalogar las promociones de {brand.name}. ¡Regresa pronto para ver todo el contenido!
               </p>
             </div>
           )}
