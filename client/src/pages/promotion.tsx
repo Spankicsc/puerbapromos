@@ -419,7 +419,7 @@ const Promotion = () => {
           {/* Imagen de envoltura número 1 flotando por encima del rectángulo */}
           {promotion.wrapperPhotosUrls && promotion.wrapperPhotosUrls.length > 0 && (
             <div 
-              className="absolute -top-80 left-1/2 transform -translate-x-1/2 -translate-x-32 z-20"
+              className="absolute -top-80 left-1/4 transform -translate-x-1/2 z-20"
               style={{
                 transform: `translateX(${(editedPromotion.wrapperOffsetX ?? promotion.wrapperOffsetX) || 0}px) translateY(${(editedPromotion.wrapperOffsetY ?? promotion.wrapperOffsetY) || 0}px)`
               }}
