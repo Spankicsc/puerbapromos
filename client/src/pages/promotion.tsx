@@ -419,7 +419,7 @@ const Promotion = () => {
           {/* Imagen de envoltura número 1 flotando por encima del rectángulo */}
           {promotion.wrapperPhotosUrls && promotion.wrapperPhotosUrls.length > 0 && (
             <div 
-              className="absolute -top-80 left-1/4 transform -translate-x-1/2 z-20"
+              className="absolute -top-60 left-8 z-20"
               style={{
                 transform: `translateX(${(editedPromotion.wrapperOffsetX ?? promotion.wrapperOffsetX) || 0}px) translateY(${(editedPromotion.wrapperOffsetY ?? promotion.wrapperOffsetY) || 0}px)`
               }}
@@ -429,8 +429,8 @@ const Promotion = () => {
                 alt="Envoltura #1"
                 className="object-contain opacity-95"
                 style={{ 
-                  width: `${48 * (((editedPromotion.wrapperScale ?? promotion.wrapperScale) || 100) / 100)}rem`,
-                  height: `${48 * (((editedPromotion.wrapperScale ?? promotion.wrapperScale) || 100) / 100)}rem`,
+                  width: `${24 * (((editedPromotion.wrapperScale ?? promotion.wrapperScale) || 100) / 100)}rem`,
+                  height: `${24 * (((editedPromotion.wrapperScale ?? promotion.wrapperScale) || 100) / 100)}rem`,
                   transform: `rotate(${promotion.wrapperRotation || 0}deg)`,
                   filter: 'drop-shadow(0 25px 50px rgba(0, 0, 0, 0.8)) drop-shadow(0 15px 25px rgba(0, 0, 0, 0.6))'
                 }}
