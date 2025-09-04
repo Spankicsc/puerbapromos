@@ -1,6 +1,7 @@
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
+import { storage } from "./storage";
 
 const app = express();
 app.use(express.json({ limit: '50mb' })); // Increase limit for base64 images
@@ -40,6 +41,15 @@ app.use((req, res, next) => {
 });
 
 (async () => {
+  // Forzar inicialización de storage y seeding antes de configurar rutas
+  log('🚀 Inicializando storage y verificando seeding...');
+  try {
+    await storage.getAllBrands(); // Esto forzará el seeding si es necesario
+    log('✅ Storage inicializado correctamente');
+  } catch (error) {
+    log('❌ Error inicializando storage:', error);
+  }
+
   const server = await registerRoutes(app);
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {

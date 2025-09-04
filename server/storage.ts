@@ -38,16 +38,24 @@ export class DatabaseStorage implements IStorage {
     try {
       // Directly query brands without calling ensureSeeded
       const existingBrands = await db.select().from(brands);
+      console.log(`🔍 Revisando base de datos: ${existingBrands.length} marcas encontradas`);
+      
       if (existingBrands.length === 0) {
-        console.log('📦 Base de datos vacía, iniciando seeding...');
+        console.log('📦 Base de datos vacía, FORZANDO seeding en producción...');
         await this.seedDatabase();
-        console.log('✅ Seeding completado exitosamente');
+        
+        // Verificar que el seeding fue exitoso
+        const newBrands = await db.select().from(brands);
+        const newPromotions = await db.select().from(promotions);
+        console.log(`✅ Seeding completado: ${newBrands.length} marcas, ${newPromotions.length} promociones`);
       } else {
         console.log(`✅ Base de datos ya tiene ${existingBrands.length} marcas`);
       }
       this.isSeeded = true;
     } catch (error) {
       console.error('❌ Error en seeding:', error);
+      // En caso de error, intentar de nuevo en la próxima llamada
+      this.isSeeded = false;
       throw error;
     }
   }
