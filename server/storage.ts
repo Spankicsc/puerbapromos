@@ -228,6 +228,9 @@ export class DatabaseStorage implements IStorage {
       category: "tazos",
       tags: ["spiderman", "marvel", "tazos", "coleccionables"],
       sortOrder: 0,
+      wrapperScale: 100,
+      wrapperOffsetX: 0,
+      wrapperOffsetY: 0,
     });
 
     await this.createPromotion({
@@ -251,6 +254,9 @@ export class DatabaseStorage implements IStorage {
       category: "Mini Colgantes",
       tags: ["the-dog", "kawaii", "perritos", "razas", "mini-colgantes"],
       sortOrder: 0,
+      wrapperScale: 100,
+      wrapperOffsetX: 0,
+      wrapperOffsetY: 0,
     });
 
     await this.createPromotion({
@@ -274,6 +280,9 @@ export class DatabaseStorage implements IStorage {
       category: "figuras",
       tags: ["angry-birds", "videojuegos", "figuras", "coleccionables"],
       sortOrder: 0,
+      wrapperScale: 100,
+      wrapperOffsetX: 0,
+      wrapperOffsetY: 0,
     });
   }
 }
