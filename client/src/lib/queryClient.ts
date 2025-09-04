@@ -47,7 +47,8 @@ export const queryClient = new QueryClient({
       queryFn: getQueryFn({ on401: "throw" }),
       refetchInterval: false,
       refetchOnWindowFocus: false,
-      staleTime: 1000 * 60 * 5, // 5 minutos en lugar de Infinity para permitir refrescos
+      staleTime: 0, // Forzar refrescos completos
+      cacheTime: 0, // No almacenar en cache
       retry: false,
     },
     mutations: {
@@ -55,3 +56,6 @@ export const queryClient = new QueryClient({
     },
   },
 });
+
+// Limpiar cache completa al inicializar
+queryClient.clear();

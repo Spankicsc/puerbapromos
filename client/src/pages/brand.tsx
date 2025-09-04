@@ -8,25 +8,55 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbP
 import PromotionCard from "@/components/promotion-card";
 import { type Brand, type Promotion } from "@shared/schema";
 import { queryClient } from "@/lib/queryClient";
+import { useState, useEffect } from "react";
 
 const Brand = () => {
   const { slug } = useParams<{ slug: string }>();
+  const [brand, setBrand] = useState<Brand | null>(null);
+  const [promotions, setPromotions] = useState<Promotion[]>([]);
+  const [brandLoading, setBrandLoading] = useState(true);
+  const [promotionsLoading, setPromotionsLoading] = useState(true);
 
-  const { data: brand, isLoading: brandLoading } = useQuery<Brand>({
-    queryKey: ['/api/brands', slug],
-    enabled: !!slug,
-  });
+  const fetchData = async () => {
+    if (!slug) return;
+    
+    try {
+      setBrandLoading(true);
+      setPromotionsLoading(true);
+      
+      // Fetch brand info
+      const brandResponse = await fetch(`/api/brands/${slug}`);
+      if (brandResponse.ok) {
+        const brandData = await brandResponse.json();
+        setBrand(brandData);
+        console.log('🏷️ [DEBUG] Marca cargada:', brandData);
+      }
+      setBrandLoading(false);
+      
+      // Fetch promotions with timestamp to bypass cache
+      const timestamp = new Date().getTime();
+      const promotionsResponse = await fetch(`/api/brands/${slug}/promotions?t=${timestamp}`);
+      if (promotionsResponse.ok) {
+        const promotionsData = await promotionsResponse.json();
+        setPromotions(promotionsData);
+        console.log(`🔍 [DEBUG] Promociones cargadas para ${slug}:`, promotionsData?.length || 0);
+        console.log('📋 [DEBUG] Datos completos:', promotionsData);
+      }
+      setPromotionsLoading(false);
+    } catch (error) {
+      console.error('❌ [DEBUG] Error cargando datos:', error);
+      setBrandLoading(false);
+      setPromotionsLoading(false);
+    }
+  };
 
-  const { data: promotions, isLoading: promotionsLoading, refetch: refetchPromotions } = useQuery<Promotion[]>({
-    queryKey: ['/api/brands', slug, 'promotions'],
-    enabled: !!slug,
-    staleTime: 0, // Forzar refrescos para esta query específica
-  });
+  useEffect(() => {
+    fetchData();
+  }, [slug]);
 
   const handleRefresh = async () => {
-    // Invalidar y refrescar datos de marca y promociones
-    await queryClient.invalidateQueries({ queryKey: ['/api/brands'] });
-    await refetchPromotions();
+    console.log('🔄 [DEBUG] Refrescando datos...');
+    await fetchData();
   };
 
   if (brandLoading) {
