@@ -1,12 +1,13 @@
 import { useParams } from "wouter";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, RefreshCw } from "lucide-react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import PromotionCard from "@/components/promotion-card";
 import { type Brand, type Promotion } from "@shared/schema";
+import { queryClient } from "@/lib/queryClient";
 
 const Brand = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -16,10 +17,17 @@ const Brand = () => {
     enabled: !!slug,
   });
 
-  const { data: promotions, isLoading: promotionsLoading } = useQuery<Promotion[]>({
+  const { data: promotions, isLoading: promotionsLoading, refetch: refetchPromotions } = useQuery<Promotion[]>({
     queryKey: ['/api/brands', slug, 'promotions'],
     enabled: !!slug,
+    staleTime: 0, // Forzar refrescos para esta query específica
   });
+
+  const handleRefresh = async () => {
+    // Invalidar y refrescar datos de marca y promociones
+    await queryClient.invalidateQueries({ queryKey: ['/api/brands'] });
+    await refetchPromotions();
+  };
 
   if (brandLoading) {
     return (
@@ -107,9 +115,21 @@ const Brand = () => {
             <h2 className="text-2xl font-bold text-promo-black">
               Promociones de {brand.name}
             </h2>
-            <span className="text-sm text-gray-500" data-testid="text-promotions-count">
-              {promotions?.length || 0} promociones
-            </span>
+            <div className="flex items-center gap-4">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleRefresh}
+                disabled={promotionsLoading}
+                data-testid="button-refresh"
+              >
+                <RefreshCw className={`h-4 w-4 mr-2 ${promotionsLoading ? 'animate-spin' : ''}`} />
+                Refrescar
+              </Button>
+              <span className="text-sm text-gray-500" data-testid="text-promotions-count">
+                {promotions?.length || 0} promociones
+              </span>
+            </div>
           </div>
 
           {promotionsLoading ? (

@@ -8,10 +8,12 @@ import { type Brand, type Promotion } from "@shared/schema";
 const Home = () => {
   const { data: brands, isLoading: brandsLoading } = useQuery<Brand[]>({
     queryKey: ['/api/brands'],
+    staleTime: 0, // Forzar refrescos
   });
 
   const { data: promotions, isLoading: promotionsLoading } = useQuery<Promotion[]>({
     queryKey: ['/api/promotions'],
+    staleTime: 0, // Forzar refrescos
   });
 
   const getFeaturedPromotions = () => {
