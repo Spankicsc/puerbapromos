@@ -30,19 +30,31 @@ export interface IStorage {
 }
 
 export class DatabaseStorage implements IStorage {
-  constructor() {
-    this.seedIfEmpty();
-  }
+  private isSeeded = false;
 
-  private async seedIfEmpty() {
-    const existingBrands = await this.getAllBrands();
-    if (existingBrands.length === 0) {
-      await this.seedDatabase();
+  private async ensureSeeded() {
+    if (this.isSeeded) return;
+    
+    try {
+      // Directly query brands without calling ensureSeeded
+      const existingBrands = await db.select().from(brands);
+      if (existingBrands.length === 0) {
+        console.log('📦 Base de datos vacía, iniciando seeding...');
+        await this.seedDatabase();
+        console.log('✅ Seeding completado exitosamente');
+      } else {
+        console.log(`✅ Base de datos ya tiene ${existingBrands.length} marcas`);
+      }
+      this.isSeeded = true;
+    } catch (error) {
+      console.error('❌ Error en seeding:', error);
+      throw error;
     }
   }
 
   // Brand methods
   async getAllBrands(): Promise<Brand[]> {
+    await this.ensureSeeded();
     return await db.select().from(brands);
   }
 
@@ -63,6 +75,7 @@ export class DatabaseStorage implements IStorage {
 
   // Promotion methods
   async getAllPromotions(): Promise<Promotion[]> {
+    await this.ensureSeeded();
     return await db.select().from(promotions);
   }
 
