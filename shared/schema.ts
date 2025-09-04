@@ -65,9 +65,16 @@ export const insertPromotionItemSchema = createInsertSchema(promotionItems).omit
   createdAt: true,
 });
 
+export const updatePromotionItemSchema = createInsertSchema(promotionItems).omit({
+  id: true,
+  promotionId: true,
+  createdAt: true,
+}).partial();
+
 export type Brand = typeof brands.$inferSelect;
 export type Promotion = typeof promotions.$inferSelect;
 export type PromotionItem = typeof promotionItems.$inferSelect;
 export type InsertBrand = z.infer<typeof insertBrandSchema>;
 export type InsertPromotion = z.infer<typeof insertPromotionSchema>;
 export type InsertPromotionItem = z.infer<typeof insertPromotionItemSchema>;
+export type UpdatePromotionItem = z.infer<typeof updatePromotionItemSchema>;

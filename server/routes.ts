@@ -115,6 +115,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Update promotion item
+  app.put("/api/promotion-items/:id", async (req, res) => {
+    try {
+      const itemId = req.params.id;
+      const updateData = req.body;
+      
+      const updatedItem = await storage.updatePromotionItem(itemId, updateData);
+      if (!updatedItem) {
+        return res.status(404).json({ message: "Promotion item not found" });
+      }
+      
+      res.json(updatedItem);
+    } catch (error) {
+      console.error("Error updating promotion item:", error);
+      res.status(500).json({ message: "Failed to update promotion item" });
+    }
+  });
+
   // Search promotions
   app.get("/api/search/promotions", async (req, res) => {
     try {

@@ -14,6 +14,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { type Promotion, type PromotionItem, type Brand } from "@shared/schema";
 import { EditablePromotion } from "@/components/EditablePromotion";
 import { WrapperCarousel } from "@/components/WrapperCarousel";
+import { ItemDetailModal } from "@/components/item-detail-modal";
 import { getBrandLogo } from "@/utils/brandLogos";
 import { getYouTubeEmbedUrl } from "@/utils/youtube";
 import { apiRequest } from "@/lib/queryClient";
@@ -25,6 +26,8 @@ const Promotion = () => {
   const [editedPromotion, setEditedPromotion] = useState<Partial<Promotion>>({});
   const [isEditing, setIsEditing] = useState<{ [key: string]: boolean }>({});
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [selectedItem, setSelectedItem] = useState<PromotionItem | null>(null);
+  const [isItemModalOpen, setIsItemModalOpen] = useState(false);
   
   // Categorías base disponibles
   const baseCategories = [
@@ -55,6 +58,16 @@ const Promotion = () => {
   const getBrand = () => {
     if (!promotion || !brands) return null;
     return brands.find(brand => brand.id === promotion.brandId);
+  };
+
+  const handleItemClick = (item: PromotionItem) => {
+    setSelectedItem(item);
+    setIsItemModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedItem(null);
+    setIsItemModalOpen(false);
   };
 
   // Función para renderizar texto con markdown
@@ -1125,7 +1138,12 @@ const Promotion = () => {
           ) : items && items.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {items.map((item) => (
-                <Card key={item.id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
+                <Card 
+                  key={item.id} 
+                  className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer" 
+                  onClick={() => handleItemClick(item)}
+                  data-testid={`card-item-${item.id}`}
+                >
                   <div className="relative">
                     {item.imageUrl ? (
                       <img 
@@ -1284,6 +1302,14 @@ const Promotion = () => {
           </div>
         </div>
       </div>
+      
+      {/* Item Detail Modal */}
+      <ItemDetailModal
+        item={selectedItem}
+        isOpen={isItemModalOpen}
+        onClose={handleCloseModal}
+        promotionSlug={slug || ''}
+      />
     </div>
   );
 };
