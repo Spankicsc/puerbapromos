@@ -440,7 +440,7 @@ const Promotion = () => {
               <img 
                 src={promotion.wrapperPhotosUrls[0]}
                 alt="Envoltura #1"
-                className="object-contain opacity-95"
+                className="object-contain"
                 style={{ 
                   width: `${24 * (((editedPromotion.wrapperScale ?? promotion.wrapperScale) || 100) / 100)}rem`,
                   height: `${24 * (((editedPromotion.wrapperScale ?? promotion.wrapperScale) || 100) / 100)}rem`,
@@ -453,7 +453,7 @@ const Promotion = () => {
 
           {/* Controles de edición para la envoltura */}
           {isEditMode && promotion.wrapperPhotosUrls && promotion.wrapperPhotosUrls.length > 0 && (
-            <div className="absolute top-4 right-4 z-30">
+            <div className="absolute top-4 left-4 z-30">
               <Card className="p-4 bg-white/95 shadow-lg">
                 <h3 className="text-sm font-bold mb-3 text-center">Ajustar Envoltura</h3>
                 
