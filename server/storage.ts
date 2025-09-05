@@ -12,6 +12,7 @@ export interface IStorage {
 
   // Promotion methods
   getAllPromotions(): Promise<Promotion[]>;
+  getPromotionById(id: string): Promise<Promotion | null>;
   getPromotionBySlug(slug: string): Promise<Promotion | null>;
   getPromotionsByBrand(brandId: string): Promise<Promotion[]>;
   createPromotion(data: Omit<Promotion, 'id' | 'createdAt'>): Promise<Promotion>;
@@ -19,6 +20,7 @@ export interface IStorage {
   deletePromotion(id: string): Promise<boolean>;
 
   // Promotion Item methods
+  getPromotionItemById(id: string): Promise<PromotionItem | null>;
   getPromotionItemsByPromotion(promotionId: string): Promise<PromotionItem[]>;
   createPromotionItem(data: Omit<PromotionItem, 'id' | 'createdAt'>): Promise<PromotionItem>;
   updatePromotionItem(id: string, data: Partial<PromotionItem>): Promise<PromotionItem | null>;
@@ -87,6 +89,11 @@ export class DatabaseStorage implements IStorage {
     return await db.select().from(promotions);
   }
 
+  async getPromotionById(id: string): Promise<Promotion | null> {
+    const [promotion] = await db.select().from(promotions).where(eq(promotions.id, id));
+    return promotion || null;
+  }
+
   async getPromotionBySlug(slug: string): Promise<Promotion | null> {
     const [promotion] = await db.select().from(promotions).where(eq(promotions.slug, slug));
     return promotion || null;
@@ -123,6 +130,11 @@ export class DatabaseStorage implements IStorage {
   }
 
   // Promotion Item methods
+  async getPromotionItemById(id: string): Promise<PromotionItem | null> {
+    const [item] = await db.select().from(promotionItems).where(eq(promotionItems.id, id));
+    return item || null;
+  }
+
   async getPromotionItemsByPromotion(promotionId: string): Promise<PromotionItem[]> {
     return await db.select().from(promotionItems).where(eq(promotionItems.promotionId, promotionId));
   }

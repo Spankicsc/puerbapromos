@@ -462,12 +462,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
         objectStorageService.normalizeObjectEntityPath(url)
       );
       
+      // Get current promotion to append to existing images
+      const currentPromotion = await storage.getPromotionById(id);
+      if (!currentPromotion) {
+        return res.status(404).json({ message: "Promotion not found" });
+      }
+      
       let updateData: any = {};
       
       if (imageType === 'wrapper') {
-        updateData.wrapperPhotosUrls = normalizedUrls;
+        const existingUrls = currentPromotion.wrapperPhotosUrls || [];
+        updateData.wrapperPhotosUrls = [...existingUrls, ...normalizedUrls];
       } else if (imageType === 'promotion') {
-        updateData.promotionImagesUrls = normalizedUrls;
+        const existingUrls = currentPromotion.promotionImagesUrls || [];
+        updateData.promotionImagesUrls = [...existingUrls, ...normalizedUrls];
       }
       
       const promotion = await storage.updatePromotion(id, updateData);
@@ -493,15 +501,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
         objectStorageService.normalizeObjectEntityPath(url)
       );
       
+      // Get current item to append to existing images
+      const currentItem = await storage.getPromotionItemById(id);
+      if (!currentItem) {
+        return res.status(404).json({ message: "Promotion item not found" });
+      }
+      
+      const existingUrls = currentItem.imageUrls || [];
+      const updatedUrls = [...existingUrls, ...normalizedUrls];
+      
       const item = await storage.updatePromotionItem(id, { 
-        imageUrls: normalizedUrls 
+        imageUrls: updatedUrls
       });
       
       if (!item) {
         return res.status(404).json({ message: "Promotion item not found" });
       }
       
-      res.json({ success: true, urls: normalizedUrls });
+      res.json({ success: true, urls: updatedUrls });
     } catch (error) {
       console.error("Error updating item images:", error);
       res.status(500).json({ error: "Internal server error" });
