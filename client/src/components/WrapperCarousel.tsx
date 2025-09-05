@@ -6,6 +6,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
 import { type Promotion } from '@shared/schema';
+import { MultipleImageUploader } from './MultipleImageUploader';
 
 interface WrapperCarouselProps {
   wrapperPhotos: string[] | null;
@@ -47,28 +48,31 @@ export function WrapperCarousel({ wrapperPhotos, promotionName, isEditable = fal
     },
   });
 
-  const handleAddImage = () => {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = 'image/*';
-    input.multiple = true;
-    input.onchange = (e) => {
-      const files = Array.from((e.target as HTMLInputElement).files || []);
-      files.forEach(file => {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          const imageUrl = e.target?.result as string;
-          if (imageUrl && promotionId) {
-            const currentUrls = wrapperPhotos || [];
-            updateMutation.mutate({
-              wrapperPhotosUrls: [...currentUrls, imageUrl],
-            });
-          }
-        };
-        reader.readAsDataURL(file);
+  const handleUploadImages = async (uploadedUrls: string[]) => {
+    if (!promotionId) return;
+    
+    try {
+      // Update promotion with new images
+      await apiRequest('PUT', `/api/promotions/${promotionId}/images`, {
+        imageUrls: uploadedUrls,
+        imageType: 'wrapper'
       });
-    };
-    input.click();
+      
+      // Update local state and refetch data
+      queryClient.invalidateQueries({ queryKey: ['/api/promotions'] });
+      
+      toast({
+        title: 'Imágenes subidas',
+        description: `Se agregaron ${uploadedUrls.length} imagen(es) de envoltura.`,
+      });
+    } catch (error) {
+      console.error('Error uploading wrapper images:', error);
+      toast({
+        title: 'Error',
+        description: 'No se pudieron subir las imágenes.',
+        variant: 'destructive',
+      });
+    }
   };
 
   if (!wrapperPhotos || wrapperPhotos.length === 0) {
@@ -82,13 +86,14 @@ export function WrapperCarousel({ wrapperPhotos, promotionName, isEditable = fal
           No hay fotos de envoltura disponibles para esta promoción
         </p>
         {isEditable && (
-          <Button
-            onClick={handleAddImage}
-            className="bg-promo-yellow text-promo-black hover:bg-yellow-400 font-semibold"
+          <MultipleImageUploader
+            maxNumberOfFiles={10}
+            onComplete={handleUploadImages}
+            buttonClassName="bg-promo-yellow text-promo-black hover:bg-yellow-400 font-semibold"
           >
             <Plus className="w-4 h-4 mr-2" />
             Agregar Primera Foto
-          </Button>
+          </MultipleImageUploader>
         )}
       </div>
     );
@@ -160,14 +165,13 @@ export function WrapperCarousel({ wrapperPhotos, promotionName, isEditable = fal
                 >
                   Listo
                 </Button>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  className="border-yellow-400/50 text-yellow-400 hover:bg-yellow-400 hover:text-black"
-                  onClick={handleAddImage}
+                <MultipleImageUploader
+                  maxNumberOfFiles={10}
+                  onComplete={handleUploadImages}
+                  buttonClassName="border-yellow-400/50 text-yellow-400 hover:bg-yellow-400 hover:text-black"
                 >
                   <Plus className="w-4 h-4" />
-                </Button>
+                </MultipleImageUploader>
               </>
             )}
           </div>

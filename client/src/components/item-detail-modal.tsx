@@ -5,11 +5,12 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-import { Edit, Save, X } from "lucide-react";
+import { Edit, Save, X, Plus } from "lucide-react";
 import { PromotionItem } from "@shared/schema";
 import { apiRequest } from "@/lib/queryClient";
 import { useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/hooks/use-toast";
+import { MultipleImageUploader } from "./MultipleImageUploader";
 
 interface ItemDetailModalProps {
   item: PromotionItem | null;
@@ -33,6 +34,31 @@ export function ItemDetailModal({ item, isOpen, onClose, promotionSlug }: ItemDe
   const handleCancel = () => {
     setEditingItem(null);
     setIsEditing(false);
+  };
+
+  const handleUploadImages = async (uploadedUrls: string[]) => {
+    if (!item?.id) return;
+    
+    try {
+      await apiRequest('PUT', `/api/promotion-items/${item.id}/images`, {
+        imageUrls: uploadedUrls
+      });
+      
+      // Refresh data
+      queryClient.invalidateQueries({ queryKey: ['/api/promotions', promotionSlug, 'items'] });
+      
+      toast({
+        title: 'Imágenes subidas',
+        description: `Se agregaron ${uploadedUrls.length} imagen(es) a la pieza.`,
+      });
+    } catch (error) {
+      console.error('Error uploading item images:', error);
+      toast({
+        title: 'Error',
+        description: 'No se pudieron subir las imágenes.',
+        variant: 'destructive',
+      });
+    }
   };
 
   const handleSave = async () => {
@@ -163,16 +189,55 @@ export function ItemDetailModal({ item, isOpen, onClose, promotionSlug }: ItemDe
 
         <div className="space-y-6">
           {/* Image Section */}
-          {currentItem.imageUrl && (
-            <div className="flex justify-center">
-              <img
-                src={currentItem.imageUrl}
-                alt={currentItem.name}
-                className="max-w-full max-h-96 object-contain rounded-lg shadow-lg"
-                data-testid="img-item-full"
-              />
+          <div>
+            <div className="flex items-center justify-between mb-3">
+              <Label className="text-sm font-medium">Imágenes</Label>
+              <MultipleImageUploader
+                maxNumberOfFiles={5}
+                onComplete={handleUploadImages}
+                buttonClassName="text-xs h-8"
+              >
+                <Plus className="w-3 h-3 mr-1" />
+                Agregar Imágenes
+              </MultipleImageUploader>
             </div>
-          )}
+            
+            {/* Primary Image */}
+            {currentItem.imageUrl && (
+              <div className="mb-4">
+                <img
+                  src={currentItem.imageUrl}
+                  alt={currentItem.name}
+                  className="max-w-full max-h-96 object-contain rounded-lg shadow-lg mx-auto"
+                  data-testid="img-item-full"
+                />
+              </div>
+            )}
+            
+            {/* Additional Images */}
+            {currentItem.imageUrls && currentItem.imageUrls.length > 0 && (
+              <div>
+                <h4 className="text-sm font-medium mb-2">Imágenes adicionales</h4>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                  {currentItem.imageUrls.map((url, index) => (
+                    <img
+                      key={index}
+                      src={url}
+                      alt={`${currentItem.name} - imagen ${index + 1}`}
+                      className="w-full h-24 object-cover rounded-lg shadow"
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+            
+            {!currentItem.imageUrl && (!currentItem.imageUrls || currentItem.imageUrls.length === 0) && (
+              <div className="text-center py-8 text-gray-500">
+                <p>No hay imágenes disponibles</p>
+                <p className="text-xs mt-1">Haz clic en "Agregar Imágenes" para subir fotos</p>
+              </div>
+            )}
+          </div>
 
           {/* Item Details */}
           <div className="grid grid-cols-2 gap-4">

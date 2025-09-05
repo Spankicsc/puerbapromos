@@ -94,6 +94,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         name,
         description: description || null,
         imageUrl: imageUrl || null,
+        imageUrls: null,
         rarity: rarity || null,
         itemNumber: itemNumber || null,
         metadata: null
@@ -409,6 +410,110 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(204).send();
     } catch (error) {
       res.status(500).json({ message: "Failed to delete promotion item" });
+    }
+  });
+
+  // Object Storage Routes
+  
+  // Serve public assets
+  app.get("/public-objects/:filePath(*)", async (req, res) => {
+    const filePath = req.params.filePath;
+    const objectStorageService = new ObjectStorageService();
+    try {
+      const file = await objectStorageService.searchPublicObject(filePath);
+      if (!file) {
+        return res.status(404).json({ error: "File not found" });
+      }
+      objectStorageService.downloadObject(file, res);
+    } catch (error) {
+      console.error("Error searching for public object:", error);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+  });
+
+  // Serve private objects (for uploaded files)
+  app.get("/objects/:objectPath(*)", async (req, res) => {
+    const objectStorageService = new ObjectStorageService();
+    try {
+      const objectFile = await objectStorageService.getObjectEntityFile(
+        req.path,
+      );
+      objectStorageService.downloadObject(objectFile, res);
+    } catch (error) {
+      console.error("Error checking object access:", error);
+      if (error instanceof ObjectNotFoundError) {
+        return res.sendStatus(404);
+      }
+      return res.sendStatus(500);
+    }
+  });
+
+  // Get upload URL for an object
+  app.post("/api/objects/upload", async (req, res) => {
+    const objectStorageService = new ObjectStorageService();
+    try {
+      const uploadURL = await objectStorageService.getObjectEntityUploadURL();
+      res.json({ uploadURL });
+    } catch (error) {
+      console.error("Error getting upload URL:", error);
+      res.status(500).json({ error: "Failed to get upload URL" });
+    }
+  });
+
+  // Update promotion with uploaded images
+  app.put("/api/promotions/:id/images", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { imageUrls, imageType } = req.body; // imageType: 'wrapper' | 'promotion' | 'items'
+      
+      const objectStorageService = new ObjectStorageService();
+      const normalizedUrls = imageUrls.map((url: string) => 
+        objectStorageService.normalizeObjectEntityPath(url)
+      );
+      
+      let updateData: any = {};
+      
+      if (imageType === 'wrapper') {
+        updateData.wrapperPhotosUrls = normalizedUrls;
+      } else if (imageType === 'promotion') {
+        updateData.promotionImagesUrls = normalizedUrls;
+      }
+      
+      const promotion = await storage.updatePromotion(id, updateData);
+      if (!promotion) {
+        return res.status(404).json({ message: "Promotion not found" });
+      }
+      
+      res.json({ success: true, urls: normalizedUrls });
+    } catch (error) {
+      console.error("Error updating promotion images:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
+
+  // Update promotion item with uploaded images
+  app.put("/api/promotion-items/:id/images", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { imageUrls } = req.body;
+      
+      const objectStorageService = new ObjectStorageService();
+      const normalizedUrls = imageUrls.map((url: string) => 
+        objectStorageService.normalizeObjectEntityPath(url)
+      );
+      
+      const item = await storage.updatePromotionItem(id, { 
+        imageUrls: normalizedUrls 
+      });
+      
+      if (!item) {
+        return res.status(404).json({ message: "Promotion item not found" });
+      }
+      
+      res.json({ success: true, urls: normalizedUrls });
+    } catch (error) {
+      console.error("Error updating item images:", error);
+      res.status(500).json({ error: "Internal server error" });
     }
   });
 
