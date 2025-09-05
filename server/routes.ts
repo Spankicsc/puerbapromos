@@ -462,9 +462,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Update promotion with uploaded images
   app.put("/api/promotions/:id/images", async (req, res) => {
+    console.log('🔍 PUT /api/promotions/:id/images - ID:', req.params.id);
+    console.log('🔍 Request body:', req.body);
+    
     try {
       const { id } = req.params;
       const { imageUrls, imageType } = req.body; // imageType: 'wrapper' | 'promotion' | 'items'
+      
+      if (!imageUrls || !Array.isArray(imageUrls)) {
+        console.error('❌ Invalid imageUrls:', imageUrls);
+        return res.status(400).json({ error: "imageUrls must be an array" });
+      }
+      
+      if (!imageType) {
+        console.error('❌ Missing imageType:', imageType);
+        return res.status(400).json({ error: "imageType is required" });
+      }
       
       const objectStorageService = new ObjectStorageService();
       const normalizedUrls = imageUrls.map((url: string) => 

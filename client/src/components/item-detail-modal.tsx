@@ -23,6 +23,7 @@ export function ItemDetailModal({ item, isOpen, onClose, promotionSlug }: ItemDe
   const [isEditing, setIsEditing] = useState(false);
   const [editingItem, setEditingItem] = useState<PromotionItem | null>(null);
   const [isSaving, setIsSaving] = useState(false);
+  const [fullImageView, setFullImageView] = useState<string | null>(null);
   const queryClient = useQueryClient();
   const { toast } = useToast();
 
@@ -132,179 +133,200 @@ export function ItemDetailModal({ item, isOpen, onClose, promotionSlug }: ItemDe
   const currentItem = editingItem || item;
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto" data-testid="modal-item-detail">
-        <DialogHeader>
-          <div className="flex items-center justify-between">
-            <DialogTitle className="text-xl font-bold" data-testid="text-item-name">
-              {isEditing ? (
-                <Input
-                  value={currentItem.name}
-                  onChange={(e) => setEditingItem(prev => prev ? {...prev, name: e.target.value} : null)}
-                  className="text-xl font-bold"
-                  data-testid="input-item-name"
-                />
-              ) : (
-                currentItem.name
-              )}
-            </DialogTitle>
-            <div className="flex items-center gap-2">
-              {isEditing ? (
-                <>
-                  <Button 
+    <>
+      <Dialog open={isOpen} onOpenChange={onClose}>
+        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+          <DialogHeader>
+            <div className="flex items-center justify-between">
+              <DialogTitle className="text-xl font-bold" data-testid="text-item-title">
+                {currentItem.name}
+              </DialogTitle>
+              <div className="flex items-center space-x-2">
+                {isEditing ? (
+                  <>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={handleCancel}
+                      disabled={isSaving}
+                      data-testid="button-cancel-edit"
+                    >
+                      <X className="w-4 h-4 mr-1" />
+                      Cancelar
+                    </Button>
+                    <Button
+                      variant="default"
+                      size="sm"
+                      onClick={handleSave}
+                      disabled={isSaving}
+                      data-testid="button-save-item"
+                    >
+                      <Save className="w-4 h-4 mr-1" />
+                      {isSaving ? "Guardando..." : "Guardar"}
+                    </Button>
+                  </>
+                ) : (
+                  <Button
+                    variant="outline"
                     size="sm" 
-                    onClick={handleSave}
-                    disabled={isSaving}
-                    data-testid="button-save-item"
+                    onClick={handleEdit}
+                    data-testid="button-edit-item"
                   >
-                    <Save className="w-4 h-4 mr-1" />
-                    {isSaving ? "Guardando..." : "Guardar"}
+                    <Edit className="w-4 h-4 mr-1" />
+                    Editar
                   </Button>
-                  <Button 
-                    size="sm" 
-                    variant="outline" 
-                    onClick={handleCancel}
-                    data-testid="button-cancel-edit"
-                  >
-                    <X className="w-4 h-4 mr-1" />
-                    Cancelar
-                  </Button>
-                </>
-              ) : (
-                <Button 
-                  size="sm" 
-                  onClick={handleEdit}
-                  data-testid="button-edit-item"
-                >
-                  <Edit className="w-4 h-4 mr-1" />
-                  Editar
-                </Button>
-              )}
-            </div>
-          </div>
-          <DialogDescription className="text-sm text-gray-600">
-            Vista detallada de la pieza. Haz clic en "Editar" para modificar la información.
-          </DialogDescription>
-        </DialogHeader>
-
-        <div className="space-y-6">
-          {/* Image Section */}
-          <div>
-            <div className="flex items-center justify-between mb-3">
-              <Label className="text-sm font-medium">Imágenes</Label>
-              <MultipleImageUploader
-                maxNumberOfFiles={5}
-                onComplete={handleUploadImages}
-                buttonClassName="text-xs h-8"
-              >
-                <Plus className="w-3 h-3 mr-1" />
-                Agregar Imágenes
-              </MultipleImageUploader>
-            </div>
-            
-            {/* Primary Image */}
-            {currentItem.imageUrl && (
-              <div className="mb-4">
-                <img
-                  src={currentItem.imageUrl}
-                  alt={currentItem.name}
-                  className="max-w-full max-h-96 object-contain rounded-lg shadow-lg mx-auto"
-                  data-testid="img-item-full"
-                />
-              </div>
-            )}
-            
-            {/* Additional Images */}
-            {currentItem.imageUrls && currentItem.imageUrls.length > 0 && (
-              <div>
-                <h4 className="text-sm font-medium mb-2">Imágenes adicionales</h4>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-                  {currentItem.imageUrls.map((url, index) => (
-                    <img
-                      key={index}
-                      src={url}
-                      alt={`${currentItem.name} - imagen ${index + 1}`}
-                      className="w-full h-24 object-cover rounded-lg shadow"
-                    />
-                  ))}
-                </div>
-              </div>
-            )}
-            
-            {!currentItem.imageUrl && (!currentItem.imageUrls || currentItem.imageUrls.length === 0) && (
-              <div className="text-center py-8 text-gray-500">
-                <p>No hay imágenes disponibles</p>
-                <p className="text-xs mt-1">Haz clic en "Agregar Imágenes" para subir fotos</p>
-              </div>
-            )}
-          </div>
-
-          {/* Item Details */}
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <Label htmlFor="rarity" className="text-sm font-medium">Rareza</Label>
-              {isEditing ? (
-                <select
-                  id="rarity"
-                  value={currentItem.rarity || ""}
-                  onChange={(e) => setEditingItem(prev => prev ? {...prev, rarity: e.target.value || null} : null)}
-                  className="w-full mt-1 p-2 border rounded-md"
-                  data-testid="select-item-rarity"
-                >
-                  <option value="">No especificada</option>
-                  <option value="common">Común</option>
-                  <option value="rare">Rara</option>
-                  <option value="super_rare">Súper Rara</option>
-                  <option value="ultra_rare">Ultra Rara</option>
-                </select>
-              ) : (
-                <Badge className={`${getRarityColor(currentItem.rarity)} text-white mt-1`} data-testid="badge-item-rarity">
-                  {getRarityLabel(currentItem.rarity)}
-                </Badge>
-              )}
-            </div>
-
-            <div>
-              <Label htmlFor="itemNumber" className="text-sm font-medium">Número</Label>
-              {isEditing ? (
-                <Input
-                  id="itemNumber"
-                  type="number"
-                  value={currentItem.itemNumber || ""}
-                  onChange={(e) => setEditingItem(prev => prev ? {...prev, itemNumber: e.target.value ? parseInt(e.target.value) : null} : null)}
-                  className="mt-1"
-                  data-testid="input-item-number"
-                />
-              ) : (
-                <div className="mt-1 p-2 bg-gray-50 rounded-md" data-testid="text-item-number">
-                  {currentItem.itemNumber ? `#${currentItem.itemNumber}` : "No especificado"}
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Description Section */}
-          <div>
-            <Label htmlFor="description" className="text-sm font-medium">Descripción</Label>
-            {isEditing ? (
-              <Textarea
-                id="description"
-                value={currentItem.description || ""}
-                onChange={(e) => setEditingItem(prev => prev ? {...prev, description: e.target.value || null} : null)}
-                placeholder="Añade una descripción para esta pieza..."
-                className="mt-1 min-h-[120px]"
-                data-testid="textarea-item-description"
-              />
-            ) : (
-              <div className="mt-1 p-3 bg-gray-50 rounded-md min-h-[120px]" data-testid="text-item-description">
-                {currentItem.description || (
-                  <span className="text-gray-500 italic">Sin descripción</span>
                 )}
               </div>
-            )}
+            </div>
+            <DialogDescription className="text-sm text-gray-600">
+              Vista detallada de la pieza. Haz clic en "Editar" para modificar la información.
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-6">
+            {/* Image Section */}
+            <div>
+              <div className="flex items-center justify-between mb-3">
+                <Label className="text-sm font-medium">Imágenes</Label>
+                <MultipleImageUploader
+                  maxNumberOfFiles={5}
+                  onComplete={handleUploadImages}
+                  buttonClassName="text-xs h-8"
+                >
+                  <Plus className="w-3 h-3 mr-1" />
+                  Agregar Imágenes
+                </MultipleImageUploader>
+              </div>
+              
+              {/* Primary Image */}
+              {currentItem.imageUrl && (
+                <div className="mb-4">
+                  <img
+                    src={currentItem.imageUrl}
+                    alt={currentItem.name}
+                    className="max-w-full max-h-96 object-contain rounded-lg shadow-lg mx-auto cursor-pointer hover:opacity-80 transition-opacity"
+                    data-testid="img-item-full"
+                    onClick={() => setFullImageView(currentItem.imageUrl!)}
+                  />
+                </div>
+              )}
+              
+              {/* Additional Images */}
+              {currentItem.imageUrls && currentItem.imageUrls.length > 0 && (
+                <div>
+                  <h4 className="text-sm font-medium mb-2">Imágenes adicionales</h4>
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                    {currentItem.imageUrls.map((url, index) => (
+                      <img
+                        key={index}
+                        src={url}
+                        alt={`${currentItem.name} - imagen ${index + 1}`}
+                        className="w-full h-24 object-cover rounded-lg shadow cursor-pointer hover:opacity-80 transition-opacity"
+                        onClick={() => setFullImageView(url)}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
+              
+              {!currentItem.imageUrl && (!currentItem.imageUrls || currentItem.imageUrls.length === 0) && (
+                <div className="text-center py-8 text-gray-500">
+                  <p>No hay imágenes disponibles</p>
+                  <p className="text-xs mt-1">Haz clic en "Agregar Imágenes" para subir fotos</p>
+                </div>
+              )}
+            </div>
+
+            {/* Item Details */}
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="rarity" className="text-sm font-medium">Rareza</Label>
+                {isEditing ? (
+                  <select
+                    id="rarity"
+                    value={currentItem.rarity || ""}
+                    onChange={(e) => setEditingItem(prev => prev ? {...prev, rarity: e.target.value || null} : null)}
+                    className="w-full mt-1 p-2 border rounded-md"
+                    data-testid="select-item-rarity"
+                  >
+                    <option value="">No especificada</option>
+                    <option value="common">Común</option>
+                    <option value="rare">Rara</option>
+                    <option value="super_rare">Súper Rara</option>
+                    <option value="ultra_rare">Ultra Rara</option>
+                  </select>
+                ) : (
+                  <Badge className={`${getRarityColor(currentItem.rarity)} text-white mt-1`} data-testid="badge-item-rarity">
+                    {getRarityLabel(currentItem.rarity)}
+                  </Badge>
+                )}
+              </div>
+
+              <div>
+                <Label htmlFor="itemNumber" className="text-sm font-medium">Número</Label>
+                {isEditing ? (
+                  <Input
+                    id="itemNumber"
+                    type="number"
+                    value={currentItem.itemNumber || ""}
+                    onChange={(e) => setEditingItem(prev => prev ? {...prev, itemNumber: e.target.value ? parseInt(e.target.value) : null} : null)}
+                    className="mt-1"
+                    data-testid="input-item-number"
+                  />
+                ) : (
+                  <div className="mt-1 p-2 bg-gray-50 rounded-md" data-testid="text-item-number">
+                    {currentItem.itemNumber ? `#${currentItem.itemNumber}` : "No especificado"}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Description Section */}
+            <div>
+              <Label htmlFor="description" className="text-sm font-medium">Descripción</Label>
+              {isEditing ? (
+                <Textarea
+                  id="description"
+                  value={currentItem.description || ""}
+                  onChange={(e) => setEditingItem(prev => prev ? {...prev, description: e.target.value || null} : null)}
+                  placeholder="Añade una descripción para esta pieza..."
+                  className="mt-1 min-h-[120px]"
+                  data-testid="textarea-item-description"
+                />
+              ) : (
+                <div className="mt-1 p-3 bg-gray-50 rounded-md min-h-[120px]" data-testid="text-item-description">
+                  {currentItem.description || (
+                    <span className="text-gray-500 italic">Sin descripción</span>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
-        </div>
-      </DialogContent>
-    </Dialog>
+        </DialogContent>
+      </Dialog>
+
+      {/* Full Image Modal */}
+      {fullImageView && (
+        <Dialog open={!!fullImageView} onOpenChange={() => setFullImageView(null)}>
+          <DialogContent className="max-w-4xl w-full p-2">
+            <div className="relative">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="absolute top-2 right-2 z-10 bg-black/50 text-white hover:bg-black/70"
+                onClick={() => setFullImageView(null)}
+              >
+                <X className="w-4 h-4" />
+              </Button>
+              <img
+                src={fullImageView}
+                alt="Vista completa"
+                className="w-full h-auto max-h-[80vh] object-contain rounded-lg"
+              />
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
+    </>
   );
 }
