@@ -202,28 +202,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.json({ uploadURL });
   });
 
-  // Update promotion with uploaded images
-  app.put("/api/promotions/:slug/images", async (req, res) => {
-    if (!req.body.imageUrl) {
-      return res.status(400).json({ error: "imageUrl is required" });
-    }
-
-    try {
-      const objectStorageService = new ObjectStorageService();
-      const objectPath = objectStorageService.normalizeObjectEntityPath(
-        req.body.imageUrl,
-      );
-
-      // Here you would update the promotion with the new image URL
-      // For now, just return success
-      res.status(200).json({
-        objectPath: objectPath,
-      });
-    } catch (error) {
-      console.error("Error setting promotion image:", error);
-      res.status(500).json({ error: "Internal server error" });
-    }
-  });
 
   // CRUD routes for Brands
   app.post("/api/brands", async (req, res) => {

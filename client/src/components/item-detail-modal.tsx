@@ -309,6 +309,10 @@ export function ItemDetailModal({ item, isOpen, onClose, promotionSlug }: ItemDe
       {fullImageView && (
         <Dialog open={!!fullImageView} onOpenChange={() => setFullImageView(null)}>
           <DialogContent className="max-w-4xl w-full p-2">
+            <DialogHeader className="sr-only">
+              <DialogTitle>Vista completa de imagen</DialogTitle>
+              <DialogDescription>Imagen mostrada en tamaño completo</DialogDescription>
+            </DialogHeader>
             <div className="relative">
               <Button
                 variant="ghost"
