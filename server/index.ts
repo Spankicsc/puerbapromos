@@ -47,7 +47,7 @@ app.use((req, res, next) => {
     await storage.getAllBrands(); // Esto forzará el seeding si es necesario
     log('✅ Storage inicializado correctamente');
   } catch (error) {
-    log('❌ Error inicializando storage:', error);
+    log('❌ Error inicializando storage:', error instanceof Error ? error.message : String(error));
   }
 
   const server = await registerRoutes(app);
