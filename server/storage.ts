@@ -2,6 +2,7 @@ import { randomUUID } from "crypto";
 import { Brand, Promotion, PromotionItem, brands, promotions, promotionItems } from "../shared/schema.js";
 import { db } from "./db.js";
 import { eq, like, or, sql } from "drizzle-orm";
+import { createAllPromotions } from "./promotions-seeding.js";
 
 export interface IStorage {
   // Brand methods
@@ -240,82 +241,15 @@ export class DatabaseStorage implements IStorage {
       founded: 2002,
     });
 
-    // Create some sample promotions
-    await this.createPromotion({
-      brandId: sabritas.id,
-      name: "Spiderman 3",
-      slug: "spiderman-3-2007",
-      description: "Promoción épica de Sabritas con tazos coleccionables de Spider-Man 3. Incluye tazos dorados especiales y figuras exclusivas del hombre araña.",
-      imageUrl: null,
-      wrapperPhotoUrl: "/attached_assets/rotated/Vainilla  frontal spiderman 3_1755219753445_rotated.png",
-      wrapperPhotosUrls: [
-        "/attached_assets/rotated/Vainilla  frontal spiderman 3_1755219753445_rotated.png",
-        "/attached_assets/rotated/Chocolate frontal spiderman 3_1755196507572_rotated.png"
-      ],
-      wrapperRotation: 90,
-      promotionImagesUrls: null,
-      youtubeCommercialUrl: null,
-      buffetGamesVideoUrl: null,
-      startYear: 2007,
-      endYear: 2007,
-      category: "tazos",
-      tags: ["spiderman", "marvel", "tazos", "coleccionables"],
-      sortOrder: 0,
-      wrapperScale: 100,
-      wrapperOffsetX: 0,
-      wrapperOffsetY: 0,
-    });
-
-    await this.createPromotion({
-      brandId: vuala.id,
-      name: "The Dog 2004",
-      slug: "the-dog-2004",
-      description: "Promoción kawaii con lindos perritos de diferentes razas. Colecciona todos los cachorros de The Dog.",
-      imageUrl: null,
-      wrapperPhotoUrl: "/attached_assets/rotated/The dog 2004 vainilla frontal_1755219753444_rotated.png",
-      wrapperPhotosUrls: [
-        "/attached_assets/rotated/The dog 2004 vainilla frontal_1755219753444_rotated.png",
-        "/attached_assets/rotated/IMG_4257-removebg-preview_1755219298607_rotated.png",
-        "/attached_assets/rotated/IMG_4269-removebg-preview_1755219298608_rotated.png"
-      ],
-      wrapperRotation: 90,
-      promotionImagesUrls: null,
-      youtubeCommercialUrl: null,
-      buffetGamesVideoUrl: null,
-      startYear: 2004,
-      endYear: 2004,
-      category: "Mini Colgantes",
-      tags: ["the-dog", "kawaii", "perritos", "razas", "mini-colgantes"],
-      sortOrder: 0,
-      wrapperScale: 100,
-      wrapperOffsetX: 0,
-      wrapperOffsetY: 0,
-    });
-
-    await this.createPromotion({
-      brandId: vuala.id,
-      name: "Angry Birds Go",
-      slug: "angry-birds-go",
-      description: "Emocionante promoción de Vualá con personajes de Angry Birds Go. Colecciona todos los pájaros y cerditos en carreras.",
-      imageUrl: null,
-      wrapperPhotoUrl: "/attached_assets/rotated/vainilla angry birds GO_1755219753445_rotated.png",
-      wrapperPhotosUrls: [
-        "/attached_assets/rotated/vainilla angry birds GO_1755219753445_rotated.png",
-        "/attached_assets/rotated/Cajeta angry birds Go_1755196507570_rotated.png",
-        "/attached_assets/rotated/Chocolate angry birds Go_1755196507571_rotated.png"
-      ],
-      wrapperRotation: 0,
-      promotionImagesUrls: null,
-      youtubeCommercialUrl: null,
-      buffetGamesVideoUrl: null,
-      startYear: 2014,
-      endYear: 2014,
-      category: "figuras",
-      tags: ["angry-birds", "videojuegos", "figuras", "coleccionables"],
-      sortOrder: 0,
-      wrapperScale: 100,
-      wrapperOffsetX: 0,
-      wrapperOffsetY: 0,
+    // Create all promotions using the complete seeding data
+    await createAllPromotions(this.createPromotion.bind(this), {
+      sabritas,
+      gamesa,
+      marinela,
+      bimbo,
+      barcel,
+      ricolino,
+      vuala
     });
   }
 }
