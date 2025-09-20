@@ -39,20 +39,39 @@ export class DatabaseStorage implements IStorage {
     if (this.isSeeded) return;
     
     try {
-      // Directly query brands without calling ensureSeeded
+      // Check both brands and promotions for smart seeding
       const existingBrands = await db.select().from(brands);
-      console.log(`🔍 Revisando base de datos: ${existingBrands.length} marcas encontradas`);
+      const existingPromotions = await db.select().from(promotions);
+      const expectedPromotions = 58; // Total expected promotions
       
-      if (existingBrands.length === 0) {
-        console.log('📦 Base de datos vacía, FORZANDO seeding en producción...');
+      console.log(`🔍 Revisando base de datos: ${existingBrands.length} marcas, ${existingPromotions.length} promociones encontradas`);
+      
+      // Force seeding if database is empty OR missing promotions
+      if (existingBrands.length === 0 || existingPromotions.length < expectedPromotions) {
+        if (existingBrands.length === 0) {
+          console.log('📦 Base de datos vacía, iniciando seeding completo...');
+        } else {
+          console.log(`📦 Faltan promociones (${existingPromotions.length}/${expectedPromotions}), reseeding completo para unificar datos...`);
+          // Clear existing data to ensure clean state
+          await db.delete(promotions);
+          await db.delete(brands);
+          console.log('🧹 Datos anteriores limpiados para seeding completo');
+        }
+        
         await this.seedDatabase();
         
-        // Verificar que el seeding fue exitoso
+        // Verify seeding was successful
         const newBrands = await db.select().from(brands);
         const newPromotions = await db.select().from(promotions);
         console.log(`✅ Seeding completado: ${newBrands.length} marcas, ${newPromotions.length} promociones`);
+        
+        if (newPromotions.length === expectedPromotions) {
+          console.log(`🎉 Éxito: Datos unificados con ${expectedPromotions} promociones completas`);
+        } else {
+          console.warn(`⚠️ Advertencia: Se esperaban ${expectedPromotions} promociones pero se crearon ${newPromotions.length}`);
+        }
       } else {
-        console.log(`✅ Base de datos ya tiene ${existingBrands.length} marcas`);
+        console.log(`✅ Base de datos completa: ${existingBrands.length} marcas, ${existingPromotions.length} promociones`);
       }
       this.isSeeded = true;
     } catch (error) {
