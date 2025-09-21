@@ -525,6 +525,149 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Export all data endpoint (preview environment)
+  app.get("/api/sync/export", async (req, res) => {
+    try {
+      console.log("📤 Exporting all data...");
+      
+      const [brands, allPromotions] = await Promise.all([
+        storage.getAllBrands(),
+        storage.getAllPromotions()
+      ]);
+      
+      // Get all promotion items
+      const allItems = [];
+      for (const promotion of allPromotions) {
+        const items = await storage.getPromotionItemsByPromotion(promotion.id);
+        allItems.push(...items);
+      }
+      
+      const exportData = {
+        version: new Date().toISOString(),
+        environment: process.env.REPLIT_ENV || 'development',
+        brands,
+        promotions: allPromotions,
+        items: allItems,
+        counts: {
+          brands: brands.length,
+          promotions: allPromotions.length, 
+          items: allItems.length
+        }
+      };
+      
+      console.log(`✅ Export complete: ${exportData.counts.brands} brands, ${exportData.counts.promotions} promotions, ${exportData.counts.items} items`);
+      res.json(exportData);
+    } catch (error) {
+      console.error("❌ Export error:", error);
+      res.status(500).json({ error: "Export failed" });
+    }
+  });
+
+  // Import data endpoint (deployment environment)  
+  app.post("/api/sync/import", async (req, res) => {
+    try {
+      console.log("📥 Importing data...");
+      
+      const { brands, promotions, items } = req.body;
+      
+      if (!brands || !promotions || !items) {
+        return res.status(400).json({ error: "Missing required data: brands, promotions, items" });
+      }
+
+      let stats = { brands: 0, promotions: 0, items: 0, updated: 0, created: 0 };
+
+      // Import brands (upsert by slug)
+      for (const brandData of brands) {
+        const existing = await storage.getBrandBySlug(brandData.slug);
+        if (existing) {
+          await storage.updateBrand(existing.id, brandData);
+          stats.updated++;
+        } else {
+          await storage.createBrand(brandData);
+          stats.created++;
+        }
+        stats.brands++;
+      }
+
+      // Import promotions (upsert by slug)
+      for (const promotionData of promotions) {
+        const existing = await storage.getPromotionBySlug(promotionData.slug);
+        if (existing) {
+          await storage.updatePromotion(existing.id, promotionData);
+          stats.updated++;
+        } else {
+          await storage.createPromotion(promotionData);
+          stats.created++;
+        }
+        stats.promotions++;
+      }
+
+      // Import promotion items (upsert by id)
+      for (const itemData of items) {
+        const existing = await storage.getPromotionItemById(itemData.id);
+        if (existing) {
+          await storage.updatePromotionItem(itemData.id, itemData);
+          stats.updated++;
+        } else {
+          await storage.createPromotionItem(itemData);
+          stats.created++;
+        }
+        stats.items++;
+      }
+
+      console.log(`✅ Import complete: ${stats.brands} brands, ${stats.promotions} promotions, ${stats.items} items (${stats.created} created, ${stats.updated} updated)`);
+      res.json({ success: true, stats });
+    } catch (error) {
+      console.error("❌ Import error:", error);
+      res.status(500).json({ error: "Import failed" });
+    }
+  });
+
+  // Full sync endpoint: Export from preview and import to deployment
+  app.post("/api/sync/full", async (req, res) => {
+    try {
+      console.log("🔄 Starting full synchronization...");
+      
+      const { sourceUrl } = req.body;
+      if (!sourceUrl) {
+        return res.status(400).json({ error: "sourceUrl is required" });
+      }
+      
+      // Fetch data from preview environment
+      const response = await fetch(`${sourceUrl}/api/sync/export`);
+      if (!response.ok) {
+        throw new Error(`Export failed: ${response.statusText}`);
+      }
+      
+      const exportData = await response.json();
+      
+      // Import the data
+      const importResponse = await fetch(`${req.protocol}://${req.get('host')}/api/sync/import`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(exportData)
+      });
+      
+      if (!importResponse.ok) {
+        throw new Error(`Import failed: ${importResponse.statusText}`);
+      }
+      
+      const importResult = await importResponse.json();
+      
+      console.log("✅ Full synchronization completed");
+      res.json({ 
+        success: true, 
+        source: exportData.environment,
+        version: exportData.version,
+        stats: importResult.stats
+      });
+      
+    } catch (error: any) {
+      console.error("❌ Full sync error:", error);
+      res.status(500).json({ error: `Sync failed: ${error.message}` });
+    }
+  });
+
   // Migration endpoint: Move Vualá promotions before 2017 to Gamesa
   app.post("/api/migrate/vuala-to-gamesa", async (req, res) => {
     try {
