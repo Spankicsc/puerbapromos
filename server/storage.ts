@@ -4,6 +4,7 @@ import { db } from "./db.js";
 import { eq, like, or, sql } from "drizzle-orm";
 import { createAllPromotions } from "./promotions-seeding.js";
 import { autoSync } from "./autoSync.js";
+import { objectStorageClient } from './objectStorage.js';
 
 export interface IStorage {
   // Brand methods
@@ -67,39 +68,40 @@ export class DatabaseStorage implements IStorage {
   }
 
   private async startAutoImport() {
-    console.log('📥 Deployment: Starting auto-import every 30 seconds...');
+    console.log('📥 Deployment: Starting auto-import every 30 seconds from Object Storage...');
     
-    const syncFromPreview = async () => {
+    const syncFromObjectStorage = async () => {
       try {
-        // Try to get the current preview URL from environment or construct it
-        const previewUrl = this.getPreviewUrl();
-        if (!previewUrl) {
-          console.log('⚠️ Preview URL not available, skipping sync');
-          return;
-        }
-
-        console.log(`🔄 Checking for updates from preview: ${previewUrl}`);
+        // Read from Object Storage
+        const bucketId = 'replit-objstore-b7dd6d10-4a51-43e8-a1f9-a2874a4dcd86';
+        const bucket = objectStorageClient.bucket(bucketId);
+        const file = bucket.file('.private/sync-data.json');
         
-        // Fetch data from preview
-        const response = await fetch(`${previewUrl}/api/sync/export`);
-        if (!response.ok) {
-          console.log(`❌ Failed to fetch from preview: ${response.status}`);
+        // Check if sync file exists
+        const [exists] = await file.exists();
+        if (!exists) {
+          console.log('⚠️ No sync data in Object Storage yet');
           return;
         }
         
-        const exportData = await response.json();
+        // Download the sync data
+        const [contents] = await file.download();
+        const exportData = JSON.parse(contents.toString());
         
-        // Check if we need to update (simple version comparison)
-        const currentPromos = await this.getAllPromotions();
-        const shouldUpdate = exportData.counts.promotions !== currentPromos.length;
+        console.log(`🔄 Found sync data from ${exportData.environment}: ${exportData.counts.promotions} promotions`);
         
-        if (shouldUpdate) {
-          console.log(`🔄 Updating deployment: ${exportData.counts.promotions} promotions from preview`);
+        // Check if we need to update based on timestamp
+        const lastSyncTime = this.lastSyncTimestamp || 0;
+        const dataTime = new Date(exportData.version).getTime();
+        
+        if (dataTime > lastSyncTime) {
+          console.log(`🔄 Updating deployment with ${exportData.counts.promotions} promotions`);
           
           // Import the data
           await this.importFullData(exportData);
+          this.lastSyncTimestamp = dataTime;
           
-          console.log('✅ Deployment updated successfully');
+          console.log('✅ Deployment updated successfully from Object Storage');
         } else {
           console.log('📊 Deployment already up to date');
         }
@@ -110,11 +112,13 @@ export class DatabaseStorage implements IStorage {
     };
 
     // Initial sync
-    await syncFromPreview();
+    await syncFromObjectStorage();
     
     // Set up interval
-    setInterval(syncFromPreview, 30000); // 30 seconds
+    setInterval(syncFromObjectStorage, 30000); // 30 seconds
   }
+  
+  private lastSyncTimestamp = 0;
 
   private getPreviewUrl(): string | null {
     // Try to construct preview URL from deployment URL
@@ -258,11 +262,13 @@ export class DatabaseStorage implements IStorage {
 
   async createBrand(data: Omit<Brand, 'id' | 'createdAt'>): Promise<Brand> {
     const [brand] = await db.insert(brands).values(data).returning();
+    this.triggerAutoExport();
     return brand;
   }
 
   async updateBrand(id: string, data: Partial<Brand>): Promise<Brand | null> {
     const [brand] = await db.update(brands).set(data).where(eq(brands.id, id)).returning();
+    if (brand) this.triggerAutoExport();
     return brand || null;
   }
 
@@ -288,6 +294,7 @@ export class DatabaseStorage implements IStorage {
 
   async createPromotion(data: Omit<Promotion, 'id' | 'createdAt'>): Promise<Promotion> {
     const [promotion] = await db.insert(promotions).values(data).returning();
+    this.triggerAutoExport();
     return promotion;
   }
 
@@ -336,7 +343,7 @@ export class DatabaseStorage implements IStorage {
 
   private async performExport() {
     try {
-      console.log('📤 Preview: Exporting data to sync with deployment...');
+      console.log('📤 Preview: Exporting data to Object Storage...');
       
       const [allBrands, allPromotions] = await Promise.all([
         this.getAllBrands(),
@@ -363,8 +370,18 @@ export class DatabaseStorage implements IStorage {
         }
       };
 
-      // Here we could save to Object Storage, but for now just log
-      console.log(`✅ Preview: Exported ${exportData.counts.brands} brands, ${exportData.counts.promotions} promotions, ${exportData.counts.items} items`);
+      // Save to Object Storage
+      const bucketId = 'replit-objstore-b7dd6d10-4a51-43e8-a1f9-a2874a4dcd86';
+      const bucket = objectStorageClient.bucket(bucketId);
+      const file = bucket.file('.private/sync-data.json');
+      
+      await file.save(JSON.stringify(exportData, null, 2), {
+        metadata: {
+          contentType: 'application/json',
+        },
+      });
+
+      console.log(`✅ Preview: Exported to Object Storage - ${exportData.counts.brands} brands, ${exportData.counts.promotions} promotions, ${exportData.counts.items} items`);
       
     } catch (error) {
       console.error('❌ Export error:', error);
@@ -373,7 +390,9 @@ export class DatabaseStorage implements IStorage {
 
   async deletePromotion(id: string): Promise<boolean> {
     const result = await db.delete(promotions).where(eq(promotions.id, id));
-    return (result as any).rowCount > 0;
+    const success = (result as any).rowCount > 0;
+    if (success) this.triggerAutoExport();
+    return success;
   }
 
   // Promotion Item methods
