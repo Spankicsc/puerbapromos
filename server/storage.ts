@@ -41,17 +41,15 @@ export class DatabaseStorage implements IStorage {
     if (this.autoSyncInitialized) return;
     
     try {
-      autoSync.setStorage(this);
-      await autoSync.initialize();
-      
       // Execute Vualá to Gamesa migration only in production/deployment
       if (process.env.REPLIT_ENV === 'prod') {
         await this.performVualaToGamesaMigration();
       }
       
       this.autoSyncInitialized = true;
+      console.log('✅ Database storage initialized - using shared DATABASE_URL for both preview and deployment');
     } catch (error) {
-      console.error('❌ Error inicializando AutoSync:', error);
+      console.error('❌ Error inicializando storage:', error);
     }
   }
 
@@ -177,8 +175,6 @@ export class DatabaseStorage implements IStorage {
       const [promotion] = await db.update(promotions).set(data).where(eq(promotions.id, id)).returning();
       if (promotion) {
         console.log(`✅ Storage: Successfully updated promotion ${id}:`, promotion.name);
-        // Trigger sync to deployment
-        autoSync.publishSnapshot();
       } else {
         console.log(`⚠️ Storage: No promotion found with id ${id}`);
       }
