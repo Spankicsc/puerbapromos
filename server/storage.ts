@@ -106,7 +106,7 @@ export class DatabaseStorage implements IStorage {
   // Promotion methods
   async getAllPromotions(): Promise<Promotion[]> {
     await this.ensureSeeded();
-    return await db.select().from(promotions);
+    return await db.select().from(promotions).orderBy(promotions.sortOrder, promotions.startYear);
   }
 
   async getPromotionById(id: string): Promise<Promotion | null> {
@@ -120,7 +120,7 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getPromotionsByBrand(brandId: string): Promise<Promotion[]> {
-    return await db.select().from(promotions).where(eq(promotions.brandId, brandId));
+    return await db.select().from(promotions).where(eq(promotions.brandId, brandId)).orderBy(promotions.sortOrder, promotions.startYear);
   }
 
   async createPromotion(data: Omit<Promotion, 'id' | 'createdAt'>): Promise<Promotion> {
