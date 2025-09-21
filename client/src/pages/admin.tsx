@@ -117,13 +117,15 @@ export default function AdminPage() {
   };
 
   // Calculate promotion counts by brand
-  const promotionsByBrand = promotions && brands ? promotions.reduce((acc: any, promo: any) => {
-    const brand = brands.find((b: any) => b.id === promo.brandId);
-    if (brand) {
-      acc[brand.name] = (acc[brand.name] || 0) + 1;
-    }
-    return acc;
-  }, {}) : {};
+  const promotionsByBrand = promotions && Array.isArray(promotions) && brands && Array.isArray(brands) 
+    ? promotions.reduce((acc: any, promo: any) => {
+        const brand = brands.find((b: any) => b.id === promo.brandId);
+        if (brand) {
+          acc[brand.name] = (acc[brand.name] || 0) + 1;
+        }
+        return acc;
+      }, {}) 
+    : {};
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-gray-900 dark:to-gray-800 p-6">
