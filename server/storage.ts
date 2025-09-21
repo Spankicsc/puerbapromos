@@ -3,6 +3,7 @@ import { Brand, Promotion, PromotionItem, brands, promotions, promotionItems } f
 import { db } from "./db.js";
 import { eq, like, or, sql } from "drizzle-orm";
 import { createAllPromotions } from "./promotions-seeding.js";
+import { autoSync } from "./autoSync.js";
 
 export interface IStorage {
   // Brand methods
@@ -34,6 +35,19 @@ export interface IStorage {
 
 export class DatabaseStorage implements IStorage {
   private isSeeded = false;
+  private autoSyncInitialized = false;
+
+  private async ensureAutoSyncInitialized() {
+    if (this.autoSyncInitialized) return;
+    
+    try {
+      autoSync.setStorage(this);
+      await autoSync.initialize();
+      this.autoSyncInitialized = true;
+    } catch (error) {
+      console.error('❌ Error inicializando AutoSync:', error);
+    }
+  }
 
   private async ensureSeeded() {
     if (this.isSeeded) return;
@@ -69,6 +83,7 @@ export class DatabaseStorage implements IStorage {
   // Brand methods
   async getAllBrands(): Promise<Brand[]> {
     await this.ensureSeeded();
+    await this.ensureAutoSyncInitialized();
     return await db.select().from(brands);
   }
 
@@ -118,6 +133,8 @@ export class DatabaseStorage implements IStorage {
       const [promotion] = await db.update(promotions).set(data).where(eq(promotions.id, id)).returning();
       if (promotion) {
         console.log(`✅ Storage: Successfully updated promotion ${id}:`, promotion.name);
+        // Trigger sync to deployment
+        autoSync.publishSnapshot();
       } else {
         console.log(`⚠️ Storage: No promotion found with id ${id}`);
       }

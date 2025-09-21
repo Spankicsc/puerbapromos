@@ -16,11 +16,16 @@ export class AutoSyncManager {
   private storage: IStorage | null = null;
   private snapshotKey = 'data/snapshot.json';
   private localVersion = '';
-  private pollInterval = 30000; // 30 seconds
+  private pollInterval = 15000; // 15 seconds
   private isPolling = false;
+  private isApplyingSnapshot = false; // Prevent loops during snapshot apply
+  private role: 'writer' | 'reader';
 
   constructor() {
     this.objectStorage = new ObjectStorageService();
+    // Preview environment is writer, deployment is reader
+    this.role = process.env.REPLIT_ENV === 'prod' ? 'reader' : 'writer';
+    console.log(`🔄 AutoSync: Initialized as ${this.role}`);
   }
 
   static getInstance(): AutoSyncManager {
@@ -41,10 +46,22 @@ export class AutoSyncManager {
     }
 
     try {
-      console.log('🔄 AutoSync: Initializing...');
+      console.log(`🔄 AutoSync: Initializing as ${this.role}...`);
       
-      // For now, just start polling - no initial snapshot creation to avoid loops
-      this.startPolling();
+      if (this.role === 'reader') {
+        // Reader (deployment): Try to load and apply latest snapshot, then start polling
+        const snapshot = await this.loadSnapshot();
+        if (snapshot) {
+          await this.applySnapshot(snapshot);
+          this.localVersion = snapshot.version;
+          console.log(`✅ AutoSync: Applied snapshot version ${snapshot.version}`);
+        }
+        this.startPolling();
+      } else {
+        // Writer (preview): Just start polling, don't auto-publish to avoid loops
+        this.startPolling();
+      }
+      
       console.log('✅ AutoSync: Initialized and polling started');
     } catch (error) {
       console.error('❌ AutoSync: Error during initialization:', error);
@@ -52,9 +69,8 @@ export class AutoSyncManager {
   }
 
   async publishSnapshot(): Promise<void> {
-    if (!this.storage) {
-      console.error('❌ AutoSync: Storage not set');
-      return;
+    if (!this.storage || this.role !== 'writer' || this.isApplyingSnapshot) {
+      return; // Only writers can publish, and not during snapshot apply
     }
 
     try {
@@ -83,7 +99,7 @@ export class AutoSyncManager {
       await this.saveSnapshot(snapshot);
       this.localVersion = snapshot.version;
       
-      console.log(`✅ AutoSync: Published snapshot version ${snapshot.version}`);
+      console.log(`✅ AutoSync: Published snapshot version ${snapshot.version} (${brands.length} brands, ${promotions.length} promotions, ${items.length} items)`);
     } catch (error) {
       console.error('❌ AutoSync: Error publishing snapshot:', error);
     }
@@ -131,9 +147,10 @@ export class AutoSyncManager {
   }
 
   private async applySnapshot(snapshot: DataSnapshot): Promise<void> {
-    if (!this.storage) return;
+    if (!this.storage || this.role !== 'reader') return;
 
     try {
+      this.isApplyingSnapshot = true; // Prevent publishing during apply
       console.log(`🔄 AutoSync: Applying snapshot version ${snapshot.version}...`);
 
       // Apply brands (upsert based on slug)
@@ -169,6 +186,8 @@ export class AutoSyncManager {
       console.log(`✅ AutoSync: Applied snapshot with ${snapshot.brands.length} brands, ${snapshot.promotions.length} promotions, ${snapshot.items.length} items`);
     } catch (error) {
       console.error('❌ AutoSync: Error applying snapshot:', error);
+    } finally {
+      this.isApplyingSnapshot = false;
     }
   }
 
@@ -176,16 +195,20 @@ export class AutoSyncManager {
     if (this.isPolling) return;
     
     this.isPolling = true;
-    console.log(`🔄 AutoSync: Starting polling every ${this.pollInterval/1000}s`);
+    console.log(`🔄 AutoSync: Starting polling every ${this.pollInterval/1000}s as ${this.role}`);
 
     const poll = async () => {
       try {
-        const snapshot = await this.loadSnapshot();
-        if (snapshot && snapshot.version !== this.localVersion) {
-          console.log(`🔄 AutoSync: New version detected: ${snapshot.version}`);
-          await this.applySnapshot(snapshot);
-          this.localVersion = snapshot.version;
+        if (this.role === 'reader') {
+          // Only readers poll for updates
+          const snapshot = await this.loadSnapshot();
+          if (snapshot && snapshot.version !== this.localVersion) {
+            console.log(`🔄 AutoSync: New version detected: ${snapshot.version} (current: ${this.localVersion})`);
+            await this.applySnapshot(snapshot);
+            this.localVersion = snapshot.version;
+          }
         }
+        // Writers don't need to poll, they just publish when data changes
       } catch (error) {
         console.error('❌ AutoSync: Error during polling:', error);
       }
