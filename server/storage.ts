@@ -43,9 +43,53 @@ export class DatabaseStorage implements IStorage {
     try {
       autoSync.setStorage(this);
       await autoSync.initialize();
+      
+      // Execute Vualá to Gamesa migration only in production/deployment
+      if (process.env.REPLIT_ENV === 'prod') {
+        await this.performVualaToGamesaMigration();
+      }
+      
       this.autoSyncInitialized = true;
     } catch (error) {
       console.error('❌ Error inicializando AutoSync:', error);
+    }
+  }
+
+  private async performVualaToGamesaMigration() {
+    try {
+      console.log("🔄 Deployment: Checking if Vualá to Gamesa migration is needed...");
+      
+      // Get all brands
+      const brands = await this.getAllBrands();
+      const gamesaBrand = brands.find(b => b.slug === 'gamesa');
+      const vualaBrand = brands.find(b => b.slug === 'vuala');
+      
+      if (!gamesaBrand || !vualaBrand) {
+        console.log("⚠️ Required brands not found for migration");
+        return;
+      }
+      
+      // Get Vualá promotions before 2017
+      const vualaPromotions = await this.getPromotionsByBrand(vualaBrand.id);
+      const promotionsToMigrate = vualaPromotions.filter(p => p.startYear < 2017);
+      
+      if (promotionsToMigrate.length === 0) {
+        console.log("✅ No Vualá promotions before 2017 to migrate - already done");
+        return;
+      }
+      
+      console.log(`📋 Found ${promotionsToMigrate.length} Vualá promotions before 2017 to migrate to Gamesa`);
+      
+      let migratedCount = 0;
+      for (const promotion of promotionsToMigrate) {
+        await this.updatePromotion(promotion.id, { brandId: gamesaBrand.id });
+        migratedCount++;
+        console.log(`✅ Migrated: ${promotion.name} (${promotion.startYear})`);
+      }
+      
+      console.log(`🎉 Deployment Migration completed! Moved ${migratedCount} promotions from Vualá to Gamesa`);
+    } catch (error) {
+      console.error("❌ Migration error:", error);
     }
   }
 

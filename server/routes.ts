@@ -471,10 +471,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
       let updateData: any = {};
       
       if (imageType === 'wrapper') {
-        const existingUrls = currentPromotion.wrapperPhotosUrls || [];
+        const existingUrls = Array.isArray(currentPromotion.wrapperPhotosUrls) ? currentPromotion.wrapperPhotosUrls : [];
         updateData.wrapperPhotosUrls = [...existingUrls, ...normalizedUrls];
       } else if (imageType === 'promotion') {
-        const existingUrls = currentPromotion.promotionImagesUrls || [];
+        const existingUrls = Array.isArray(currentPromotion.promotionImagesUrls) ? currentPromotion.promotionImagesUrls : [];
         updateData.promotionImagesUrls = [...existingUrls, ...normalizedUrls];
       }
       
@@ -522,6 +522,48 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Error updating item images:", error);
       res.status(500).json({ error: "Internal server error" });
+    }
+  });
+
+  // Migration endpoint: Move Vualá promotions before 2017 to Gamesa
+  app.post("/api/migrate/vuala-to-gamesa", async (req, res) => {
+    try {
+      console.log("🚀 Starting Vualá to Gamesa migration...");
+      
+      // Get all brands to get their IDs
+      const brands = await storage.getAllBrands();
+      const gamesaBrand = brands.find(b => b.slug === 'gamesa');
+      const vualaBrand = brands.find(b => b.slug === 'vuala');
+      
+      if (!gamesaBrand || !vualaBrand) {
+        return res.status(404).json({ error: "Required brands not found" });
+      }
+      
+      // Get all Vualá promotions
+      const vualaPromotions = await storage.getPromotionsByBrand(vualaBrand.id);
+      
+      // Filter promotions before 2017
+      const promotionsToMigrate = vualaPromotions.filter(p => p.startYear < 2017);
+      
+      console.log(`📋 Found ${promotionsToMigrate.length} Vualá promotions before 2017 to migrate to Gamesa`);
+      
+      let migratedCount = 0;
+      for (const promotion of promotionsToMigrate) {
+        await storage.updatePromotion(promotion.id, { brandId: gamesaBrand.id });
+        migratedCount++;
+        console.log(`✅ Migrated: ${promotion.name} (${promotion.startYear})`);
+      }
+      
+      console.log(`🎉 Migration completed! Moved ${migratedCount} promotions from Vualá to Gamesa`);
+      
+      res.json({ 
+        success: true, 
+        migratedCount,
+        promotions: promotionsToMigrate.map(p => ({ name: p.name, year: p.startYear }))
+      });
+    } catch (error) {
+      console.error("❌ Migration error:", error);
+      res.status(500).json({ error: "Migration failed" });
     }
   });
 
