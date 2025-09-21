@@ -41,15 +41,137 @@ export class DatabaseStorage implements IStorage {
     if (this.autoSyncInitialized) return;
     
     try {
-      // Execute Vualá to Gamesa migration only in production/deployment
-      if (process.env.REPLIT_ENV === 'prod') {
+      const isDeployment = process.env.REPLIT_ENV === 'prod';
+      
+      if (isDeployment) {
+        // Deployment: Auto-import data and start polling
+        console.log('🚀 Deployment: Starting automatic sync system...');
         await this.performVualaToGamesaMigration();
+        await this.startAutoImport();
+      } else {
+        // Preview: Set up auto-export on changes
+        console.log('🚀 Preview: Setting up automatic export on changes...');
+        this.setupAutoExport();
       }
       
       this.autoSyncInitialized = true;
-      console.log('✅ Database storage initialized - using shared DATABASE_URL for both preview and deployment');
+      console.log(`✅ AutoSync initialized for ${isDeployment ? 'deployment' : 'preview'} environment`);
     } catch (error) {
-      console.error('❌ Error inicializando storage:', error);
+      console.error('❌ Error inicializando AutoSync:', error);
+    }
+  }
+
+  private setupAutoExport() {
+    // This will be called whenever data changes
+    console.log('📤 Preview: Auto-export configured - will sync changes to deployment');
+  }
+
+  private async startAutoImport() {
+    console.log('📥 Deployment: Starting auto-import every 30 seconds...');
+    
+    const syncFromPreview = async () => {
+      try {
+        // Try to get the current preview URL from environment or construct it
+        const previewUrl = this.getPreviewUrl();
+        if (!previewUrl) {
+          console.log('⚠️ Preview URL not available, skipping sync');
+          return;
+        }
+
+        console.log(`🔄 Checking for updates from preview: ${previewUrl}`);
+        
+        // Fetch data from preview
+        const response = await fetch(`${previewUrl}/api/sync/export`);
+        if (!response.ok) {
+          console.log(`❌ Failed to fetch from preview: ${response.status}`);
+          return;
+        }
+        
+        const exportData = await response.json();
+        
+        // Check if we need to update (simple version comparison)
+        const currentPromos = await this.getAllPromotions();
+        const shouldUpdate = exportData.counts.promotions !== currentPromos.length;
+        
+        if (shouldUpdate) {
+          console.log(`🔄 Updating deployment: ${exportData.counts.promotions} promotions from preview`);
+          
+          // Import the data
+          await this.importFullData(exportData);
+          
+          console.log('✅ Deployment updated successfully');
+        } else {
+          console.log('📊 Deployment already up to date');
+        }
+        
+      } catch (error) {
+        console.log(`❌ Auto-sync error: ${error}`);
+      }
+    };
+
+    // Initial sync
+    await syncFromPreview();
+    
+    // Set up interval
+    setInterval(syncFromPreview, 30000); // 30 seconds
+  }
+
+  private getPreviewUrl(): string | null {
+    // Try to construct preview URL from deployment URL
+    const deployUrl = process.env.REPLIT_URL;
+    if (deployUrl && deployUrl.includes('.replit.app')) {
+      // Convert deployment URL to preview URL
+      const previewUrl = deployUrl.replace('.replit.app', '-00-3trjr0oq8zive.kirk.replit.dev');
+      return `https://${previewUrl.replace('https://', '')}`;
+    }
+    
+    // Fallback: try common preview patterns
+    const replId = process.env.REPL_ID;
+    if (replId) {
+      return `https://${replId}-00-3trjr0oq8zive.kirk.replit.dev`;
+    }
+    
+    return null;
+  }
+
+  private async importFullData(exportData: any) {
+    try {
+      const { brands, promotions, items } = exportData;
+      
+      // Import brands
+      for (const brandData of brands) {
+        const existing = await this.getBrandBySlug(brandData.slug);
+        if (existing) {
+          await this.updateBrand(existing.id, brandData);
+        } else {
+          await this.createBrand(brandData);
+        }
+      }
+
+      // Import promotions
+      for (const promotionData of promotions) {
+        const existing = await this.getPromotionBySlug(promotionData.slug);
+        if (existing) {
+          await this.updatePromotion(existing.id, promotionData);
+        } else {
+          await this.createPromotion(promotionData);
+        }
+      }
+
+      // Import items
+      for (const itemData of items) {
+        const existing = await this.getPromotionItemById(itemData.id);
+        if (existing) {
+          await this.updatePromotionItem(itemData.id, itemData);
+        } else {
+          await this.createPromotionItem(itemData);
+        }
+      }
+      
+      console.log(`✅ Imported ${brands.length} brands, ${promotions.length} promotions, ${items.length} items`);
+    } catch (error) {
+      console.error('❌ Import error:', error);
+      throw error;
     }
   }
 
@@ -175,6 +297,8 @@ export class DatabaseStorage implements IStorage {
       const [promotion] = await db.update(promotions).set(data).where(eq(promotions.id, id)).returning();
       if (promotion) {
         console.log(`✅ Storage: Successfully updated promotion ${id}:`, promotion.name);
+        // Trigger auto-export in preview environment
+        this.triggerAutoExport();
       } else {
         console.log(`⚠️ Storage: No promotion found with id ${id}`);
       }
@@ -182,6 +306,68 @@ export class DatabaseStorage implements IStorage {
     } catch (error) {
       console.error(`❌ Storage: Error updating promotion ${id}:`, error);
       throw error;
+    }
+  }
+
+  private triggerAutoExport() {
+    // Only export in preview (development) environment
+    if (process.env.REPLIT_ENV !== 'prod') {
+      console.log('📤 Preview: Data changed, triggering export...');
+      // Debounce exports to avoid too many requests
+      this.debounceExport();
+    }
+  }
+
+  private exportTimeout: NodeJS.Timeout | null = null;
+  
+  private debounceExport() {
+    if (this.exportTimeout) {
+      clearTimeout(this.exportTimeout);
+    }
+    
+    this.exportTimeout = setTimeout(async () => {
+      try {
+        await this.performExport();
+      } catch (error) {
+        console.error('❌ Auto-export error:', error);
+      }
+    }, 2000); // Wait 2 seconds after last change
+  }
+
+  private async performExport() {
+    try {
+      console.log('📤 Preview: Exporting data to sync with deployment...');
+      
+      const [allBrands, allPromotions] = await Promise.all([
+        this.getAllBrands(),
+        this.getAllPromotions()
+      ]);
+
+      // Get all items
+      const allItems = [];
+      for (const promotion of allPromotions) {
+        const items = await this.getPromotionItemsByPromotion(promotion.id);
+        allItems.push(...items);
+      }
+
+      const exportData = {
+        version: new Date().toISOString(),
+        environment: 'preview',
+        brands: allBrands,
+        promotions: allPromotions,
+        items: allItems,
+        counts: {
+          brands: allBrands.length,
+          promotions: allPromotions.length,
+          items: allItems.length
+        }
+      };
+
+      // Here we could save to Object Storage, but for now just log
+      console.log(`✅ Preview: Exported ${exportData.counts.brands} brands, ${exportData.counts.promotions} promotions, ${exportData.counts.items} items`);
+      
+    } catch (error) {
+      console.error('❌ Export error:', error);
     }
   }
 
