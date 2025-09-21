@@ -240,59 +240,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Endpoint para actualizar el orden de promociones (drag and drop)
-  // Admin endpoint: Export current database state
-  app.get("/api/admin/export", async (req, res) => {
-    try {
-      const brands = await storage.getAllBrands();
-      const promotions = await storage.getAllPromotions();
-      
-      res.json({
-        brands,
-        promotions,
-        timestamp: new Date().toISOString(),
-        total_brands: brands.length,
-        total_promotions: promotions.length
-      });
-    } catch (error) {
-      res.status(500).json({ message: "Failed to export data", error: error instanceof Error ? error.message : String(error) });
-    }
-  });
-
-  // Admin endpoint: Force database reset and reseed
-  app.post("/api/admin/reset-and-seed", async (req, res) => {
-    try {
-      console.log('🔄 Admin: Forcing database reset and reseed...');
-      
-      // Reset the seeded flag to force seeding
-      (storage as any).isSeeded = false;
-      
-      // Force delete all data and reseed
-      const { db } = await import("./db.js");
-      const { brands, promotions } = await import("../shared/schema.js");
-      
-      await db.delete(promotions);
-      await db.delete(brands);
-      console.log('🧹 Admin: Database cleared');
-      
-      // Trigger seeding by calling getAllBrands
-      await storage.getAllBrands();
-      
-      const newBrands = await storage.getAllBrands();
-      const newPromotions = await storage.getAllPromotions();
-      
-      console.log(`✅ Admin: Seeding completed - ${newBrands.length} brands, ${newPromotions.length} promotions`);
-      
-      res.json({
-        message: "Database reset and seeded successfully",
-        brands: newBrands.length,
-        promotions: newPromotions.length
-      });
-    } catch (error) {
-      console.error('❌ Admin: Error in reset and seed:', error);
-      res.status(500).json({ message: "Failed to reset and seed database", error: error instanceof Error ? error.message : String(error) });
-    }
-  });
-
   // IMPORTANTE: Esta ruta debe ir ANTES de la ruta genérica /api/promotions/:id
   app.put("/api/promotions/reorder", async (req, res) => {
     console.log('🔄 PUT /api/promotions/reorder endpoint hit');

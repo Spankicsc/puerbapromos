@@ -17,9 +17,6 @@ const Header = () => {
     { name: "Promociones", href: "/promociones" },
   ];
 
-  const adminNavigation = [
-    { name: "Admin", href: "/admin" },
-  ];
 
   return (
     <header className="text-white sticky top-0 z-50 shadow-lg bg-[#fed801]">
@@ -50,17 +47,6 @@ const Header = () => {
           {/* Search Bar - Desktop */}
           <div className="hidden md:flex flex-1 max-w-lg mx-8">
             <SearchBar />
-          </div>
-          
-          {/* Admin Link - Desktop */}
-          <div className="hidden md:flex">
-            {adminNavigation.map((item) => (
-              <Link key={item.name} href={item.href} data-testid={`link-${item.name.toLowerCase()}`}>
-                <span className="text-xs font-medium transition-colors hover:text-promo-yellow text-[#666666] opacity-60">
-                  {item.name}
-                </span>
-              </Link>
-            ))}
           </div>
           
           {/* Mobile Menu Button */}

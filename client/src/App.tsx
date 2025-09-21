@@ -11,7 +11,6 @@ import Brands from "@/pages/brands";
 import Promotion from "@/pages/promotion";
 import Promotions from "@/pages/promotions";
 import Search from "@/pages/search";
-import Admin from "@/pages/admin";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -27,7 +26,6 @@ function Router() {
           <Route path="/promociones/:slug" component={Promotion} />
           <Route path="/promotion/:slug" component={Promotion} />
           <Route path="/buscar" component={Search} />
-          <Route path="/admin" component={Admin} />
           <Route component={NotFound} />
         </Switch>
       </main>
