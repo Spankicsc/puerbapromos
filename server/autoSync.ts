@@ -1,14 +1,27 @@
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import type { Promotion, PromotionItem } from '../shared/schema';
+import { ObjectStorageService } from './objectStorage';
+import type { Brand, Promotion, PromotionItem } from '../shared/schema';
+import type { IStorage } from './storage';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+interface DataSnapshot {
+  version: string;
+  timestamp: string;
+  brands: Brand[];
+  promotions: Promotion[];
+  items: PromotionItem[];
+}
 
 export class AutoSyncManager {
   private static instance: AutoSyncManager;
-  private storagePath = path.join(__dirname, 'storage.ts');
+  private objectStorage: ObjectStorageService;
+  private storage: IStorage | null = null;
+  private snapshotKey = 'data/snapshot.json';
+  private localVersion = '';
+  private pollInterval = 30000; // 30 seconds
+  private isPolling = false;
+
+  constructor() {
+    this.objectStorage = new ObjectStorageService();
+  }
 
   static getInstance(): AutoSyncManager {
     if (!AutoSyncManager.instance) {
@@ -17,108 +30,190 @@ export class AutoSyncManager {
     return AutoSyncManager.instance;
   }
 
-  async syncPromotionToSource(promotion: Promotion): Promise<void> {
-    try {
-      console.log(`🔄 Sincronizando cambios de ${promotion.name} al código fuente...`);
-      
-      const content = fs.readFileSync(this.storagePath, 'utf8');
-      const updatedContent = this.updatePromotionInSource(content, promotion);
-      
-      fs.writeFileSync(this.storagePath, updatedContent);
-      console.log(`✅ Sincronizado: ${promotion.name}`);
-    } catch (error) {
-      console.error('❌ Error sincronizando al código:', error);
+  setStorage(storage: IStorage): void {
+    this.storage = storage;
+  }
+
+  async initialize(): Promise<void> {
+    if (!this.storage) {
+      console.error('❌ AutoSync: Storage not set. Call setStorage() first.');
+      return;
     }
+
+    try {
+      console.log('🔄 AutoSync: Initializing...');
+      
+      // For now, just start polling - no initial snapshot creation to avoid loops
+      this.startPolling();
+      console.log('✅ AutoSync: Initialized and polling started');
+    } catch (error) {
+      console.error('❌ AutoSync: Error during initialization:', error);
+    }
+  }
+
+  async publishSnapshot(): Promise<void> {
+    if (!this.storage) {
+      console.error('❌ AutoSync: Storage not set');
+      return;
+    }
+
+    try {
+      console.log('🔄 AutoSync: Publishing snapshot...');
+      
+      const [brands, promotions] = await Promise.all([
+        this.storage.getAllBrands(),
+        this.storage.getAllPromotions()
+      ]);
+
+      // Get all promotion items
+      const items: PromotionItem[] = [];
+      for (const promotion of promotions) {
+        const promotionItems = await this.storage.getPromotionItemsByPromotion(promotion.id);
+        items.push(...promotionItems);
+      }
+
+      const snapshot: DataSnapshot = {
+        version: new Date().toISOString(),
+        timestamp: new Date().toISOString(),
+        brands,
+        promotions,
+        items
+      };
+
+      await this.saveSnapshot(snapshot);
+      this.localVersion = snapshot.version;
+      
+      console.log(`✅ AutoSync: Published snapshot version ${snapshot.version}`);
+    } catch (error) {
+      console.error('❌ AutoSync: Error publishing snapshot:', error);
+    }
+  }
+
+  private async loadSnapshot(): Promise<DataSnapshot | null> {
+    try {
+      const objectFile = await this.objectStorage.getObjectEntityFile(`/objects/${this.snapshotKey}`);
+      const response = await fetch(objectFile.downloadUrl);
+      
+      if (!response.ok) {
+        return null;
+      }
+
+      const snapshot = await response.json();
+      return snapshot;
+    } catch (error) {
+      console.log('📄 AutoSync: No existing snapshot found');
+      return null;
+    }
+  }
+
+  private async saveSnapshot(snapshot: DataSnapshot): Promise<void> {
+    try {
+      const uploadUrl = await this.objectStorage.getObjectEntityUploadURL();
+      const snapshotBlob = new Blob([JSON.stringify(snapshot, null, 2)], { 
+        type: 'application/json' 
+      });
+
+      const formData = new FormData();
+      formData.append('file', snapshotBlob, this.snapshotKey);
+
+      const response = await fetch(uploadUrl, {
+        method: 'POST',
+        body: formData
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to upload snapshot: ${response.statusText}`);
+      }
+    } catch (error) {
+      console.error('❌ AutoSync: Error saving snapshot:', error);
+      throw error;
+    }
+  }
+
+  private async applySnapshot(snapshot: DataSnapshot): Promise<void> {
+    if (!this.storage) return;
+
+    try {
+      console.log(`🔄 AutoSync: Applying snapshot version ${snapshot.version}...`);
+
+      // Apply brands (upsert based on slug)
+      for (const brand of snapshot.brands) {
+        const existing = await this.storage.getBrandBySlug(brand.slug);
+        if (existing) {
+          await this.storage.updateBrand(existing.id, brand);
+        } else {
+          await this.storage.createBrand(brand);
+        }
+      }
+
+      // Apply promotions (upsert based on slug)
+      for (const promotion of snapshot.promotions) {
+        const existing = await this.storage.getPromotionBySlug(promotion.slug);
+        if (existing) {
+          await this.storage.updatePromotion(existing.id, promotion);
+        } else {
+          await this.storage.createPromotion(promotion);
+        }
+      }
+
+      // Apply promotion items (upsert based on ID)
+      for (const item of snapshot.items) {
+        const existing = await this.storage.getPromotionItemById(item.id);
+        if (existing) {
+          await this.storage.updatePromotionItem(item.id, item);
+        } else {
+          await this.storage.createPromotionItem(item);
+        }
+      }
+
+      console.log(`✅ AutoSync: Applied snapshot with ${snapshot.brands.length} brands, ${snapshot.promotions.length} promotions, ${snapshot.items.length} items`);
+    } catch (error) {
+      console.error('❌ AutoSync: Error applying snapshot:', error);
+    }
+  }
+
+  private startPolling(): void {
+    if (this.isPolling) return;
+    
+    this.isPolling = true;
+    console.log(`🔄 AutoSync: Starting polling every ${this.pollInterval/1000}s`);
+
+    const poll = async () => {
+      try {
+        const snapshot = await this.loadSnapshot();
+        if (snapshot && snapshot.version !== this.localVersion) {
+          console.log(`🔄 AutoSync: New version detected: ${snapshot.version}`);
+          await this.applySnapshot(snapshot);
+          this.localVersion = snapshot.version;
+        }
+      } catch (error) {
+        console.error('❌ AutoSync: Error during polling:', error);
+      }
+
+      if (this.isPolling) {
+        setTimeout(poll, this.pollInterval);
+      }
+    };
+
+    setTimeout(poll, this.pollInterval);
+  }
+
+  stopPolling(): void {
+    this.isPolling = false;
+    console.log('⏹️ AutoSync: Stopped polling');
+  }
+
+  // Legacy methods for backward compatibility (now trigger publishSnapshot)
+  async syncPromotionToSource(promotion: Promotion): Promise<void> {
+    await this.publishSnapshot();
   }
 
   async syncItemToSource(item: PromotionItem, promotionSlug: string): Promise<void> {
-    try {
-      console.log(`🔄 Sincronizando pieza "${item.name}" al código fuente...`);
-      
-      const content = fs.readFileSync(this.storagePath, 'utf8');
-      const updatedContent = this.addOrUpdateItemInSource(content, item, promotionSlug);
-      
-      fs.writeFileSync(this.storagePath, updatedContent);
-      console.log(`✅ Sincronizada pieza: ${item.name}`);
-    } catch (error) {
-      console.error('❌ Error sincronizando pieza al código:', error);
-    }
+    await this.publishSnapshot();
   }
 
   async syncItemDeletionToSource(itemId: string, promotionSlug: string): Promise<void> {
-    try {
-      console.log(`🔄 Eliminando pieza del código fuente...`);
-      
-      const content = fs.readFileSync(this.storagePath, 'utf8');
-      const updatedContent = this.removeItemFromSource(content, itemId, promotionSlug);
-      
-      fs.writeFileSync(this.storagePath, updatedContent);
-      console.log(`✅ Pieza eliminada del código fuente`);
-    } catch (error) {
-      console.error('❌ Error eliminando pieza del código:', error);
-    }
-  }
-
-  private updatePromotionInSource(content: string, promotion: Promotion): string {
-    // Find the promotion block by slug
-    const slugPattern = new RegExp(`(const \\w+: Promotion = {[\\s\\S]*?slug: "${promotion.slug}"[\\s\\S]*?);\\s*this\\.promotions\\.set`, 'g');
-    
-    return content.replace(slugPattern, (match) => {
-      // Extract the promotion object part
-      const objMatch = match.match(/(const \w+: Promotion = {[\s\S]*?});/);
-      if (!objMatch) return match;
-
-      let promotionObj = objMatch[1];
-
-      // Update key fields that users commonly change
-      promotionObj = this.updateField(promotionObj, 'youtubeCommercialUrl', promotion.youtubeCommercialUrl);
-      promotionObj = this.updateField(promotionObj, 'buffetGamesVideoUrl', promotion.buffetGamesVideoUrl);
-      promotionObj = this.updateField(promotionObj, 'wrapperRotation', promotion.wrapperRotation);
-      promotionObj = this.updateField(promotionObj, 'tags', promotion.tags);
-      promotionObj = this.updateField(promotionObj, 'imageUrl', promotion.imageUrl);
-      promotionObj = this.updateField(promotionObj, 'promotionImagesUrls', promotion.promotionImagesUrls);
-      promotionObj = this.updateField(promotionObj, 'wrapperPhotosUrls', promotion.wrapperPhotosUrls);
-
-      return match.replace(objMatch[1], promotionObj);
-    });
-  }
-
-  private updateField(content: string, fieldName: string, value: any): string {
-    const fieldPattern = new RegExp(`(${fieldName}:)([^,\\n]+)`, 'g');
-    
-    let newValue: string;
-    if (value === null) {
-      newValue = ' null';
-    } else if (typeof value === 'string') {
-      newValue = ` "${value}"`;
-    } else if (Array.isArray(value)) {
-      if (value.length === 0) {
-        newValue = ' []';
-      } else {
-        const formattedArray = value.map(item => `"${item}"`).join(',\n        ');
-        newValue = ` [\n        ${formattedArray}\n      ]`;
-      }
-    } else if (typeof value === 'number') {
-      newValue = ` ${value}`;
-    } else {
-      newValue = ` ${JSON.stringify(value)}`;
-    }
-
-    return content.replace(fieldPattern, `$1${newValue}`);
-  }
-
-  private addOrUpdateItemInSource(content: string, item: PromotionItem, promotionSlug: string): string {
-    // For DatabaseStorage, we don't need to maintain items in source code
-    // The database is the source of truth for items
-    // This method exists to maintain consistency but does nothing
-    return content;
-  }
-
-  private removeItemFromSource(content: string, itemId: string, promotionSlug: string): string {
-    // For DatabaseStorage, we don't need to maintain items in source code
-    // The database is the source of truth for items
-    // This method exists to maintain consistency but does nothing
-    return content;
+    await this.publishSnapshot();
   }
 }
 
