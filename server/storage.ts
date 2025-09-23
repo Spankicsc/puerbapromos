@@ -45,15 +45,12 @@ export class DatabaseStorage implements IStorage {
       // UNIFICACIÓN: Preview y deployment usan la MISMA base de datos
       console.log('🔄 Configurando base de datos unificada - preview y deployment comparten datos');
       
-      // Solo ejecutar migración Vualá una vez
-      const isDeployment = process.env.REPLIT_ENV === 'prod';
-      if (isDeployment) {
-        console.log('🚀 Deployment: Ejecutando migración Vualá → Gamesa...');
-        await this.performVualaToGamesaMigration();
-      }
+      // FORZAR migración Vualá → Gamesa SIEMPRE (idempotente)
+      console.log('🚀 Ejecutando migración Vualá → Gamesa (idempotente)...');
+      await this.performVualaToGamesaMigration();
       
       this.autoSyncInitialized = true;
-      console.log('✅ Base de datos unificada configurada - cambios instantáneos entre preview y deployment');
+      console.log('✅ Base de datos unificada configurada - migración completa');
     } catch (error) {
       console.error('❌ Error configurando base de datos unificada:', error);
     }
@@ -180,18 +177,18 @@ export class DatabaseStorage implements IStorage {
     try {
       console.log("🔄 Deployment: Checking if Vualá to Gamesa migration is needed...");
       
-      // Get all brands
-      const brands = await this.getAllBrands();
-      const gamesaBrand = brands.find(b => b.slug === 'gamesa');
-      const vualaBrand = brands.find(b => b.slug === 'vuala');
+      // Get brands directly from database (avoid infinite loop)
+      const brandsData = await db.select().from(brands);
+      const gamesaBrand = brandsData.find(b => b.slug === 'gamesa');
+      const vualaBrand = brandsData.find(b => b.slug === 'vuala');
       
       if (!gamesaBrand || !vualaBrand) {
         console.log("⚠️ Required brands not found for migration");
         return;
       }
       
-      // Get Vualá promotions before 2017
-      const vualaPromotions = await this.getPromotionsByBrand(vualaBrand.id);
+      // Get Vualá promotions directly from database (avoid infinite loop)
+      const vualaPromotions = await db.select().from(promotions).where(eq(promotions.brandId, vualaBrand.id));
       const promotionsToMigrate = vualaPromotions.filter(p => p.startYear < 2017);
       
       if (promotionsToMigrate.length === 0) {
@@ -203,7 +200,8 @@ export class DatabaseStorage implements IStorage {
       
       let migratedCount = 0;
       for (const promotion of promotionsToMigrate) {
-        await this.updatePromotion(promotion.id, { brandId: gamesaBrand.id });
+        // Update directly in database (avoid infinite loop)
+        await db.update(promotions).set({ brandId: gamesaBrand.id }).where(eq(promotions.id, promotion.id));
         migratedCount++;
         console.log(`✅ Migrated: ${promotion.name} (${promotion.startYear})`);
       }
