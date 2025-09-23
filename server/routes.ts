@@ -800,9 +800,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       }
 
+      // Crear un fingerprint de la base de datos para verificar si es la misma
+      const dbUrl = process.env.DATABASE_URL || '';
+      const dbFingerprint = dbUrl ? (dbUrl.split('@')[1]?.split('/')[0]?.slice(-8) || 'unknown') : 'none';
+      
       const status = {
         environment: process.env.REPLIT_ENV || 'development',
         database: process.env.DATABASE_URL ? 'connected' : 'not configured',
+        databaseFingerprint: dbFingerprint,
         totalBrands: allBrands.length,
         totalPromotions: allPromotions.length,
         promotionsByBrand: brandCounts,
