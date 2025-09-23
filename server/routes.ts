@@ -710,63 +710,74 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Endpoint directo para copiar TODOS los datos del preview al deployment
+  // Endpoint para copiar datos REALMENTE al deployment usando sync/full
   app.post("/api/sync/copy-to-deployment", async (req, res) => {
     try {
-      console.log('🚀 Copiando TODOS los datos del preview al deployment...');
+      console.log('🚀 Copiando datos del preview AL deployment usando sync completo...');
       
-      // Obtener TODOS los datos
-      const [allBrands, allPromotions] = await Promise.all([
-        storage.getAllBrands(),
-        storage.getAllPromotions()
-      ]);
-
-      // Obtener TODOS los items
-      const allItems = [];
-      for (const promotion of allPromotions) {
-        const items = await storage.getPromotionItemsByPromotion(promotion.id);
-        allItems.push(...items);
-      }
-
-      console.log(`📊 DATOS DISPONIBLES: ${allBrands.length} marcas, ${allPromotions.length} promociones, ${allItems.length} items`);
+      const { deploymentUrl } = req.body;
       
-      // Ejecutar migración Vualá si es deployment
-      const isDeployment = process.env.REPLIT_ENV === 'prod';
-      if (isDeployment) {
-        console.log('🔄 Ejecutando migración Vualá → Gamesa en deployment...');
-        const brands = allBrands;
-        const gamesaBrand = brands.find(b => b.slug === 'gamesa');
-        const vualaBrand = brands.find(b => b.slug === 'vuala');
-        
-        if (gamesaBrand && vualaBrand) {
-          const vualaPromotions = allPromotions.filter(p => p.brandId === vualaBrand.id);
-          const promotionsToMigrate = vualaPromotions.filter(p => p.startYear < 2017);
-          
-          console.log(`📋 Migrando ${promotionsToMigrate.length} promociones Vualá → Gamesa`);
-          
-          for (const promotion of promotionsToMigrate) {
-            await storage.updatePromotion(promotion.id, { brandId: gamesaBrand.id });
-            console.log(`✅ Migrado: ${promotion.name} (${promotion.startYear})`);
-          }
+      // Si no hay deploymentUrl, solo exportar datos locales
+      if (!deploymentUrl) {
+        const [allBrands, allPromotions] = await Promise.all([
+          storage.getAllBrands(),
+          storage.getAllPromotions()
+        ]);
+
+        const allItems = [];
+        for (const promotion of allPromotions) {
+          const items = await storage.getPromotionItemsByPromotion(promotion.id);
+          allItems.push(...items);
         }
+
+        console.log(`📊 DATOS LOCALES: ${allBrands.length} marcas, ${allPromotions.length} promociones, ${allItems.length} items`);
+        
+        return res.json({ 
+          success: true, 
+          message: 'Datos locales disponibles',
+          environment: process.env.REPLIT_ENV || 'preview',
+          counts: {
+            brands: allBrands.length,
+            promotions: allPromotions.length, 
+            items: allItems.length
+          }
+        });
       }
       
-      console.log('✅ DATOS COPIADOS EXITOSAMENTE - Preview y deployment sincronizados');
+      // Realizar sync completo al deployment
+      console.log(`🔄 Sincronizando con deployment: ${deploymentUrl}`);
+      
+      const previewUrl = `${req.protocol}://${req.get('host')}`;
+      
+      const syncResponse = await fetch(`${deploymentUrl}/api/sync/full`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          sourceUrl: previewUrl
+        })
+      });
+      
+      if (!syncResponse.ok) {
+        throw new Error(`Sync failed: ${syncResponse.status} ${syncResponse.statusText}`);
+      }
+      
+      const syncResult = await syncResponse.json();
+      
+      console.log('✅ SINCRONIZACIÓN EXITOSA AL DEPLOYMENT');
       
       res.json({ 
         success: true, 
-        message: 'Datos copiados exitosamente',
-        environment: isDeployment ? 'deployment' : 'preview',
-        counts: {
-          brands: allBrands.length,
-          promotions: allPromotions.length, 
-          items: allItems.length
-        }
+        message: 'Datos sincronizados exitosamente al deployment',
+        deploymentUrl,
+        syncResult
       });
+      
     } catch (error) {
-      console.error('❌ Error copiando datos al deployment:', error);
+      console.error('❌ Error sincronizando al deployment:', error);
       res.status(500).json({ 
-        error: 'Error copiando datos al deployment',
+        error: 'Error sincronizando al deployment',
         details: error instanceof Error ? error.message : String(error)
       });
     }

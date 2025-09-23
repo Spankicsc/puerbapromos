@@ -42,22 +42,23 @@ export class DatabaseStorage implements IStorage {
     if (this.autoSyncInitialized) return;
     
     try {
-      // UNIFICACIÓN: Usar la misma base de datos para preview y deployment
-      console.log('🔄 Configurando base de datos unificada para preview y deployment...');
-      
-      // Solo ejecutar migración Vualá una vez al inicializar
       const isDeployment = process.env.REPLIT_ENV === 'prod';
+      
       if (isDeployment) {
+        // Deployment: Auto-import data and start polling
+        console.log('🚀 Deployment: Starting automatic sync system...');
         await this.performVualaToGamesaMigration();
-        console.log('🎯 Deployment: Usando base de datos compartida');
+        await this.startAutoImport();
       } else {
-        console.log('🎯 Preview: Usando base de datos compartida');
+        // Preview: Set up auto-export on changes
+        console.log('🚀 Preview: Setting up automatic export on changes...');
+        this.setupAutoExport();
       }
       
       this.autoSyncInitialized = true;
-      console.log('✅ Base de datos unificada - cambios sincronizados automáticamente');
+      console.log(`✅ AutoSync initialized for ${isDeployment ? 'deployment' : 'preview'} environment`);
     } catch (error) {
-      console.error('❌ Error configurando base de datos unificada:', error);
+      console.error('❌ Error inicializando AutoSync:', error);
     }
   }
 
@@ -274,6 +275,7 @@ export class DatabaseStorage implements IStorage {
   // Promotion methods
   async getAllPromotions(): Promise<Promotion[]> {
     await this.ensureSeeded();
+    await this.ensureAutoSyncInitialized();
     return await db.select().from(promotions).orderBy(promotions.sortOrder, promotions.startYear);
   }
 
@@ -303,7 +305,8 @@ export class DatabaseStorage implements IStorage {
       const [promotion] = await db.update(promotions).set(data).where(eq(promotions.id, id)).returning();
       if (promotion) {
         console.log(`✅ Storage: Successfully updated promotion ${id}:`, promotion.name);
-        console.log('💾 Cambio sincronizado automáticamente en preview y deployment');
+        // Trigger auto-export in preview environment
+        this.triggerAutoExport();
       } else {
         console.log(`⚠️ Storage: No promotion found with id ${id}`);
       }
@@ -315,8 +318,12 @@ export class DatabaseStorage implements IStorage {
   }
 
   private triggerAutoExport() {
-    // Base de datos unificada - no necesitamos export
-    console.log('💾 Cambio guardado en base de datos unificada');
+    // Only export in preview (development) environment
+    if (process.env.REPLIT_ENV !== 'prod') {
+      console.log('📤 Preview: Data changed, triggering export...');
+      // Debounce exports to avoid too many requests
+      this.debounceExport();
+    }
   }
 
   private exportTimeout: NodeJS.Timeout | null = null;
@@ -401,17 +408,21 @@ export class DatabaseStorage implements IStorage {
 
   async createPromotionItem(data: Omit<PromotionItem, 'id' | 'createdAt'>): Promise<PromotionItem> {
     const [item] = await db.insert(promotionItems).values(data).returning();
+    this.triggerAutoExport();
     return item;
   }
 
   async updatePromotionItem(id: string, data: Partial<PromotionItem>): Promise<PromotionItem | null> {
     const [item] = await db.update(promotionItems).set(data).where(eq(promotionItems.id, id)).returning();
+    if (item) this.triggerAutoExport();
     return item || null;
   }
 
   async deletePromotionItem(id: string): Promise<boolean> {
     const result = await db.delete(promotionItems).where(eq(promotionItems.id, id));
-    return (result as any).rowCount > 0;
+    const success = (result as any).rowCount > 0;
+    if (success) this.triggerAutoExport();
+    return success;
   }
 
   // Search methods
