@@ -783,6 +783,43 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Endpoint para verificar estado de la base de datos
+  app.get("/api/status", async (req, res) => {
+    try {
+      const [allBrands, allPromotions] = await Promise.all([
+        storage.getAllBrands(),
+        storage.getAllPromotions()
+      ]);
+
+      // Contar promociones por marca
+      const brandCounts: Record<string, number> = {};
+      for (const promotion of allPromotions) {
+        const brand = allBrands.find(b => b.id === promotion.brandId);
+        if (brand) {
+          brandCounts[brand.name] = (brandCounts[brand.name] || 0) + 1;
+        }
+      }
+
+      const status = {
+        environment: process.env.REPLIT_ENV || 'development',
+        database: process.env.DATABASE_URL ? 'connected' : 'not configured',
+        totalBrands: allBrands.length,
+        totalPromotions: allPromotions.length,
+        promotionsByBrand: brandCounts,
+        timestamp: new Date().toISOString()
+      };
+
+      console.log(`📊 Database Status - Environment: ${status.environment}`);
+      console.log(`📊 Total: ${status.totalBrands} brands, ${status.totalPromotions} promotions`);
+      console.log(`📊 By brand:`, brandCounts);
+
+      res.json(status);
+    } catch (error) {
+      console.error('❌ Status check error:', error);
+      res.status(500).json({ error: 'Status check failed' });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }

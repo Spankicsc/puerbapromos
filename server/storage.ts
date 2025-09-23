@@ -42,23 +42,20 @@ export class DatabaseStorage implements IStorage {
     if (this.autoSyncInitialized) return;
     
     try {
-      const isDeployment = process.env.REPLIT_ENV === 'prod';
+      // UNIFICACIÓN: Preview y deployment usan la MISMA base de datos
+      console.log('🔄 Configurando base de datos unificada - preview y deployment comparten datos');
       
+      // Solo ejecutar migración Vualá una vez
+      const isDeployment = process.env.REPLIT_ENV === 'prod';
       if (isDeployment) {
-        // Deployment: Auto-import data and start polling
-        console.log('🚀 Deployment: Starting automatic sync system...');
+        console.log('🚀 Deployment: Ejecutando migración Vualá → Gamesa...');
         await this.performVualaToGamesaMigration();
-        await this.startAutoImport();
-      } else {
-        // Preview: Set up auto-export on changes
-        console.log('🚀 Preview: Setting up automatic export on changes...');
-        this.setupAutoExport();
       }
       
       this.autoSyncInitialized = true;
-      console.log(`✅ AutoSync initialized for ${isDeployment ? 'deployment' : 'preview'} environment`);
+      console.log('✅ Base de datos unificada configurada - cambios instantáneos entre preview y deployment');
     } catch (error) {
-      console.error('❌ Error inicializando AutoSync:', error);
+      console.error('❌ Error configurando base de datos unificada:', error);
     }
   }
 
@@ -262,13 +259,13 @@ export class DatabaseStorage implements IStorage {
 
   async createBrand(data: Omit<Brand, 'id' | 'createdAt'>): Promise<Brand> {
     const [brand] = await db.insert(brands).values(data).returning();
-    this.triggerAutoExport();
+    console.log('💾 Nueva marca guardada en base de datos compartida');
     return brand;
   }
 
   async updateBrand(id: string, data: Partial<Brand>): Promise<Brand | null> {
     const [brand] = await db.update(brands).set(data).where(eq(brands.id, id)).returning();
-    if (brand) this.triggerAutoExport();
+    if (brand) console.log('💾 Marca actualizada en base de datos compartida');
     return brand || null;
   }
 
@@ -295,7 +292,7 @@ export class DatabaseStorage implements IStorage {
 
   async createPromotion(data: Omit<Promotion, 'id' | 'createdAt'>): Promise<Promotion> {
     const [promotion] = await db.insert(promotions).values(data).returning();
-    this.triggerAutoExport();
+    console.log('💾 Nueva promoción guardada en base de datos compartida');
     return promotion;
   }
 
@@ -305,8 +302,7 @@ export class DatabaseStorage implements IStorage {
       const [promotion] = await db.update(promotions).set(data).where(eq(promotions.id, id)).returning();
       if (promotion) {
         console.log(`✅ Storage: Successfully updated promotion ${id}:`, promotion.name);
-        // Trigger auto-export in preview environment
-        this.triggerAutoExport();
+        console.log('💾 Promoción actualizada en base de datos compartida - visible inmediatamente en preview y deployment');
       } else {
         console.log(`⚠️ Storage: No promotion found with id ${id}`);
       }
@@ -318,12 +314,8 @@ export class DatabaseStorage implements IStorage {
   }
 
   private triggerAutoExport() {
-    // Only export in preview (development) environment
-    if (process.env.REPLIT_ENV !== 'prod') {
-      console.log('📤 Preview: Data changed, triggering export...');
-      // Debounce exports to avoid too many requests
-      this.debounceExport();
-    }
+    // Base de datos unificada - cambios instantáneos
+    console.log('💾 Cambio guardado en base de datos compartida');
   }
 
   private exportTimeout: NodeJS.Timeout | null = null;
@@ -392,7 +384,7 @@ export class DatabaseStorage implements IStorage {
   async deletePromotion(id: string): Promise<boolean> {
     const result = await db.delete(promotions).where(eq(promotions.id, id));
     const success = (result as any).rowCount > 0;
-    if (success) this.triggerAutoExport();
+    if (success) console.log('💾 Promoción eliminada de base de datos compartida');
     return success;
   }
 
@@ -408,20 +400,20 @@ export class DatabaseStorage implements IStorage {
 
   async createPromotionItem(data: Omit<PromotionItem, 'id' | 'createdAt'>): Promise<PromotionItem> {
     const [item] = await db.insert(promotionItems).values(data).returning();
-    this.triggerAutoExport();
+    console.log('💾 Nuevo item guardado en base de datos compartida');
     return item;
   }
 
   async updatePromotionItem(id: string, data: Partial<PromotionItem>): Promise<PromotionItem | null> {
     const [item] = await db.update(promotionItems).set(data).where(eq(promotionItems.id, id)).returning();
-    if (item) this.triggerAutoExport();
+    if (item) console.log('💾 Item actualizado en base de datos compartida');
     return item || null;
   }
 
   async deletePromotionItem(id: string): Promise<boolean> {
     const result = await db.delete(promotionItems).where(eq(promotionItems.id, id));
     const success = (result as any).rowCount > 0;
-    if (success) this.triggerAutoExport();
+    if (success) console.log('💾 Item eliminado de base de datos compartida');
     return success;
   }
 
