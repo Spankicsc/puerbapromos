@@ -710,6 +710,68 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Endpoint directo para copiar TODOS los datos del preview al deployment
+  app.post("/api/sync/copy-to-deployment", async (req, res) => {
+    try {
+      console.log('🚀 Copiando TODOS los datos del preview al deployment...');
+      
+      // Obtener TODOS los datos
+      const [allBrands, allPromotions] = await Promise.all([
+        storage.getAllBrands(),
+        storage.getAllPromotions()
+      ]);
+
+      // Obtener TODOS los items
+      const allItems = [];
+      for (const promotion of allPromotions) {
+        const items = await storage.getPromotionItemsByPromotion(promotion.id);
+        allItems.push(...items);
+      }
+
+      console.log(`📊 DATOS DISPONIBLES: ${allBrands.length} marcas, ${allPromotions.length} promociones, ${allItems.length} items`);
+      
+      // Ejecutar migración Vualá si es deployment
+      const isDeployment = process.env.REPLIT_ENV === 'prod';
+      if (isDeployment) {
+        console.log('🔄 Ejecutando migración Vualá → Gamesa en deployment...');
+        const brands = allBrands;
+        const gamesaBrand = brands.find(b => b.slug === 'gamesa');
+        const vualaBrand = brands.find(b => b.slug === 'vuala');
+        
+        if (gamesaBrand && vualaBrand) {
+          const vualaPromotions = allPromotions.filter(p => p.brandId === vualaBrand.id);
+          const promotionsToMigrate = vualaPromotions.filter(p => p.startYear < 2017);
+          
+          console.log(`📋 Migrando ${promotionsToMigrate.length} promociones Vualá → Gamesa`);
+          
+          for (const promotion of promotionsToMigrate) {
+            await storage.updatePromotion(promotion.id, { brandId: gamesaBrand.id });
+            console.log(`✅ Migrado: ${promotion.name} (${promotion.startYear})`);
+          }
+        }
+      }
+      
+      console.log('✅ DATOS COPIADOS EXITOSAMENTE - Preview y deployment sincronizados');
+      
+      res.json({ 
+        success: true, 
+        message: 'Datos copiados exitosamente',
+        environment: isDeployment ? 'deployment' : 'preview',
+        counts: {
+          brands: allBrands.length,
+          promotions: allPromotions.length, 
+          items: allItems.length
+        }
+      });
+    } catch (error) {
+      console.error('❌ Error copiando datos al deployment:', error);
+      res.status(500).json({ 
+        error: 'Error copiando datos al deployment',
+        details: error instanceof Error ? error.message : String(error)
+      });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }

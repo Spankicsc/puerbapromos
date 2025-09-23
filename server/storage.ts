@@ -42,23 +42,22 @@ export class DatabaseStorage implements IStorage {
     if (this.autoSyncInitialized) return;
     
     try {
-      const isDeployment = process.env.REPLIT_ENV === 'prod';
+      // UNIFICACIÓN: Usar la misma base de datos para preview y deployment
+      console.log('🔄 Configurando base de datos unificada para preview y deployment...');
       
+      // Solo ejecutar migración Vualá una vez al inicializar
+      const isDeployment = process.env.REPLIT_ENV === 'prod';
       if (isDeployment) {
-        // Deployment: Auto-import data and start polling
-        console.log('🚀 Deployment: Starting automatic sync system...');
         await this.performVualaToGamesaMigration();
-        await this.startAutoImport();
+        console.log('🎯 Deployment: Usando base de datos compartida');
       } else {
-        // Preview: Set up auto-export on changes
-        console.log('🚀 Preview: Setting up automatic export on changes...');
-        this.setupAutoExport();
+        console.log('🎯 Preview: Usando base de datos compartida');
       }
       
       this.autoSyncInitialized = true;
-      console.log(`✅ AutoSync initialized for ${isDeployment ? 'deployment' : 'preview'} environment`);
+      console.log('✅ Base de datos unificada - cambios sincronizados automáticamente');
     } catch (error) {
-      console.error('❌ Error inicializando AutoSync:', error);
+      console.error('❌ Error configurando base de datos unificada:', error);
     }
   }
 
@@ -304,8 +303,7 @@ export class DatabaseStorage implements IStorage {
       const [promotion] = await db.update(promotions).set(data).where(eq(promotions.id, id)).returning();
       if (promotion) {
         console.log(`✅ Storage: Successfully updated promotion ${id}:`, promotion.name);
-        // Trigger auto-export in preview environment
-        this.triggerAutoExport();
+        console.log('💾 Cambio sincronizado automáticamente en preview y deployment');
       } else {
         console.log(`⚠️ Storage: No promotion found with id ${id}`);
       }
@@ -317,12 +315,8 @@ export class DatabaseStorage implements IStorage {
   }
 
   private triggerAutoExport() {
-    // Only export in preview (development) environment
-    if (process.env.REPLIT_ENV !== 'prod') {
-      console.log('📤 Preview: Data changed, triggering export...');
-      // Debounce exports to avoid too many requests
-      this.debounceExport();
-    }
+    // Base de datos unificada - no necesitamos export
+    console.log('💾 Cambio guardado en base de datos unificada');
   }
 
   private exportTimeout: NodeJS.Timeout | null = null;
