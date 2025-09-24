@@ -855,8 +855,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         const name = brand.name.replace(/'/g, "''");
         const description = (brand.description || '').replace(/'/g, "''");
         
+        const createdAt = new Date(brand.createdAt).toISOString();
         sqlQueries.push(
-          `INSERT INTO brands (id, slug, name, description, primary_color, founded_year, created_at) VALUES ('${brand.id}', '${slug}', '${name}', '${description}', '${brand.primaryColor}', ${brand.foundedYear}, '${brand.createdAt}');`
+          `INSERT INTO brands (id, slug, name, description, primary_color, founded_year, created_at) VALUES ('${brand.id}', '${slug}', '${name}', '${description}', '${brand.primaryColor}', ${brand.foundedYear}, '${createdAt}');`
         );
       }
       
@@ -867,8 +868,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         const description = (promo.description || '').replace(/'/g, "''");
         const category = (promo.category || '').replace(/'/g, "''");
         
+        const createdAt = new Date(promo.createdAt).toISOString();
         sqlQueries.push(
-          `INSERT INTO promotions (id, brand_id, name, slug, description, category, start_date, end_date, created_at) VALUES ('${promo.id}', '${promo.brandId}', '${name}', '${slug}', '${description}', '${category}', '${promo.startDate}', '${promo.endDate}', '${promo.createdAt}');`
+          `INSERT INTO promotions (id, brand_id, name, slug, description, category, start_date, end_date, created_at) VALUES ('${promo.id}', '${promo.brandId}', '${name}', '${slug}', '${description}', '${category}', '${promo.startDate}', '${promo.endDate}', '${createdAt}');`
         );
       }
       
@@ -878,8 +880,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         const description = (item.description || '').replace(/'/g, "''");
         const rarity = (item.rarity || '').replace(/'/g, "''");
         
+        const createdAt = new Date(item.createdAt).toISOString();
         sqlQueries.push(
-          `INSERT INTO promotion_items (id, promotion_id, name, description, item_number, rarity, metadata, created_at) VALUES ('${item.id}', '${item.promotionId}', '${name}', '${description}', ${item.itemNumber}, '${rarity}', '${JSON.stringify(item.metadata || {}).replace(/'/g, "''")}', '${item.createdAt}');`
+          `INSERT INTO promotion_items (id, promotion_id, name, description, item_number, rarity, metadata, created_at) VALUES ('${item.id}', '${item.promotionId}', '${name}', '${description}', ${item.itemNumber}, '${rarity}', '${JSON.stringify(item.metadata || {}).replace(/'/g, "''")}', '${createdAt}');`
         );
       }
       
