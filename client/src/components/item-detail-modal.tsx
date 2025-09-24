@@ -113,11 +113,11 @@ export function ItemDetailModal({ item, isOpen, onClose, promotionSlug }: ItemDe
     mutationFn: async (itemId: string) => {
       return await apiRequest("DELETE", `/api/promotion-items/${itemId}`);
     },
-    onSuccess: () => {
-      // Actualizar el caché removiendo el item eliminado
+    onSuccess: (_, deletedItemId) => {
+      // Actualizar el caché removiendo el item eliminado usando el ID correcto
       queryClient.setQueryData(['/api/promotions', promotionSlug, 'items'], (oldData: PromotionItem[]) => {
         if (!oldData) return oldData;
-        return oldData.filter(i => i.id !== item?.id);
+        return oldData.filter(i => i.id !== deletedItemId);
       });
 
       // También invalidar para asegurar que se actualice
@@ -196,6 +196,38 @@ export function ItemDetailModal({ item, isOpen, onClose, promotionSlug }: ItemDe
                       <Save className="w-4 h-4 mr-1" />
                       {isSaving ? "Guardando..." : "Guardar"}
                     </Button>
+                    
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                        <Button
+                          variant="destructive"
+                          size="sm"
+                          disabled={isSaving}
+                          data-testid="button-delete-item-editing"
+                        >
+                          <Trash2 className="w-4 h-4 mr-1" />
+                          Eliminar
+                        </Button>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>¿Eliminar pieza?</AlertDialogTitle>
+                          <AlertDialogDescription>
+                            Esta acción no se puede deshacer. La pieza "{currentItem.name}" será eliminada permanentemente.
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                          <AlertDialogAction
+                            onClick={() => deleteMutation.mutate(item.id)}
+                            className="bg-red-600 hover:bg-red-700"
+                            disabled={deleteMutation.isPending}
+                          >
+                            {deleteMutation.isPending ? "Eliminando..." : "Eliminar"}
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
                   </>
                 ) : (
                   <>
