@@ -173,11 +173,21 @@ export default function AdminPage() {
                       const result = await response.json();
                       
                       if (result.success) {
-                        alert(`✅ ¡Transferencia exitosa!\n\n` +
-                              `Transferido desde ${result.from} a ${result.to}:\n` +
+                        // Crear y descargar archivo SQL
+                        const blob = new Blob([result.sql], { type: 'text/sql' });
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = `promospedia-transfer-${new Date().toISOString().split('T')[0]}.sql`;
+                        a.click();
+                        URL.revokeObjectURL(url);
+                        
+                        alert(`✅ ¡SQL de transferencia generado!\n\n` +
+                              `Se descargó el archivo SQL con:\n` +
                               `• ${result.transferred.brands} marcas\n` +
-                              `• ${result.transferred.promotions} promociones\n\n` +
-                              `El deployment ahora tiene el mismo contenido que preview.`);
+                              `• ${result.transferred.promotions} promociones\n` +
+                              `• ${result.transferred.items} items\n\n` +
+                              `Ejecuta este SQL en la base de deployment (ep-cool-mode) para sincronizar los datos.`);
                       } else {
                         throw new Error(result.error || 'Error desconocido');
                       }
@@ -189,7 +199,7 @@ export default function AdminPage() {
                   className="bg-blue-600 hover:bg-blue-700 text-white"
                   data-testid="button-transfer-preview-to-deployment"
                 >
-                  🚀 Transferir Datos Preview → Deployment
+                  📥 Generar SQL de Transferencia
                 </Button>
               </div>
             </CardContent>

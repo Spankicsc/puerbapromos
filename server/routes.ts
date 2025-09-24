@@ -825,60 +825,83 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Endpoint simplificado para transferir datos usando HTTP Neon
+  // Endpoint simplificado: generar archivo SQL para transferencia manual
   app.post('/api/transfer-to-deployment', async (req, res) => {
     try {
-      console.log('🔄 Iniciando transferencia de datos preview → deployment...');
+      console.log('🔄 Generando transferencia de datos preview → deployment...');
       
       // Exportar todos los datos de la base actual (preview)
       const allBrands = await storage.getAllBrands();
       const allPromotions = await storage.getAllPromotions();
       const allItems = await storage.getAllItems();
       
-      console.log(`📤 Datos a transferir: ${allBrands.length} marcas, ${allPromotions.length} promociones, ${allItems.length} items`);
+      console.log(`📤 Datos para transferir: ${allBrands.length} marcas, ${allPromotions.length} promociones, ${allItems.length} items`);
       
-      // Usar variable de ambiente para la URL de deployment
-      const deploymentDbUrl = process.env.DEPLOYMENT_DATABASE_URL || 
-        'postgresql://neondb_owner:npg_u6q7TGLJOVvB@ep-cool-mode-aekf4dbl.c-2.us-east-2.aws.neon.tech/neondb?sslmode=require';
+      // Generar SQL para transferencia manual
+      let sqlQueries = [
+        '-- Transferencia de datos Preview → Deployment',
+        '-- Ejecutar estas consultas en la base de deployment (ep-cool-mode)',
+        '',
+        '-- 1. Limpiar datos existentes',
+        'DELETE FROM promotion_items;',
+        'DELETE FROM promotions;', 
+        'DELETE FROM brands;',
+        '',
+        '-- 2. Insertar marcas'
+      ];
       
-      // Usar HTTP Neon client (sin WebSocket)
-      const { neon } = await import('@neondatabase/serverless');
-      const { drizzle } = await import('drizzle-orm/neon-serverless');
-      const deploymentSchema = await import('@shared/schema');
-      
-      const sql = neon(deploymentDbUrl);
-      const deploymentDb = drizzle(sql, { schema: deploymentSchema });
-
-      // Transferencia en orden correcto (respetando foreign keys)
-      // 1. Limpiar datos existentes (orden inverso)
-      await deploymentDb.delete(deploymentSchema.promotionItems);
-      await deploymentDb.delete(deploymentSchema.promotions);
-      await deploymentDb.delete(deploymentSchema.brands);
-      
-      // 2. Insertar datos nuevos (orden correcto)
-      if (allBrands.length > 0) {
-        await deploymentDb.insert(deploymentSchema.brands).values(allBrands);
+      for (const brand of allBrands) {
+        const slug = brand.slug.replace(/'/g, "''");
+        const name = brand.name.replace(/'/g, "''");
+        const description = (brand.description || '').replace(/'/g, "''");
+        
+        sqlQueries.push(
+          `INSERT INTO brands (id, slug, name, description, primary_color, founded_year, created_at) VALUES ('${brand.id}', '${slug}', '${name}', '${description}', '${brand.primaryColor}', ${brand.foundedYear}, '${brand.createdAt}');`
+        );
       }
       
-      if (allPromotions.length > 0) {
-        await deploymentDb.insert(deploymentSchema.promotions).values(allPromotions);
+      sqlQueries.push('', '-- 3. Insertar promociones');
+      for (const promo of allPromotions) {
+        const name = promo.name.replace(/'/g, "''");
+        const slug = promo.slug.replace(/'/g, "''");
+        const description = (promo.description || '').replace(/'/g, "''");
+        const category = (promo.category || '').replace(/'/g, "''");
+        
+        sqlQueries.push(
+          `INSERT INTO promotions (id, brand_id, name, slug, description, category, start_date, end_date, created_at) VALUES ('${promo.id}', '${promo.brandId}', '${name}', '${slug}', '${description}', '${category}', '${promo.startDate}', '${promo.endDate}', '${promo.createdAt}');`
+        );
       }
       
-      if (allItems.length > 0) {
-        await deploymentDb.insert(deploymentSchema.promotionItems).values(allItems);
+      sqlQueries.push('', '-- 4. Insertar items');
+      for (const item of allItems) {
+        const name = item.name.replace(/'/g, "''");
+        const description = (item.description || '').replace(/'/g, "''");
+        const rarity = (item.rarity || '').replace(/'/g, "''");
+        
+        sqlQueries.push(
+          `INSERT INTO promotion_items (id, promotion_id, name, description, item_number, rarity, metadata, created_at) VALUES ('${item.id}', '${item.promotionId}', '${name}', '${description}', ${item.itemNumber}, '${rarity}', '${JSON.stringify(item.metadata || {}).replace(/'/g, "''")}', '${item.createdAt}');`
+        );
       }
       
-      console.log(`✅ Transferencia completada: ${allBrands.length} marcas, ${allPromotions.length} promociones, ${allItems.length} items`);
+      const fullSQL = sqlQueries.join('\n');
+      
+      console.log(`✅ SQL generado: ${allBrands.length} marcas, ${allPromotions.length} promociones, ${allItems.length} items`);
       
       res.json({ 
         success: true, 
+        message: 'SQL de transferencia generado correctamente',
+        sql: fullSQL,
         transferred: {
           brands: allBrands.length,
           promotions: allPromotions.length,
           items: allItems.length
         },
-        from: process.env.DATABASE_URL?.split('@')[1]?.split('/')[0]?.slice(-8) || 'preview',
-        to: deploymentDbUrl.split('@')[1]?.split('/')[0]?.slice(-8) || 'deployment'
+        instructions: [
+          '1. Copia el SQL generado',
+          '2. Ve a la base de datos de deployment (ep-cool-mode)',
+          '3. Ejecuta las consultas SQL',
+          '4. El deployment tendrá los mismos datos que preview'
+        ]
       });
       
     } catch (error) {
