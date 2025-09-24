@@ -5,10 +5,11 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-import { Edit, Save, X, Plus } from "lucide-react";
+import { Edit, Save, X, Plus, Trash2 } from "lucide-react";
 import { PromotionItem } from "@shared/schema";
 import { apiRequest } from "@/lib/queryClient";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQueryClient, useMutation } from "@tanstack/react-query";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { useToast } from "@/hooks/use-toast";
 import { MultipleImageUploader } from "./MultipleImageUploader";
 
@@ -108,6 +109,37 @@ export function ItemDetailModal({ item, isOpen, onClose, promotionSlug }: ItemDe
     }
   };
 
+  const deleteMutation = useMutation({
+    mutationFn: async (itemId: string) => {
+      return await apiRequest("DELETE", `/api/promotion-items/${itemId}`);
+    },
+    onSuccess: () => {
+      // Actualizar el caché removiendo el item eliminado
+      queryClient.setQueryData(['/api/promotions', promotionSlug, 'items'], (oldData: PromotionItem[]) => {
+        if (!oldData) return oldData;
+        return oldData.filter(i => i.id !== item?.id);
+      });
+
+      // También invalidar para asegurar que se actualice
+      queryClient.invalidateQueries({ queryKey: ['/api/promotions', promotionSlug, 'items'] });
+      
+      toast({
+        title: 'Pieza eliminada',
+        description: 'La pieza se ha eliminado correctamente.',
+      });
+      
+      onClose(); // Cerrar el modal después de eliminar
+    },
+    onError: (error) => {
+      console.error("Error deleting item:", error);
+      toast({
+        title: 'Error',
+        description: 'No se pudo eliminar la pieza.',
+        variant: 'destructive',
+      });
+    },
+  });
+
   const getRarityColor = (rarity: string | null) => {
     switch (rarity) {
       case "common": return "bg-gray-500";
@@ -166,15 +198,48 @@ export function ItemDetailModal({ item, isOpen, onClose, promotionSlug }: ItemDe
                     </Button>
                   </>
                 ) : (
-                  <Button
-                    variant="outline"
-                    size="sm" 
-                    onClick={handleEdit}
-                    data-testid="button-edit-item"
-                  >
-                    <Edit className="w-4 h-4 mr-1" />
-                    Editar
-                  </Button>
+                  <>
+                    <Button
+                      variant="outline"
+                      size="sm" 
+                      onClick={handleEdit}
+                      data-testid="button-edit-item"
+                    >
+                      <Edit className="w-4 h-4 mr-1" />
+                      Editar
+                    </Button>
+                    
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                        <Button
+                          variant="destructive"
+                          size="sm"
+                          data-testid="button-delete-item"
+                        >
+                          <Trash2 className="w-4 h-4 mr-1" />
+                          Eliminar
+                        </Button>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>¿Eliminar pieza?</AlertDialogTitle>
+                          <AlertDialogDescription>
+                            Esta acción no se puede deshacer. La pieza "{currentItem.name}" será eliminada permanentemente.
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                          <AlertDialogAction
+                            onClick={() => deleteMutation.mutate(item.id)}
+                            className="bg-red-600 hover:bg-red-700"
+                            disabled={deleteMutation.isPending}
+                          >
+                            {deleteMutation.isPending ? "Eliminando..." : "Eliminar"}
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
+                  </>
                 )}
               </div>
             </div>
