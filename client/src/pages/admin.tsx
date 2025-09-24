@@ -137,6 +137,63 @@ export default function AdminPage() {
           <p className="text-gray-600 dark:text-gray-300">
             Sincronización de datos entre Preview y Deployment
           </p>
+
+          {/* Transferencia de Datos Preview → Deployment */}
+          <Card className="mb-6 border-blue-200 dark:border-blue-800">
+            <CardHeader>
+              <CardTitle className="text-blue-600 dark:text-blue-400">🔄 Transferencia Preview → Deployment</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex flex-col gap-4">
+                <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
+                  <p className="text-sm text-blue-800 dark:text-blue-200 font-medium mb-2">
+                    🎯 Problema identificado:
+                  </p>
+                  <p className="text-sm text-blue-700 dark:text-blue-300">
+                    Deployment siempre usa <code className="bg-blue-100 dark:bg-blue-800 px-1 rounded">ep-cool-mode-aekf4dbl</code> 
+                    mientras preview usa <code className="bg-blue-100 dark:bg-blue-800 px-1 rounded">ep-bold-meadow-aep4yteg</code> (con contenido correcto).
+                  </p>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  Esta función transfiere TODOS los datos del preview al deployment, 
+                  garantizando que ambos ambientes tengan exactamente el mismo contenido.
+                </p>
+                <Button 
+                  onClick={async () => {
+                    try {
+                      const response = await fetch('/api/transfer-to-deployment', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' }
+                      });
+                      
+                      if (!response.ok) {
+                        throw new Error(`HTTP ${response.status}`);
+                      }
+                      
+                      const result = await response.json();
+                      
+                      if (result.success) {
+                        alert(`✅ ¡Transferencia exitosa!\n\n` +
+                              `Transferido desde ${result.from} a ${result.to}:\n` +
+                              `• ${result.transferred.brands} marcas\n` +
+                              `• ${result.transferred.promotions} promociones\n\n` +
+                              `El deployment ahora tiene el mismo contenido que preview.`);
+                      } else {
+                        throw new Error(result.error || 'Error desconocido');
+                      }
+                    } catch (error) {
+                      console.error('❌ Error en transferencia:', error);
+                      alert(`❌ Error: ${error.message}`);
+                    }
+                  }}
+                  className="bg-blue-600 hover:bg-blue-700 text-white"
+                  data-testid="button-transfer-preview-to-deployment"
+                >
+                  🚀 Transferir Datos Preview → Deployment
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
         </div>
 
         {/* Current Environment Status */}

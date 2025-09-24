@@ -825,6 +825,71 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Endpoint simplificado para transferir datos usando HTTP Neon
+  app.post('/api/transfer-to-deployment', async (req, res) => {
+    try {
+      console.log('🔄 Iniciando transferencia de datos preview → deployment...');
+      
+      // Exportar todos los datos de la base actual (preview)
+      const allBrands = await storage.getAllBrands();
+      const allPromotions = await storage.getAllPromotions();
+      const allItems = await storage.getAllItems();
+      
+      console.log(`📤 Datos a transferir: ${allBrands.length} marcas, ${allPromotions.length} promociones, ${allItems.length} items`);
+      
+      // Usar variable de ambiente para la URL de deployment
+      const deploymentDbUrl = process.env.DEPLOYMENT_DATABASE_URL || 
+        'postgresql://neondb_owner:npg_u6q7TGLJOVvB@ep-cool-mode-aekf4dbl.c-2.us-east-2.aws.neon.tech/neondb?sslmode=require';
+      
+      // Usar HTTP Neon client (sin WebSocket)
+      const { neon } = await import('@neondatabase/serverless');
+      const { drizzle } = await import('drizzle-orm/neon-serverless');
+      const deploymentSchema = await import('@shared/schema');
+      
+      const sql = neon(deploymentDbUrl);
+      const deploymentDb = drizzle(sql, { schema: deploymentSchema });
+
+      // Transferencia en orden correcto (respetando foreign keys)
+      // 1. Limpiar datos existentes (orden inverso)
+      await deploymentDb.delete(deploymentSchema.promotionItems);
+      await deploymentDb.delete(deploymentSchema.promotions);
+      await deploymentDb.delete(deploymentSchema.brands);
+      
+      // 2. Insertar datos nuevos (orden correcto)
+      if (allBrands.length > 0) {
+        await deploymentDb.insert(deploymentSchema.brands).values(allBrands);
+      }
+      
+      if (allPromotions.length > 0) {
+        await deploymentDb.insert(deploymentSchema.promotions).values(allPromotions);
+      }
+      
+      if (allItems.length > 0) {
+        await deploymentDb.insert(deploymentSchema.promotionItems).values(allItems);
+      }
+      
+      console.log(`✅ Transferencia completada: ${allBrands.length} marcas, ${allPromotions.length} promociones, ${allItems.length} items`);
+      
+      res.json({ 
+        success: true, 
+        transferred: {
+          brands: allBrands.length,
+          promotions: allPromotions.length,
+          items: allItems.length
+        },
+        from: process.env.DATABASE_URL?.split('@')[1]?.split('/')[0]?.slice(-8) || 'preview',
+        to: deploymentDbUrl.split('@')[1]?.split('/')[0]?.slice(-8) || 'deployment'
+      });
+      
+    } catch (error) {
+      console.error('❌ Transfer error:', error);
+      res.status(500).json({ 
+        error: error instanceof Error ? error.message : String(error),
+        success: false 
+      });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
