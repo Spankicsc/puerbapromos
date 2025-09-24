@@ -23,6 +23,7 @@ export interface IStorage {
   deletePromotion(id: string): Promise<boolean>;
 
   // Promotion Item methods
+  getAllItems(): Promise<PromotionItem[]>;
   getPromotionItemById(id: string): Promise<PromotionItem | null>;
   getPromotionItemsByPromotion(promotionId: string): Promise<PromotionItem[]>;
   createPromotionItem(data: Omit<PromotionItem, 'id' | 'createdAt'>): Promise<PromotionItem>;
@@ -387,6 +388,10 @@ export class DatabaseStorage implements IStorage {
   }
 
   // Promotion Item methods
+  async getAllItems(): Promise<PromotionItem[]> {
+    return await db.select().from(promotionItems);
+  }
+
   async getPromotionItemById(id: string): Promise<PromotionItem | null> {
     const [item] = await db.select().from(promotionItems).where(eq(promotionItems.id, id));
     return item || null;
