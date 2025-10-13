@@ -562,7 +562,12 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                         : promotion.wrapperPhotoUrl || ''} 
                       alt={`Envoltura ${promotion.name}`}
                       className="w-full h-full object-contain drop-shadow-sm cursor-pointer hover:scale-105 transition-transform"
-                      style={{ transform: `rotate(${wrapperRotation}deg)` }}
+                      style={{ 
+                        transform: `rotate(${wrapperRotation}deg) scale(${(promotion.wrapperScale || 100) / 100})`,
+                        position: 'relative',
+                        left: `${promotion.wrapperOffsetX || 0}px`,
+                        top: `${promotion.wrapperOffsetY || 0}px`
+                      }}
                       data-testid="img-wrapper-normal"
                       onClick={(e) => !isEditing && e.preventDefault()}
                     />
@@ -575,7 +580,9 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                           : promotion.wrapperPhotoUrl || ''} 
                         alt={`Envoltura ${promotion.name}`}
                         className="max-w-full max-h-[80vh] object-contain"
-                        style={{ transform: `rotate(${wrapperRotation}deg)` }}
+                        style={{ 
+                          transform: `rotate(${wrapperRotation}deg) scale(${(promotion.wrapperScale || 100) / 100})`
+                        }}
                       />
                     </div>
                   </DialogContent>
