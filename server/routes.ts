@@ -477,6 +477,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       } else if (imageType === 'promotion') {
         const existingUrls = Array.isArray(currentPromotion.promotionImagesUrls) ? currentPromotion.promotionImagesUrls : [];
         updateData.promotionImagesUrls = [...existingUrls, ...normalizedUrls];
+        
+        // Merge promotion image descriptions
+        const { imageDescriptions } = req.body;
+        const existingDescriptions = currentPromotion.promotionImageDescriptions || {};
+        const newDescriptions = imageDescriptions || {};
+        updateData.promotionImageDescriptions = { ...existingDescriptions, ...newDescriptions };
       }
       
       const promotion = await storage.updatePromotion(id, updateData);

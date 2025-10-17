@@ -28,6 +28,7 @@ export const promotions = pgTable("promotions", {
   wrapperOffsetX: integer("wrapper_offset_x").default(0), // X position offset in pixels
   wrapperOffsetY: integer("wrapper_offset_y").default(0), // Y position offset in pixels
   promotionImagesUrls: jsonb("promotion_images_urls"),
+  promotionImageDescriptions: jsonb("promotion_image_descriptions").$type<Record<string, string> | null>(), // Descriptions for promotional images
   youtubeCommercialUrl: text("youtube_commercial_url"),
   buffetGamesVideoUrl: text("buffet_games_video_url"),
   startYear: integer("start_year").notNull(),

@@ -19,6 +19,7 @@ import { getBrandLogo } from "@/utils/brandLogos";
 import { getYouTubeEmbedUrl } from "@/utils/youtube";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
+import { ImageWithDescriptionUploader } from "@/components/ImageWithDescriptionUploader";
 
 const Promotion = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -195,28 +196,37 @@ const Promotion = () => {
     });
   };
   
-  const addPromotionImage = () => {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = 'image/*';
-    input.multiple = true;
-    input.onchange = (e) => {
-      const files = Array.from((e.target as HTMLInputElement).files || []);
-      files.forEach(file => {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          const imageUrl = e.target?.result as string;
-          if (imageUrl && promotion) {
-            const currentUrls = Array.isArray(promotion.promotionImagesUrls) ? promotion.promotionImagesUrls : [];
-            updateMutation.mutate({
-              promotionImagesUrls: [...currentUrls, imageUrl],
-            });
-          }
-        };
-        reader.readAsDataURL(file);
+  const handleUploadPromotionImages = async (images: Array<{ url: string; description: string }>) => {
+    if (!promotion?.id) return;
+    
+    try {
+      const imageUrls = images.map(img => img.url);
+      const imageDescriptions: Record<string, string> = {};
+      images.forEach(img => {
+        imageDescriptions[img.url] = img.description;
       });
-    };
-    input.click();
+
+      await apiRequest('PUT', `/api/promotions/${promotion.id}/images`, {
+        imageType: 'promotion',
+        imageUrls,
+        imageDescriptions
+      });
+      
+      // Refresh data
+      queryClient.invalidateQueries({ queryKey: ['/api/promotions', slug] });
+      
+      toast({
+        title: 'Imágenes promocionales subidas',
+        description: `Se agregaron ${images.length} imagen(es) con descripciones.`,
+      });
+    } catch (error) {
+      console.error('Error uploading promotional images:', error);
+      toast({
+        title: 'Error',
+        description: 'No se pudieron subir las imágenes promocionales.',
+        variant: 'destructive',
+      });
+    }
   };
   
   const removePromotionImage = (index: number) => {
@@ -1052,14 +1062,11 @@ const Promotion = () => {
                     Imágenes Promocionales
                   </h3>
                   {isEditMode && (
-                    <Button
-                      size="sm"
-                      onClick={addPromotionImage}
-                      className="bg-promo-yellow text-promo-black hover:bg-yellow-400"
-                    >
-                      <Plus className="w-4 h-4 mr-2" />
-                      Agregar Imagen
-                    </Button>
+                    <ImageWithDescriptionUploader
+                      maxNumberOfFiles={10}
+                      onComplete={handleUploadPromotionImages}
+                      buttonClassName="bg-promo-yellow text-promo-black hover:bg-yellow-400 text-sm h-9"
+                    />
                   )}
                 </div>
                 {promotion.promotionImagesUrls && Array.isArray(promotion.promotionImagesUrls) && promotion.promotionImagesUrls.length > 0 ? (
@@ -1098,13 +1105,11 @@ const Promotion = () => {
                       No hay imágenes promocionales disponibles
                     </p>
                     {isEditMode && (
-                      <Button
-                        onClick={addPromotionImage}
-                        className="bg-promo-yellow text-promo-black hover:bg-yellow-400"
-                      >
-                        <Plus className="w-4 h-4 mr-2" />
-                        Agregar Primera Imagen
-                      </Button>
+                      <ImageWithDescriptionUploader
+                        maxNumberOfFiles={10}
+                        onComplete={handleUploadPromotionImages}
+                        buttonClassName="bg-promo-yellow text-promo-black hover:bg-yellow-400"
+                      />
                     )}
                   </div>
                 )}
