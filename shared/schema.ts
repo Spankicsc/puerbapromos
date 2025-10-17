@@ -45,6 +45,7 @@ export const promotionItems = pgTable("promotion_items", {
   description: text("description"),
   imageUrl: text("image_url"),
   imageUrls: jsonb("image_urls").$type<string[] | null>(), // Multiple images for items
+  imageDescriptions: jsonb("image_descriptions").$type<Record<string, string> | null>(), // Descriptions for each image URL
   rarity: text("rarity"), // common, rare, super_rare, ultra_rare
   itemNumber: integer("item_number"),
   metadata: jsonb("metadata"), // additional properties specific to item type
