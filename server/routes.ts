@@ -478,10 +478,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
         const existingUrls = Array.isArray(currentPromotion.promotionImagesUrls) ? currentPromotion.promotionImagesUrls : [];
         updateData.promotionImagesUrls = [...existingUrls, ...normalizedUrls];
         
-        // Merge promotion image descriptions
+        // Merge promotion image descriptions with normalized URLs as keys
         const { imageDescriptions } = req.body;
         const existingDescriptions = currentPromotion.promotionImageDescriptions || {};
-        const newDescriptions = imageDescriptions || {};
+        const newDescriptions: Record<string, string> = {};
+        
+        // Normalize the description keys to match normalized image URLs
+        if (imageDescriptions) {
+          Object.entries(imageDescriptions).forEach(([url, description]) => {
+            const normalizedKey = objectStorageService.normalizeObjectEntityPath(url);
+            newDescriptions[normalizedKey] = description as string;
+          });
+        }
+        
         updateData.promotionImageDescriptions = { ...existingDescriptions, ...newDescriptions };
       }
       
