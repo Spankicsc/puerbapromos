@@ -1071,27 +1071,35 @@ const Promotion = () => {
                 </div>
                 {promotion.promotionImagesUrls && Array.isArray(promotion.promotionImagesUrls) && promotion.promotionImagesUrls.length > 0 ? (
                   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                    {(promotion.promotionImagesUrls as string[]).map((imageUrl: string, index: number) => (
-                      <div key={index} className="relative group">
-                        <img 
-                          src={imageUrl}
-                          alt={`Imagen promocional ${index + 1} de ${promotion.name}`}
-                          className="w-full h-48 object-cover rounded-lg hover:scale-105 transition-transform duration-300"
-                          data-testid={`img-promotion-${index}`}
-                        />
-                        {isEditMode && (
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            className="absolute top-2 right-2 w-8 h-8 p-0 bg-red-600 border-red-500 text-white hover:bg-red-700 opacity-0 group-hover:opacity-100 transition-opacity"
-                            onClick={() => removePromotionImage(index)}
-                            title="Eliminar imagen"
-                          >
-                            <Trash2 className="w-3 h-3" />
-                          </Button>
-                        )}
-                      </div>
-                    ))}
+                    {(promotion.promotionImagesUrls as string[]).map((imageUrl: string, index: number) => {
+                      const description = promotion.promotionImageDescriptions?.[imageUrl] || '';
+                      return (
+                        <div key={index} className="relative group">
+                          <img 
+                            src={imageUrl}
+                            alt={`Imagen promocional ${index + 1} de ${promotion.name}`}
+                            className="w-full h-48 object-cover rounded-lg hover:scale-105 transition-transform duration-300"
+                            data-testid={`img-promotion-${index}`}
+                          />
+                          {description && (
+                            <p className="mt-2 text-sm text-gray-600 text-center" data-testid={`text-promotion-description-${index}`}>
+                              {description}
+                            </p>
+                          )}
+                          {isEditMode && (
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="absolute top-2 right-2 w-8 h-8 p-0 bg-red-600 border-red-500 text-white hover:bg-red-700 opacity-0 group-hover:opacity-100 transition-opacity"
+                              onClick={() => removePromotionImage(index)}
+                              title="Eliminar imagen"
+                            >
+                              <Trash2 className="w-3 h-3" />
+                            </Button>
+                          )}
+                        </div>
+                      );
+                    })}
                   </div>
                 ) : (
                   <div className="text-center py-12 bg-gray-50 rounded-lg">
