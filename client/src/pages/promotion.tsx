@@ -29,6 +29,7 @@ const Promotion = () => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedItem, setSelectedItem] = useState<PromotionItem | null>(null);
   const [isItemModalOpen, setIsItemModalOpen] = useState(false);
+  const [editingImageDescription, setEditingImageDescription] = useState<{ url: string; description: string } | null>(null);
   
   // Categorías base disponibles
   const baseCategories = [
@@ -232,9 +233,46 @@ const Promotion = () => {
   const removePromotionImage = (index: number) => {
     if (!promotion || !Array.isArray(promotion.promotionImagesUrls)) return;
     const updatedImages = promotion.promotionImagesUrls.filter((_, i) => i !== index);
+    
+    // Also remove the description for the deleted image
+    const imageUrl = promotion.promotionImagesUrls[index];
+    const updatedDescriptions = { ...(promotion.promotionImageDescriptions || {}) };
+    delete updatedDescriptions[imageUrl];
+    
     updateMutation.mutate({
       promotionImagesUrls: updatedImages.length > 0 ? updatedImages : null,
+      promotionImageDescriptions: Object.keys(updatedDescriptions).length > 0 ? updatedDescriptions : null,
     });
+  };
+
+  const updateImageDescription = (imageUrl: string, description: string) => {
+    if (!promotion?.id) return;
+    
+    const updatedDescriptions = {
+      ...(promotion.promotionImageDescriptions || {}),
+      [imageUrl]: description
+    };
+    
+    updateMutation.mutate(
+      { promotionImageDescriptions: updatedDescriptions },
+      {
+        onSuccess: () => {
+          setEditingImageDescription(null);
+          toast({
+            title: 'Descripción actualizada',
+            description: 'La descripción de la imagen se actualizó correctamente.',
+          });
+        },
+        onError: (error) => {
+          console.error('Error updating image description:', error);
+          toast({
+            title: 'Error',
+            description: 'No se pudo actualizar la descripción.',
+            variant: 'destructive',
+          });
+        }
+      }
+    );
   };
 
   const addRareItem = () => {
@@ -1073,6 +1111,8 @@ const Promotion = () => {
                   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                     {(promotion.promotionImagesUrls as string[]).map((imageUrl: string, index: number) => {
                       const description = promotion.promotionImageDescriptions?.[imageUrl] || '';
+                      const isEditingThis = editingImageDescription?.url === imageUrl;
+                      
                       return (
                         <div key={index} className="relative group">
                           <img 
@@ -1081,21 +1121,74 @@ const Promotion = () => {
                             className="w-full h-48 object-cover rounded-lg hover:scale-105 transition-transform duration-300"
                             data-testid={`img-promotion-${index}`}
                           />
-                          {description && (
-                            <p className="mt-2 text-sm text-gray-600 text-center" data-testid={`text-promotion-description-${index}`}>
-                              {description}
-                            </p>
-                          )}
+                          
+                          {/* Description display or edit */}
+                          <div className="mt-2">
+                            {isEditingThis ? (
+                              <div className="flex gap-2">
+                                <Input
+                                  value={editingImageDescription.description}
+                                  onChange={(e) => setEditingImageDescription({ url: imageUrl, description: e.target.value })}
+                                  placeholder="Descripción de la imagen"
+                                  className="text-sm"
+                                  data-testid={`input-description-${index}`}
+                                />
+                                <Button
+                                  size="sm"
+                                  onClick={() => updateImageDescription(imageUrl, editingImageDescription.description)}
+                                  className="bg-promo-yellow text-promo-black hover:bg-yellow-400"
+                                  data-testid={`button-save-description-${index}`}
+                                >
+                                  <Save className="w-4 h-4" />
+                                </Button>
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  onClick={() => setEditingImageDescription(null)}
+                                  data-testid={`button-cancel-description-${index}`}
+                                >
+                                  <X className="w-4 h-4" />
+                                </Button>
+                              </div>
+                            ) : (
+                              <>
+                                {description ? (
+                                  <p className="text-sm text-gray-600 text-center" data-testid={`text-promotion-description-${index}`}>
+                                    {description}
+                                  </p>
+                                ) : isEditMode ? (
+                                  <p className="text-sm text-gray-400 text-center italic">Sin descripción</p>
+                                ) : null}
+                              </>
+                            )}
+                          </div>
+                          
+                          {/* Edit mode buttons */}
                           {isEditMode && (
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              className="absolute top-2 right-2 w-8 h-8 p-0 bg-red-600 border-red-500 text-white hover:bg-red-700 opacity-0 group-hover:opacity-100 transition-opacity"
-                              onClick={() => removePromotionImage(index)}
-                              title="Eliminar imagen"
-                            >
-                              <Trash2 className="w-3 h-3" />
-                            </Button>
+                            <>
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                className="absolute top-2 right-2 w-8 h-8 p-0 bg-red-600 border-red-500 text-white hover:bg-red-700 opacity-0 group-hover:opacity-100 transition-opacity"
+                                onClick={() => removePromotionImage(index)}
+                                title="Eliminar imagen"
+                                data-testid={`button-delete-image-${index}`}
+                              >
+                                <Trash2 className="w-3 h-3" />
+                              </Button>
+                              {!isEditingThis && (
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  className="absolute top-2 left-2 w-8 h-8 p-0 bg-blue-600 border-blue-500 text-white hover:bg-blue-700 opacity-0 group-hover:opacity-100 transition-opacity"
+                                  onClick={() => setEditingImageDescription({ url: imageUrl, description: description })}
+                                  title="Editar descripción"
+                                  data-testid={`button-edit-description-${index}`}
+                                >
+                                  <Edit2 className="w-3 h-3" />
+                                </Button>
+                              )}
+                            </>
                           )}
                         </div>
                       );
