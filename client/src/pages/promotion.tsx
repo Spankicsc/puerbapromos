@@ -1091,9 +1091,8 @@ const Promotion = () => {
             </span>
           </div>
 
-          {/* Promotion Images Gallery */}
-          {(promotion.promotionImagesUrls && Array.isArray(promotion.promotionImagesUrls) && promotion.promotionImagesUrls.length > 0) || isEditMode ? (
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
+          {/* Promotion Images Gallery - Always visible */}
+          <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
               <div className="p-6">
                 <div className="flex items-center justify-between mb-6">
                   <h3 className="text-xl font-bold text-promo-black flex items-center">
@@ -1223,7 +1222,6 @@ const Promotion = () => {
                 )}
               </div>
             </div>
-          ) : null}
 
           {/* Rare Items Grid */}
           <div className="flex items-center justify-between mb-4">
