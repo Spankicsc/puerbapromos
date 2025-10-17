@@ -50,6 +50,10 @@ export class DatabaseStorage implements IStorage {
       console.log('🚀 Ejecutando migración Vualá → Gamesa (idempotente)...');
       await this.performVualaToGamesaMigration();
       
+      // Normalizar descripciones de imágenes promocionales (idempotente)
+      console.log('🔄 Normalizando descripciones de imágenes promocionales...');
+      await this.normalizePromotionImageDescriptions();
+      
       this.autoSyncInitialized = true;
       console.log('✅ Base de datos unificada configurada - migración completa');
     } catch (error) {
@@ -210,6 +214,57 @@ export class DatabaseStorage implements IStorage {
       console.log(`🎉 Deployment Migration completed! Moved ${migratedCount} promotions from Vualá to Gamesa`);
     } catch (error) {
       console.error("❌ Migration error:", error);
+    }
+  }
+
+  private async normalizePromotionImageDescriptions() {
+    try {
+      // Get all promotions with image descriptions
+      const allPromotions = await db.select().from(promotions);
+      const promotionsWithDescriptions = allPromotions.filter(p => p.promotionImageDescriptions);
+      
+      if (promotionsWithDescriptions.length === 0) {
+        console.log("✅ No promotion image descriptions to normalize");
+        return;
+      }
+      
+      console.log(`📋 Found ${promotionsWithDescriptions.length} promotions with image descriptions`);
+      
+      let normalizedCount = 0;
+      for (const promotion of promotionsWithDescriptions) {
+        const descriptions = promotion.promotionImageDescriptions as Record<string, string>;
+        const normalizedDescriptions: Record<string, string> = {};
+        let hasChanges = false;
+        
+        // Normalize each key
+        Object.entries(descriptions).forEach(([url, description]) => {
+          // Check if URL needs normalization (contains full Google Cloud Storage URL)
+          if (url.includes('storage.googleapis.com')) {
+            const normalizedKey = url.split('/.private/')[1] ? `/objects/${url.split('/.private/')[1]}` : url;
+            normalizedDescriptions[normalizedKey] = description;
+            hasChanges = true;
+          } else {
+            normalizedDescriptions[url] = description;
+          }
+        });
+        
+        // Update only if there were changes
+        if (hasChanges) {
+          await db.update(promotions)
+            .set({ promotionImageDescriptions: normalizedDescriptions })
+            .where(eq(promotions.id, promotion.id));
+          normalizedCount++;
+          console.log(`✅ Normalized descriptions for: ${promotion.name}`);
+        }
+      }
+      
+      if (normalizedCount > 0) {
+        console.log(`🎉 Normalized ${normalizedCount} promotion image descriptions`);
+      } else {
+        console.log(`✅ All image descriptions already normalized`);
+      }
+    } catch (error) {
+      console.error("❌ Description normalization error:", error);
     }
   }
 
