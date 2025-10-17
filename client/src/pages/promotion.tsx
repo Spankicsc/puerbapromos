@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useParams } from "wouter";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { ArrowLeft, Calendar, Tag, Package, Edit2, Save, X, Plus, Trash2, Youtube, Video } from "lucide-react";
+import { ArrowLeft, Calendar, Tag, Package, Edit2, Save, X, Plus, Trash2, Youtube, Video, ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Card, CardContent } from "@/components/ui/card";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -30,6 +31,8 @@ const Promotion = () => {
   const [selectedItem, setSelectedItem] = useState<PromotionItem | null>(null);
   const [isItemModalOpen, setIsItemModalOpen] = useState(false);
   const [editingImageDescription, setEditingImageDescription] = useState<{ url: string; description: string } | null>(null);
+  const [selectedPromotionImage, setSelectedPromotionImage] = useState<string | null>(null);
+  const [promotionImageIndex, setPromotionImageIndex] = useState(0);
   
   // Categorías base disponibles
   const baseCategories = [
@@ -1118,7 +1121,11 @@ const Promotion = () => {
                           <img 
                             src={imageUrl}
                             alt={`Imagen promocional ${index + 1} de ${promotion.name}`}
-                            className="w-full h-48 object-cover rounded-lg hover:scale-105 transition-transform duration-300"
+                            className="w-full h-48 object-cover rounded-lg hover:scale-105 transition-transform duration-300 cursor-pointer"
+                            onClick={() => {
+                              setSelectedPromotionImage(imageUrl);
+                              setPromotionImageIndex(index);
+                            }}
                             data-testid={`img-promotion-${index}`}
                           />
                           
@@ -1416,6 +1423,92 @@ const Promotion = () => {
         onClose={handleCloseModal}
         promotionSlug={slug || ''}
       />
+
+      {/* Promotional Images Fullscreen Modal */}
+      <Dialog open={selectedPromotionImage !== null} onOpenChange={() => setSelectedPromotionImage(null)}>
+        <DialogContent 
+          className="max-w-6xl max-h-[95vh] bg-black/95 border-yellow-400/50 p-0"
+          data-testid="promotion-image-fullscreen-modal"
+        >
+          <DialogTitle className="sr-only">Vista ampliada de imagen promocional</DialogTitle>
+          <DialogDescription className="sr-only">
+            {`Imagen ampliada de la promoción ${promotion?.name || ''}`}
+          </DialogDescription>
+          
+          <div className="relative">
+            {/* Close Button */}
+            <button
+              onClick={() => setSelectedPromotionImage(null)}
+              className="absolute top-4 right-4 z-10 p-2 bg-black/80 text-yellow-400 rounded-full hover:bg-yellow-400 hover:text-black transition-colors"
+              data-testid="close-promotion-image-modal"
+            >
+              <X className="w-6 h-6" />
+            </button>
+            
+            {/* Navigation in Modal */}
+            {promotion?.promotionImagesUrls && Array.isArray(promotion.promotionImagesUrls) && promotion.promotionImagesUrls.length > 1 && (
+              <>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-black/80 border-yellow-400/50 text-yellow-400 hover:bg-yellow-400 hover:text-black"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    const images = promotion.promotionImagesUrls as string[];
+                    const newIndex = (promotionImageIndex - 1 + images.length) % images.length;
+                    setPromotionImageIndex(newIndex);
+                    setSelectedPromotionImage(images[newIndex]);
+                  }}
+                  data-testid="modal-prev-promotion"
+                >
+                  <ChevronLeft className="w-6 h-6" />
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="absolute right-16 top-1/2 -translate-y-1/2 z-10 bg-black/80 border-yellow-400/50 text-yellow-400 hover:bg-yellow-400 hover:text-black"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    const images = promotion.promotionImagesUrls as string[];
+                    const newIndex = (promotionImageIndex + 1) % images.length;
+                    setPromotionImageIndex(newIndex);
+                    setSelectedPromotionImage(images[newIndex]);
+                  }}
+                  data-testid="modal-next-promotion"
+                >
+                  <ChevronRight className="w-6 h-6" />
+                </Button>
+              </>
+            )}
+            
+            {selectedPromotionImage && (
+              <div className="p-6">
+                <img
+                  src={selectedPromotionImage}
+                  alt={`Imagen promocional de ${promotion?.name}`}
+                  className="w-full h-auto max-h-[85vh] object-contain mx-auto"
+                  data-testid="fullscreen-promotion-image"
+                />
+                {/* Show description if available */}
+                {promotion?.promotionImageDescriptions?.[selectedPromotionImage] && (
+                  <div className="mt-4 text-center">
+                    <p className="text-yellow-400 text-sm bg-black/60 inline-block px-4 py-2 rounded-lg">
+                      {promotion?.promotionImageDescriptions?.[selectedPromotionImage]}
+                    </p>
+                  </div>
+                )}
+                {promotion?.promotionImagesUrls && Array.isArray(promotion.promotionImagesUrls) && promotion.promotionImagesUrls.length > 1 && (
+                  <div className="mt-4 text-center">
+                    <p className="text-yellow-400/70 text-sm">
+                      Imagen {promotionImageIndex + 1} de {promotion.promotionImagesUrls.length}
+                    </p>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
