@@ -346,6 +346,24 @@ export function ItemDetailModal({ item, isOpen, onClose, promotionSlug }: ItemDe
               )}
             </div>
 
+            {/* Item Name */}
+            <div>
+              <Label htmlFor="item-name" className="text-sm font-medium">Nombre del Promocional</Label>
+              {isEditing ? (
+                <Input
+                  id="item-name"
+                  value={currentItem.name}
+                  onChange={(e) => setEditingItem(prev => prev ? {...prev, name: e.target.value} : null)}
+                  className="mt-1"
+                  data-testid="input-item-name"
+                />
+              ) : (
+                <div className="mt-1 p-2 bg-gray-50 rounded-md font-medium" data-testid="text-item-name-display">
+                  {currentItem.name}
+                </div>
+              )}
+            </div>
+
             {/* Item Details */}
             <div className="grid grid-cols-2 gap-4">
               <div>
