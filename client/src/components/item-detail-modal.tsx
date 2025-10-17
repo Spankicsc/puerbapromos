@@ -12,6 +12,7 @@ import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { useToast } from "@/hooks/use-toast";
 import { MultipleImageUploader } from "./MultipleImageUploader";
+import { ImageWithDescriptionUploader } from "./ImageWithDescriptionUploader";
 
 interface ItemDetailModalProps {
   item: PromotionItem | null;
@@ -38,12 +39,19 @@ export function ItemDetailModal({ item, isOpen, onClose, promotionSlug }: ItemDe
     setIsEditing(false);
   };
 
-  const handleUploadImages = async (uploadedUrls: string[]) => {
+  const handleUploadImages = async (images: Array<{ url: string; description: string }>) => {
     if (!item?.id) return;
     
     try {
+      const imageUrls = images.map(img => img.url);
+      const imageDescriptions: Record<string, string> = {};
+      images.forEach(img => {
+        imageDescriptions[img.url] = img.description;
+      });
+
       await apiRequest('PUT', `/api/promotion-items/${item.id}/images`, {
-        imageUrls: uploadedUrls
+        imageUrls,
+        imageDescriptions
       });
       
       // Refresh data
@@ -51,7 +59,7 @@ export function ItemDetailModal({ item, isOpen, onClose, promotionSlug }: ItemDe
       
       toast({
         title: 'Imágenes subidas',
-        description: `Se agregaron ${uploadedUrls.length} imagen(es) a la pieza.`,
+        description: `Se agregaron ${images.length} imagen(es) con descripciones.`,
       });
     } catch (error) {
       console.error('Error uploading item images:', error);
@@ -285,14 +293,11 @@ export function ItemDetailModal({ item, isOpen, onClose, promotionSlug }: ItemDe
             <div>
               <div className="flex items-center justify-between mb-3">
                 <Label className="text-sm font-medium">Imágenes</Label>
-                <MultipleImageUploader
+                <ImageWithDescriptionUploader
                   maxNumberOfFiles={5}
                   onComplete={handleUploadImages}
                   buttonClassName="text-xs h-8"
-                >
-                  <Plus className="w-3 h-3 mr-1" />
-                  Agregar Imágenes
-                </MultipleImageUploader>
+                />
               </div>
               
               {/* Primary Image */}
@@ -312,15 +317,22 @@ export function ItemDetailModal({ item, isOpen, onClose, promotionSlug }: ItemDe
               {currentItem.imageUrls && currentItem.imageUrls.length > 0 && (
                 <div>
                   <h4 className="text-sm font-medium mb-2">Imágenes adicionales</h4>
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                     {currentItem.imageUrls.map((url, index) => (
-                      <img
-                        key={index}
-                        src={url}
-                        alt={`${currentItem.name} - imagen ${index + 1}`}
-                        className="w-full h-24 object-cover rounded-lg shadow cursor-pointer hover:opacity-80 transition-opacity"
-                        onClick={() => setFullImageView(url)}
-                      />
+                      <div key={index} className="space-y-1">
+                        <img
+                          src={url}
+                          alt={`${currentItem.name} - imagen ${index + 1}`}
+                          className="w-full h-24 object-cover rounded-lg shadow cursor-pointer hover:opacity-80 transition-opacity"
+                          onClick={() => setFullImageView(url)}
+                          data-testid={`img-additional-${index}`}
+                        />
+                        {currentItem.imageDescriptions && currentItem.imageDescriptions[url] && (
+                          <p className="text-xs text-gray-600 text-center" data-testid={`text-image-description-${index}`}>
+                            {currentItem.imageDescriptions[url]}
+                          </p>
+                        )}
+                      </div>
                     ))}
                   </div>
                 </div>

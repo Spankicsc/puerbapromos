@@ -95,6 +95,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         description: description || null,
         imageUrl: imageUrl || null,
         imageUrls: null,
+        imageDescriptions: null,
         rarity: rarity || null,
         itemNumber: itemNumber || null,
         metadata: null
@@ -494,7 +495,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.put("/api/promotion-items/:id/images", async (req, res) => {
     try {
       const { id } = req.params;
-      const { imageUrls } = req.body;
+      const { imageUrls, imageDescriptions } = req.body;
       
       const objectStorageService = new ObjectStorageService();
       const normalizedUrls = imageUrls.map((url: string) => 
@@ -510,15 +511,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const existingUrls = currentItem.imageUrls || [];
       const updatedUrls = [...existingUrls, ...normalizedUrls];
       
+      // Merge image descriptions
+      const existingDescriptions = currentItem.imageDescriptions || {};
+      const newDescriptions = imageDescriptions || {};
+      const updatedDescriptions = { ...existingDescriptions, ...newDescriptions };
+      
       const item = await storage.updatePromotionItem(id, { 
-        imageUrls: updatedUrls
+        imageUrls: updatedUrls,
+        imageDescriptions: updatedDescriptions
       });
       
       if (!item) {
         return res.status(404).json({ message: "Promotion item not found" });
       }
       
-      res.json({ success: true, urls: updatedUrls });
+      res.json({ success: true, urls: updatedUrls, descriptions: updatedDescriptions });
     } catch (error) {
       console.error("Error updating item images:", error);
       res.status(500).json({ error: "Internal server error" });
