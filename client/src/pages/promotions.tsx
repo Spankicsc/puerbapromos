@@ -10,6 +10,7 @@ import { useState } from "react";
 import { type Promotion, type Brand } from "@shared/schema";
 import { EditablePromotion } from "@/components/EditablePromotion";
 import { CreatePromotionDialog } from "@/components/CreatePromotionDialog";
+import { useAuth } from "@/contexts/AuthContext";
 import { 
   DndContext, 
   closestCenter, 
@@ -148,6 +149,7 @@ function SortablePromotionCard({ promotion, getBrand, isEditMode, onDelete }: {
 }
 
 const Promotions = () => {
+  const { isAdmin } = useAuth();
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedBrand, setSelectedBrand] = useState<string | null>(null);
   const [isEditMode, setIsEditMode] = useState(false);
@@ -319,26 +321,28 @@ const Promotions = () => {
               Promociones Nostálgicas
             </h1>
             <div className="flex-1 flex justify-end">
-              <div className="flex items-center space-x-4">
-                {isEditMode && (
-                  <Button
-                    onClick={() => setShowCreateDialog(true)}
-                    className="btn-splat bg-green-600 hover:bg-green-700 text-white"
-                  >
-                    <Plus className="w-4 h-4 mr-2" />
-                    Nueva Promoción
-                  </Button>
-                )}
-                <div className="flex items-center space-x-2 bg-white px-4 py-2 rounded-lg shadow-sm border">
-                  <Edit className="w-4 h-4 text-gray-600" />
-                  <span className="text-sm font-medium">Modo Edición</span>
-                  <Switch
-                    checked={isEditMode}
-                    onCheckedChange={setIsEditMode}
-                    data-testid="switch-edit-mode"
-                  />
+              {isAdmin && (
+                <div className="flex items-center space-x-4">
+                  {isEditMode && (
+                    <Button
+                      onClick={() => setShowCreateDialog(true)}
+                      className="btn-splat bg-green-600 hover:bg-green-700 text-white"
+                    >
+                      <Plus className="w-4 h-4 mr-2" />
+                      Nueva Promoción
+                    </Button>
+                  )}
+                  <div className="flex items-center space-x-2 bg-white px-4 py-2 rounded-lg shadow-sm border">
+                    <Edit className="w-4 h-4 text-gray-600" />
+                    <span className="text-sm font-medium">Modo Edición</span>
+                    <Switch
+                      checked={isEditMode}
+                      onCheckedChange={setIsEditMode}
+                      data-testid="switch-edit-mode"
+                    />
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">

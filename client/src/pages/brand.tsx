@@ -10,11 +10,13 @@ import PromotionCard from "@/components/promotion-card";
 import { type Brand, type Promotion } from "@shared/schema";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/contexts/AuthContext";
 import { useState, useEffect } from "react";
 import placeholderImage from "@assets/Generated Image September 04, 2025 - 12_42PM_1757011639528.jpeg";
 
 const Brand = () => {
   const { slug } = useParams<{ slug: string }>();
+  const { isAdmin } = useAuth();
   const [brand, setBrand] = useState<Brand | null>(null);
   const [promotions, setPromotions] = useState<Promotion[]>([]);
   const [brandLoading, setBrandLoading] = useState(true);
@@ -154,19 +156,20 @@ const Brand = () => {
 
         {/* Brand Header */}
         <div className="card-splat p-8 mb-8 relative">
-          <div className="absolute top-4 right-4 flex gap-2">
-            {!isEditMode ? (
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={() => setIsEditMode(true)}
-                className="bg-white/80 hover:bg-white"
-                data-testid="button-edit-brand"
-              >
-                <Edit2 className="w-4 h-4 mr-2" />
-                Editar
-              </Button>
-            ) : (
+          {isAdmin && (
+            <div className="absolute top-4 right-4 flex gap-2">
+              {!isEditMode ? (
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => setIsEditMode(true)}
+                  className="bg-white/80 hover:bg-white"
+                  data-testid="button-edit-brand"
+                >
+                  <Edit2 className="w-4 h-4 mr-2" />
+                  Editar
+                </Button>
+              ) : (
               <>
                 <Button
                   size="sm"
@@ -195,8 +198,9 @@ const Brand = () => {
                   Cancelar
                 </Button>
               </>
-            )}
-          </div>
+              )}
+            </div>
+          )}
           <div className="flex items-center space-x-6">
             <div 
               className="w-20 h-20 rounded-xl flex items-center justify-center text-3xl"
