@@ -1,13 +1,15 @@
 import { useParams } from "wouter";
-import { useQuery } from "@tanstack/react-query";
-import { ArrowLeft, RefreshCw } from "lucide-react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { ArrowLeft, RefreshCw, Edit2, Save, X } from "lucide-react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Textarea } from "@/components/ui/textarea";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import PromotionCard from "@/components/promotion-card";
 import { type Brand, type Promotion } from "@shared/schema";
-import { queryClient } from "@/lib/queryClient";
+import { apiRequest } from "@/lib/queryClient";
+import { useToast } from "@/hooks/use-toast";
 import { useState, useEffect } from "react";
 import placeholderImage from "@assets/Generated Image September 04, 2025 - 12_42PM_1757011639528.jpeg";
 
@@ -17,6 +19,40 @@ const Brand = () => {
   const [promotions, setPromotions] = useState<Promotion[]>([]);
   const [brandLoading, setBrandLoading] = useState(true);
   const [promotionsLoading, setPromotionsLoading] = useState(true);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [editedDescription, setEditedDescription] = useState("");
+  
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
+
+  const updateBrandMutation = useMutation({
+    mutationFn: async (updateData: Partial<Brand>) => {
+      if (!brand?.id) throw new Error('No brand ID');
+      await apiRequest('PUT', `/api/brands/${brand.id}`, updateData);
+    },
+    onSuccess: () => {
+      // Update local state only after successful API call
+      if (brand) {
+        setBrand({ ...brand, description: editedDescription });
+      }
+      queryClient.invalidateQueries({ queryKey: ['/api/brands'] });
+      setIsEditMode(false);
+      toast({
+        title: 'Marca actualizada',
+        description: 'La descripción se ha guardado correctamente.',
+      });
+    },
+    onError: (error) => {
+      console.error('Error updating brand:', error);
+      // Reset to original description on error
+      setEditedDescription(brand?.description || '');
+      toast({
+        title: 'Error',
+        description: 'No se pudo actualizar la marca. Intenta de nuevo.',
+        variant: 'destructive',
+      });
+    },
+  });
 
   const fetchData = async () => {
     if (!slug) return;
@@ -30,6 +66,7 @@ const Brand = () => {
       if (brandResponse.ok) {
         const brandData = await brandResponse.json();
         setBrand(brandData);
+        setEditedDescription(brandData.description || '');
         console.log('🏷️ [DEBUG] Marca cargada:', brandData);
       }
       setBrandLoading(false);
@@ -116,7 +153,50 @@ const Brand = () => {
         </Breadcrumb>
 
         {/* Brand Header */}
-        <div className="card-splat p-8 mb-8">
+        <div className="card-splat p-8 mb-8 relative">
+          <div className="absolute top-4 right-4 flex gap-2">
+            {!isEditMode ? (
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => setIsEditMode(true)}
+                className="bg-white/80 hover:bg-white"
+                data-testid="button-edit-brand"
+              >
+                <Edit2 className="w-4 h-4 mr-2" />
+                Editar
+              </Button>
+            ) : (
+              <>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => {
+                    updateBrandMutation.mutate({ description: editedDescription });
+                  }}
+                  disabled={updateBrandMutation.isPending}
+                  className="bg-green-500 hover:bg-green-600 text-white"
+                  data-testid="button-save-brand"
+                >
+                  <Save className="w-4 h-4 mr-2" />
+                  Guardar
+                </Button>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => {
+                    setIsEditMode(false);
+                    setEditedDescription(brand.description || '');
+                  }}
+                  className="bg-white/80 hover:bg-white"
+                  data-testid="button-cancel-edit-brand"
+                >
+                  <X className="w-4 h-4 mr-2" />
+                  Cancelar
+                </Button>
+              </>
+            )}
+          </div>
           <div className="flex items-center space-x-6">
             <div 
               className="w-20 h-20 rounded-xl flex items-center justify-center text-3xl"
@@ -124,13 +204,23 @@ const Brand = () => {
             >
               {brand.name.charAt(0)}
             </div>
-            <div className="flex-1">
+            <div className="flex-1 pr-32">
               <h1 className="text-3xl font-bold text-promo-black mb-2" data-testid="text-brand-name">
                 {brand.name}
               </h1>
-              <p className="text-gray-600 mb-4" data-testid="text-brand-description">
-                {brand.description}
-              </p>
+              {isEditMode ? (
+                <Textarea
+                  value={editedDescription}
+                  onChange={(e) => setEditedDescription(e.target.value)}
+                  className="text-gray-600 mb-4 border-2 bg-white/80"
+                  rows={3}
+                  data-testid="textarea-brand-description"
+                />
+              ) : (
+                <p className="text-gray-600 mb-4" data-testid="text-brand-description">
+                  {brand.description}
+                </p>
+              )}
               {brand.founded && (
                 <p className="text-sm text-gray-500">
                   Fundada en {brand.founded}
@@ -176,6 +266,7 @@ const Brand = () => {
                   key={promotion.id}
                   promotion={promotion}
                   brandName={brand.name}
+                  brand={brand}
                   itemCount={Math.floor(Math.random() * 100) + 20} // Mock item count
                 />
               ))}

@@ -1,15 +1,16 @@
 import { Link } from "wouter";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { type Promotion } from "@shared/schema";
+import { type Promotion, type Brand } from "@shared/schema";
 
 interface PromotionCardProps {
   promotion: Promotion;
   brandName?: string;
+  brand?: Brand;
   itemCount?: number;
 }
 
-const PromotionCard = ({ promotion, brandName, itemCount = 0 }: PromotionCardProps) => {
+const PromotionCard = ({ promotion, brandName, brand, itemCount = 0 }: PromotionCardProps) => {
   const getBrandColor = (brand?: string) => {
     switch (brand?.toLowerCase()) {
       case 'sabritas':
@@ -38,7 +39,7 @@ const PromotionCard = ({ promotion, brandName, itemCount = 0 }: PromotionCardPro
 
   return (
     <Card className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
-      <div className="relative flex items-center justify-center bg-gray-50" style={{ minHeight: '150px', padding: '16px' }}>
+      <div className="relative flex items-center justify-center bg-gray-50" style={{ minHeight: '180px', padding: '20px' }}>
         {promotion.imageUrl ? (
           <img 
             src={promotion.imageUrl} 
@@ -67,11 +68,21 @@ const PromotionCard = ({ promotion, brandName, itemCount = 0 }: PromotionCardPro
       </div>
       <CardContent className="p-6">
         <div className="flex items-center justify-between mb-3">
-          {brandName && (
-            <span className={`text-xs font-semibold px-3 py-1 rounded-full ${getBrandColor(brandName)}`}>
-              {brandName}
-            </span>
-          )}
+          <div className="flex items-center gap-2">
+            {brand?.logoUrl && (
+              <img 
+                src={brand.logoUrl} 
+                alt={brand.name}
+                className="w-6 h-6 object-contain"
+                data-testid={`img-brand-logo-${promotion.slug}`}
+              />
+            )}
+            {brandName && (
+              <span className={`text-xs font-semibold px-3 py-1 rounded-full ${getBrandColor(brandName)}`}>
+                {brandName}
+              </span>
+            )}
+          </div>
           <span className="text-gray-500 text-sm" data-testid={`text-year-${promotion.slug}`}>
             {getYearRange()}
           </span>
