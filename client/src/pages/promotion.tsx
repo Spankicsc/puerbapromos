@@ -504,7 +504,7 @@ const Promotion = () => {
 
           {/* Controles de edición para la envoltura */}
           {isEditMode && promotion.wrapperPhotosUrls && promotion.wrapperPhotosUrls.length > 0 && (
-            <div className="absolute top-4 left-4 z-30">
+            <div className="absolute top-4 right-4 z-30">
               <Card className="p-4 bg-white/95 shadow-lg">
                 <h3 className="text-sm font-bold mb-3 text-center">Ajustar Envoltura</h3>
                 
@@ -859,37 +859,71 @@ const Promotion = () => {
                   <Button
                     size="sm"
                     variant="outline"
-                    onClick={() => startEditing('tags')}
+                    onClick={() => {
+                      startEditing('tags');
+                      // Inicializar las categorías seleccionadas con las tags actuales
+                      const currentTags = Array.isArray(promotion.tags) ? promotion.tags : [];
+                      setEditedPromotion({ ...editedPromotion, tags: currentTags });
+                    }}
                     className="text-xs"
                   >
                     <Tag className="w-3 h-3 mr-1" />
                     {Array.isArray(promotion.tags) && promotion.tags.length > 0 ? 'Editar etiquetas' : 'Agregar etiquetas'}
                   </Button>
                 ) : isEditMode && isEditing.tags ? (
-                  <div className="flex flex-col gap-2 w-full">
-                    <Input
-                      value={editedPromotion.tags ? editedPromotion.tags.join(', ') : (Array.isArray(promotion.tags) ? promotion.tags.join(', ') : '')}
-                      onChange={(e) => setEditedPromotion({ ...editedPromotion, tags: e.target.value.split(',').map(t => t.trim()).filter(t => t.length > 0) })}
-                      placeholder="Ingresa etiquetas separadas por comas"
-                      className="w-full"
-                    />
-                    <div className="flex gap-2">
-                      <Button
-                        size="sm"
-                        onClick={() => saveField('tags')}
-                        disabled={updateMutation.isPending}
-                      >
-                        <Save className="w-3 h-3 mr-1" />
-                        Guardar
-                      </Button>
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={() => cancelEditing('tags')}
-                      >
-                        <X className="w-3 h-3 mr-1" />
-                        Cancelar
-                      </Button>
+                  <div className="flex flex-col gap-3 w-full p-4 bg-gray-50 rounded-lg border">
+                    <div className="flex items-center justify-between">
+                      <h4 className="text-sm font-semibold">Selecciona las etiquetas:</h4>
+                      <div className="flex gap-2">
+                        <Button
+                          size="sm"
+                          onClick={() => saveField('tags')}
+                          disabled={updateMutation.isPending}
+                        >
+                          <Save className="w-3 h-3 mr-1" />
+                          Guardar
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => cancelEditing('tags')}
+                        >
+                          <X className="w-3 h-3 mr-1" />
+                          Cancelar
+                        </Button>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-3 gap-2 max-w-2xl">
+                      {baseCategories.map((category) => {
+                        const currentTags = Array.isArray(editedPromotion.tags) ? editedPromotion.tags : [];
+                        const isSelected = currentTags.includes(category);
+                        return (
+                          <label 
+                            key={category} 
+                            className="flex items-center gap-2 text-xs cursor-pointer hover:bg-white p-2 rounded transition-colors"
+                          >
+                            <input
+                              type="checkbox"
+                              checked={isSelected}
+                              onChange={(e) => {
+                                if (e.target.checked) {
+                                  setEditedPromotion({ 
+                                    ...editedPromotion, 
+                                    tags: [...currentTags, category] 
+                                  });
+                                } else {
+                                  setEditedPromotion({ 
+                                    ...editedPromotion, 
+                                    tags: currentTags.filter(c => c !== category) 
+                                  });
+                                }
+                              }}
+                              className="w-4 h-4"
+                            />
+                            <span className="truncate">{category}</span>
+                          </label>
+                        );
+                      })}
                     </div>
                   </div>
                 ) : Array.isArray(promotion.tags) && promotion.tags.length > 0 ? (
@@ -1435,13 +1469,15 @@ const Promotion = () => {
           
           <div className="relative">
             {/* Close Button */}
-            <button
+            <Button
               onClick={() => setSelectedPromotionImage(null)}
               className="absolute top-4 right-4 z-10 p-2 bg-black/80 text-yellow-400 rounded-full hover:bg-yellow-400 hover:text-black transition-colors"
               data-testid="close-promotion-image-modal"
+              variant="ghost"
+              size="icon"
             >
               <X className="w-6 h-6" />
-            </button>
+            </Button>
             
             {/* Navigation in Modal */}
             {promotion?.promotionImagesUrls && Array.isArray(promotion.promotionImagesUrls) && promotion.promotionImagesUrls.length > 1 && (
@@ -1491,7 +1527,7 @@ const Promotion = () => {
                 {promotion?.promotionImageDescriptions?.[selectedPromotionImage] && (
                   <div className="mt-4 text-center">
                     <p className="text-yellow-400 text-sm bg-black/60 inline-block px-4 py-2 rounded-lg">
-                      {promotion?.promotionImageDescriptions?.[selectedPromotionImage]}
+                      {String(promotion?.promotionImageDescriptions?.[selectedPromotionImage] || '')}
                     </p>
                   </div>
                 )}

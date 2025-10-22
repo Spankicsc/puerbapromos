@@ -74,6 +74,11 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
     queryKey: ['/api/brands'],
   });
 
+  // Get items count for this promotion
+  const { data: items } = useQuery<any[]>({
+    queryKey: ['/api/promotions', promotion.slug, 'items'],
+  });
+
   const getBrand = (brandId: string) => {
     return brands?.find(brand => brand.id === brandId);
   };
@@ -244,6 +249,94 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
 
   if (!brand) return null;
 
+  // Clean card design for non-editable mode (search page, brand page, home page)
+  if (!isEditable) {
+    const getYearRange = () => {
+      if (promotion.endYear) {
+        return `${promotion.startYear}-${promotion.endYear}`;
+      }
+      return `${promotion.startYear}-presente`;
+    };
+
+    return (
+      <Link href={`/promociones/${promotion.slug}`}>
+        <Card className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 h-full flex flex-col">
+          {/* Wrapper image at the top */}
+          <div className="relative flex items-center justify-center bg-gray-50" style={{ minHeight: '180px', padding: '20px' }}>
+            {promotion.imageUrl ? (
+              <img 
+                src={promotion.imageUrl} 
+                alt={promotion.name}
+                className="w-full h-48 object-cover"
+                data-testid={`img-promotion-${promotion.slug}`}
+              />
+            ) : promotion.wrapperPhotosUrls && promotion.wrapperPhotosUrls.length > 0 ? (
+              <img 
+                src={promotion.wrapperPhotosUrls[0]} 
+                alt={`Envoltura de ${promotion.name}`}
+                className="transition-all duration-300 ease-in-out hover:scale-110 hover:rotate-2"
+                style={{ 
+                  width: '100%',
+                  maxWidth: '420px',
+                  height: '117px',
+                  objectFit: 'cover'
+                }}
+                data-testid={`img-wrapper-${promotion.slug}`}
+              />
+            ) : (
+              <div className="w-full h-48 bg-gradient-to-r from-promo-yellow to-yellow-400 flex items-center justify-center">
+                <span className="text-4xl">📦</span>
+              </div>
+            )}
+          </div>
+
+          <CardContent className="p-6 flex-1 flex flex-col">
+            {/* Brand badge and year */}
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center gap-2">
+                {brand.logoUrl && (
+                  <img 
+                    src={brand.logoUrl} 
+                    alt={brand.name}
+                    className="w-6 h-6 object-contain"
+                    data-testid={`img-brand-logo-${promotion.slug}`}
+                  />
+                )}
+                <span className="text-xs font-semibold px-3 py-1 rounded-full bg-blue-100 text-blue-800">
+                  {brand.name}
+                </span>
+              </div>
+              <span className="text-gray-500 text-sm" data-testid={`text-year-${promotion.slug}`}>
+                {getYearRange()}
+              </span>
+            </div>
+
+            {/* Title */}
+            <h4 className="text-xl font-bold text-promo-black mb-2" data-testid={`text-promotion-name-${promotion.slug}`}>
+              {promotion.name}
+            </h4>
+
+            {/* Description - truncated to 3 lines */}
+            <p className="text-gray-600 mb-4 line-clamp-3 flex-1" data-testid={`text-promotion-description-${promotion.slug}`}>
+              {promotion.description}
+            </p>
+
+            {/* Footer with item count and button */}
+            <div className="flex items-center justify-between mt-auto">
+              <span className="text-sm text-gray-500" data-testid={`text-item-count-${promotion.slug}`}>
+                {items?.length || 0}+ items
+              </span>
+              <Button className="bg-promo-yellow text-promo-black hover:bg-yellow-500 transition-colors font-semibold">
+                Ver colección
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      </Link>
+    );
+  }
+
+  // Editable card design for promotion management pages
   return (
     <div className="relative">
       {/* Editing Controls Overlay */}
