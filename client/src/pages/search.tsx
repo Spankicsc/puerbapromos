@@ -42,19 +42,9 @@ const SearchPage = () => {
   };
 
   const filteredPromotions = promotions?.filter(promotion => {
-    const brand = getBrand(promotion.brandId);
-    
-    // Search in name, description, category, and brand name
+    // Search only in promotion name
     const matchesSearch = !searchQuery || 
-      promotion.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      promotion.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      promotion.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      brand?.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      promotion.startYear.toString().includes(searchQuery) ||
-      (promotion.endYear && promotion.endYear.toString().includes(searchQuery)) ||
-      (Array.isArray(promotion.tags) && promotion.tags.some(tag => 
-        tag.toLowerCase().includes(searchQuery.toLowerCase())
-      ));
+      promotion.name.toLowerCase().includes(searchQuery.toLowerCase());
 
     const matchesCategory = !selectedCategory || promotion.category === selectedCategory;
     const matchesBrand = !selectedBrand || promotion.brandId === selectedBrand;
@@ -114,7 +104,7 @@ const SearchPage = () => {
               <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
               <Input
                 type="text"
-                placeholder="Buscar promociones, marcas, años..."
+                placeholder="Buscar por nombre de promoción..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-10"
