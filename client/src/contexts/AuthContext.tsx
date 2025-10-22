@@ -35,16 +35,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const login = async (username: string, password: string) => {
     try {
       const response = await apiRequest('POST', '/api/auth/login', { username, password });
+      const data = await response.json();
       
-      if (response.success) {
+      if (data.success) {
         setIsAdmin(true);
         return { success: true };
       }
       
-      return { success: false, message: 'Credenciales inválidas' };
+      return { success: false, message: data.message || 'Credenciales inválidas' };
     } catch (error) {
       console.error('Login error:', error);
-      return { success: false, message: 'Error al iniciar sesión' };
+      return { success: false, message: 'Credenciales incorrectas' };
     }
   };
 
