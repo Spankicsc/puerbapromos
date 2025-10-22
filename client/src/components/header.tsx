@@ -1,21 +1,34 @@
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
-import { Search, Menu, X } from "lucide-react";
+import { Search, Menu, X, Lock, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { useAuth } from "@/contexts/AuthContext";
+import { useToast } from "@/hooks/use-toast";
 import SearchBar from "@/components/search-bar";
 // Using the updated official Promospedia logo
 const promoLogo = "/attached_assets/IMG_7043_1755142043469.PNG";
 
 const Header = () => {
-  const [location] = useLocation();
+  const [location, setLocation] = useLocation();
   const [isOpen, setIsOpen] = useState(false);
+  const { isAdmin, logout } = useAuth();
+  const { toast } = useToast();
 
   const navigation = [
     { name: "Inicio", href: "/" },
     { name: "Marcas", href: "/marcas" },
     { name: "Promociones", href: "/promociones" },
   ];
+
+  const handleLogout = async () => {
+    await logout();
+    toast({
+      title: "Sesión cerrada",
+      description: "Has cerrado sesión correctamente",
+    });
+    setLocation("/");
+  };
 
 
   return (
@@ -47,6 +60,34 @@ const Header = () => {
           {/* Search Bar - Desktop */}
           <div className="hidden md:flex flex-1 max-w-lg mx-8">
             <SearchBar />
+          </div>
+
+          {/* Admin Button - Desktop */}
+          <div className="hidden md:block">
+            {isAdmin ? (
+              <Button
+                onClick={handleLogout}
+                variant="outline"
+                size="sm"
+                className="bg-red-600 text-white hover:bg-red-700 border-red-700"
+                data-testid="button-logout"
+              >
+                <LogOut className="w-4 h-4 mr-2" />
+                Salir
+              </Button>
+            ) : (
+              <Link href="/admin/login">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="bg-promo-black text-promo-yellow hover:bg-gray-800 border-promo-yellow"
+                  data-testid="button-admin-login"
+                >
+                  <Lock className="w-4 h-4 mr-2" />
+                  Admin
+                </Button>
+              </Link>
+            )}
           </div>
           
           {/* Mobile Menu Button */}
@@ -110,6 +151,37 @@ const Header = () => {
                       </Link>
                     ))}
                   </nav>
+
+                  {/* Mobile Admin Button */}
+                  <div className="pt-4 border-t border-gray-700">
+                    {isAdmin ? (
+                      <Button
+                        onClick={() => {
+                          handleLogout();
+                          setIsOpen(false);
+                        }}
+                        variant="outline"
+                        size="sm"
+                        className="w-full bg-red-600 text-white hover:bg-red-700 border-red-700"
+                        data-testid="button-mobile-logout"
+                      >
+                        <LogOut className="w-4 h-4 mr-2" />
+                        Salir
+                      </Button>
+                    ) : (
+                      <Link href="/admin/login" onClick={() => setIsOpen(false)}>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="w-full bg-promo-black text-promo-yellow hover:bg-gray-800 border-promo-yellow"
+                          data-testid="button-mobile-admin-login"
+                        >
+                          <Lock className="w-4 h-4 mr-2" />
+                          Admin
+                        </Button>
+                      </Link>
+                    )}
+                  </div>
                 </div>
               </SheetContent>
             </Sheet>

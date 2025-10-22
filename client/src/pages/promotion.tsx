@@ -21,9 +21,11 @@ import { getYouTubeEmbedUrl } from "@/utils/youtube";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { ImageWithDescriptionUploader } from "@/components/ImageWithDescriptionUploader";
+import { useAuth } from "@/contexts/AuthContext";
 
 const Promotion = () => {
   const { slug } = useParams<{ slug: string }>();
+  const { isAdmin } = useAuth();
   const [isEditMode, setIsEditMode] = useState(false);
   const [editedPromotion, setEditedPromotion] = useState<Partial<Promotion>>({});
   const [isEditing, setIsEditing] = useState<{ [key: string]: boolean }>({});
@@ -446,10 +448,11 @@ const Promotion = () => {
         </Breadcrumb>
 
         {/* Edit Mode Toggle */}
-        <div className="flex justify-end mb-6">
-          <Button
-            onClick={() => setIsEditMode(!isEditMode)}
-            variant={isEditMode ? "default" : "outline"}
+        {isAdmin && (
+          <div className="flex justify-end mb-6">
+            <Button
+              onClick={() => setIsEditMode(!isEditMode)}
+              variant={isEditMode ? "default" : "outline"}
             className={isEditMode ? "bg-promo-yellow text-promo-black hover:bg-yellow-500" : ""}
           >
             {isEditMode ? (
@@ -464,7 +467,8 @@ const Promotion = () => {
               </>
             )}
           </Button>
-        </div>
+          </div>
+        )}
 
         {/* Status indicator for edit mode */}
         {isEditMode && (

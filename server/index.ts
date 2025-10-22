@@ -1,11 +1,37 @@
 import express, { type Request, Response, NextFunction } from "express";
+import session from "express-session";
+import connectPgSimple from "connect-pg-simple";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 import { storage } from "./storage";
+import { neon } from "@neondatabase/serverless";
 
 const app = express();
 app.use(express.json({ limit: '50mb' })); // Increase limit for base64 images
 app.use(express.urlencoded({ extended: false, limit: '50mb' }));
+
+// Session configuration for admin authentication
+const PgSession = connectPgSimple(session);
+const sql = neon(process.env.DATABASE_URL!);
+
+app.use(
+  session({
+    store: new PgSession({
+      conObject: {
+        connectionString: process.env.DATABASE_URL!,
+      },
+      createTableIfMissing: true,
+    }),
+    secret: process.env.SESSION_SECRET || 'promospedia-secret-key-change-in-production',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+    },
+  })
+);
 
 // Serve static assets from attached_assets directory
 app.use('/attached_assets', express.static('attached_assets'));

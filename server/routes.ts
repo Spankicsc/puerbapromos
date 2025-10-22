@@ -1,4 +1,4 @@
-import type { Express } from "express";
+import type { Express, Request, Response, NextFunction } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { z } from "zod";
@@ -8,7 +8,53 @@ import {
 } from "./objectStorage";
 import { autoSync } from "./autoSync";
 
+// Extend Express Session types
+declare module 'express-session' {
+  interface SessionData {
+    isAdmin?: boolean;
+  }
+}
+
+// Middleware to check admin authentication
+function requireAdmin(req: Request, res: Response, next: NextFunction) {
+  if (req.session.isAdmin) {
+    return next();
+  }
+  return res.status(401).json({ message: "Unauthorized - Admin login required" });
+}
+
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Authentication routes
+  app.post("/api/auth/login", async (req, res) => {
+    try {
+      const { username, password } = req.body;
+      
+      const adminUsername = process.env.ADMIN_USERNAME;
+      const adminPassword = process.env.ADMIN_PASSWORD;
+      
+      if (username === adminUsername && password === adminPassword) {
+        req.session.isAdmin = true;
+        return res.json({ success: true, isAdmin: true });
+      }
+      
+      return res.status(401).json({ success: false, message: "Invalid credentials" });
+    } catch (error) {
+      res.status(500).json({ message: "Login failed" });
+    }
+  });
+
+  app.post("/api/auth/logout", async (req, res) => {
+    req.session.destroy((err) => {
+      if (err) {
+        return res.status(500).json({ message: "Logout failed" });
+      }
+      res.json({ success: true });
+    });
+  });
+
+  app.get("/api/auth/status", async (req, res) => {
+    res.json({ isAdmin: req.session.isAdmin || false });
+  });
   // Get all brands
   app.get("/api/brands", async (req, res) => {
     try {
@@ -84,7 +130,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Create promotion item by promotion ID
-  app.post("/api/promotions/:id/items", async (req, res) => {
+  app.post("/api/promotions/:id/items", requireAdmin, async (req, res) => {
     try {
       const promotionId = req.params.id;
       const { name, description, imageUrl, rarity, itemNumber } = req.body;
@@ -118,7 +164,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Update promotion item
-  app.put("/api/promotion-items/:id", async (req, res) => {
+  app.put("/api/promotion-items/:id", requireAdmin, async (req, res) => {
     try {
       const itemId = req.params.id;
       const updateData = req.body;
@@ -205,7 +251,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
 
   // CRUD routes for Brands
-  app.post("/api/brands", async (req, res) => {
+  app.post("/api/brands", requireAdmin, async (req, res) => {
     try {
       const brandData = req.body;
       const brand = await storage.createBrand(brandData);
@@ -215,7 +261,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.put("/api/brands/:id", async (req, res) => {
+  app.put("/api/brands/:id", requireAdmin, async (req, res) => {
     try {
       const { id } = req.params;
       const updateData = req.body;
@@ -229,7 +275,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.delete("/api/brands/:id", async (req, res) => {
+  app.delete("/api/brands/:id", requireAdmin, async (req, res) => {
     try {
       const { id } = req.params;
       // Delete method not implemented for brands
@@ -242,7 +288,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // Endpoint para actualizar el orden de promociones (drag and drop)
   // IMPORTANTE: Esta ruta debe ir ANTES de la ruta genérica /api/promotions/:id
-  app.put("/api/promotions/reorder", async (req, res) => {
+  app.put("/api/promotions/reorder", requireAdmin, async (req, res) => {
     console.log('🔄 PUT /api/promotions/reorder endpoint hit');
     console.log('🔄 Starting reorder request, body:', req.body);
     try {
@@ -275,7 +321,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // CRUD routes for Promotions
-  app.post("/api/promotions", async (req, res) => {
+  app.post("/api/promotions", requireAdmin, async (req, res) => {
     try {
       const promotionData = req.body;
       const promotion = await storage.createPromotion(promotionData);
@@ -285,7 +331,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.put("/api/promotions/:id", async (req, res) => {
+  app.put("/api/promotions/:id", requireAdmin, async (req, res) => {
     try {
       const { id } = req.params;
       const updateData = req.body;
@@ -315,7 +361,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.delete("/api/promotions/:id", async (req, res) => {
+  app.delete("/api/promotions/:id", requireAdmin, async (req, res) => {
     try {
       const { id } = req.params;
       
@@ -331,7 +377,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
 
   // CRUD routes for Promotion Items
-  app.post("/api/promotion-items", async (req, res) => {
+  app.post("/api/promotion-items", requireAdmin, async (req, res) => {
     try {
       const itemData = req.body;
       const item = await storage.createPromotionItem(itemData);
@@ -373,7 +419,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.delete("/api/promotion-items/:id", async (req, res) => {
+  app.delete("/api/promotion-items/:id", requireAdmin, async (req, res) => {
     try {
       const { id } = req.params;
       
@@ -440,7 +486,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Update promotion with uploaded images
-  app.put("/api/promotions/:id/images", async (req, res) => {
+  app.put("/api/promotions/:id/images", requireAdmin, async (req, res) => {
     console.log('🔍 PUT /api/promotions/:id/images - ID:', req.params.id);
     console.log('🔍 Request body:', req.body);
     
@@ -507,7 +553,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Update promotion item with uploaded images
-  app.put("/api/promotion-items/:id/images", async (req, res) => {
+  app.put("/api/promotion-items/:id/images", requireAdmin, async (req, res) => {
     try {
       const { id } = req.params;
       const { imageUrls, imageDescriptions } = req.body;
