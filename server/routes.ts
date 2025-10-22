@@ -32,13 +32,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const adminUsername = process.env.ADMIN_USERNAME;
       const adminPassword = process.env.ADMIN_PASSWORD;
       
+      // Debug logging
+      console.log('🔐 Login attempt:', {
+        hasUsername: !!username,
+        hasPassword: !!password,
+        hasAdminUsername: !!adminUsername,
+        hasAdminPassword: !!adminPassword,
+        usernameMatch: username === adminUsername,
+        passwordMatch: password === adminPassword
+      });
+      
       if (username === adminUsername && password === adminPassword) {
         req.session.isAdmin = true;
+        console.log('✅ Login successful');
         return res.json({ success: true, isAdmin: true });
       }
       
+      console.log('❌ Login failed - credentials do not match');
       return res.status(401).json({ success: false, message: "Invalid credentials" });
     } catch (error) {
+      console.error('❌ Login error:', error);
       res.status(500).json({ message: "Login failed" });
     }
   });
