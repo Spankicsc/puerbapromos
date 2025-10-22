@@ -36,9 +36,9 @@ const wrappers: WrapperUpload[] = [
     description: 'Vainilla - variante 2'
   },
   
-  // Fonomania
+  // Fonomania 2.0
   {
-    promotionSlug: 'fonomania-2008',
+    promotionSlug: 'fonomania-vuala-2008',
     imagePath: 'attached_assets/Fonomania Chocolate_1761097101117.png',
     description: 'Chocolate'
   },
@@ -81,9 +81,9 @@ const wrappers: WrapperUpload[] = [
     description: 'Chocolate'
   },
   
-  // Pinkipow Funkitubers 2020
+  // Funky Tubers 2021
   {
-    promotionSlug: 'pinki-pow-punks-funki-tubers-2020',
+    promotionSlug: 'funky-tubers-2021',
     imagePath: 'attached_assets/Pinkipow Funkitubers 2020 Vainilla_1761097101118.png',
     description: 'Vainilla'
   },
