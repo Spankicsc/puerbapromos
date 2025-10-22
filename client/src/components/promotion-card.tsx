@@ -38,7 +38,7 @@ const PromotionCard = ({ promotion, brandName, itemCount = 0 }: PromotionCardPro
 
   return (
     <Card className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
-      <div className="relative">
+      <div className="relative flex items-center justify-center bg-gray-50" style={{ minHeight: '150px', padding: '16px' }}>
         {promotion.imageUrl ? (
           <img 
             src={promotion.imageUrl} 
@@ -50,7 +50,13 @@ const PromotionCard = ({ promotion, brandName, itemCount = 0 }: PromotionCardPro
           <img 
             src={promotion.wrapperPhotosUrls[0]} 
             alt={`Envoltura de ${promotion.name}`}
-            className="w-full h-48 object-cover"
+            className="transition-all duration-300 ease-in-out hover:scale-110 hover:rotate-2"
+            style={{ 
+              width: '100%',
+              maxWidth: '420px',
+              height: '117px',
+              objectFit: 'cover'
+            }}
             data-testid={`img-wrapper-${promotion.slug}`}
           />
         ) : (

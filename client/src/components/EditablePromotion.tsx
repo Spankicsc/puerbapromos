@@ -553,7 +553,7 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
               )}
             </div>
             {((promotion.wrapperPhotosUrls && promotion.wrapperPhotosUrls.length > 0) || promotion.wrapperPhotoUrl) && (
-              <div className="flex-shrink-0 w-20 h-24 flex items-center justify-center relative">
+              <div className="flex-shrink-0 flex items-center justify-center relative" style={{ width: '140px', height: '40px' }}>
                 <Dialog>
                   <DialogTrigger asChild>
                     <img 
@@ -561,12 +561,12 @@ export function EditablePromotion({ promotion, isEditable }: EditablePromotionPr
                         ? promotion.wrapperPhotosUrls[0] 
                         : promotion.wrapperPhotoUrl || ''} 
                       alt={`Envoltura ${promotion.name}`}
-                      className="w-full h-full object-contain drop-shadow-sm cursor-pointer hover:scale-105 transition-transform"
+                      className="drop-shadow-sm cursor-pointer transition-all duration-300 ease-in-out hover:scale-110 hover:rotate-2"
                       style={{ 
-                        transform: `rotate(${wrapperRotation}deg) scale(${(promotion.wrapperScale || 100) / 100})`,
-                        position: 'relative',
-                        left: `${promotion.wrapperOffsetX || 0}px`,
-                        top: `${promotion.wrapperOffsetY || 0}px`
+                        width: '140px',
+                        height: '39px',
+                        objectFit: 'cover',
+                        transform: `rotate(${wrapperRotation}deg)`
                       }}
                       data-testid="img-wrapper-normal"
                       onClick={(e) => !isEditing && e.preventDefault()}
