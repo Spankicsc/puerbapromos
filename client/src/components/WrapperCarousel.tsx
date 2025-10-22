@@ -180,12 +180,17 @@ export function WrapperCarousel({ wrapperPhotos, promotionName, isEditable = fal
       
       {/* Main Carousel */}
       <div className="relative bg-black/20 rounded-lg p-4 border border-yellow-400/30">
-        <div className="relative h-64 overflow-hidden rounded-lg">
+        <div className="relative flex items-center justify-center overflow-hidden rounded-lg" style={{ height: '150px' }}>
           <img
             src={wrapperPhotos[currentIndex]}
             alt={`Envoltura ${currentIndex + 1} de ${promotionName}`}
-            className="w-full h-full object-contain cursor-pointer transition-transform hover:scale-105"
-            style={{ transform: `rotate(${rotations[currentIndex] || 0}deg)` }}
+            className="cursor-pointer transition-all duration-300 ease-in-out hover:scale-110 hover:rotate-2"
+            style={{ 
+              width: '420px',
+              height: '117px',
+              objectFit: 'cover',
+              transform: `rotate(${rotations[currentIndex] || 0}deg)`,
+            }}
             onClick={() => !isEditMode && setSelectedImage(wrapperPhotos[currentIndex])}
             data-testid={`wrapper-image-${currentIndex}`}
           />
@@ -255,15 +260,16 @@ export function WrapperCarousel({ wrapperPhotos, promotionName, isEditable = fal
           {wrapperPhotos.map((photo, index) => (
             <div
               key={index}
-              className={`relative flex-shrink-0 w-16 h-16 rounded border-2 overflow-hidden transition-all ${
+              className={`relative flex-shrink-0 rounded border-2 overflow-hidden transition-all ${
                 index === currentIndex
                   ? 'border-yellow-400 scale-110'
                   : 'border-yellow-400/30 hover:border-yellow-400/60'
               }`}
+              style={{ width: '105px', height: '30px' }}
             >
               <button
                 onClick={() => goToImage(index)}
-                className="w-full h-full"
+                className="w-full h-full transition-all duration-300 ease-in-out hover:scale-110 hover:rotate-2"
                 data-testid={`thumbnail-${index}`}
               >
                 <img
