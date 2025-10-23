@@ -7,6 +7,10 @@ import { storage } from "./storage";
 import { neon } from "@neondatabase/serverless";
 
 const app = express();
+
+// Trust proxy for deployment - required for secure cookies behind reverse proxy
+app.set('trust proxy', 1);
+
 app.use(express.json({ limit: '50mb' })); // Increase limit for base64 images
 app.use(express.urlencoded({ extended: false, limit: '50mb' }));
 

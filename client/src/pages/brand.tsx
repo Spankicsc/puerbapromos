@@ -7,6 +7,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Textarea } from "@/components/ui/textarea";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import PromotionCard from "@/components/promotion-card";
+import { BrandLogoCarousel } from "@/components/BrandLogoCarousel";
 import { type Brand, type Promotion } from "@shared/schema";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
@@ -202,12 +203,20 @@ const Brand = () => {
             </div>
           )}
           <div className="flex items-center space-x-6">
-            <div 
-              className="w-20 h-20 rounded-xl flex items-center justify-center text-3xl"
-              style={{ backgroundColor: brand.primaryColor }}
-            >
-              {brand.name.charAt(0)}
-            </div>
+            {brand.logoUrl ? (
+              <img 
+                src={brand.logoUrl} 
+                alt={brand.name}
+                className="w-20 h-20 object-contain"
+              />
+            ) : (
+              <div 
+                className="w-20 h-20 rounded-xl flex items-center justify-center text-3xl"
+                style={{ backgroundColor: brand.primaryColor }}
+              >
+                {brand.name.charAt(0)}
+              </div>
+            )}
             <div className="flex-1 pr-32">
               <h1 className="text-3xl font-bold text-promo-black mb-2" data-testid="text-brand-name">
                 {brand.name}
@@ -233,6 +242,14 @@ const Brand = () => {
             </div>
           </div>
         </div>
+
+        {/* Historical Logos Carousel */}
+        <BrandLogoCarousel
+          brandId={brand.id}
+          brandName={brand.name}
+          historicalLogos={brand.historicalLogosUrls || []}
+          onUpdate={handleRefresh}
+        />
 
         {/* Promotions Section */}
         <section>

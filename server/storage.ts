@@ -9,6 +9,7 @@ import { objectStorageClient } from './objectStorage.js';
 export interface IStorage {
   // Brand methods
   getAllBrands(): Promise<Brand[]>;
+  getBrandById(id: string): Promise<Brand | null>;
   getBrandBySlug(slug: string): Promise<Brand | null>;
   createBrand(data: Omit<Brand, 'id' | 'createdAt'>): Promise<Brand>;
   updateBrand(id: string, data: Partial<Brand>): Promise<Brand | null>;
@@ -304,6 +305,11 @@ export class DatabaseStorage implements IStorage {
     await this.ensureSeeded();
     await this.ensureAutoSyncInitialized();
     return await db.select().from(brands);
+  }
+
+  async getBrandById(id: string): Promise<Brand | null> {
+    const [brand] = await db.select().from(brands).where(eq(brands.id, id));
+    return brand || null;
   }
 
   async getBrandBySlug(slug: string): Promise<Brand | null> {

@@ -9,6 +9,7 @@ export const brands = pgTable("brands", {
   slug: text("slug").notNull().unique(),
   description: text("description").notNull(),
   logoUrl: text("logo_url"),
+  historicalLogosUrls: jsonb("historical_logos_urls").$type<string[] | null>(), // Array of historical logo URLs
   primaryColor: text("primary_color").notNull(),
   founded: integer("founded"),
   createdAt: timestamp("created_at").defaultNow(),

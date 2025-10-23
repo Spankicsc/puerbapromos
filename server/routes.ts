@@ -278,13 +278,71 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { id } = req.params;
       const updateData = req.body;
+      console.log('📝 Updating brand:', id, 'with data:', updateData);
       const brand = await storage.updateBrand(id, updateData);
+      if (!brand) {
+        console.error('❌ Brand not found:', id);
+        return res.status(404).json({ message: "Brand not found" });
+      }
+      console.log('✅ Brand updated successfully:', brand.name);
+      res.json(brand);
+    } catch (error) {
+      console.error('❌ Error updating brand:', error);
+      res.status(500).json({ message: "Failed to update brand", error: error instanceof Error ? error.message : String(error) });
+    }
+  });
+
+  // Add historical logo to brand
+  app.post("/api/brands/:id/historical-logos", requireAdmin, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { logoUrl } = req.body;
+      
+      const brand = await storage.getBrandById(id);
       if (!brand) {
         return res.status(404).json({ message: "Brand not found" });
       }
-      res.json(brand);
+      
+      const currentLogos = brand.historicalLogosUrls || [];
+      const updatedLogos = [...currentLogos, logoUrl];
+      
+      const updatedBrand = await storage.updateBrand(id, {
+        historicalLogosUrls: updatedLogos
+      });
+      
+      res.json(updatedBrand);
     } catch (error) {
-      res.status(500).json({ message: "Failed to update brand" });
+      console.error('❌ Error adding historical logo:', error);
+      res.status(500).json({ message: "Failed to add historical logo" });
+    }
+  });
+
+  // Remove historical logo from brand
+  app.delete("/api/brands/:id/historical-logos/:index", requireAdmin, async (req, res) => {
+    try {
+      const { id, index } = req.params;
+      const logoIndex = parseInt(index, 10);
+      
+      const brand = await storage.getBrandById(id);
+      if (!brand) {
+        return res.status(404).json({ message: "Brand not found" });
+      }
+      
+      const currentLogos = brand.historicalLogosUrls || [];
+      if (logoIndex < 0 || logoIndex >= currentLogos.length) {
+        return res.status(400).json({ message: "Invalid logo index" });
+      }
+      
+      const updatedLogos = currentLogos.filter((_, i) => i !== logoIndex);
+      
+      const updatedBrand = await storage.updateBrand(id, {
+        historicalLogosUrls: updatedLogos
+      });
+      
+      res.json(updatedBrand);
+    } catch (error) {
+      console.error('❌ Error removing historical logo:', error);
+      res.status(500).json({ message: "Failed to remove historical logo" });
     }
   });
 
