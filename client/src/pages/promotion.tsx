@@ -27,7 +27,7 @@ const Promotion = () => {
   const { slug } = useParams<{ slug: string }>();
   const { isAdmin } = useAuth();
   const [isEditMode, setIsEditMode] = useState(false);
-  const [editedPromotion, setEditedPromotion] = useState<Partial<Promotion>>({});
+  const [editedPromotion, setEditedPromotion] = useState<Partial<Promotion> & Record<string, any>>({});
   const [isEditing, setIsEditing] = useState<{ [key: string]: boolean }>({});
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedItem, setSelectedItem] = useState<PromotionItem | null>(null);
@@ -1449,6 +1449,186 @@ const Promotion = () => {
               </div>
             )}
           </div>
+        </div>
+
+        {/* Fun Facts Section */}
+        <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl shadow-lg p-8 mb-8">
+          <div className="flex justify-between items-center mb-6">
+            <h3 className="text-2xl font-bold text-promo-black">Datos Curiosos</h3>
+            {isAdmin && isEditMode && (
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => startEditing('funFacts')}
+                className="bg-promo-yellow text-promo-black hover:bg-yellow-500"
+              >
+                <Plus className="w-4 h-4 mr-2" />
+                Agregar Dato Curioso
+              </Button>
+            )}
+          </div>
+          
+          {isEditing.funFacts ? (
+            <div className="space-y-3 bg-white p-4 rounded-lg">
+              <Textarea
+                value={editedPromotion.newFunFact || ''}
+                onChange={(e) => setEditedPromotion({ ...editedPromotion, newFunFact: e.target.value })}
+                placeholder="Escribe un dato curioso sobre esta promoción..."
+                className="w-full min-h-[100px]"
+                rows={4}
+              />
+              <div className="flex gap-2">
+                <Button
+                  size="sm"
+                  onClick={async () => {
+                    if (editedPromotion.newFunFact?.trim()) {
+                      try {
+                        await apiRequest('POST', `/api/promotions/${promotion.id}/fun-facts`, {
+                          funFact: editedPromotion.newFunFact.trim()
+                        });
+                        toast({
+                          title: "Dato curioso agregado",
+                          description: "El dato curioso se agregó correctamente",
+                        });
+                        queryClient.invalidateQueries({ queryKey: ['/api/promotions', slug] });
+                        setEditedPromotion({ ...editedPromotion, newFunFact: '' });
+                        cancelEditing('funFacts');
+                      } catch (error) {
+                        toast({
+                          title: "Error",
+                          description: "No se pudo agregar el dato curioso",
+                          variant: "destructive",
+                        });
+                      }
+                    }
+                  }}
+                  disabled={!editedPromotion.newFunFact?.trim()}
+                >
+                  <Save className="w-3 h-3 mr-1" />
+                  Guardar
+                </Button>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => {
+                    setEditedPromotion({ ...editedPromotion, newFunFact: '' });
+                    cancelEditing('funFacts');
+                  }}
+                >
+                  <X className="w-3 h-3 mr-1" />
+                  Cancelar
+                </Button>
+              </div>
+            </div>
+          ) : null}
+          
+          {promotion.funFacts && promotion.funFacts.length > 0 ? (
+            <div className="space-y-4">
+              {promotion.funFacts.map((fact, index) => (
+                <div key={index} className="bg-white rounded-lg p-4 shadow-sm border-l-4 border-promo-yellow">
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex-1">
+                      {isEditing[`funFact-${index}`] ? (
+                        <div className="space-y-3">
+                          <Textarea
+                            value={editedPromotion[`editingFunFact-${index}`] || fact}
+                            onChange={(e) => setEditedPromotion({ 
+                              ...editedPromotion, 
+                              [`editingFunFact-${index}`]: e.target.value 
+                            })}
+                            className="w-full min-h-[80px]"
+                            rows={3}
+                          />
+                          <div className="flex gap-2">
+                            <Button
+                              size="sm"
+                              onClick={async () => {
+                                const updatedFact = editedPromotion[`editingFunFact-${index}`] || fact;
+                                if (updatedFact.trim()) {
+                                  try {
+                                    await apiRequest('PUT', `/api/promotions/${promotion.id}/fun-facts/${index}`, {
+                                      funFact: updatedFact.trim()
+                                    });
+                                    toast({
+                                      title: "Dato curioso actualizado",
+                                      description: "El dato curioso se actualizó correctamente",
+                                    });
+                                    queryClient.invalidateQueries({ queryKey: ['/api/promotions', slug] });
+                                    cancelEditing(`funFact-${index}`);
+                                  } catch (error) {
+                                    toast({
+                                      title: "Error",
+                                      description: "No se pudo actualizar el dato curioso",
+                                      variant: "destructive",
+                                    });
+                                  }
+                                }
+                              }}
+                            >
+                              <Save className="w-3 h-3 mr-1" />
+                              Guardar
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() => cancelEditing(`funFact-${index}`)}
+                            >
+                              <X className="w-3 h-3 mr-1" />
+                              Cancelar
+                            </Button>
+                          </div>
+                        </div>
+                      ) : (
+                        <p className="text-gray-700 leading-relaxed">{fact}</p>
+                      )}
+                    </div>
+                    {isAdmin && isEditMode && !isEditing[`funFact-${index}`] && (
+                      <div className="flex gap-2">
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          onClick={() => startEditing(`funFact-${index}`)}
+                          className="text-gray-600 hover:text-promo-black"
+                        >
+                          <Edit2 className="w-4 h-4" />
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          onClick={async () => {
+                            try {
+                              await apiRequest('DELETE', `/api/promotions/${promotion.id}/fun-facts/${index}`, {});
+                              toast({
+                                title: "Dato curioso eliminado",
+                                description: "El dato curioso se eliminó correctamente",
+                              });
+                              queryClient.invalidateQueries({ queryKey: ['/api/promotions', slug] });
+                            } catch (error) {
+                              toast({
+                                title: "Error",
+                                description: "No se pudo eliminar el dato curioso",
+                                variant: "destructive",
+                              });
+                            }
+                          }}
+                          className="text-red-600 hover:text-red-800"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </Button>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-8 text-gray-500">
+              <p className="text-lg">No hay datos curiosos disponibles</p>
+              {isAdmin && isEditMode && (
+                <p className="text-sm mt-2">Haz clic en "Agregar Dato Curioso" para comenzar</p>
+              )}
+            </div>
+          )}
         </div>
       </div>
       

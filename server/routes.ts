@@ -446,6 +446,126 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Fun Facts endpoints
+  app.post("/api/promotions/:id/fun-facts", requireAdmin, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { funFact } = req.body;
+      
+      if (!funFact || typeof funFact !== 'string') {
+        return res.status(400).json({ message: "funFact is required and must be a string" });
+      }
+      
+      const promotion = await storage.getPromotionById(id);
+      if (!promotion) {
+        return res.status(404).json({ message: "Promotion not found" });
+      }
+      
+      const currentFunFacts = promotion.funFacts || [];
+      const updatedPromotion = await storage.updatePromotion(id, {
+        funFacts: [...currentFunFacts, funFact]
+      });
+      
+      if (!updatedPromotion) {
+        return res.status(500).json({ message: "Failed to add fun fact" });
+      }
+      
+      // Auto-sync
+      autoSync.syncPromotionToSource(updatedPromotion).catch(error => {
+        console.error('Error en auto-sync:', error);
+      });
+      
+      res.json(updatedPromotion);
+    } catch (error) {
+      console.error('Error adding fun fact:', error);
+      res.status(500).json({ message: "Failed to add fun fact" });
+    }
+  });
+
+  app.put("/api/promotions/:id/fun-facts/:index", requireAdmin, async (req, res) => {
+    try {
+      const { id, index } = req.params;
+      const { funFact } = req.body;
+      const factIndex = parseInt(index);
+      
+      if (!funFact || typeof funFact !== 'string') {
+        return res.status(400).json({ message: "funFact is required and must be a string" });
+      }
+      
+      if (isNaN(factIndex)) {
+        return res.status(400).json({ message: "Invalid index" });
+      }
+      
+      const promotion = await storage.getPromotionById(id);
+      if (!promotion) {
+        return res.status(404).json({ message: "Promotion not found" });
+      }
+      
+      const currentFunFacts = promotion.funFacts || [];
+      if (factIndex < 0 || factIndex >= currentFunFacts.length) {
+        return res.status(404).json({ message: "Fun fact index out of range" });
+      }
+      
+      currentFunFacts[factIndex] = funFact;
+      const updatedPromotion = await storage.updatePromotion(id, {
+        funFacts: currentFunFacts
+      });
+      
+      if (!updatedPromotion) {
+        return res.status(500).json({ message: "Failed to update fun fact" });
+      }
+      
+      // Auto-sync
+      autoSync.syncPromotionToSource(updatedPromotion).catch(error => {
+        console.error('Error en auto-sync:', error);
+      });
+      
+      res.json(updatedPromotion);
+    } catch (error) {
+      console.error('Error updating fun fact:', error);
+      res.status(500).json({ message: "Failed to update fun fact" });
+    }
+  });
+
+  app.delete("/api/promotions/:id/fun-facts/:index", requireAdmin, async (req, res) => {
+    try {
+      const { id, index } = req.params;
+      const factIndex = parseInt(index);
+      
+      if (isNaN(factIndex)) {
+        return res.status(400).json({ message: "Invalid index" });
+      }
+      
+      const promotion = await storage.getPromotionById(id);
+      if (!promotion) {
+        return res.status(404).json({ message: "Promotion not found" });
+      }
+      
+      const currentFunFacts = promotion.funFacts || [];
+      if (factIndex < 0 || factIndex >= currentFunFacts.length) {
+        return res.status(404).json({ message: "Fun fact index out of range" });
+      }
+      
+      currentFunFacts.splice(factIndex, 1);
+      const updatedPromotion = await storage.updatePromotion(id, {
+        funFacts: currentFunFacts
+      });
+      
+      if (!updatedPromotion) {
+        return res.status(500).json({ message: "Failed to delete fun fact" });
+      }
+      
+      // Auto-sync
+      autoSync.syncPromotionToSource(updatedPromotion).catch(error => {
+        console.error('Error en auto-sync:', error);
+      });
+      
+      res.json(updatedPromotion);
+    } catch (error) {
+      console.error('Error deleting fun fact:', error);
+      res.status(500).json({ message: "Failed to delete fun fact" });
+    }
+  });
 
   // CRUD routes for Promotion Items
   app.post("/api/promotion-items", requireAdmin, async (req, res) => {
