@@ -32,6 +32,7 @@ export const promotions = pgTable("promotions", {
   promotionImageDescriptions: jsonb("promotion_image_descriptions").$type<Record<string, string> | null>(), // Descriptions for promotional images
   youtubeCommercialUrl: text("youtube_commercial_url"),
   buffetGamesVideoUrl: text("buffet_games_video_url"),
+  funFacts: jsonb("fun_facts").$type<string[] | null>(), // Array of fun facts about the promotion
   startYear: integer("start_year").notNull(),
   endYear: integer("end_year"),
   category: text("category").notNull(), // main category: tazos, stickers, spinners, toys, etc.
