@@ -2,14 +2,16 @@
 
 Promospedia is a nostalgic encyclopedia web application dedicated to preserving and cataloging Mexican promotional items and collectibles. The platform focuses on famous promotional campaigns from Mexican brands like Sabritas, Gamesa, Barcel, Bimbo, Marinela, and Vualá, featuring iconic items such as Tazos, stickers, spinners, and Funki Punky collectibles. The application serves as a comprehensive database where users can explore brands, their promotional campaigns, and individual collectible items with detailed information including rarity levels and historical context.
 
-## Recent Changes (August 2025)
-- **Automatic Code Synchronization**: Implemented AutoSyncManager that automatically updates source code when user makes changes in the app - no more manual intervention needed
-- **Real-time Data Persistence**: User changes (videos, rotations, tags, images) are now automatically synchronized to source code file immediately after database updates
-- **Individual Page Editing Mode**: Added toggle-based editing system for individual promotion pages that preserves original layout while providing comprehensive editing capabilities
-- **Persistent Wrapper Rotation**: Fixed wrapper photo rotation functionality to save rotations permanently in database, preventing data loss during code modifications
-- **Search Functionality**: Implemented dedicated search page with filtering by category, brand, and year, accessible via /buscar route
-- **Data Persistence Issue Resolution**: Fixed critical issue where user edits were lost when agent modified code - all changes now persist correctly through database updates
-- **Comprehensive Editing System**: Full content management with edit mode toggle, allowing inline editing of promotion details, image rotation, content deletion, and persistent changes
+## Recent Changes (November 2025)
+- **Nueva Promoción Agregada**: Looney Tunes 2009 - Primera promoción de Vualá con el logo moderno, marca la transición del icónico logo azul
+- **Fun Facts Feature**: Added "Datos Curiosos" section to promotion pages with admin editing capabilities
+- **Brand Logo Carousel**: Auto-resume feature after 5 seconds of manual interaction
+- **Automatic Code Synchronization**: Implemented AutoSyncManager that automatically updates source code when user makes changes in the app
+- **Real-time Data Persistence**: User changes (videos, rotations, tags, images) are automatically synchronized to source code file immediately after database updates
+- **Individual Page Editing Mode**: Added toggle-based editing system for individual promotion pages with comprehensive editing capabilities
+- **Persistent Wrapper Rotation**: Fixed wrapper photo rotation to save rotations permanently in database
+- **Search Functionality**: Implemented dedicated search page with filtering by category, brand, and year at /buscar route
+- **Data Persistence Issue Resolution**: Fixed critical issue where user edits were lost when agent modified code
 
 # User Preferences
 
