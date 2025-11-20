@@ -29,7 +29,6 @@ const Promotion = () => {
   const [isEditMode, setIsEditMode] = useState(false);
   const [editedPromotion, setEditedPromotion] = useState<Partial<Promotion> & Record<string, any>>({});
   const [isEditing, setIsEditing] = useState<{ [key: string]: boolean }>({});
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedItem, setSelectedItem] = useState<PromotionItem | null>(null);
   const [isItemModalOpen, setIsItemModalOpen] = useState(false);
   const [editingImageDescription, setEditingImageDescription] = useState<{ url: string; description: string } | null>(null);
@@ -165,9 +164,7 @@ const Promotion = () => {
   const saveField = (field: string) => {
     const updateData: any = {};
     
-    if (field === 'tags') {
-      updateData.tags = editedPromotion.tags || [];
-    } else if (field === 'description') {
+    if (field === 'description') {
       updateData.description = editedPromotion.description || '';
     } else if (field === 'category') {
       // Guardar las categorías seleccionadas como una cadena separada por comas
@@ -801,102 +798,6 @@ const Promotion = () => {
               <div className="flex items-center space-x-2 text-gray-600">
                 <Package className="w-4 h-4" />
                 <span>{items?.length || 0} items</span>
-              </div>
-              {/* Tags */}
-              <div className="flex items-center space-x-2 text-gray-600">
-                {isEditMode && !isEditing.tags ? (
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={() => {
-                      startEditing('tags');
-                      // Inicializar las categorías seleccionadas con las tags actuales
-                      const currentTags = Array.isArray(promotion.tags) ? promotion.tags : [];
-                      setEditedPromotion({ ...editedPromotion, tags: currentTags });
-                    }}
-                    className="text-xs"
-                  >
-                    <Tag className="w-3 h-3 mr-1" />
-                    {Array.isArray(promotion.tags) && promotion.tags.length > 0 ? 'Editar etiquetas' : 'Agregar etiquetas'}
-                  </Button>
-                ) : isEditMode && isEditing.tags ? (
-                  <div className="flex flex-col gap-3 w-full p-4 bg-gray-50 rounded-lg border">
-                    <div className="flex items-center justify-between">
-                      <h4 className="text-sm font-semibold">Selecciona las etiquetas:</h4>
-                      <div className="flex gap-2">
-                        <Button
-                          size="sm"
-                          onClick={() => saveField('tags')}
-                          disabled={updateMutation.isPending}
-                        >
-                          <Save className="w-3 h-3 mr-1" />
-                          Guardar
-                        </Button>
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          onClick={() => cancelEditing('tags')}
-                        >
-                          <X className="w-3 h-3 mr-1" />
-                          Cancelar
-                        </Button>
-                      </div>
-                    </div>
-                    <div className="grid grid-cols-3 gap-2 max-w-2xl">
-                      {baseCategories.map((category) => {
-                        const currentTags = Array.isArray(editedPromotion.tags) ? editedPromotion.tags : [];
-                        const isSelected = currentTags.includes(category);
-                        return (
-                          <label 
-                            key={category} 
-                            className="flex items-center gap-2 text-xs cursor-pointer hover:bg-white p-2 rounded transition-colors"
-                          >
-                            <input
-                              type="checkbox"
-                              checked={isSelected}
-                              onChange={(e) => {
-                                if (e.target.checked) {
-                                  setEditedPromotion({ 
-                                    ...editedPromotion, 
-                                    tags: [...currentTags, category] 
-                                  });
-                                } else {
-                                  setEditedPromotion({ 
-                                    ...editedPromotion, 
-                                    tags: currentTags.filter(c => c !== category) 
-                                  });
-                                }
-                              }}
-                              className="w-4 h-4"
-                            />
-                            <span className="truncate">{category}</span>
-                          </label>
-                        );
-                      })}
-                    </div>
-                  </div>
-                ) : Array.isArray(promotion.tags) && promotion.tags.length > 0 ? (
-                  <div className="flex flex-wrap gap-1">
-                    {promotion.tags.map((tag, index) => (
-                      <Badge key={index} variant="outline" className="text-xs relative group">
-                        {tag}
-                        {isEditMode && (
-                          <button
-                            onClick={() => {
-                              const newTags = promotion.tags?.filter((_, i) => i !== index) || [];
-                              updateMutation.mutate({ tags: newTags });
-                            }}
-                            className="ml-1 opacity-0 group-hover:opacity-100 transition-opacity text-red-500 hover:text-red-700"
-                          >
-                            <X className="w-2 h-2" />
-                          </button>
-                        )}
-                      </Badge>
-                    ))}
-                  </div>
-                ) : (
-                  <span className="text-sm text-gray-500">Sin etiquetas</span>
-                )}
               </div>
             </div>
             
