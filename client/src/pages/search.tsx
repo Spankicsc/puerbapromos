@@ -54,13 +54,9 @@ const SearchPage = () => {
       promotion.name.toLowerCase().includes(searchQuery.toLowerCase());
 
     // Filtrar por categoría (incluyendo tanto category como tags)
-    let matchesCategory = !selectedCategory;
-    if (selectedCategory) {
-      const hasCategory = promotion.category === selectedCategory;
-      const hasTag = promotion.tags && Array.isArray(promotion.tags) && 
-                     promotion.tags.includes(selectedCategory);
-      matchesCategory = hasCategory || hasTag;
-    }
+    const matchesCategory = !selectedCategory || 
+      (promotion.category === selectedCategory) ||
+      (promotion.tags && Array.isArray(promotion.tags) && promotion.tags.includes(selectedCategory));
     
     const matchesBrand = !selectedBrand || promotion.brandId === selectedBrand;
 

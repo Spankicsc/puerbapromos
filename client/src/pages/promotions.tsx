@@ -351,7 +351,7 @@ const Promotions = () => {
         </div>
 
         {/* Filters */}
-        <div className="card-splat p-6 mb-8">
+        <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
           <div className="flex items-center gap-2 mb-4">
             <Filter className="w-5 h-5 text-promo-yellow" />
             <h3 className="text-lg font-semibold text-promo-black">Filtros</h3>
