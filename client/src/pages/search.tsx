@@ -36,9 +36,16 @@ const SearchPage = () => {
   };
 
   const getUniqueCategories = () => {
-    if (!promotions) return [];
-    const categories = promotions.map(p => p.category);
-    return Array.from(new Set(categories));
+    // Categorías base fijas - todas las especificadas
+    const baseCategories = [
+      'Caps', 'Tazos', 'Mini Colgantes', 'Llaveros', 'Tatoos', 'Postales', 
+      'Parches', 'Figuras', 'Candados', 'Tarjetas', 'Decoralapices', 
+      'Ventosas', 'Dedales', 'Lanzachorros', 'Spinners', 'Piercings', 
+      'Anillos', 'Transfers para ropa', 'Lanza discos', 'Clips', 
+      'Pegajosos', 'Armables', 'Stickers'
+    ];
+    
+    return baseCategories.sort();
   };
 
   const filteredPromotions = promotions?.filter(promotion => {
@@ -46,7 +53,15 @@ const SearchPage = () => {
     const matchesSearch = !searchQuery || 
       promotion.name.toLowerCase().includes(searchQuery.toLowerCase());
 
-    const matchesCategory = !selectedCategory || promotion.category === selectedCategory;
+    // Filtrar por categoría (incluyendo tanto category como tags)
+    let matchesCategory = !selectedCategory;
+    if (selectedCategory) {
+      const hasCategory = promotion.category === selectedCategory;
+      const hasTag = promotion.tags && Array.isArray(promotion.tags) && 
+                     promotion.tags.includes(selectedCategory);
+      matchesCategory = hasCategory || hasTag;
+    }
+    
     const matchesBrand = !selectedBrand || promotion.brandId === selectedBrand;
 
     return matchesSearch && matchesCategory && matchesBrand;
