@@ -34,7 +34,7 @@ const Promotion = () => {
   const [editingImageDescription, setEditingImageDescription] = useState<{ url: string; description: string } | null>(null);
   const [selectedPromotionImage, setSelectedPromotionImage] = useState<string | null>(null);
   const [promotionImageIndex, setPromotionImageIndex] = useState(0);
-  const [mainWrapperPhotoIndex, setMainWrapperPhotoIndex] = useState(0); // Local state only, no BD persistence
+  const [mainWrapperPhotoIndex, setMainWrapperPhotoIndex] = useState(0);
   
   // Categorías base disponibles
   const baseCategories = [
@@ -52,6 +52,12 @@ const Promotion = () => {
     queryKey: ['/api/promotions', slug],
     enabled: !!slug,
   });
+  
+  React.useEffect(() => {
+    if (promotion?.mainWrapperPhotoIndex !== undefined) {
+      setMainWrapperPhotoIndex(promotion.mainWrapperPhotoIndex);
+    }
+  }, [promotion?.mainWrapperPhotoIndex]);
 
   const { data: items, isLoading: itemsLoading } = useQuery<PromotionItem[]>({
     queryKey: ['/api/promotions', slug, 'items'],
@@ -523,8 +529,8 @@ const Promotion = () => {
                           <Button
                             size="sm"
                             onClick={() => {
-                              console.log(`Cambiar imagen a índice: ${idx}`);
                               setMainWrapperPhotoIndex(idx);
+                              updateMutation.mutate({ mainWrapperPhotoIndex: idx });
                             }}
                             className={`text-xs font-bold px-3 py-2 transition-all ${mainWrapperPhotoIndex === idx ? 'bg-green-600 text-white shadow-lg scale-110' : 'bg-gray-300 hover:bg-gray-400 text-gray-800'}`}
                             data-testid={`button-select-wrapper-${idx}`}
@@ -536,8 +542,8 @@ const Promotion = () => {
                             alt={`Preview ${idx + 1}`}
                             className="h-8 w-8 object-contain rounded border border-gray-300 cursor-pointer hover:border-green-500"
                             onClick={() => {
-                              console.log(`Cambiar imagen a índice: ${idx}`);
                               setMainWrapperPhotoIndex(idx);
+                              updateMutation.mutate({ mainWrapperPhotoIndex: idx });
                             }}
                             data-testid={`img-wrapper-preview-${idx}`}
                           />
