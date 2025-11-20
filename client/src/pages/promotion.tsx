@@ -507,25 +507,38 @@ const Promotion = () => {
           {/* Controles de edición para la envoltura */}
           {isEditMode && promotion.wrapperPhotosUrls && promotion.wrapperPhotosUrls.length > 0 && (
             <div className="absolute top-4 right-4 z-30">
-              <Card className="p-4 bg-white/95 shadow-lg">
-                <h3 className="text-sm font-bold mb-3 text-center">Ajustar Envoltura</h3>
+              <Card className="p-4 bg-white/95 shadow-lg border-2 border-blue-400">
+                <h3 className="text-sm font-bold mb-3 text-center bg-blue-50 p-2 rounded">⚙️ Controles de Envoltura</h3>
                 
                 {/* Selector de imagen principal */}
-                {promotion.wrapperPhotosUrls.length > 1 && (
-                  <div className="mb-3">
-                    <label className="text-xs font-medium mb-1 block">Imagen Principal:</label>
-                    <div className="flex gap-1 flex-wrap">
-                      {promotion.wrapperPhotosUrls.map((_, idx) => (
-                        <Button
-                          key={idx}
-                          size="sm"
-                          onClick={() => {
-                            setMainWrapperPhotoIndex(idx);
-                          }}
-                          className={`text-xs px-2 py-1 ${mainWrapperPhotoIndex === idx ? 'bg-green-600 text-white' : 'bg-gray-200'}`}
-                        >
-                          #{idx + 1}
-                        </Button>
+                {promotion.wrapperPhotosUrls && promotion.wrapperPhotosUrls.length > 1 && (
+                  <div className="mb-4 pb-4 border-b border-gray-300">
+                    <label className="text-xs font-bold mb-2 block text-gray-700">🖼️ SELECCIONAR IMAGEN:</label>
+                    <div className="flex gap-2 flex-wrap">
+                      {promotion.wrapperPhotosUrls.map((url, idx) => (
+                        <div key={idx} className="flex flex-col items-center gap-1">
+                          <Button
+                            size="sm"
+                            onClick={() => {
+                              console.log(`Cambiar imagen a índice: ${idx}`);
+                              setMainWrapperPhotoIndex(idx);
+                            }}
+                            className={`text-xs font-bold px-3 py-2 transition-all ${mainWrapperPhotoIndex === idx ? 'bg-green-600 text-white shadow-lg scale-110' : 'bg-gray-300 hover:bg-gray-400 text-gray-800'}`}
+                            data-testid={`button-select-wrapper-${idx}`}
+                          >
+                            #{idx + 1}
+                          </Button>
+                          <img 
+                            src={url} 
+                            alt={`Preview ${idx + 1}`}
+                            className="h-8 w-8 object-contain rounded border border-gray-300 cursor-pointer hover:border-green-500"
+                            onClick={() => {
+                              console.log(`Cambiar imagen a índice: ${idx}`);
+                              setMainWrapperPhotoIndex(idx);
+                            }}
+                            data-testid={`img-wrapper-preview-${idx}`}
+                          />
+                        </div>
                       ))}
                     </div>
                   </div>
