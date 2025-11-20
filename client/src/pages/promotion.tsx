@@ -34,7 +34,7 @@ const Promotion = () => {
   const [editingImageDescription, setEditingImageDescription] = useState<{ url: string; description: string } | null>(null);
   const [selectedPromotionImage, setSelectedPromotionImage] = useState<string | null>(null);
   const [promotionImageIndex, setPromotionImageIndex] = useState(0);
-  const [mainWrapperPhotoIndex, setMainWrapperPhotoIndex] = useState(0);
+  const [mainWrapperPhotoIndex, setMainWrapperPhotoIndex] = useState(0); // Local state only, no BD persistence
   
   // Categorías base disponibles
   const baseCategories = [
@@ -52,12 +52,6 @@ const Promotion = () => {
     queryKey: ['/api/promotions', slug],
     enabled: !!slug,
   });
-  
-  React.useEffect(() => {
-    if (promotion?.mainWrapperPhotoIndex !== undefined) {
-      setMainWrapperPhotoIndex(promotion.mainWrapperPhotoIndex);
-    }
-  }, [promotion?.mainWrapperPhotoIndex]);
 
   const { data: items, isLoading: itemsLoading } = useQuery<PromotionItem[]>({
     queryKey: ['/api/promotions', slug, 'items'],
@@ -527,7 +521,6 @@ const Promotion = () => {
                           size="sm"
                           onClick={() => {
                             setMainWrapperPhotoIndex(idx);
-                            updateMutation.mutate({ mainWrapperPhotoIndex: idx });
                           }}
                           className={`text-xs px-2 py-1 ${mainWrapperPhotoIndex === idx ? 'bg-green-600 text-white' : 'bg-gray-200'}`}
                         >
