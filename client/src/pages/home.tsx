@@ -56,6 +56,57 @@ const Home = () => {
     <div className="min-h-screen">
       <HeroSection />
       
+      {/* Buffet Games Welcome Section */}
+      <section className="bg-gradient-to-br from-promo-yellow/10 to-amber-100 py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Logo */}
+            <div className="flex justify-center lg:justify-start">
+              <img 
+                src="/attached_assets/logo buffet games_1763678210970.PNG" 
+                alt="Buffet Games" 
+                className="w-full max-w-md object-contain drop-shadow-lg hover:scale-105 transition-transform duration-300"
+                data-testid="buffet-games-logo"
+              />
+            </div>
+            
+            {/* Welcome Text */}
+            <div className="space-y-6">
+              <div>
+                <h2 className="text-3xl lg:text-4xl font-bold text-promo-black mb-4">
+                  Bienvenido al rincón de la nostalgia y el coleccionismo
+                </h2>
+                <p className="text-lg text-gray-700 leading-relaxed">
+                  Soy <span className="font-bold text-promo-black">Spanki</span>, un entusiasta empedernido de los objetos promocionales — esos tazos, figuras, juguetes de cereal y ediciones limitadas que marcaron nuestra infancia y hoy nos hablan de historia, emoción y recuerdos.
+                </p>
+              </div>
+              
+              <div className="bg-white rounded-lg p-6 shadow-md">
+                <p className="text-gray-700 leading-relaxed">
+                  Aquí colaboro con <span className="font-bold text-promo-black">Buffet Games</span>, una comunidad con sede en Ciudad de México que tiene como misión rescatar, mostrar y compartir las joyas del coleccionismo promocional: piezas que muchos tuvimos, otros olvidaron, y algunos atesoran como verdaderos tesoros.
+                </p>
+              </div>
+              
+              <div className="space-y-4">
+                <p className="text-gray-700 leading-relaxed">
+                  Este sitio es para ti, que sabes que un "regalo con…" no era solo un extra, sino una aventura, una memoria y parte de la identidad de infancia. Juntos, con Buffet Games y conmigo, exploraremos colecciones, historias detrás de cada pieza, lanzamientos que marcaron generaciones, y por qué estos objetos promocionales tienen un valor que va más allá de lo material.
+                </p>
+                
+                <p className="text-gray-700 leading-relaxed">
+                  Acompáñanos en este viaje: descubre rarezas, intercambios, anécdotas de mercadillos y piezas míticas, revive ese entusiasmo de "¿lo encuentro o no?" y forma parte de una comunidad donde los promocionales no se consideran juguetes olvidados, sino piezas clave de nuestra historia personal.
+                </p>
+              </div>
+              
+              <div className="pt-4 border-t-2 border-promo-yellow">
+                <p className="text-xl font-bold text-promo-yellow">
+                  ¡Bienvenido a la comunidad que ama lo que fue y atesora lo que permanece!
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
       {/* Brands Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <h3 className="text-2xl font-bold text-promo-black mb-6">Marcas Populares</h3>
