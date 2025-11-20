@@ -35,6 +35,7 @@ const Promotion = () => {
   const [selectedPromotionImage, setSelectedPromotionImage] = useState<string | null>(null);
   const [promotionImageIndex, setPromotionImageIndex] = useState(0);
   const [mainWrapperPhotoIndex, setMainWrapperPhotoIndex] = useState(0);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   
   // Categorías base disponibles
   const baseCategories = [
@@ -835,10 +836,58 @@ const Promotion = () => {
             )}
             
             <div className="flex flex-wrap gap-4 mb-6">
-              <div className="flex items-center space-x-2 text-gray-600">
-                <Tag className="w-4 h-4" />
-                <span className="capitalize">{promotion.category}</span>
-              </div>
+              {isEditMode && !isEditing.category ? (
+                <div className="flex items-center space-x-2">
+                  <Badge variant="secondary" className="text-xs cursor-pointer" onClick={() => startEditing('category')}>
+                    <Tag className="w-3 h-3 mr-1" />
+                    {promotion.category}
+                    <Edit2 className="w-2 h-2 ml-1" />
+                  </Badge>
+                </div>
+              ) : isEditMode && isEditing.category ? (
+                <div className="w-full bg-white p-4 rounded-lg border border-gray-300">
+                  <label className="text-sm font-bold mb-2 block">Seleccionar Categoría:</label>
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+                    {baseCategories.map((cat) => (
+                      <label key={cat} className="flex items-center space-x-2 cursor-pointer">
+                        <input
+                          type="radio"
+                          name="category"
+                          value={cat}
+                          checked={selectedCategories[0] === cat}
+                          onChange={() => setSelectedCategories([cat])}
+                          className="w-4 h-4"
+                        />
+                        <span className="text-sm">{cat}</span>
+                      </label>
+                    ))}
+                  </div>
+                  <div className="flex gap-2 mt-3">
+                    <Button
+                      size="sm"
+                      onClick={() => saveField('category')}
+                      disabled={updateMutation.isPending}
+                      className="bg-green-600 hover:bg-green-700"
+                    >
+                      <Save className="w-3 h-3 mr-1" />
+                      Guardar
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => cancelEditing('category')}
+                    >
+                      <X className="w-3 h-3 mr-1" />
+                      Cancelar
+                    </Button>
+                  </div>
+                </div>
+              ) : (
+                <div className="flex items-center space-x-2 text-gray-600">
+                  <Tag className="w-4 h-4" />
+                  <span className="capitalize">{promotion.category}</span>
+                </div>
+              )}
               <div className="flex items-center space-x-2 text-gray-600">
                 <Package className="w-4 h-4" />
                 <span>{items?.length || 0} items</span>
