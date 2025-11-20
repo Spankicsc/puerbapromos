@@ -17,6 +17,10 @@ export function getYouTubeEmbedUrl(url: string): string {
     /(?:https?:\/\/)?youtu\.be\/([a-zA-Z0-9_-]+)/,
     // https://m.youtube.com/watch?v=VIDEO_ID
     /(?:https?:\/\/)?m\.youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/,
+    // https://www.youtube.com/shorts/VIDEO_ID
+    /(?:https?:\/\/)?(?:www\.)?youtube\.com\/shorts\/([a-zA-Z0-9_-]+)/,
+    // https://youtube.com/shorts/VIDEO_ID
+    /(?:https?:\/\/)?youtube\.com\/shorts\/([a-zA-Z0-9_-]+)/,
   ];
   
   for (const pattern of patterns) {
