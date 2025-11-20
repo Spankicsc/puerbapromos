@@ -183,7 +183,10 @@ const Promotion = () => {
       updateData.wrapperOffsetY = editedPromotion.wrapperOffsetY;
     }
     
-    updateMutation.mutate(updateData);
+    // Validar que hay cambios reales antes de enviar
+    if (Object.keys(updateData).length > 0) {
+      updateMutation.mutate(updateData);
+    }
     setIsEditing({ ...isEditing, [field]: false });
   };
 
