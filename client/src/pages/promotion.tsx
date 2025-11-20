@@ -796,62 +796,7 @@ const Promotion = () => {
             <div className="flex flex-wrap gap-4 mb-6">
               <div className="flex items-center space-x-2 text-gray-600">
                 <Tag className="w-4 h-4" />
-                {isEditMode && !isEditing.category ? (
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={() => startEditing('category')}
-                    className="text-xs capitalize"
-                  >
-                    {promotion.category}
-                    <Edit2 className="w-2 h-2 ml-1" />
-                  </Button>
-                ) : isEditMode && isEditing.category ? (
-                  <div className="flex flex-col gap-2">
-                    <div className="flex items-center gap-2">
-                      <span className="text-xs font-medium">Selecciona categorías:</span>
-                      <Button
-                        size="sm"
-                        className="h-6 w-16 p-0 bg-green-600 border-green-500 text-white hover:bg-green-700"
-                        onClick={() => saveField('category')}
-                        disabled={updateMutation.isPending}
-                      >
-                        <Save className="w-2 h-2 mr-1" />
-                        Guardar
-                      </Button>
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        className="h-6 w-16 p-0"
-                        onClick={() => cancelEditing('category')}
-                      >
-                        <X className="w-2 h-2 mr-1" />
-                        Cancelar
-                      </Button>
-                    </div>
-                    <div className="grid grid-cols-3 gap-1 max-w-md">
-                      {baseCategories.map((category) => (
-                        <label key={category} className="flex items-center gap-1 text-xs cursor-pointer">
-                          <input
-                            type="checkbox"
-                            checked={selectedCategories.includes(category)}
-                            onChange={(e) => {
-                              if (e.target.checked) {
-                                setSelectedCategories([...selectedCategories, category]);
-                              } else {
-                                setSelectedCategories(selectedCategories.filter(c => c !== category));
-                              }
-                            }}
-                            className="w-3 h-3"
-                          />
-                          <span className="truncate">{category}</span>
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-                ) : (
-                  <span className="capitalize">{promotion.category}</span>
-                )}
+                <span className="capitalize">{promotion.category}</span>
               </div>
               <div className="flex items-center space-x-2 text-gray-600">
                 <Package className="w-4 h-4" />
