@@ -108,66 +108,6 @@ const Home = () => {
         )}
       </section>
 
-      {/* Timeline Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
-        <h3 className="text-2xl font-bold text-promo-black mb-6">Línea de Tiempo</h3>
-        <div className="bg-white rounded-xl shadow-lg p-8">
-          <div className="relative">
-            {/* Timeline Line */}
-            <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-promo-yellow"></div>
-            
-            {/* Timeline Events */}
-            <div className="relative flex items-start mb-8">
-              <div className="absolute left-0 w-8 h-8 bg-promo-yellow rounded-full flex items-center justify-center z-10">
-                <span className="text-promo-black font-bold text-sm">94</span>
-              </div>
-              <div className="ml-12">
-                <h4 className="text-lg font-semibold text-promo-black">Nacen los Tazos</h4>
-                <p className="text-gray-600">
-                  Sabritas lanza la primera serie de Tazos, revolucionando el mercado de coleccionables en México.
-                </p>
-              </div>
-            </div>
-
-            <div className="relative flex items-start mb-8">
-              <div className="absolute left-0 w-8 h-8 bg-promo-yellow rounded-full flex items-center justify-center z-10">
-                <span className="text-promo-black font-bold text-sm">98</span>
-              </div>
-              <div className="ml-12">
-                <h4 className="text-lg font-semibold text-promo-black">Era de los Stickers</h4>
-                <p className="text-gray-600">
-                  Barcel introduce Funki Punky, marcando el inicio de la era dorada de los stickers coleccionables.
-                </p>
-              </div>
-            </div>
-
-            <div className="relative flex items-start mb-8">
-              <div className="absolute left-0 w-8 h-8 bg-promo-yellow rounded-full flex items-center justify-center z-10">
-                <span className="text-promo-black font-bold text-sm">05</span>
-              </div>
-              <div className="ml-12">
-                <h4 className="text-lg font-semibold text-promo-black">Diversificación</h4>
-                <p className="text-gray-600">
-                  Las marcas comienzan a experimentar con juguetes, figuras y promocionales más elaborados.
-                </p>
-              </div>
-            </div>
-
-            <div className="relative flex items-start">
-              <div className="absolute left-0 w-8 h-8 bg-promo-yellow rounded-full flex items-center justify-center z-10">
-                <span className="text-promo-black font-bold text-sm">17</span>
-              </div>
-              <div className="ml-12">
-                <h4 className="text-lg font-semibold text-promo-black">Era Digital</h4>
-                <p className="text-gray-600">
-                  Los spinners y promocionales modernos marcan el regreso de las grandes promociones.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Statistics Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
