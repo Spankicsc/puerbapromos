@@ -34,6 +34,7 @@ const Promotion = () => {
   const [editingImageDescription, setEditingImageDescription] = useState<{ url: string; description: string } | null>(null);
   const [selectedPromotionImage, setSelectedPromotionImage] = useState<string | null>(null);
   const [promotionImageIndex, setPromotionImageIndex] = useState(0);
+  const [mainWrapperPhotoIndex, setMainWrapperPhotoIndex] = useState(0);
   
   // Categorías base disponibles
   const baseCategories = [
@@ -51,6 +52,12 @@ const Promotion = () => {
     queryKey: ['/api/promotions', slug],
     enabled: !!slug,
   });
+  
+  React.useEffect(() => {
+    if (promotion?.mainWrapperPhotoIndex !== undefined) {
+      setMainWrapperPhotoIndex(promotion.mainWrapperPhotoIndex);
+    }
+  }, [promotion?.mainWrapperPhotoIndex]);
 
   const { data: items, isLoading: itemsLoading } = useQuery<PromotionItem[]>({
     queryKey: ['/api/promotions', slug, 'items'],
@@ -490,8 +497,8 @@ const Promotion = () => {
               }}
             >
               <img 
-                src={promotion.wrapperPhotosUrls[0]}
-                alt="Envoltura #1"
+                src={promotion.wrapperPhotosUrls[mainWrapperPhotoIndex] || promotion.wrapperPhotosUrls[0]}
+                alt="Envoltura principal"
                 className="object-contain"
                 style={{ 
                   width: `${24 * (((editedPromotion.wrapperScale ?? promotion.wrapperScale) || 100) / 100)}rem`,
@@ -508,6 +515,28 @@ const Promotion = () => {
             <div className="absolute top-4 right-4 z-30">
               <Card className="p-4 bg-white/95 shadow-lg">
                 <h3 className="text-sm font-bold mb-3 text-center">Ajustar Envoltura</h3>
+                
+                {/* Selector de imagen principal */}
+                {promotion.wrapperPhotosUrls.length > 1 && (
+                  <div className="mb-3">
+                    <label className="text-xs font-medium mb-1 block">Imagen Principal:</label>
+                    <div className="flex gap-1 flex-wrap">
+                      {promotion.wrapperPhotosUrls.map((_, idx) => (
+                        <Button
+                          key={idx}
+                          size="sm"
+                          onClick={() => {
+                            setMainWrapperPhotoIndex(idx);
+                            updateMutation.mutate({ mainWrapperPhotoIndex: idx });
+                          }}
+                          className={`text-xs px-2 py-1 ${mainWrapperPhotoIndex === idx ? 'bg-green-600 text-white' : 'bg-gray-200'}`}
+                        >
+                          #{idx + 1}
+                        </Button>
+                      ))}
+                    </div>
+                  </div>
+                )}
                 
                 {/* Control de Escala */}
                 <div className="mb-3">
