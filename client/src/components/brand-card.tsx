@@ -7,28 +7,13 @@ interface BrandCardProps {
   promotionCount: number;
 }
 
-// Función para obtener el color específico de cada marca
-const getBrandLogoBackgroundColor = (brandSlug: string): string => {
-  const brandColors: Record<string, string> = {
-    'sabritas': '#FFD700',      // Amarillo
-    'gamesa': '#3B82F6',        // Azul
-    'barcel': '#FFFFFF',        // Blanco
-    'bimbo': '#FFFFFF',         // Blanco
-    'marinela': '#1E40AF',      // Azul rey
-    'vuala': '#DC2626'          // Rojo
-  };
-  
-  return brandColors[brandSlug] || '#6B7280'; // Gris por defecto
-};
-
 const BrandCard = ({ brand, promotionCount }: BrandCardProps) => {
   return (
     <Link href={`/marcas/${brand.slug}`} data-testid={`link-brand-${brand.slug}`}>
       <Card className="group overflow-hidden card-splat cursor-pointer bg-promo-yellow/95 backdrop-blur-sm hover:shadow-xl transition-all duration-300">
         <CardContent className="p-4 text-center">
           <div 
-            className="w-16 h-16 mx-auto mb-4 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform overflow-hidden border border-gray-200"
-            style={{ backgroundColor: getBrandLogoBackgroundColor(brand.slug) }}
+            className="w-16 h-16 mx-auto mb-4 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform overflow-hidden border border-gray-200 bg-gray-100"
           >
             {brand.logoUrl ? (
               <img 
@@ -38,7 +23,7 @@ const BrandCard = ({ brand, promotionCount }: BrandCardProps) => {
                 data-testid={`img-brand-logo-${brand.slug}`}
               />
             ) : (
-              <span className="text-2xl text-white font-bold">
+              <span className="text-2xl text-promo-black font-bold">
                 {brand.name.charAt(0)}
               </span>
             )}
