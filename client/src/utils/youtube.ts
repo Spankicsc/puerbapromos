@@ -1,5 +1,5 @@
 /**
- * Convierte una URL de YouTube a formato embed
+ * Convierte una URL de YouTube o Facebook a formato embed
  */
 export function getYouTubeEmbedUrl(url: string): string {
   if (!url) return '';
@@ -7,6 +7,13 @@ export function getYouTubeEmbedUrl(url: string): string {
   // Si ya es una URL embed, la devolvemos tal como está
   if (url.includes('embed')) {
     return url;
+  }
+
+  // Soporte para Facebook
+  if (url.includes('facebook.com') || url.includes('fb.watch')) {
+    // Las URLs de Facebook se pueden embeber usando su plugin de video
+    // Formato: https://www.facebook.com/plugins/video.php?href=URL_ENCODED
+    return `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(url)}&show_text=0&width=560`;
   }
   
   // Patrones para diferentes formatos de YouTube
